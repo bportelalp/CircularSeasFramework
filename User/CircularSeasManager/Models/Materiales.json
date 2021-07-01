@@ -1,0 +1,51 @@
+{
+  "Printer": {
+    "Nombre": "Ultimaker2+",
+    "Profiles":  ["Supercalidad (0,06 mm)", "Alta (0,10 mm)", "Estándar (0,15 mm)"]
+  },
+  "Properties": [ "Resistencia", "Durabilidad", "Calidad", "Elasticidad", "Velocidad fabricacion" ],
+  "Materials": [
+    {
+      "Nombre": "PLA",
+      "Descripcion": "Rápido, seguro y fiable. PLA es ideal para prototipos rápidos y con gran calidad superficial",
+      "Colores": [ "Blanco", "Azul", "Cobalto", "Cian", "Negro", "Amarillo" ],
+      "Propiedades": [ 3.9, 3.6, 4.5, 0, 4.8 ],
+      "Stock": 12
+    },
+    {
+      "Nombre": "ABS",
+      "Descripcion": "Duro y duradero. ABS es bueno para partes mecánicas gracias a su alta resistencia al impacto, estabilidad dimensional y soporta temperaturas hasta 85ºC",
+      "Colores": [ "Blanco", "Azul", "Cobalto", "Cian", "Negro", "Amarillo" ],
+      "Propiedades": [ 4, 4.5, 3, 0, 2.5 ],
+      "Stock" :  1
+    },
+    {
+      "Nombre": "PETG",
+      "Descripcion": "Baja contracción, piezas translucidas y brillantes con alta resistencia quimica. Compatible con uso alimentario",
+      "Colores": [ "Blanco", "Azul", "Cobalto", "Cian", "Negro", "Amarillo" ],
+      "Propiedades": [ 3, 3.5, 4, 2, 3.2 ],
+      "Stock" : 2
+    },
+    {
+      "Nombre": "PP",
+      "Descripcion": "Baja contracción, piezas translucidas y brillantes con alta resistencia quimica. Compatible con uso alimentario",
+      "Colores": [ "Blanco", "Azul", "Cobalto", "Cian", "Negro", "Amarillo" ],
+      "Propiedades": [ 3.5, 4.4, 3, 1, 2 ],
+      "Stock": 0
+    },
+    {
+      "Nombre": "FLEX",
+      "Descripcion": "Material elástico válido para juntas y piezas que se deben adaptar en forma",
+      "Colores": [ "Blanco", "Azul", "Cobalto", "Cian", "Negro", "Amarillo" ],
+      "Propiedades": [ 3.1, 1, 0.5, 5, 0.5 ],
+      "Stock":  0
+    },
+    {
+      "Nombre": "Reciclado nº1",
+      "Descripcion": "Reciclado proveniente de mezcla de restos de redes de pesca. Acabado de excelente calidad y duradero",
+      "Colores": [ "Blanco", "Azul", "Cobalto", "Cian", "Negro", "Amarillo" ],
+      "Propiedades": [ 2, 4.8, 5, 0, 5 ],
+      "Stock": 14
+    }
+  ]
+}
