@@ -155,11 +155,15 @@ namespace CircularSeasManager.ViewModels {
                     //Pregunta si se quiere imprimir directamente
                     bool quiereimprimir = false;
                     if (estadoImpresora == "Operational") {
-                        quiereimprimir = await Application.Current.MainPage.DisplayAlert("Aviso", "Desea imprimir directamente el archivo seleccionado", "Si", "No");
+                        quiereimprimir = await Application.Current.MainPage.DisplayAlert(AlertResources.WarningHeader,
+                            AlertResources.PrintingDirectly,
+                            AlertResources.Yes,
+                            AlertResources.No);
                     }
                     else {
-                        await Application.Current.MainPage.DisplayAlert("Aviso", "La impresora está trabajando. Se subirá el archivo pero" +
-                            "debe esperar a que termine el actual. Posteriormente podrá seleccionarlo desde el menú imprimir local", "Entendido");
+                        await Application.Current.MainPage.DisplayAlert(AlertResources.WarningHeader,
+                            AlertResources.PrintingWorking,
+                            AlertResources.Accept);
                     }
 
                     var estado = await Global.ClientePrint.UploadFile(gco.DataArray, gco.FileName, quiereimprimir);
@@ -169,23 +173,29 @@ namespace CircularSeasManager.ViewModels {
                             await AvisoPerdidaConexion();
                         }
                         if (Global.ClientePrint.ResultRequest == EstadoRequest.ExtensionIncorrecta) {
-                            await Application.Current.MainPage.DisplayAlert("Error", "Sólo se admiten ficheros con formato .gcode. No se pudo" +
-                                " realizar la subida", "Entendido");
+                            await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                                AlertResources.UploadOnlyGCODE,
+                                AlertResources.Accept);
                         }
                     }
                     else {
                         //Notifica
-                        await Application.Current.MainPage.DisplayAlert("Resultado", "Subida correcta", "Aceptar");
+                        await Application.Current.MainPage.DisplayAlert(AlertResources.Success,
+                            AlertResources.SucessUpload,
+                            AlertResources.Accept);
                     }
                 }
                 else {
                     //Si no es un gcode, se lanza advertencia
-                    await Application.Current.MainPage.DisplayAlert("Error", "Sólo se admiten ficheros con formato .gcode. No se pudo" +
-                                " realizar la subida", "Entendido");
+                    await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                                AlertResources.UploadOnlyGCODE,
+                                AlertResources.Accept);
                 }
             }
             catch (Exception NullReferenceException){
-                await Application.Current.MainPage.DisplayAlert("Error", "No se seleccionó ningún archivo", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                    AlertResources.FileNotProvided,
+                    AlertResources.Accept);
             }
             
             Ocupado = false;

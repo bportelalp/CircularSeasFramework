@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CircularSeasManager.Services;
 using System.Collections.ObjectModel;
 using Xamarin.Forms;
-
+using CircularSeasManager.Resources;
 namespace CircularSeasManager.ViewModels {
     class PrintLocalViewModel : PrintLocalModel {
 
@@ -41,7 +41,9 @@ namespace CircularSeasManager.ViewModels {
         public async Task EnviarImprimir() {
             if (gcodeSeleccionado == null) {
                 //Tratamiento, no se seleccionó ningún gcode para imprimir.
-                await Application.Current.MainPage.DisplayAlert("Error", "Debe seleccionar un archivo para imprimir", "Entendido");
+                await Application.Current.MainPage.DisplayAlert(AlertResources.PrintingHeaderError,
+                            AlertResources.PrintingBodySelectOne,
+                            AlertResources.PrintingReturn);
             }
             else {
                 var estado = await Global.ClientePrint.PostImprimir(gcodeSeleccionado);
@@ -51,7 +53,9 @@ namespace CircularSeasManager.ViewModels {
                     }
                     else if (Global.ClientePrint.ResultRequest == EstadoRequest.Ocupado) {
                         //Tratamiento de que la impresora se encuentra imprimiendo
-                        await Application.Current.MainPage.DisplayAlert("Ocupado", "La impresora se encuentra en proceso, no puede enviar una nueva pieza antes de que finalice", "Volver");
+                        await Application.Current.MainPage.DisplayAlert(AlertResources.PrintingHeaderError,
+                            AlertResources.PrintingBodyProcessing,
+                            AlertResources.PrintingReturn);
                         await Application.Current.MainPage.Navigation.PopAsync();
                     }
                     else if (Global.ClientePrint.ResultRequest == EstadoRequest.SinConexPrinter) {
@@ -68,7 +72,9 @@ namespace CircularSeasManager.ViewModels {
         public async Task EliminarFichero() {
             if (gcodeSeleccionado == null) {
                 //Tratamiento, no se seleccionó ningún gcode para eliminar
-                await Application.Current.MainPage.DisplayAlert("Error", "Debe seleccionar un archivo para imprimir", "Entendido");
+                await Application.Current.MainPage.DisplayAlert(AlertResources.DeletingHeader,
+                            AlertResources.DeletingBodySelectOne,
+                            AlertResources.PrintingReturn);
             }
             else {
                 var estado = await Global.ClientePrint.DeleteFile(gcodeSeleccionado);
@@ -80,7 +86,9 @@ namespace CircularSeasManager.ViewModels {
                     }
                     if (Global.ClientePrint.ResultRequest == EstadoRequest.Ocupado) {
                         //Tratamiento de que ese fichero está siendo impreso y por lo tanto no se puede eliminar
-                        await Application.Current.MainPage.DisplayAlert("Ocupado", "No puede eliminar un archivo que está siendo procesado", "Volver");
+                        await Application.Current.MainPage.DisplayAlert(AlertResources.DeletingHeader,
+                            AlertResources.DeletingBodyErrorProcesing,
+                            AlertResources.PrintingReturn);
                     }
                 }
                 else {

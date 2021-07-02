@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using CircularSeasManager.Models;
-
+using CircularSeasManager.Resources;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.ObjectModel;
@@ -68,7 +68,9 @@ namespace CircularSeasManager.ViewModels {
                 }
                 else if (Global.ClienteSlice.resultRequest == 0) {
                     //Sin conexión
-                    await Application.Current.MainPage.DisplayAlert("Erro", "Non se puido contactar co servidor. Inténteo de novo máis tarde", "Volver");
+                    await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                        AlertResources.ServerDisconnected,
+                        AlertResources.Accept);
                     await Application.Current.MainPage.Navigation.PopAsync();
                 }
             }
@@ -80,14 +82,18 @@ namespace CircularSeasManager.ViewModels {
             STL = await CrossFilePicker.Current.PickFile(new string[] { ".stl", ".STL" });
             try {
                 if (!STL.FileName.EndsWith(".stl") && !STL.FileName.EndsWith(".STL")) {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Debes seleccionar sólo ficheros stl", "ok");
+                    await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                        AlertResources.UploadOnlySTL,
+                        AlertResources.Accept);
                     STL = null;
                 }
 
 
             }
             catch {
-                await Application.Current.MainPage.DisplayAlert("Erro", "Non seleccionou ningún arquivo ", "Volver");
+                await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                        AlertResources.FileNotProvided,
+                        AlertResources.Accept);
             }
             Ocupado = false;
         }
@@ -103,25 +109,33 @@ namespace CircularSeasManager.ViewModels {
                     MensajeStatus = "Subiendo a servicio local";
                     await Global.ClientePrint.UploadFile(datos.Item2, datos.Item1, false);
                     MensajeStatus = "Completado";
-                    await Application.Current.MainPage.DisplayAlert("Listo", "Arquivo dispoñible para a impresión dende ficheiros " +
-                        "locales", "Aceptar");
+                    await Application.Current.MainPage.DisplayAlert(AlertResources.Ready,
+                        AlertResources.CanPrintedFromLocal,
+                        AlertResources.Accept);
                 }
                 else {
                     if (Global.ClienteSlice.resultRequest == HttpStatusCode.PreconditionFailed) {
-                        await Application.Current.MainPage.DisplayAlert("Erro", "Non se puido completar a solicitude. Probe a habilitar" +
-                            "o soporte e se o problema persiste, contacte cun administrador", "Recibido");
+                        await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                        AlertResources.PerhapsSupportNeeded,
+                        AlertResources.Accept);
                     }
                     if (Global.ClienteSlice.resultRequest == 0) {
-                        await Application.Current.MainPage.DisplayAlert("Erro", "Erro de conexión", "Volver");
+                        await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                        AlertResources.ConnectionError,
+                        AlertResources.Accept);
                         await Application.Current.MainPage.Navigation.PopAsync();
                     }
                     if (Global.ClienteSlice.resultRequest == HttpStatusCode.BadRequest) {
-                        await Application.Current.MainPage.DisplayAlert("Erro", "Fallo descoñecido", "Aceptar");
+                        await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                        AlertResources.UnknownError,
+                        AlertResources.Accept);
                     }
                 }
             }
             else {
-                await Application.Current.MainPage.DisplayAlert("Erro", "Debes seleccionar todolos parámetros", "Voltar");
+                await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                        AlertResources.AllParametersMustProvide,
+                        AlertResources.Accept);
             }
             Ocupado = false;
         }

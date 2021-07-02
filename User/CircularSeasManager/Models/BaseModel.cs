@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.Models {
 
@@ -44,7 +45,10 @@ namespace CircularSeasManager.Models {
         public bool InPage { get; set; }
 
         public async Task AvisoPerdidaConexion() {
-            var opcion = await Application.Current.MainPage.DisplayAlert("Sin conexión", "Se ha perdido la conexión con Octoprint", "Volver a inicio", "esperar");
+            var opcion = await Application.Current.MainPage.DisplayAlert(AlertResources.DisconnectedHeader, 
+                AlertResources.DisconnectedBody, 
+                AlertResources.DisconnectedBack, 
+                AlertResources.DisconnectedWait);
             if (opcion) {
                 Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
             }
