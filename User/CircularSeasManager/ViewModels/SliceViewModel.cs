@@ -34,20 +34,6 @@ namespace CircularSeasManager.ViewModels {
 
             //llamada para rellenarlos campos
             _ = ObtenerDatos();
-            /*
-            MaterialCollection.Add("PLA");
-            MaterialCollection.Add("ABS");
-            MaterialCollection.Add("Recycled #1"); 
-            MaterialCollection.Add("Recycled #2");
-            MaterialCollection.Add("PETG");
-            MaterialCollection.Add("HIPS");
-            MaterialCollection.Add("Nylon");
-            MaterialCollection.Add("Recycled #3");
-            MaterialCollection.Add("Recycled #4");
-            CalidadCollection.Add("High quality");
-            CalidadCollection.Add("Standard");
-            CalidadCollection.Add("Extra strength");
-            CalidadCollection.Add("Fast prototyping");*/
         }
 
         public async Task ObtenerDatos() {

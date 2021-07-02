@@ -118,4 +118,97 @@
   <data name="LoginButton" xml:space="preserve">
     <value>Sign In</value>
   </data>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="PrinterStatus" xml:space="preserve">
+    <value>Printer state</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Temperature:</value>
+  </data>
+  <data name="CurrentFile" xml:space="preserve">
+    <value>Current file:</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress (%):</value>
+  </data>
+  <data name="EstimatedTime" xml:space="preserve">
+    <value>Estimated time</value>
+  </data>
+  <data name="btnStop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="btnPrintLocal" xml:space="preserve">
+    <value>Print local files</value>
+  </data>
+  <data name="btnSendSTL" xml:space="preserve">
+    <value>Create new Model</value>
+  </data>
+  <data name="btnUploadLocalGCODE" xml:space="preserve">
+    <value>Upload local GCODE</value>
+  </data>
+  <data name="btnLogout" xml:space="preserve">
+    <value>Sign In</value>
+  </data>
+  <data name="btnPause" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="btnResume" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="LocalFilesOnPrinter" xml:space="preserve">
+    <value>Local files on printer</value>
+  </data>
+  <data name="btnSendToPrint" xml:space="preserve">
+    <value>Send to print</value>
+  </data>
+  <data name="btnDeleteSelected" xml:space="preserve">
+    <value>Delete selected</value>
+  </data>
+  <data name="SliceSTL" xml:space="preserve">
+    <value>Panel for slicing models</value>
+  </data>
+  <data name="SelectSTL" xml:space="preserve">
+    <value>Select STL:</value>
+  </data>
+  <data name="Printer" xml:space="preserve">
+    <value>Printer:</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material:</value>
+  </data>
+  <data name="btnHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile:</value>
+  </data>
+  <data name="EnableSupport" xml:space="preserve">
+    <value>Enable supports:</value>
+  </data>
+  <data name="btnSendToSlice" xml:space="preserve">
+    <value>Send to convert</value>
+  </data>
+  <data name="MaterialSuggest" xml:space="preserve">
+    <value>Suggesting material</value>
+  </data>
+  <data name="SuggestInfoSliders" xml:space="preserve">
+    <value>Use the controls to set the importance of each property on the final part</value>
+  </data>
+  <data name="btnSuggest" xml:space="preserve">
+    <value>Suggest</value>
+  </data>
+  <data name="btnAcceptSelection" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="stOperational" xml:space="preserve">
+    <value>Operational</value>
+  </data>
+  <data name="stPrinting" xml:space="preserve">
+    <value>Printing</value>
+  </data>
+  <data name="stCancelling" xml:space="preserve">
+    <value>Cancelling</value>
+  </data>
 </root>

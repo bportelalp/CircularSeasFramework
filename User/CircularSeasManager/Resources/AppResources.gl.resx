@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LoginHeader" xml:space="preserve">
-    <value>Inicio de sesión</value>
+    <value>Acceder</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Configuración</value>
@@ -127,15 +127,108 @@
     <value>Modo experto</value>
   </data>
   <data name="User" xml:space="preserve">
-    <value>Usuario de Octoprint</value>
+    <value>Usuario Octoprint</value>
   </data>
   <data name="Pass" xml:space="preserve">
-    <value>Contraseña</value>
+    <value>Contrasinal</value>
   </data>
   <data name="Rememberme" xml:space="preserve">
-    <value>Lembrame</value>
+    <value>Lémbrame</value>
   </data>
   <data name="LoginButton" xml:space="preserve">
-    <value>Iniciar sesión</value>
+    <value>Acceder</value>
+  </data>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>Panel de control</value>
+  </data>
+  <data name="PrinterStatus" xml:space="preserve">
+    <value>Estado da impresora</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progreso (%):</value>
+  </data>
+  <data name="Temperature" xml:space="preserve">
+    <value>Temperatura:</value>
+  </data>
+  <data name="CurrentFile" xml:space="preserve">
+    <value>Ficheiro actual:</value>
+  </data>
+  <data name="EstimatedTime" xml:space="preserve">
+    <value>Tempo estimado</value>
+  </data>
+  <data name="btnUploadLocalGCODE" xml:space="preserve">
+    <value>Carga GCODE local</value>
+  </data>
+  <data name="btnStop" xml:space="preserve">
+    <value>Pare</value>
+  </data>
+  <data name="btnSendSTL" xml:space="preserve">
+    <value>Crear novo modelo</value>
+  </data>
+  <data name="btnPrintLocal" xml:space="preserve">
+    <value>Imprimir ficheiros locais</value>
+  </data>
+  <data name="btnLogout" xml:space="preserve">
+    <value>Asinar</value>
+  </data>
+  <data name="btnPause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="btnResume" xml:space="preserve">
+    <value>Continuar</value>
+  </data>
+  <data name="LocalFilesOnPrinter" xml:space="preserve">
+    <value>Arquivos locais na impresora</value>
+  </data>
+  <data name="btnSendToPrint" xml:space="preserve">
+    <value>Enviar para imprimir</value>
+  </data>
+  <data name="btnDeleteSelected" xml:space="preserve">
+    <value>Eliminar seleccionado</value>
+  </data>
+  <data name="SliceSTL" xml:space="preserve">
+    <value>Modelos de paneis laminados</value>
+  </data>
+  <data name="SelectSTL" xml:space="preserve">
+    <value>Selecciona STL:</value>
+  </data>
+  <data name="Printer" xml:space="preserve">
+    <value>Impresora:</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material:</value>
+  </data>
+  <data name="btnHelp" xml:space="preserve">
+    <value>Axuda</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil:</value>
+  </data>
+  <data name="EnableSupport" xml:space="preserve">
+    <value>Activar soportes:</value>
+  </data>
+  <data name="btnSendToSlice" xml:space="preserve">
+    <value>Enviar para converter</value>
+  </data>
+  <data name="MaterialSuggest" xml:space="preserve">
+    <value>Suxestión de material</value>
+  </data>
+  <data name="SuggestInfoSliders" xml:space="preserve">
+    <value>Use os controis para indicar a importancia das seguintes características na súa peza final</value>
+  </data>
+  <data name="btnSuggest" xml:space="preserve">
+    <value>Suxerir</value>
+  </data>
+  <data name="btnAcceptSelection" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="stCancelling" xml:space="preserve">
+    <value>Cancelado</value>
+  </data>
+  <data name="stOperational" xml:space="preserve">
+    <value>Operativo</value>
+  </data>
+  <data name="stPrinting" xml:space="preserve">
+    <value>Imprimindo</value>
   </data>
 </root>

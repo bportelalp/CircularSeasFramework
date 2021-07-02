@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
              x:Class="CircularSeasManager.Views.SettingsPage">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
-            <Label Text="Configuración" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
+            <Label Text="{x:Static resources:AppResources.Settings}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
         </StackLayout>
 
     </NavigationPage.TitleView>

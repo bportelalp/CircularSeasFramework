@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using CircularSeasManager.Services;
 using System.Threading.Tasks;
 using Plugin.FilePicker;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.ViewModels {
     class MainPanelViewModel : MainPanelModel {
@@ -69,9 +70,9 @@ namespace CircularSeasManager.ViewModels {
 
                 //Actualiza botón.
                 if (estadoImpresora == "Pausing" | estadoImpresora == "Paused") {
-                    PausaResume = "Continuar";
+                    PausaResume = AppResources.btnPause;
                 }
-                else { PausaResume = "Pausar"; }
+                else { PausaResume = AppResources.btnResume; }
 
                 //Actualiza tiempo de trabajo
                 if (trabajo.progress.printTimeLeft != null) {

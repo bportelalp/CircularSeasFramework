@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
              x:Class="CircularSeasManager.Views.MaterialAssistantPage">
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
-            <Label Text="Material suggestion" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
+            <Label Text="{x:Static resources:AppResources.MaterialSuggest}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
         </StackLayout>
 
     </NavigationPage.TitleView>
@@ -17,7 +18,7 @@
 
     <ContentPage.Content>
         <StackLayout Padding="20,0,20,0">
-            <Label Text="Use the sliders to indicate how important the following properties are to you for your part" 
+            <Label Text="{x:Static resources:AppResources.SuggestInfoSliders}" 
                    HorizontalTextAlignment="Center"></Label>
             <ListView x:Name="ListaBooleanos" ItemsSource="{Binding FeaturesUserCollection}" HeightRequest="150">
                 <ListView.ItemTemplate>
@@ -62,7 +63,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Text="Suggest" Command="{Binding CmdSugerir}"/>
+            <Button Text="{x:Static resources:AppResources.btnSuggest}" Command="{Binding CmdSugerir}"/>
 
             <ListView ItemsSource="{Binding ResultadoTOPSISCollection}" SelectedItem="{Binding MaterialSeleccionado}">
                 <ListView.ItemTemplate>
@@ -87,7 +88,7 @@
 
             <Label Text="{Binding InfoMaterial}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
 
-            <Button Text="Accept" Command="{Binding CmdAceptarMaterial}" IsVisible="{Binding HayResultado}"/>
+            <Button Text="{x:Static resources:AppResources.btnAcceptSelection}" Command="{Binding CmdAceptarMaterial}" IsVisible="{Binding HayResultado}"/>
 
             <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}"></ActivityIndicator>
         </StackLayout>

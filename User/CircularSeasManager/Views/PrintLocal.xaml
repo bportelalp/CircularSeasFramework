@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
              x:Class="CircularSeasManager.Views.PrintLocal">
     <NavigationPage.TitleView>
-        <Label Text="Archivos locales en el servidor" HorizontalTextAlignment="Center" VerticalTextAlignment="Start" TextColor="White" FontSize="Title"/>
+        <Label Text="{x:Static resources:AppResources.LocalFilesOnPrinter}" HorizontalTextAlignment="Center" VerticalTextAlignment="Start" TextColor="White" FontSize="Title"/>
     </NavigationPage.TitleView>
     <ContentPage.Content>
         <StackLayout>
@@ -12,8 +13,8 @@
                       HorizontalOptions="CenterAndExpand">
             </ListView>
             <Label Text="{Binding gcodeSeleccionado}" />
-            <Button Text="Enviar a imprimir" Command="{Binding CmdEnviarImprimir}" IsEnabled="{Binding IsSelectedGCODE}" />
-            <Button Text="Eliminar archivo seleccionado" Command="{Binding CmdEliminar}" IsEnabled="{Binding IsSelectedGCODE}"/>
+            <Button Text="{x:Static resources:AppResources.btnSendToPrint}" Command="{Binding CmdEnviarImprimir}" IsEnabled="{Binding IsSelectedGCODE}" />
+            <Button Text="{x:Static resources:AppResources.btnDeleteSelected}" Command="{Binding CmdEliminar}" IsEnabled="{Binding IsSelectedGCODE}"/>
 
         </StackLayout>
     </ContentPage.Content>

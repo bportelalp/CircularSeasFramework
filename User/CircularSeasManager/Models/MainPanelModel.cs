@@ -4,6 +4,7 @@ using System.Text;
 using System.ComponentModel;
 using Xamarin.Forms;
 using System.Runtime.CompilerServices;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.Models {
     class MainPanelModel : BaseModel {

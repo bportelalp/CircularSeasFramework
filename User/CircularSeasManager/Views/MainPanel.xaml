@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
              x:Class="CircularSeasManager.Views.MainPanel">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
-            <Label Text="Panel de control" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
+            <Label Text="{x:Static resources:AppResources.ControlPanel}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
         </StackLayout>
         
     </NavigationPage.TitleView>
@@ -25,7 +26,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <Label Grid.Row="0" Grid.Column="0" FontSize="Body"
-                       Text="Estado impresora" />
+                       Text="{x:Static resources:AppResources.PrinterStatus}" />
                 <Grid Grid.Row="0" Grid.Column="1">
                     <Label x:Name="lblEstado" Text="{Binding estadoImpresora}" FontAttributes="Bold" FontSize="Subtitle"
                        Grid.Row="0" Grid.Column="0" />
@@ -35,17 +36,17 @@
                     
                 </Grid>
                 <Label Grid.Row="1" Grid.Column="0" FontSize="Body"
-                       Text="Temperatura:" />
+                       Text="{x:Static resources:AppResources.Temperature}" />
                 <Label x:Name="lblhotendtemp" Text="{Binding TempCadena}"
                        Grid.Row="1" Grid.Column="1" FontSize="Body"/>
                 
                 <Label Grid.Row="2" Grid.Column="0" FontSize="Body"
-                       Text="Fichero actual:" />
+                       Text="{x:Static resources:AppResources.CurrentFile}" />
                 <Label x:Name="lblFichero" Text="{Binding nombreFichero}"
                        Grid.Row="2" Grid.Column="1" FontSize="Body"/>
 
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Body"
-                       Text="Progreso (%):" />
+                       Text="{x:Static resources:AppResources.Progress}" />
                 <Grid x:Name="PanelProgreso" Grid.Row="3" Grid.Column="1" Margin="0,0,2,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -58,25 +59,25 @@
                 </Grid>
                 
                 <Label Grid.Row="4" Grid.Column="0" FontSize="Body"
-                       Text="Tiempo estimado:" />
+                       Text="{x:Static resources:AppResources.EstimatedTime}" />
                 <Label x:Name="lblprintimeleft" Text="{Binding StringPrintTimeLeft}"
                        Grid.Row="4" Grid.Column="1" FontSize="Body"/>
             </Grid>
 
             <Grid x:Name="GridBotones" >
-                <Button Text="Detener" Grid.Row="0" Grid.Column="0" Margin="30, 5"
+                <Button Text="{x:Static resources:AppResources.btnStop}" Grid.Row="0" Grid.Column="0" Margin="30, 5"
                         Command="{Binding CmdDetener}" />
                 <Button Text="{Binding PausaResume}" Grid.Row="0" Grid.Column="1" Margin="30, 5"
                         Command="{Binding CmdPausar}" />
 
             </Grid>
-            <Button Text="Imprimir fichero local" Command="{Binding CmdImprimirLocal}"
+            <Button Text="{x:Static resources:AppResources.btnPrintLocal}" Command="{Binding CmdImprimirLocal}"
                     Margin="30, 5"></Button>
-            <Button Text="Enviar STL" Command="{Binding CmdSlice}" 
+            <Button Text="{x:Static resources:AppResources.btnSendSTL}" Command="{Binding CmdSlice}" 
                     Margin="30, 5"></Button>
-            <Button Text="Subir fichero" Command="{Binding CmdSubirGCODE}" 
+            <Button Text="{x:Static resources:AppResources.btnUploadLocalGCODE}" Command="{Binding CmdSubirGCODE}" 
                     Margin="30, 5"></Button>
-            <Button Text="Cerrar sesión" Command="{Binding CmdCerrarSesion}" 
+            <Button Text="{x:Static resources:AppResources.btnLogout}" Command="{Binding CmdCerrarSesion}" 
                     Margin="30, 5" VerticalOptions="EndAndExpand"></Button>
             <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}"></ActivityIndicator>
         </StackLayout>

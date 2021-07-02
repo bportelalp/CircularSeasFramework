@@ -61,11 +61,173 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Accept.
+        /// </summary>
+        internal static string btnAcceptSelection {
+            get {
+                return ResourceManager.GetString("btnAcceptSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Delete selected.
+        /// </summary>
+        internal static string btnDeleteSelected {
+            get {
+                return ResourceManager.GetString("btnDeleteSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Help.
+        /// </summary>
+        internal static string btnHelp {
+            get {
+                return ResourceManager.GetString("btnHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Sign In.
+        /// </summary>
+        internal static string btnLogout {
+            get {
+                return ResourceManager.GetString("btnLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pause.
+        /// </summary>
+        internal static string btnPause {
+            get {
+                return ResourceManager.GetString("btnPause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Print local files.
+        /// </summary>
+        internal static string btnPrintLocal {
+            get {
+                return ResourceManager.GetString("btnPrintLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Continue.
+        /// </summary>
+        internal static string btnResume {
+            get {
+                return ResourceManager.GetString("btnResume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Create new Model.
+        /// </summary>
+        internal static string btnSendSTL {
+            get {
+                return ResourceManager.GetString("btnSendSTL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Send to print.
+        /// </summary>
+        internal static string btnSendToPrint {
+            get {
+                return ResourceManager.GetString("btnSendToPrint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Send to convert.
+        /// </summary>
+        internal static string btnSendToSlice {
+            get {
+                return ResourceManager.GetString("btnSendToSlice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Stop.
+        /// </summary>
+        internal static string btnStop {
+            get {
+                return ResourceManager.GetString("btnStop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Suggest.
+        /// </summary>
+        internal static string btnSuggest {
+            get {
+                return ResourceManager.GetString("btnSuggest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upload local GCODE.
+        /// </summary>
+        internal static string btnUploadLocalGCODE {
+            get {
+                return ResourceManager.GetString("btnUploadLocalGCODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Control Panel.
+        /// </summary>
+        internal static string ControlPanel {
+            get {
+                return ResourceManager.GetString("ControlPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Current file:.
+        /// </summary>
+        internal static string CurrentFile {
+            get {
+                return ResourceManager.GetString("CurrentFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Enable supports:.
+        /// </summary>
+        internal static string EnableSupport {
+            get {
+                return ResourceManager.GetString("EnableSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Estimated time.
+        /// </summary>
+        internal static string EstimatedTime {
+            get {
+                return ResourceManager.GetString("EstimatedTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Expert mode.
         /// </summary>
         internal static string ExpertMode {
             get {
                 return ResourceManager.GetString("ExpertMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Local files on printer.
+        /// </summary>
+        internal static string LocalFilesOnPrinter {
+            get {
+                return ResourceManager.GetString("LocalFilesOnPrinter", resourceCulture);
             }
         }
         
@@ -88,11 +250,65 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Material:.
+        /// </summary>
+        internal static string Material {
+            get {
+                return ResourceManager.GetString("Material", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Suggesting material.
+        /// </summary>
+        internal static string MaterialSuggest {
+            get {
+                return ResourceManager.GetString("MaterialSuggest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Password.
         /// </summary>
         internal static string Pass {
             get {
                 return ResourceManager.GetString("Pass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Printer:.
+        /// </summary>
+        internal static string Printer {
+            get {
+                return ResourceManager.GetString("Printer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Printer state.
+        /// </summary>
+        internal static string PrinterStatus {
+            get {
+                return ResourceManager.GetString("PrinterStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Profile:.
+        /// </summary>
+        internal static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Progress (%):.
+        /// </summary>
+        internal static string Progress {
+            get {
+                return ResourceManager.GetString("Progress", resourceCulture);
             }
         }
         
@@ -106,11 +322,74 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Select STL:.
+        /// </summary>
+        internal static string SelectSTL {
+            get {
+                return ResourceManager.GetString("SelectSTL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Settings.
         /// </summary>
         internal static string Settings {
             get {
                 return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Panel for slicing models.
+        /// </summary>
+        internal static string SliceSTL {
+            get {
+                return ResourceManager.GetString("SliceSTL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Cancelling.
+        /// </summary>
+        internal static string stCancelling {
+            get {
+                return ResourceManager.GetString("stCancelling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Operational.
+        /// </summary>
+        internal static string stOperational {
+            get {
+                return ResourceManager.GetString("stOperational", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Printing.
+        /// </summary>
+        internal static string stPrinting {
+            get {
+                return ResourceManager.GetString("stPrinting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Use the controls to set the importance of each property on the final part.
+        /// </summary>
+        internal static string SuggestInfoSliders {
+            get {
+                return ResourceManager.GetString("SuggestInfoSliders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Temperature:.
+        /// </summary>
+        internal static string Temperature {
+            get {
+                return ResourceManager.GetString("Temperature", resourceCulture);
             }
         }
         
