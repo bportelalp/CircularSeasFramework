@@ -18,13 +18,13 @@ namespace CircularSeasManager.ViewModels {
 
         //Comandos
         public Command CmdSendSTL { get; set; }
-        public Command CmdAyuda { get; set; }
+        public Command CmdHelp { get; set; }
         public Command CmdPickSTL { get; set; }
 
         //Constructor
         public SliceViewModel() {
-            CmdSendSTL = new Command(async () => await EnviarSTL());
-            CmdAyuda = new Command(async () => await AbrirAsistente(), () => !Busy);
+            CmdSendSTL = new Command(async () => await SendSTL());
+            CmdHelp = new Command(async () => await OpenAssistant(), () => !Busy);
             CmdPickSTL = new Command(async () => await PickSTL());
 
 
@@ -33,10 +33,10 @@ namespace CircularSeasManager.ViewModels {
             ProfileCollection = new ObservableCollection<string>();
 
             //llamada para rellenarlos campos
-            _ = ObtenerDatos();
+            _ = GetDataFromCloud();
         }
 
-        public async Task ObtenerDatos() {
+        public async Task GetDataFromCloud() {
 
             //Implementación GET para obtener datos de material y calidades para la impresora dada
 
@@ -98,17 +98,17 @@ namespace CircularSeasManager.ViewModels {
             Busy = false;
         }
 
-        public async Task EnviarSTL() {
+        public async Task SendSTL() {
             //Implementación para enviar el stl e recibilo convertido
             Busy = true;
-            if (TodoListo) {
+            if (AllReady) {
                 Tuple<string, byte[]> datos = new Tuple<string, byte[]>(null, null);
-                MensajeStatus = StringResources.Slicing + " " + STL.FileName;
-                datos = await Global.ClienteSlice.PostSTL(STL, printer, MaterialSelected, calidadSelected, UseSupport);
+                StatusMessage = StringResources.Slicing + " " + STL.FileName;
+                datos = await Global.ClienteSlice.PostSTL(STL, printer, MaterialSelected, ProfileSelected, UseSupport);
                 if (Global.ClienteSlice.resultRequest == HttpStatusCode.OK) {
-                    MensajeStatus = StringResources.Uploading;
+                    StatusMessage = StringResources.Uploading;
                     await Global.PrinterClient.UploadFile(datos.Item2, datos.Item1, false);
-                    MensajeStatus = StringResources.Completed;
+                    StatusMessage = StringResources.Completed;
                     await Application.Current.MainPage.DisplayAlert(AlertResources.Ready,
                         AlertResources.CanPrintedFromLocal,
                         AlertResources.Accept);
@@ -140,7 +140,7 @@ namespace CircularSeasManager.ViewModels {
             Busy = false;
         }
 
-        public async Task AbrirAsistente() {
+        public async Task OpenAssistant() {
             //Abrir asistente, se le pasa la información de los materiales.
             await Application.Current.MainPage.Navigation.PushAsync(new Views.MaterialAssistantPage(DataMaterial));
         }

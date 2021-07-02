@@ -18,9 +18,9 @@ namespace CircularSeasManager.ViewModels {
         //Comando para calcular.
         public Command CmdSugerir { get; set; }
         //Comando para aceptar material
-        public Command CmdAceptarMaterial { get; set; }
+        public Command CmdAcceptMaterial { get; set; }
         //Comando para llamar por teléfono
-        public Command CmdAyuda { get; set; }
+        public Command CmdHelp { get; set; }
 
         public MaterialAssistantViewModel(CircularSeas.Models.DTO.DataDTO _material) {
 
@@ -47,80 +47,85 @@ namespace CircularSeasManager.ViewModels {
             TOPSISResultCollection = new ObservableCollection<TOPSISResult>();
 
             //Comando para calcular sugerencia de material
-            CmdSugerir = new Command(() => Sugerir(), () => !Busy);
-            CmdInfo = new Command(() => InformarMaterial(), () => !Busy);
-            CmdAceptarMaterial = new Command(async () => await AceptarMaterial(), () => !Busy);
-            CmdAyuda = new Command(() => Ayuda());
+            CmdSugerir = new Command(() => Suggest(), () => !Busy);
+            CmdInfo = new Command(() => LocateInfoMaterialSelected(), () => !Busy);
+            CmdAcceptMaterial = new Command(async () => await AcceptMaterial(), () => !Busy);
+            CmdHelp = new Command(() => Help());
         }
 
-        public void Sugerir() {
-            List<int> cribado = new List<int>();
+        public void Suggest() {
+            //ETAPA 1: Recoge los datos del filtro inicial en una lista
+            List<int> startingFilter = new List<int>();
             foreach (var item in FeaturesUserCollection) {
                 if (item.FeatureValueSelected == StringResources.Yes) {
-                    cribado.Add(1);
+                    startingFilter.Add(1);
                 }
                 else if (item.FeatureValueSelected == StringResources.No) {
-                    cribado.Add(0);
+                    startingFilter.Add(0);
                 }
                 else {
-                    cribado.Add(2);
+                    startingFilter.Add(2);
                 }
             }
 
-            //Cargar matriz de datos para algoritmo TOPSIS
-            double[,] datos = new double[DataMaterial.Filaments.Length, DataMaterial.InfoTopsis.PropertiesNames.Length];
+            //ETAPA 2: Prepara ejecución de TOPSIS
+            //Cargar matriz de decisión.
+            double[,] decisionMatrix = new double[DataMaterial.Filaments.Length, DataMaterial.InfoTopsis.PropertiesNames.Length];
             for (int i = 0; i < DataMaterial.Filaments.Length; i++) {
                 for (int j = 0; j < DataMaterial.InfoTopsis.PropertiesNames.Length; j++) {
-                    datos[i, j] = DataMaterial.Filaments[i].PropertiesValues[j];
+                    decisionMatrix[i, j] = DataMaterial.Filaments[i].PropertiesValues[j];
                 }
             }
             //Cargar resultado decisión de los sliders
-            double[] decision = new double[DataMaterial.InfoTopsis.PropertiesNames.Length];
+            double[] performanceUser = new double[DataMaterial.InfoTopsis.PropertiesNames.Length];
             int k = 0;
             foreach (ValueUser item in ValueUserCollection) {
-                decision[k] = item.Valoration;
+                performanceUser[k] = item.Valoration;
                 k++;
             }
+            //Cargar valoracion de impacto de materiales
+            bool[] impactPositive = DataMaterial.InfoTopsis.ImpactPositive;
             //Instanciar array de resultado
-            double[] recomendacion = new double[DataMaterial.InfoTopsis.PropertiesNames.Length];
+            double[] result = new double[DataMaterial.InfoTopsis.PropertiesNames.Length];
             //Calcular y cargar en colección
-            recomendacion = TOPSIS(datos, decision, new bool[4] { true, true, true, true });
+            result = TOPSIS(decisionMatrix, performanceUser, impactPositive);
             TOPSISResultCollection.Clear();
-            for (int i = 0; i < recomendacion.Length; i++) {
-                bool pasacribado = true;
+
+            //ETAPA3: Acepta solo los resultados que coincidan con el cribado inicial
+            for (int i = 0; i < result.Length; i++) {
+                bool startingFilterPassed = true;
                 for (int j = 0; j < DataMaterial.Filaments[i].FeaturesValues.Length; j++) {
-                    if (cribado[j] == 2) {
+                    if (startingFilter[j] == 2) {
                         //Si es "no importa, todo ok
                     }
-                    else if (cribado[j] == 1 & DataMaterial.Filaments[i].FeaturesValues[j] == true) {
+                    else if (startingFilter[j] == 1 & DataMaterial.Filaments[i].FeaturesValues[j] == true) {
                         //Si son las dos afirmativas, pasa
                     }
-                    else if (cribado[j] == 0 & DataMaterial.Filaments[i].FeaturesValues[j] == false) {
+                    else if (startingFilter[j] == 0 & DataMaterial.Filaments[i].FeaturesValues[j] == false) {
                         //Si son las dos negativas, pasa
                     }
                     else {
                         //Si no coinciden no pasa
-                        pasacribado = false;
+                        startingFilterPassed = false;
                         break;
                     }
                 }
-                if (pasacribado) {
+                //Si cumple, se carga en colección de resultado
+                if (startingFilterPassed) {
                     TOPSISResultCollection.Add(new TOPSISResult {
                         MaterialName = DataMaterial.Filaments[i].Name,
-                        Affinity = recomendacion[i],
-                        Affinity100 = recomendacion[i] * 100.0,
-                        Stock = (DataMaterial.Filaments[i].SpoolStock > 0) ? (DataMaterial.Filaments[i].SpoolStock + " in stock") : "Out of stock"
+                        Affinity = result[i],
+                        Affinity100 = result[i] * 100.0,
+                        Stock = (DataMaterial.Filaments[i].SpoolStock > 0) ? (DataMaterial.Filaments[i].SpoolStock + $" {StringResources.InStock}") : StringResources.OutStock
                     });
                 }
             }
-
+            //Ordenes para mostrar en pantalla
             Busy = false;
             HaveResult = true;
-
-
         }
 
-        public void InformarMaterial() {
+        public void LocateInfoMaterialSelected() {
             //Buscar la descripción para el material seleccionado
             for (int i = 0; i < DataMaterial.Filaments.Length; i++) {
                 if (DataMaterial.Filaments[i].Name == SelectedMaterial.MaterialName) {
@@ -130,21 +135,24 @@ namespace CircularSeasManager.ViewModels {
             }
         }
 
-        public async Task AceptarMaterial() {
+        public async Task AcceptMaterial() {
             if (SelectedMaterial != null) {
                 foreach (var item in DataMaterial.Filaments) {
                     if (item.Name == SelectedMaterial.MaterialName) {
                         if (item.SpoolStock == 0) {
-                            var decision = await Application.Current.MainPage.DisplayAlert("Sin stock", "No hay stock actual para este material", "Pedir", "Abortar");
+                            var decision = await Application.Current.MainPage.DisplayAlert(AlertResources.OutStock,
+                                AlertResources.OutStockMessage,
+                                AlertResources.OrderStock,
+                                AlertResources.PrintingReturn);
                             if (decision) {
-                                PhoneDialer.Open("689356647");
+                                await Browser.OpenAsync("https://circularseas.com/es/inicio-2/");
                             }
                             else {
                                 break;
                             }
                         }
                         else {
-                            Global.MaterialRecomendado = SelectedMaterial.MaterialName;
+                            Global.RecommendedMaterial = SelectedMaterial.MaterialName;
                             await Application.Current.MainPage.Navigation.PopAsync();
                             break;
                         }
@@ -153,12 +161,14 @@ namespace CircularSeasManager.ViewModels {
 
             }
             else {
-                await Application.Current.MainPage.DisplayAlert("Error", "Debes seleccionar un material", "Entendido");
+                await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
+                    AlertResources.SelectMaterial,
+                    AlertResources.Accept);
             }
         }
 
-        public void Ayuda() {
-            PhoneDialer.Open("689356647");
+        public void Help() {
+            PhoneDialer.Open("986812000");
         }
 
     }

@@ -196,6 +196,33 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Order.
+        /// </summary>
+        internal static string OrderStock {
+            get {
+                return ResourceManager.GetString("OrderStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Out of stock.
+        /// </summary>
+        internal static string OutStock {
+            get {
+                return ResourceManager.GetString("OutStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a There aren&apos;t stock for this kind of filament.
+        /// </summary>
+        internal static string OutStockMessage {
+            get {
+                return ResourceManager.GetString("OutStockMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a The request could not be completed. Try enabling support and if the problem persists, please contact an administrator..
         /// </summary>
         internal static string PerhapsSupportNeeded {
@@ -264,6 +291,15 @@ namespace CircularSeasManager.Resources {
         internal static string Ready {
             get {
                 return ResourceManager.GetString("Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a You must select one material.
+        /// </summary>
+        internal static string SelectMaterial {
+            get {
+                return ResourceManager.GetString("SelectMaterial", resourceCulture);
             }
         }
         

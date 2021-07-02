@@ -124,6 +124,15 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a in stock.
+        /// </summary>
+        internal static string InStock {
+            get {
+                return ResourceManager.GetString("InStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Logged.
         /// </summary>
         internal static string Logged {
@@ -165,6 +174,15 @@ namespace CircularSeasManager.Resources {
         internal static string NotApplicable {
             get {
                 return ResourceManager.GetString("NotApplicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Out of stock.
+        /// </summary>
+        internal static string OutStock {
+            get {
+                return ResourceManager.GetString("OutStock", resourceCulture);
             }
         }
         

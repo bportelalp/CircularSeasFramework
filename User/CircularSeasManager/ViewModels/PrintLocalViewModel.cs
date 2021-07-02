@@ -11,20 +11,20 @@ namespace CircularSeasManager.ViewModels {
     class PrintLocalViewModel : PrintLocalModel {
 
         public Command CmdFicherosLocales { get; set; }
-        public Command CmdEnviarImprimir { get; set; }
-        public Command CmdEliminar { get; set; }
+        public Command CmdSendToPrint { get; set; }
+        public Command CmdDelete { get; set; }
 
         public PrintLocalViewModel() {
             FilesCollection = new ObservableCollection<string>();
-            CmdFicherosLocales = new Command(async () => await ObtenerArchivos());
-            CmdEnviarImprimir = new Command(async () => await EnviarImprimir());
-            CmdEliminar = new Command(async () => await EliminarFichero());
+            CmdFicherosLocales = new Command(async () => await GetlocalFiles());
+            CmdSendToPrint = new Command(async () => await SendToPrint());
+            CmdDelete = new Command(async () => await SendToDelete());
             //La llamada no es awaited porque el constructor no es async, simplemente se ejecuta más tarde pero copia iguamente en la lista.
-            _ = ObtenerArchivos();
+            _ = GetlocalFiles();
         }
 
         
-        public async Task ObtenerArchivos() {
+        public async Task GetlocalFiles() {
             
             var resp = await Global.PrinterClient.GetFiles();
             if (Global.PrinterClient.ResultRequest == RequestState.Ok) {
@@ -33,12 +33,12 @@ namespace CircularSeasManager.ViewModels {
             }
             else {
                 if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
-                    await AvisoPerdidaConexion();
+                    await AlertConnectionLost();
                 }
             }
         }
 
-        public async Task EnviarImprimir() {
+        public async Task SendToPrint() {
             if (SelectedGCODE == null) {
                 //Tratamiento, no se seleccionó ningún gcode para imprimir.
                 await Application.Current.MainPage.DisplayAlert(AlertResources.PrintingHeaderError,
@@ -69,7 +69,7 @@ namespace CircularSeasManager.ViewModels {
             }
         }
 
-        public async Task EliminarFichero() {
+        public async Task SendToDelete() {
             if (SelectedGCODE == null) {
                 //Tratamiento, no se seleccionó ningún gcode para eliminar
                 await Application.Current.MainPage.DisplayAlert(AlertResources.DeletingHeader,

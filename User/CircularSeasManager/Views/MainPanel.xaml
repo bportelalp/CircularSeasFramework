@@ -31,7 +31,7 @@
                     <Label x:Name="lblEstado" Text="{Binding PrinterState}" FontAttributes="Bold" FontSize="Subtitle"
                        Grid.Row="0" Grid.Column="0" />
                     <Button Text="Conectar" Grid.Row="0" Grid.Column="1" IsVisible="{Binding PrinterOffline}"
-                        Command="{Binding CmdConectar}" />
+                        Command="{Binding CmdConnect}" />
 
                     
                 </Grid>
@@ -66,18 +66,18 @@
 
             <Grid x:Name="GridBotones" >
                 <Button Text="{x:Static resources:AppResources.btnStop}" Grid.Row="0" Grid.Column="0" Margin="30, 5"
-                        Command="{Binding CmdDetener}" />
+                        Command="{Binding CmdStop}" />
                 <Button Text="{Binding PauseOrResume}" Grid.Row="0" Grid.Column="1" Margin="30, 5"
-                        Command="{Binding CmdPausar}" />
+                        Command="{Binding CmdPause}" />
 
             </Grid>
-            <Button Text="{x:Static resources:AppResources.btnPrintLocal}" Command="{Binding CmdImprimirLocal}"
+            <Button Text="{x:Static resources:AppResources.btnPrintLocal}" Command="{Binding CmdPrintLocal}"
                     Margin="30, 5"></Button>
             <Button Text="{x:Static resources:AppResources.btnSendSTL}" Command="{Binding CmdSlice}" 
                     Margin="30, 5"></Button>
-            <Button Text="{x:Static resources:AppResources.btnUploadLocalGCODE}" Command="{Binding CmdSubirGCODE}" 
+            <Button Text="{x:Static resources:AppResources.btnUploadLocalGCODE}" Command="{Binding CmdUploadGCODE}" 
                     Margin="30, 5"></Button>
-            <Button Text="{x:Static resources:AppResources.btnLogout}" Command="{Binding CmdCerrarSesion}" 
+            <Button Text="{x:Static resources:AppResources.btnLogout}" Command="{Binding CmdLogout}" 
                     Margin="30, 5" VerticalOptions="EndAndExpand"></Button>
             <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
         </StackLayout>

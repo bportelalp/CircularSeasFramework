@@ -13,8 +13,8 @@
                       HorizontalOptions="CenterAndExpand">
             </ListView>
             <Label Text="{Binding SelectedGCODE}" />
-            <Button Text="{x:Static resources:AppResources.btnSendToPrint}" Command="{Binding CmdEnviarImprimir}" IsEnabled="{Binding IsSelectedGCODE}" />
-            <Button Text="{x:Static resources:AppResources.btnDeleteSelected}" Command="{Binding CmdEliminar}" IsEnabled="{Binding IsSelectedGCODE}"/>
+            <Button Text="{x:Static resources:AppResources.btnSendToPrint}" Command="{Binding CmdSendToPrint}" IsEnabled="{Binding IsSelectedGCODE}" />
+            <Button Text="{x:Static resources:AppResources.btnDeleteSelected}" Command="{Binding CmdDelete}" IsEnabled="{Binding IsSelectedGCODE}"/>
 
         </StackLayout>
     </ContentPage.Content>

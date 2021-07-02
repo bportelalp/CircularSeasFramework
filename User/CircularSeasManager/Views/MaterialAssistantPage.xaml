@@ -12,7 +12,7 @@
 
     <ContentPage.ToolbarItems>
 
-        <ToolbarItem Text="Help" Command="{Binding CmdAyuda}"></ToolbarItem>
+        <ToolbarItem Text="Help" Command="{Binding CmdHelp}"></ToolbarItem>
 
     </ContentPage.ToolbarItems>
 
@@ -88,7 +88,7 @@
 
             <Label Text="{Binding InfoMaterial}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
 
-            <Button Text="{x:Static resources:AppResources.btnAcceptSelection}" Command="{Binding CmdAceptarMaterial}" IsVisible="{Binding HaveResult}"/>
+            <Button Text="{x:Static resources:AppResources.btnAcceptSelection}" Command="{Binding CmdAcceptMaterial}" IsVisible="{Binding HaveResult}"/>
 
             <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
         </StackLayout>

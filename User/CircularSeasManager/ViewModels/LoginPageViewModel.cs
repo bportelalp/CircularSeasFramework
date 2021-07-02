@@ -16,13 +16,13 @@ namespace CircularSeasManager.ViewModels {
 
         /*COMANDOS: En arquitectura MVVM son métodos que se ejecutan en respuesta a una actividad específica
         Normalmente por ejemplo al clicar o pulsar un botón*/
-        public Command CmdIniciarSesion { get; set; }
+        public Command CmdLogin { get; set; }
         public Command CmdExpert { get; set; }
 
         public LoginPageViewModel() {
             /*Se asocia cada comando al método correspondiente(de forma asincrona) y además se indica que
              se ejecutan sólo si Busy es false, es decir, que no haya otro método en curso*/
-            CmdIniciarSesion = new Command(async()=>await Login(), () => !Busy);
+            CmdLogin = new Command(async()=>await Login(), () => !Busy);
             CmdConfig = new Command(async () => await GoToSettings(), () => !Busy);
             CmdExpert = new Command(async () => await ExpertMode(), () => !Busy);
             _ = GetSecureCredenciales(); //no es awaited pero no importa, porque no devuelve valor, se añade descarte

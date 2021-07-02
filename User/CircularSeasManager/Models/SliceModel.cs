@@ -42,12 +42,12 @@ namespace CircularSeasManager.Models {
         }
 
         //Calidad seleccionada
-        private string _calidadSelected;
-        public string calidadSelected {
-            get { return _calidadSelected; }
+        private string _profileSelected;
+        public string ProfileSelected {
+            get { return _profileSelected; }
             set {
-                if (_calidadSelected != value) {
-                    _calidadSelected = value;
+                if (_profileSelected != value) {
+                    _profileSelected = value;
                     OnPropertyChanged();
                 }
             }
@@ -70,8 +70,8 @@ namespace CircularSeasManager.Models {
         }
 
         //Indica se están todolos items seleccionados
-        public bool TodoListo {
-            get { if (string.IsNullOrEmpty(_calidadSelected) || string.IsNullOrEmpty(_materialSelected) || (_STL == null)) {
+        public bool AllReady {
+            get { if (string.IsNullOrEmpty(_profileSelected) || string.IsNullOrEmpty(_materialSelected) || (_STL == null)) {
                    return false;
                 }
                 else { return true; }
@@ -79,11 +79,11 @@ namespace CircularSeasManager.Models {
         }
 
         //Mensaje de pantalla
-        private string _MensajeStatus;
-        public string MensajeStatus {
-            get { return _MensajeStatus; }
-            set { if (_MensajeStatus != value) {
-                    _MensajeStatus = value;
+        private string _statusMessage;
+        public string StatusMessage {
+            get { return _statusMessage; }
+            set { if (_statusMessage != value) {
+                    _statusMessage = value;
                     OnPropertyChanged();
                 } 
             }

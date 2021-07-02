@@ -44,13 +44,13 @@
 
                 <Picker x:Name="PickerMaterial" ItemsSource="{Binding MaterialCollection}" SelectedItem="{Binding MaterialSelected}" 
                     Grid.Row="2" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                <Button Text="{x:Static resources:AppResources.btnHelp}" Command="{Binding CmdAyuda}" IsEnabled="true"
+                <Button Text="{x:Static resources:AppResources.btnHelp}" Command="{Binding CmdHelp}" IsEnabled="true"
                         Grid.Row="2" Grid.Column="2"></Button>
 
 
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
                        Text="{x:Static resources:AppResources.Profile}" />
-                <Picker x:Name="PickerCalidad" ItemsSource="{Binding ProfileCollection}" SelectedItem="{Binding calidadSelected}"
+                <Picker x:Name="PickerCalidad" ItemsSource="{Binding ProfileCollection}" SelectedItem="{Binding ProfileSelected}"
                         Grid.Row="3" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
 
                 <Label Grid.Row="4" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
@@ -66,7 +66,7 @@
                     Margin="30, 5"></Button>-->
 
             <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
-            <Label Text="{Binding MensajeStatus}" HorizontalTextAlignment="Center"></Label>
+            <Label Text="{Binding StatusMessage}" HorizontalTextAlignment="Center"></Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

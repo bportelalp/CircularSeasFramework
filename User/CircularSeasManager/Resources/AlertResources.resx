@@ -162,6 +162,15 @@
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
+  <data name="OrderStock" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="OutStock" xml:space="preserve">
+    <value>Out of stock</value>
+  </data>
+  <data name="OutStockMessage" xml:space="preserve">
+    <value>There aren't stock for this kind of filament</value>
+  </data>
   <data name="PerhapsSupportNeeded" xml:space="preserve">
     <value>The request could not be completed. Try enabling support and if the problem persists, please contact an administrator.</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
+  </data>
+  <data name="SelectMaterial" xml:space="preserve">
+    <value>You must select one material</value>
   </data>
   <data name="ServerDisconnected" xml:space="preserve">
     <value>Can't connect to server. Try it later</value>

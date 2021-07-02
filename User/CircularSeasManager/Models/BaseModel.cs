@@ -44,7 +44,7 @@ namespace CircularSeasManager.Models {
         //Propiedad que notifica que se mantiene en la página en curso
         public bool InPage { get; set; }
 
-        public async Task AvisoPerdidaConexion() {
+        public async Task AlertConnectionLost() {
             var option = await Application.Current.MainPage.DisplayAlert(AlertResources.DisconnectedHeader, 
                 AlertResources.DisconnectedBody, 
                 AlertResources.DisconnectedBack, 

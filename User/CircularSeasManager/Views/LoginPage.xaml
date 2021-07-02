@@ -38,7 +38,7 @@
                       Grid.Column="0" HorizontalOptions="End"/>
                 <Label Text="{x:Static resources:AppResources.Rememberme}" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
             </Grid>
-            <Button Text="{x:Static resources:AppResources.LoginButton}" Command="{Binding CmdIniciarSesion}" Margin="30, 5" BorderColor="DarkBlue" />
+            <Button Text="{x:Static resources:AppResources.LoginButton}" Command="{Binding CmdLogin}" Margin="30, 5" BorderColor="DarkBlue" />
             <Label x:Name="lblresult" Text="{Binding InitMessage}" FontSize="16" TextColor="Red"
                HorizontalTextAlignment="Center"></Label>
 

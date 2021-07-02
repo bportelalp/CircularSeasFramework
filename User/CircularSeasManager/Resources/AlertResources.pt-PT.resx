@@ -162,6 +162,15 @@
   <data name="No" xml:space="preserve">
     <value>Não</value>
   </data>
+  <data name="OrderStock" xml:space="preserve">
+    <value>Pedido</value>
+  </data>
+  <data name="OutStock" xml:space="preserve">
+    <value>Fora de estoque</value>
+  </data>
+  <data name="OutStockMessage" xml:space="preserve">
+    <value>Não há estoque para este tipo de filamento</value>
+  </data>
   <data name="PerhapsSupportNeeded" xml:space="preserve">
     <value>A solicitação não pôde ser concluída. Tente habilitar o suporte e se o problema persistir, entre em contato com um administrador.</value>
   </data>
@@ -185,6 +194,9 @@
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Preparar</value>
+  </data>
+  <data name="SelectMaterial" xml:space="preserve">
+    <value>Você deve selecionar um material</value>
   </data>
   <data name="ServerDisconnected" xml:space="preserve">
     <value>Não é possível conectar ao servidor. Tente mais tarde</value>

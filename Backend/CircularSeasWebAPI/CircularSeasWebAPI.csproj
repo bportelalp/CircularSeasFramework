@@ -21,4 +21,8 @@
     <ProjectReference Include="..\..\Domain\CircularSeas.Models\CircularSeas.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

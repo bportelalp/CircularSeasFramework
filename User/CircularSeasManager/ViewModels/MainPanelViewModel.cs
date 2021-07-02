@@ -12,61 +12,61 @@ namespace CircularSeasManager.ViewModels {
     class MainPanelViewModel : MainPanelModel {
 
         //Definición de los comandos
-        public Command CmdCerrarSesion { get; set; }
-        public Command CmdImprimirLocal { get; set; }
-        public Command CmdDetener { get; set; }
-        public Command CmdPausar { get; set; }
-        public Command CmdSubirGCODE { get; set; }
+        public Command CmdLogout { get; set; }
+        public Command CmdPrintLocal { get; set; }
+        public Command CmdStop { get; set; }
+        public Command CmdPause { get; set; }
+        public Command CmdUploadGCODE { get; set; }
         public Command CmdSlice { get; set; }
-        public Command CmdConectar { get; set; }
+        public Command CmdConnect { get; set; }
 
         //Constructor
         public MainPanelViewModel() {
             //Inicia temporizador
             InPage = true;
             Device.StartTimer(TimeSpan.FromSeconds(1.5), OnTimerTick);
-            CmdCerrarSesion = new Command(async () => await CerrarSesion(),()=>!Busy);
-            CmdImprimirLocal = new Command(async () => await ImprimirLocal(),()=>!Busy);
-            CmdDetener = new Command(async () => await Detener(),()=>!Busy);
-            CmdPausar = new Command(async () => await Pausar(),()=>!Busy);
-            CmdSubirGCODE = new Command(async() => await SubirGCODE(), () => !Busy);
-            CmdSlice = new Command(async () => await AbrirSlicePage(), () => !Busy);
-            CmdConectar = new Command(async () => await ConectarImpresora(), () => !Busy);
+            CmdLogout = new Command(async () => await Logout(),()=>!Busy);
+            CmdPrintLocal = new Command(async () => await PrintLocal(),()=>!Busy);
+            CmdStop = new Command(async () => await StopPrinting(),()=>!Busy);
+            CmdPause = new Command(async () => await PausePrinting(),()=>!Busy);
+            CmdUploadGCODE = new Command(async() => await UploadGCODE(), () => !Busy);
+            CmdSlice = new Command(async () => await OpenSlicePage(), () => !Busy);
+            CmdConnect = new Command(async () => await ConnectPrinter(), () => !Busy);
             
         }
 
         bool OnTimerTick() {
             if (InPage) {
                 Device.BeginInvokeOnMainThread(async () => {
-                    await VisualizacionDatos();
+                    await DataRefresh();
                 });
                 return true;
             }
             else { return false; }
         }
 
-        private async Task CerrarSesion() {
+        private async Task Logout() {
             Busy = true;
-            var resultado = await Global.PrinterClient.Logout();
+            var result = await Global.PrinterClient.Logout();
             Busy = false;
-            if (resultado) {
+            if (result) {
                 Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
                 InPage = false;
             }
         }
 
-        private async Task ImprimirLocal() {
+        private async Task PrintLocal() {
             //Añade nueva página en la pila de navegación con la pestaña para imprimir
             await Application.Current.MainPage.Navigation.PushAsync(new Views.PrintLocal());
             
         }
 
-        private async Task VisualizacionDatos() {
+        private async Task DataRefresh() {
             //Obtener datos de trabajo actual
-            var trabajo = await Models.Global.PrinterClient.GetCurrentjob();
-            if (trabajo != null) {
-                PrinterState = trabajo.state;
-                FileName = trabajo.job.file.name;
+            var currentJob = await Models.Global.PrinterClient.GetCurrentjob();
+            if (currentJob != null) {
+                PrinterState = currentJob.state;
+                FileName = currentJob.job.file.name;
 
                 //Actualiza botón.
                 if (PrinterState == "Pausing" | PrinterState == "Paused") {
@@ -75,16 +75,16 @@ namespace CircularSeasManager.ViewModels {
                 else { PauseOrResume = AppResources.btnResume; }
 
                 //Actualiza tiempo de trabajo
-                if (trabajo.progress.printTimeLeft != null) {
-                    PrintTimeLeft = TimeSpan.FromSeconds((double)trabajo.progress.printTimeLeft);
+                if (currentJob.progress.printTimeLeft != null) {
+                    PrintTimeLeft = TimeSpan.FromSeconds((double)currentJob.progress.printTimeLeft);
                 }
                 else {
                     PrintTimeLeft = TimeSpan.FromSeconds(0);
                 }
 
                 //Actualiza progreso
-                if (trabajo.progress.completion != null)
-                    Progress = (float)(trabajo.progress.completion);
+                if (currentJob.progress.completion != null)
+                    Progress = (float)(currentJob.progress.completion);
                 else {
                     Progress = 0;
                 }
@@ -92,7 +92,10 @@ namespace CircularSeasManager.ViewModels {
             }
             else {
                 if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
-                    //Implementación de espera a conexión
+                    //Coming to starpage
+                    await AlertConnectionLost();
+                    Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
+
                 }
             }
 
@@ -120,31 +123,31 @@ namespace CircularSeasManager.ViewModels {
 
         }
 
-        private async Task Detener() {
+        private async Task StopPrinting() {
             Busy = true;
             var estado = await Global.PrinterClient.PostJobCommand("cancel");
             Busy = false;
             if (!estado) {
                 if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
-                    await AvisoPerdidaConexion();
+                    await AlertConnectionLost();
                 }
                 
             }
         }
 
-        private async Task Pausar() {
+        private async Task PausePrinting() {
             Busy = true;
             var estado = await Global.PrinterClient.PostJobCommand("pause");
             Busy = false;
             if (!estado) {
                 if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
-                    await AvisoPerdidaConexion();
+                    await AlertConnectionLost();
                 }
 
             }
         }
 
-        private async Task SubirGCODE() {
+        private async Task UploadGCODE() {
 
             Busy = true;
             var gco = await CrossFilePicker.Current.PickFile(new string[] { ".gcode" });
@@ -170,7 +173,7 @@ namespace CircularSeasManager.ViewModels {
                     Busy = false;
                     if (!estado) {
                         if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
-                            await AvisoPerdidaConexion();
+                            await AlertConnectionLost();
                         }
                         if (Global.PrinterClient.ResultRequest == RequestState.BadFileExtension) {
                             await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
@@ -202,7 +205,7 @@ namespace CircularSeasManager.ViewModels {
 
         }
 
-        private async Task AbrirSlicePage() {
+        private async Task OpenSlicePage() {
             //Abrir página de Slicer
             InPage = false;
             await Application.Current.MainPage.Navigation.PushAsync(new Views.SlicerPage());
@@ -210,7 +213,7 @@ namespace CircularSeasManager.ViewModels {
             Device.StartTimer(TimeSpan.FromSeconds(1.5), OnTimerTick);
         }
 
-        private async Task ConectarImpresora() {
+        private async Task ConnectPrinter() {
             Busy = true;
             var resultado = await Global.PrinterClient.PostConexPrinter(true, "/dev/ttyACM0", 250000, "_default");
             Busy = false;
