@@ -22,7 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\Data\" />
+    <Folder Include="wwwroot\GCode\" />
+    <Folder Include="wwwroot\INI\" />
+    <Folder Include="wwwroot\Logs\" />
+    <Folder Include="wwwroot\STL\" />
   </ItemGroup>
 
 </Project>

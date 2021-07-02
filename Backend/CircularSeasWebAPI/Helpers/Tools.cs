@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,7 +11,8 @@ namespace CircularSeasWebAPI.Helpers {
     public class Tools {
 
         // Service access
-        private readonly Log log;
+        private readonly Log _log;
+        private readonly IWebHostEnvironment _env;
         private readonly AppSettings _appSettings;
 
         /// <summary>
@@ -28,11 +30,12 @@ namespace CircularSeasWebAPI.Helpers {
         /// </summary>
         /// <param name="log"> Injection of the Log service </param>
         /// <param name="appSettings"> Injection of the appSettings service </param>
-        public Tools(Log log, IOptions<AppSettings> appSettings) {
-            this.log = log;
+        public Tools(Log log, IOptions<AppSettings> appSettings, IWebHostEnvironment env) {
+            this._log = log;
+            this._env = env;
             _appSettings = appSettings.Value;
         }
-
+        #region "Methods"
         /// <summary>
         /// Application of the TOPSIS method
         /// </summary>
@@ -178,10 +181,16 @@ namespace CircularSeasWebAPI.Helpers {
             }
 
             // Write each line to a file
-            System.IO.File.WriteAllLines(_appSettings.inisPath + "\\" + iniName, iniList);
+            System.IO.File.WriteAllLines(this.GetWebPath(WebFolder.INI) + iniName, iniList);
             return iniName;
         }
 
+        public string GetWebPath(WebFolder folder) {
+            return _env.WebRootPath + "\\" + folder.ToString() + "\\";
+        }
+        #endregion
+
+        #region "Functions"
         /// <summary>
         /// Search in the configuration files for a selected printer, a selected material (filament) or a selected quality (profile) and load all the parameters in a dictionary passed by reference. 
         /// </summary>
@@ -192,7 +201,7 @@ namespace CircularSeasWebAPI.Helpers {
         private void loadConfigParams(string selection, string fileName, searchingOption option, ref SortedDictionary<string, string> iniDict)
         {
             // Loading the printer bundle file (.ini)
-            string[] bundle = System.IO.File.ReadAllLines(_appSettings.bundlesPath + "\\"+ fileName);
+            string[] bundle = System.IO.File.ReadAllLines(this.GetWebPath(WebFolder.Bundle)+ fileName);
 
             bool found = false;
             // Searching the specified _printer propierties
@@ -232,7 +241,7 @@ namespace CircularSeasWebAPI.Helpers {
                             if (line == "[printer:" + selection + "]")
                             {
                                 found = true;
-                                log.logWrite("Printer found: " + selection);
+                                _log.logWrite("Printer found: " + selection);
                             }
                             break;
                         }
@@ -241,7 +250,7 @@ namespace CircularSeasWebAPI.Helpers {
                             if (line == "[filament:" + selection + "]")
                             {
                                 found = true;
-                                log.logWrite("Filament found: " + selection);
+                                _log.logWrite("Filament found: " + selection);
                             }
                             break;
                         }
@@ -250,7 +259,7 @@ namespace CircularSeasWebAPI.Helpers {
                             if (line == "[print:" + selection + "]")
                             {
                                 found = true;
-                                log.logWrite("Print profile found: " + selection);
+                                _log.logWrite("Print profile found: " + selection);
                             }
                             break;
                         }
@@ -263,17 +272,17 @@ namespace CircularSeasWebAPI.Helpers {
                 {
                     case searchingOption.Printer:
                         {
-                            log.logWrite("Printer not found: " + selection);
+                            _log.logWrite("Printer not found: " + selection);
                             break;
                         }
                     case searchingOption.Filament:
                         {
-                            log.logWrite("Filament not found: " + selection);
+                            _log.logWrite("Filament not found: " + selection);
                             break;
                         }
                     case searchingOption.Print_Profile:
                         {
-                            log.logWrite("Print profile not found: " + selection);
+                            _log.logWrite("Print profile not found: " + selection);
                             break;
                         }
                 }
@@ -310,8 +319,8 @@ namespace CircularSeasWebAPI.Helpers {
 
             string resultInfo = outputInfo.ReadToEnd();
             string resultError = errorInfo.ReadToEnd();
-            log.logWrite("\n" + resultInfo);
-            log.logWrite("\n" + resultError);
+            _log.logWrite("\n" + resultInfo);
+            _log.logWrite("\n" + resultError);
             //
             //Muestra en pantalla la salida del Comando
             proc.Kill();
@@ -321,5 +330,6 @@ namespace CircularSeasWebAPI.Helpers {
             else { return resultError; }
 
         }
+        #endregion
     }
 }

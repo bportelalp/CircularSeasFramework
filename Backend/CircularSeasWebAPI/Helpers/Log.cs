@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.IO;
 
@@ -7,9 +8,9 @@ namespace CircularSeasWebAPI.Helpers
     // Class about a log file to help debugging phase and traceability information storage
     {
         string logPath;
-        public Log(string _logPath)
+        public Log(IWebHostEnvironment env)
         {
-            logPath = _logPath;
+            logPath = env.WebRootPath + "\\" + WebFolder.Logs + "\\Backend-" + DateTime.Today.ToString("yyyy-MM-dd") + ".log";
         }
 
         /// <summary>
