@@ -38,7 +38,7 @@ namespace CircularSeasWebAPI {
             services.AddDbContext<CircularSeasContext>(options => options.UseSqlServer(appSettings.DBConnectionString));
 
             //Servicio Singleton to LOG
-            services.AddSingleton<Log>(new Log(appSettings.logPath));
+            services.AddSingleton<Log>();
 
             //Servicio Scoped to Utilities and PrusaSlicer
             services.AddScoped<Tools>();

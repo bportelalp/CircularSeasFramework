@@ -1,0 +1,13 @@
+{
+	"Ultimaker2plus":
+	{
+		"compatible_quality":["Alta-0.15mm","Estandar-0.20mm","Rapido-0.30mm"],
+		"filament_diameter": 2.85
+	},
+	"Ender3pro":
+	{
+		"compatible_quality":["Creality 0.12mm SUPERQUALITY","Creality 0.16mm QUALITY","Creality 0.20mm NORMAL"],
+		"filament_diameter": 1.75
+	}
+	
+}

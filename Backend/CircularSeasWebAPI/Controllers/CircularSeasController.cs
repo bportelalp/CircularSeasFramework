@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using CircularSeasWebAPI.Models;
 using CircularSeasWebAPI.Helpers;
 using CircularSeas.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CircularSeasWebAPI.Controllers
 {
@@ -23,18 +24,21 @@ namespace CircularSeasWebAPI.Controllers
     public class CircularSeasController : Controller
     {
         // Service access
-        private readonly Log log;
-        private readonly AppSettings appSettings;
+        private readonly Log _log;
+        private readonly AppSettings _appsSettings;
         private readonly Tools _tools;
+        private readonly IWebHostEnvironment _env;
+
         // Database context
         private readonly CircularSeasContext _DBContext;
 
-        public CircularSeasController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools)
+        public CircularSeasController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools, IWebHostEnvironment env)
         {
             // Assignment and initialization of services
-            this.log = log;
+            this._log = log;
             this._tools = tools;
-            this.appSettings = appSettings.Value;
+            this._env = env;
+            this._appsSettings = appSettings.Value;
 
             this._DBContext = circularSeasContext;
         }
@@ -94,7 +98,7 @@ namespace CircularSeasWebAPI.Controllers
             dataSet.Filaments = filamentsList.ToArray();
 
             // Getting printer compatibility with available printer/quality profiles and default filament diameter. This will appear as user selectable in the application.
-            var comp = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(appSettings.dataPath + "\\compatibilidades.json"));
+            var comp = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(_tools.GetWebPath(WebFolder.Data) + "Compatibilities.json"));
 
             // Fill the "Printer" object with the compatibility and filament diameter data
             dataSet.Printer = new CircularSeas.Models.Printer
@@ -121,7 +125,7 @@ namespace CircularSeasWebAPI.Controllers
 
             try
             {
-                log.logWrite("New slicing request");
+                _log.logWrite("New slicing request");
                 // Checking that the parameters are correct 
                 if (String.IsNullOrEmpty(printer) || String.IsNullOrEmpty(material) || String.IsNullOrEmpty(quality) || String.IsNullOrEmpty(support))
                 {
@@ -143,64 +147,64 @@ namespace CircularSeasWebAPI.Controllers
                 // Start time calculation metrics
                 Stopwatch tictoc = new Stopwatch();
                 tictoc.Start();
-                log.logWrite("\n");
-                log.logWrite("CAM process start");
+                _log.logWrite("\n");
+                _log.logWrite("CAM process start");
 
                 // STL file identification and storage in memory
-                var NombreSTL = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                NombreSTL = NombreSTL.Split(".")[0];
+                var NameSTL = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                NameSTL = NameSTL.Split(".")[0];
                 string extension = Path.GetExtension(file.FileName);
-                var fullPathSTL = appSettings.stlFolderPath + "\\" + NombreSTL + extension;
+                var fullPathSTL = _tools.GetWebPath(WebFolder.STL) + NameSTL + extension;
+                var fullPathGCODE = _tools.GetWebPath(WebFolder.GCode) + NameSTL + ".gcode";
                 var streamSTLFile = new FileStream(fullPathSTL, FileMode.Create);
                 file.CopyTo(streamSTLFile);
                 streamSTLFile.Close();
-                log.logWrite("File reception completed (" + tictoc.ElapsedMilliseconds + "ms): " + NombreSTL + extension);
+                _log.logWrite("File reception completed (" + tictoc.ElapsedMilliseconds + "ms): " + NameSTL + extension);
 
                 //Crear el archivo de configuración
-                log.logWrite("Creating configuration file");
+                _log.logWrite("Creating configuration file");
 
 
                 Dictionary<string, string> paramsDict = new Dictionary<string, string>();
 
                 // Filament diameter overwrite
-                var comp = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(appSettings.dataPath + "\\compatibilidades.json"));
+                var comp = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(_tools.GetWebPath(WebFolder.Data) + "Compatibilities.json"));
 
                 paramsDict.Add("support_material", bool.Parse(support) ? "1" : "0");
                 paramsDict.Add("filament_diameter", comp[printer]["filament_diameter"].ToObject<string>());
 
                 var iniName = _tools.ConfigFileCreator(printer, material, quality, paramsDict);
 
-                var iniPath = appSettings.inisPath + "\\" + iniName;
-                log.logWrite("File created (" + tictoc.ElapsedMilliseconds + "ms) on: " + iniPath);
+                var iniPath = _tools.GetWebPath(WebFolder.INI) + iniName;
+                _log.logWrite("File created (" + tictoc.ElapsedMilliseconds + "ms) on: " + iniPath);
 
                 // G code generation process
-                log.logWrite("Slicing with PrusaSlicer");
-                string attributes = "--slice " + fullPathSTL + " --load \"" + iniPath + "\" -o " + appSettings.gCodeFolderPath + "\\" + NombreSTL + ".gcode";
-                log.logWrite("Command: " + attributes);
+                _log.logWrite("Slicing with PrusaSlicer");
+                string attributes = "--slice " + fullPathSTL + " --load \"" + iniPath + "\" -o " + fullPathGCODE;
+                _log.logWrite("Command: " + attributes);
 
                 // Execution by CMD 
                 var resultConsola = _tools.ExecuteCommand(attributes);
                 if (resultConsola != null)
                 {
-                    log.logWrite("The request could not be completed. Return status code: " + HttpStatusCode.PreconditionFailed);
+                    _log.logWrite("The request could not be completed. Return status code: " + HttpStatusCode.PreconditionFailed);
                     return StatusCode((int)HttpStatusCode.PreconditionFailed, resultConsola);
                 }
-                log.logWrite("Slicing process end");
+                _log.logWrite("Slicing process end");
 
                 // Get G-code file from storage folder 
-                var docDestination = appSettings.gCodeFolderPath + "\\" + NombreSTL + ".gcode";
-                var streamGcodeFile = new FileStream(docDestination, FileMode.Open, FileAccess.Read);
+                var streamGcodeFile = new FileStream(fullPathGCODE, FileMode.Open, FileAccess.Read);
                 // Writing results in the log file
-                log.logWrite("File copied on " + docDestination);
+                _log.logWrite("File copied on " + fullPathGCODE);
                 tictoc.Stop();
-                log.logWrite("Elapsed time to complete G-code generation: " + tictoc.ElapsedMilliseconds + " ms");
+                _log.logWrite("Elapsed time to complete G-code generation: " + tictoc.ElapsedMilliseconds + " ms");
                 //Devolver o ficheiro convertido
                 return Ok(streamGcodeFile);
 
             }
             catch (Exception ex)
             {
-                log.logWrite(ex.ToString());
+                _log.logWrite(ex.ToString());
                 return BadRequest(ex.ToString());
                 //return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
             }
