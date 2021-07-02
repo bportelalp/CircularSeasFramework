@@ -14,7 +14,7 @@ namespace CircularSeasManager.Views {
     public partial class AsistenteMaterial : ContentPage {
 
         AsistenteMaterialviewModel contexto;
-        public AsistenteMaterial(InfoTopsis _material) {
+        public AsistenteMaterial(CircularSeas.Models.DTO.DataDTO _material) {
             InitializeComponent();
             contexto = new AsistenteMaterialviewModel(_material);
             BindingContext = contexto;

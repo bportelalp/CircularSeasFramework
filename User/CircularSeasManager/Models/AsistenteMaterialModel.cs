@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
+using CircularSeas.Models;
 
 namespace CircularSeasManager.Models {
     public class AsistenteMaterialModel : BaseModel {
 
         //Almacén de todos los datos
-        public InfoTopsis DataMaterial = new InfoTopsis();
+        public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();
         public List<Filament> filamentosfiltrados = new List<Filament>();
         //Colección con identificador de propiedad y valor de usuario de "importancia"
         public ObservableCollection<ValueUser> ValueUserCollection { get; set; }
@@ -184,39 +185,5 @@ namespace CircularSeasManager.Models {
 
             return perform;
         }
-    }
-
-    //CLASE JSON para deserializar los materiales
-    public class MaterialJSON {
-        public Printer printer { get; set; }
-        public string[] properties { get; set; }
-        public Material[] materials { get; set; }
-    }
-
-    public class Material {
-        public string nombre { get; set; }
-        public string descripcion { get; set; }
-        public double[] propiedades { get; set; }
-        public int stock { get; set; }
-    }
-
-    public class Printer {
-        public string nombre { get; set; }
-        public string[] profiles { get; set; }
-    }
-
-    public class InfoTopsis {
-        public Printer printer { get; set; }
-        public string[] featuresLabels { get; set; }
-        public string[] propertiesLabels { get; set; }
-        public bool[] positiveImpact { get; set; }
-        public Filament[] filaments { get; set; }
-    }
-    public class Filament {
-        public string name { get; set; }
-        public string description { get; set; }
-        public bool[] features { get; set; }
-        public double[] properties { get; set; }
-        public int stock { get; set; }
     }
 }

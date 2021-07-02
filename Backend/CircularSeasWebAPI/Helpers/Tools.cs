@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace CircularSeasWebAPI.Helpers {
-    public class Utilities {
+    public class Tools {
 
         // Service access
         private readonly Log log;
@@ -28,7 +28,7 @@ namespace CircularSeasWebAPI.Helpers {
         /// </summary>
         /// <param name="log"> Injection of the Log service </param>
         /// <param name="appSettings"> Injection of the appSettings service </param>
-        public Utilities(Log log, IOptions<AppSettings> appSettings) {
+        public Tools(Log log, IOptions<AppSettings> appSettings) {
             this.log = log;
             _appSettings = appSettings.Value;
         }

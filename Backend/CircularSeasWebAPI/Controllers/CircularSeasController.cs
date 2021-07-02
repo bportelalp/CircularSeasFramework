@@ -14,7 +14,7 @@ using System.Net;
 using Microsoft.EntityFrameworkCore;
 using CircularSeasWebAPI.Models;
 using CircularSeasWebAPI.Helpers;
-using CircularSeasWebAPI.Classes;
+using CircularSeas.Models;
 
 namespace CircularSeasWebAPI.Controllers
 {
@@ -25,18 +25,18 @@ namespace CircularSeasWebAPI.Controllers
         // Service access
         private readonly Log log;
         private readonly AppSettings appSettings;
-        private readonly Utilities utilities;
+        private readonly Tools _tools;
         // Database context
-        private readonly CircularSeasContext DataContext;
+        private readonly CircularSeasContext _DBContext;
 
-        public CircularSeasController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Utilities utilities)
+        public CircularSeasController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools)
         {
             // Assignment and initialization of services
             this.log = log;
-            this.utilities = utilities;
+            this._tools = tools;
             this.appSettings = appSettings.Value;
 
-            this.DataContext = circularSeasContext;
+            this._DBContext = circularSeasContext;
         }
 
         /// <summary>
@@ -48,19 +48,19 @@ namespace CircularSeasWebAPI.Controllers
         public async Task<JsonResult> GetInfoPrinter([FromRoute] string PrinterID)
         {
 
-            Data dataSet = new Data();
+            CircularSeas.Models.DTO.DataDTO dataSet = new CircularSeas.Models.DTO.DataDTO();
 
             // Search in the database of the values of the Properties, characteristics and impact that each material has on the selection of materials.
-            InfoTopsis topsisData = new InfoTopsis();
-            topsisData.FeaturesLabels = await DataContext.Features
+            CircularSeas.Models.InfoTopsis topsisData = new CircularSeas.Models.InfoTopsis();
+            topsisData.FeaturesNames = await _DBContext.Features
                 .OrderBy(s => s.Id)
                 .Select(s => s.Name)
                 .ToArrayAsync();
-            topsisData.PropertiesLabels = await DataContext.Properties
+            topsisData.PropertiesNames = await _DBContext.Properties
                 .OrderBy(s => s.Id)
                 .Select(s => s.Name)
                 .ToArrayAsync();
-            topsisData.PositiveImpact = await DataContext.Properties
+            topsisData.ImpactPositive = await _DBContext.Properties
                 .OrderBy(s => s.Id)
                 .Select(s => s.PositiveImpact)
                 .ToArrayAsync();
@@ -68,27 +68,27 @@ namespace CircularSeasWebAPI.Controllers
             dataSet.InfoTopsis = topsisData;
 
             // Search in the DB for the list of all materials 
-            var materialsBBDDlist = await DataContext.Materials.ToListAsync();
+            var materialsBBDDlist = await _DBContext.Materials.ToListAsync();
 
             // Conversion of the DB Materials model into the reduced "Filaments" class 
-            List<Filament> filamentsList = new List<Filament>();
+            List<CircularSeas.Models.Filament> filamentsList = new List<CircularSeas.Models.Filament>();
             foreach (var item in materialsBBDDlist)
             {
-                filamentsList.Add(new Filament
+                filamentsList.Add(new CircularSeas.Models.Filament
                 {
                     Name = item.Name,
                     Description = item.Description,
-                    Features = await DataContext.FeatureMats
+                    FeaturesValues = await _DBContext.FeatureMats
                         .Where(s => s.IdMaterial == item.Id)
                         .OrderBy(s => s.IdFeature)
                         .Select(s => s.Value)
                         .ToArrayAsync(),
-                    Properties = await DataContext.PropMats
+                    PropertiesValues = await _DBContext.PropMats
                         .Where(s => s.IdMaterial == item.Id)
                         .OrderBy(s => s.IdProperty)
                         .Select(s => s.Value)
                         .ToArrayAsync(),
-                    Stock = 0
+                    SpoolStock = 0
                 });
             }
             dataSet.Filaments = filamentsList.ToArray();
@@ -97,11 +97,11 @@ namespace CircularSeasWebAPI.Controllers
             var comp = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(appSettings.dataPath + "\\compatibilidades.json"));
 
             // Fill the "Printer" object with the compatibility and filament diameter data
-            dataSet.Printer = new Printer
+            dataSet.Printer = new CircularSeas.Models.Printer
             {
-                Nombre = PrinterID,
+                Name = PrinterID,
                 Profiles = comp[PrinterID]["compatible_quality"].ToObject<string[]>(),
-                Filament_diameter = comp[PrinterID]["filament_diameter"].ToObject<double>()
+                FilamentDiameter = comp[PrinterID]["filament_diameter"].ToObject<double>()
             };
             return Json(dataSet);
         }
@@ -168,7 +168,7 @@ namespace CircularSeasWebAPI.Controllers
                 paramsDict.Add("support_material", bool.Parse(support) ? "1" : "0");
                 paramsDict.Add("filament_diameter", comp[printer]["filament_diameter"].ToObject<string>());
 
-                var iniName = utilities.ConfigFileCreator(printer, material, quality, paramsDict);
+                var iniName = _tools.ConfigFileCreator(printer, material, quality, paramsDict);
 
                 var iniPath = appSettings.inisPath + "\\" + iniName;
                 log.logWrite("File created (" + tictoc.ElapsedMilliseconds + "ms) on: " + iniPath);
@@ -179,7 +179,7 @@ namespace CircularSeasWebAPI.Controllers
                 log.logWrite("Command: " + attributes);
 
                 // Execution by CMD 
-                var resultConsola = utilities.ExecuteCommand(attributes);
+                var resultConsola = _tools.ExecuteCommand(attributes);
                 if (resultConsola != null)
                 {
                     log.logWrite("The request could not be completed. Return status code: " + HttpStatusCode.PreconditionFailed);

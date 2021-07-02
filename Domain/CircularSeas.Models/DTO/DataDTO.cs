@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace CircularSeasWebAPI.Classes
+namespace CircularSeas.Models.DTO
 {
-    public class Data
+    public class DataDTO
     {
         public Printer Printer { get; set; }
         public Filament[] Filaments { get; set; }

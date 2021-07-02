@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using CircularSeasManager.Models;
+
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.ObjectModel;
@@ -10,7 +11,6 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
 using Newtonsoft.Json;
-using static CircularSeasManager.Models.AsistenteMaterialModel;
 using Plugin.FilePicker;
 
 namespace CircularSeasManager.ViewModels {
@@ -69,10 +69,10 @@ namespace CircularSeasManager.ViewModels {
             DataMaterial = await Global.ClienteSlice.GetDatos(printer);
             if (DataMaterial != null) {
                 //Cargar a información nas coleccións para visualizar
-                foreach (Filament item in DataMaterial.filaments) {
-                    MaterialCollection.Add(item.name);
+                foreach (CircularSeas.Models.Filament item in DataMaterial.Filaments) {
+                    MaterialCollection.Add(item.Name);
                 }
-                foreach (string item in DataMaterial.printer.profiles) {
+                foreach (string item in DataMaterial.Printer.Profiles) {
                     CalidadCollection.Add(item);
                 }
             }
