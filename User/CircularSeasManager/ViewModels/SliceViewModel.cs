@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using CircularSeasManager.Models;
+
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using System.Collections.ObjectModel;
@@ -10,20 +11,19 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.IO;
 using Newtonsoft.Json;
-using static CircularSeasManager.Models.AsistenteMaterialModel;
 using Plugin.FilePicker;
 
 namespace CircularSeasManager.ViewModels {
     public class SliceViewModel : SliceModel {
 
         //Comandos
-        public Command CmdEnviarSTL { get; set; }
+        public Command CmdSendSTL { get; set; }
         public Command CmdAyuda { get; set; }
         public Command CmdPickSTL { get; set; }
 
         //Constructor
         public SliceViewModel() {
-            CmdEnviarSTL = new Command(async () => await EnviarSTL());
+            CmdSendSTL = new Command(async () => await EnviarSTL());
             CmdAyuda = new Command(async () => await AbrirAsistente(), () => !Ocupado);
             CmdPickSTL = new Command(async () => await PickSTL());
 
@@ -34,20 +34,6 @@ namespace CircularSeasManager.ViewModels {
 
             //llamada para rellenarlos campos
             _ = ObtenerDatos();
-            /*
-            MaterialCollection.Add("PLA");
-            MaterialCollection.Add("ABS");
-            MaterialCollection.Add("Recycled #1"); 
-            MaterialCollection.Add("Recycled #2");
-            MaterialCollection.Add("PETG");
-            MaterialCollection.Add("HIPS");
-            MaterialCollection.Add("Nylon");
-            MaterialCollection.Add("Recycled #3");
-            MaterialCollection.Add("Recycled #4");
-            CalidadCollection.Add("High quality");
-            CalidadCollection.Add("Standard");
-            CalidadCollection.Add("Extra strength");
-            CalidadCollection.Add("Fast prototyping");*/
         }
 
         public async Task ObtenerDatos() {
@@ -69,10 +55,10 @@ namespace CircularSeasManager.ViewModels {
             DataMaterial = await Global.ClienteSlice.GetDatos(printer);
             if (DataMaterial != null) {
                 //Cargar a información nas coleccións para visualizar
-                foreach (Filament item in DataMaterial.filaments) {
-                    MaterialCollection.Add(item.name);
+                foreach (CircularSeas.Models.Filament item in DataMaterial.Filaments) {
+                    MaterialCollection.Add(item.Name);
                 }
-                foreach (string item in DataMaterial.printer.profiles) {
+                foreach (string item in DataMaterial.Printer.Profiles) {
                     CalidadCollection.Add(item);
                 }
             }
@@ -142,7 +128,7 @@ namespace CircularSeasManager.ViewModels {
 
         public async Task AbrirAsistente() {
             //Abrir asistente, se le pasa la información de los materiales.
-            await Application.Current.MainPage.Navigation.PushAsync(new Views.AsistenteMaterial(DataMaterial));
+            await Application.Current.MainPage.Navigation.PushAsync(new Views.MaterialAssistantPage(DataMaterial));
         }
 
     }

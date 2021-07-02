@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
+             x:Class="CircularSeasManager.Views.SettingsPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{x:Static resources:AppResources.Settings}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
+        </StackLayout>
+
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Grid x:Name="VentanasConfig" Margin="20,35,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--Campo 1: Editor IP Octoprint-->
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Body" VerticalTextAlignment="Center"
+                       Text="IP Octoprint" />
+                <Entry x:Name="EditorIPOctoprint"  Margin="30, 5" Grid.Row="0" Grid.Column="1"
+                        Placeholder="IP" Text="{Binding IPOctoprint}" />
+                <!--Campo 2: Editor IP ISO Generator-->
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Body" VerticalTextAlignment="Center"
+                       Text="IP nube" />
+                <Entry x:Name="EditorIPSlicer"  Margin="30, 5" Grid.Row="1" Grid.Column="1"
+                        Placeholder="IP" Text="{Binding IPSlicer}"/>
+                
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

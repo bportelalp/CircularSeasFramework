@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
+             x:Class="CircularSeasManager.Views.SlicerPage">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{x:Static resources:AppResources.SliceSTL}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
+        </StackLayout>
+
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Grid x:Name="PanelConfig" Margin="20,35,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
+                       Text="{x:Static resources:AppResources.SelectSTL}" />
+
+                <Label x:Name="lblPath" Text="{Binding NameSTL}" FontSize="Body" FontAttributes="Italic" VerticalTextAlignment="Center"
+                        Grid.Row="0" Grid.Column="1"/>
+                <Button x:Name="PickStl" Text=":" Command="{Binding CmdPickSTL}" FontSize="Body"
+                        Grid.Row="0" Grid.Column="2"/>
+
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
+                       Text="{x:Static resources:AppResources.Printer}" />
+                <Label x:Name="lblImpresora" Text="{Binding printer}" VerticalTextAlignment="Center"
+                       Grid.Row="1" Grid.Column="1" FontSize="Body"/>
+
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
+                       Text="{x:Static resources:AppResources.Material}" />
+
+                <Picker x:Name="PickerMaterial" ItemsSource="{Binding MaterialCollection}" SelectedItem="{Binding materialSelected}" 
+                    Grid.Row="2" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                <Button Text="{x:Static resources:AppResources.btnHelp}" Command="{Binding CmdAyuda}" IsEnabled="true"
+                        Grid.Row="2" Grid.Column="2"></Button>
+
+
+                <Label Grid.Row="3" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
+                       Text="{x:Static resources:AppResources.Profile}" />
+                <Picker x:Name="PickerCalidad" ItemsSource="{Binding CalidadCollection}" SelectedItem="{Binding calidadSelected}"
+                        Grid.Row="3" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+                <Label Grid.Row="4" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
+                       Text="{x:Static resources:AppResources.EnableSupport}" />
+                <CheckBox x:Name="CheckSoporte" IsChecked="{Binding usarSoporte}"
+                          Grid.Row="4" Grid.Column="1"/>
+
+            </Grid>
+
+            <Button Text="{x:Static resources:AppResources.btnSendToSlice}" Command="{Binding CmdSendSTL}" IsEnabled="True"
+                    Margin="30, 5"></Button>
+            <!--<Button Text="PICK" Command="{Binding CmdPickSTL}"
+                    Margin="30, 5"></Button>-->
+
+            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}"></ActivityIndicator>
+            <Label Text="{Binding MensajeStatus}" HorizontalTextAlignment="Center"></Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

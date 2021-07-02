@@ -8,7 +8,7 @@ namespace CircularSeasManager {
         public App() {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new PaginaLogin());
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart() {

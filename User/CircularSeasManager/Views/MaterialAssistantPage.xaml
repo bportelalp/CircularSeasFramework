@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
+             x:Class="CircularSeasManager.Views.MaterialAssistantPage">
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{x:Static resources:AppResources.MaterialSuggest}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
+        </StackLayout>
+
+    </NavigationPage.TitleView>
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Text="Help" Command="{Binding CmdAyuda}"></ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Padding="20,0,20,0">
+            <Label Text="{x:Static resources:AppResources.SuggestInfoSliders}" 
+                   HorizontalTextAlignment="Center"></Label>
+            <ListView x:Name="ListaBooleanos" ItemsSource="{Binding FeaturesUserCollection}" HeightRequest="150">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding feature}" HorizontalTextAlignment="Center"></Label>
+                                <Picker x:Name="PickerFeature" ItemsSource="{Binding optionsFeature}" SelectedItem="{Binding featureValueSelected}"
+                                    Grid.Row="0" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+
+            <ListView x:Name="ListaSliders" ItemsSource="{Binding ValueUserCollection}" VerticalOptions="Start" SelectionMode="None">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Column="0" Text="{Binding Propiedade}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                <Label Grid.Column="1" Text="Low" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                <Slider Grid.Column="2" Value="{Binding Valoracion}" MaximumTrackColor="Black" 
+                                        MinimumTrackColor="Black" Minimum="0.1" Maximum="5"/>
+                                <Label Grid.Column="3" Text="High" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="{x:Static resources:AppResources.btnSuggest}" Command="{Binding CmdSugerir}"/>
+
+            <ListView ItemsSource="{Binding ResultadoTOPSISCollection}" SelectedItem="{Binding MaterialSeleccionado}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Text="{Binding NomeMaterial}" HorizontalTextAlignment="Center"></Label>
+                                <ProgressBar Grid.Column="1" Progress="{Binding Afinidade}" />
+                                <Label Grid.Column="2" Text="{Binding Afinidade100, StringFormat='{0:00.0} %'}"/>
+                                <Label Grid.Column="3" Text="{Binding Stock}" HorizontalTextAlignment="Center"></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Label Text="{Binding InfoMaterial}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
+
+            <Button Text="{x:Static resources:AppResources.btnAcceptSelection}" Command="{Binding CmdAceptarMaterial}" IsVisible="{Binding HayResultado}"/>
+
+            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}"></ActivityIndicator>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

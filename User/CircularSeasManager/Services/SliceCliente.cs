@@ -6,6 +6,7 @@ using RestSharp;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using CircularSeasManager.Models;
+using CircularSeas;
 
 namespace CircularSeasManager.Services {
     public class SliceCliente {
@@ -22,7 +23,7 @@ namespace CircularSeasManager.Services {
         /// </summary>
         /// <param name="IDprinter">Identificador da impresora</param>
         /// <returns>Obxeto ca información do JSON deserializada</returns>
-        public async Task<InfoTopsis> GetDatos(string IDprinter) {
+        public async Task<CircularSeas.Models.DTO.DataDTO> GetDatos(string IDprinter) {
             //Solicitude dos datos ao servizo na nube, para o ID da impresora fixado
             var request = new RestRequest("/circularseas/Printer/" + IDprinter, Method.GET);
             //Espera recepción
@@ -30,7 +31,7 @@ namespace CircularSeasManager.Services {
             //Comproba resultado e devolve en consonancia
             resultRequest = response.StatusCode;
             if (response.StatusCode == HttpStatusCode.OK) { //Non se estableceu conexion
-                return JsonConvert.DeserializeObject<InfoTopsis>(response.Content);
+                return JsonConvert.DeserializeObject<CircularSeas.Models.DTO.DataDTO>(response.Content);
             }
             else {
                 return null;

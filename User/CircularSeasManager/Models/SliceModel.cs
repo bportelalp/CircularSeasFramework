@@ -15,7 +15,7 @@ namespace CircularSeasManager.Models {
         public ObservableCollection<string> CalidadCollection { get; set; }
 
         //Almacén de todos los datos
-        public InfoTopsis DataMaterial = new InfoTopsis();
+        public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();
 
         //Selección de Soporte
         private bool _usarSoporte;
