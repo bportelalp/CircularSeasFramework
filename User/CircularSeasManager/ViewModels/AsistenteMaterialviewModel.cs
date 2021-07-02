@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace CircularSeasManager.ViewModels {
     public class AsistenteMaterialviewModel : AsistenteMaterialModel {
-
+        
         //Comando para calcular.
         public Command CmdSugerir { get; set; }
         //Comando para aceptar material
@@ -24,7 +24,7 @@ namespace CircularSeasManager.ViewModels {
         public AsistenteMaterialviewModel(CircularSeas.Models.DTO.DataDTO _material) {
 
             DataMaterial = _material;
-
+            
             //Instanciar colección con criterios para visualizar en View.
             ValueUserCollection = new ObservableCollection<ValueUser>();
             foreach (string item in DataMaterial.InfoTopsis.PropertiesNames) {
