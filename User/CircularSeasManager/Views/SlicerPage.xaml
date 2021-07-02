@@ -42,7 +42,7 @@
                 <Label Grid.Row="2" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
                        Text="{x:Static resources:AppResources.Material}" />
 
-                <Picker x:Name="PickerMaterial" ItemsSource="{Binding MaterialCollection}" SelectedItem="{Binding materialSelected}" 
+                <Picker x:Name="PickerMaterial" ItemsSource="{Binding MaterialCollection}" SelectedItem="{Binding MaterialSelected}" 
                     Grid.Row="2" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                 <Button Text="{x:Static resources:AppResources.btnHelp}" Command="{Binding CmdAyuda}" IsEnabled="true"
                         Grid.Row="2" Grid.Column="2"></Button>
@@ -50,12 +50,12 @@
 
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
                        Text="{x:Static resources:AppResources.Profile}" />
-                <Picker x:Name="PickerCalidad" ItemsSource="{Binding CalidadCollection}" SelectedItem="{Binding calidadSelected}"
+                <Picker x:Name="PickerCalidad" ItemsSource="{Binding ProfileCollection}" SelectedItem="{Binding calidadSelected}"
                         Grid.Row="3" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
 
                 <Label Grid.Row="4" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
                        Text="{x:Static resources:AppResources.EnableSupport}" />
-                <CheckBox x:Name="CheckSoporte" IsChecked="{Binding usarSoporte}"
+                <CheckBox x:Name="CheckSoporte" IsChecked="{Binding UseSupport}"
                           Grid.Row="4" Grid.Column="1"/>
 
             </Grid>
@@ -65,7 +65,7 @@
             <!--<Button Text="PICK" Command="{Binding CmdPickSTL}"
                     Margin="30, 5"></Button>-->
 
-            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}"></ActivityIndicator>
+            <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
             <Label Text="{Binding MensajeStatus}" HorizontalTextAlignment="Center"></Label>
         </StackLayout>
     </ContentPage.Content>

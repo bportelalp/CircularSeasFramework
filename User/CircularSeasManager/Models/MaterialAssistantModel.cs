@@ -11,25 +11,25 @@ namespace CircularSeasManager.Models {
 
         //Almacén de todos los datos
         public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();
-        public List<Filament> filamentosfiltrados = new List<Filament>();
+        public List<Filament> filtredFilaments = new List<Filament>();
         //Colección con identificador de propiedad y valor de usuario de "importancia"
         public ObservableCollection<ValueUser> ValueUserCollection { get; set; }
         //Colección co resultado da avaliación TOPSIS
-        public ObservableCollection<ResultadoTOPSIS> ResultadoTOPSISCollection { get; set; }
+        public ObservableCollection<TOPSISResult> TOPSISResultCollection { get; set; }
         //Colección cas features
         public ObservableCollection<FeaturesUser> FeaturesUserCollection { get; set; }
         //Comando intermedio para mostrar info (dado que no se puede bindear un command en listview
         public Command CmdInfo { get; set; }
 
         //Almacén del resultado seleccionado
-        private ResultadoTOPSIS _materialSeleccionado;
-        public ResultadoTOPSIS MaterialSeleccionado {
-            get { return _materialSeleccionado; }
+        private TOPSISResult _selectedMaterial;
+        public TOPSISResult SelectedMaterial {
+            get { return _selectedMaterial; }
             set {
-                if (_materialSeleccionado != value) {
-                    _materialSeleccionado = value;
+                if (_selectedMaterial != value) {
+                    _selectedMaterial = value;
                     //Lanza comando
-                    CmdInfo.Execute(_materialSeleccionado);
+                    CmdInfo.Execute(_selectedMaterial);
                     OnPropertyChanged();
                 }
             }
@@ -38,57 +38,57 @@ namespace CircularSeasManager.Models {
 
 
         //Confirmación de que existe un resultado calculado
-        private bool _HayResultado = false;
-        public bool HayResultado {
-            get { return _HayResultado; }
-            set { _HayResultado = value; OnPropertyChanged(); }
+        private bool _HaveResult = false;
+        public bool HaveResult {
+            get { return _HaveResult; }
+            set { _HaveResult = value; OnPropertyChanged(); }
         }
 
         //Mensaje con información del material
-        private string _InfoMaterial;
+        private string _infoMaterial;
         public string InfoMaterial {
-            get { return _InfoMaterial; }
+            get { return _infoMaterial; }
             set {
-                if (_InfoMaterial != value) {
-                    _InfoMaterial = value;
+                if (_infoMaterial != value) {
+                    _infoMaterial = value;
                     OnPropertyChanged();
                 }
             }
         }
         //Clase para contener datos de valoración
         public class ValueUser {
-            public string Propiedade { get; set; }
-            public double Valoracion { get; set; }
+            public string Property { get; set; }
+            public double Valoration { get; set; }
         }
 
         //Clase de resultado
-        public class ResultadoTOPSIS {
-            public string NomeMaterial { get; set; }
-            public double Afinidade { get; set; }
-            public double Afinidade100 { get; set; }
+        public class TOPSISResult {
+            public string MaterialName { get; set; }
+            public double Affinity { get; set; }
+            public double Affinity100 { get; set; }
             public string Stock { get; set; }
         }
 
         public class FeaturesUser {
-            public string feature { get; set; }
-            public ObservableCollection<string> optionsFeature { get; set; }
-            public string featureValueSelected { get; set; }
+            public string Feature { get; set; }
+            public ObservableCollection<string> OptionsFeature { get; set; }
+            public string FeatureValueSelected { get; set; }
         }
 
         /// <summary> Devuelve índices de desempeño de los materiales dados</summary>
-        /// <param name="criterio"> Matriz de valoración dos materiais</param>
-        /// <param name="evaluacion"> Vector de avaliación do usuario</param>
+        /// <param name="criteria"> Matriz de valoración dos materiais</param>
+        /// <param name="evaluation"> Vector de avaliación do usuario</param>
         /// <returns>Vector de performance</returns>
-        public static double[] TOPSIS(double[,] criterio, double[] evaluacion, bool[] impacto) {
+        public static double[] TOPSIS(double[,] criteria, double[] evaluation, bool[] impact) {
             /* CRITERIO: Matriz de mxn (materiales x criterios) que incluye la valoración
              para el material i sobre el criterio j en cada termino Xij
                EVALUACION: vector de n elementos (criterios) que incluye la importancia
              * que el usuario solicita para los j criterios Wj*/
 
             //Determinar dimensiones de los parámetros
-            int n_mat = criterio.GetLength(0);
-            int n_crit = criterio.GetLength(1);
-            int n_eval = evaluacion.Length;
+            int n_mat = criteria.GetLength(0);
+            int n_crit = criteria.GetLength(1);
+            int n_eval = evaluation.Length;
 
             /*PASO 1: Normalización de la matriz de decisión y de la evaluación. Los valores
              pueden no estar definidos por el mismo dominio. Se normaliza como
@@ -99,7 +99,7 @@ namespace CircularSeasManager.Models {
             for (int j = 0; j < n_crit; j++) {
                 double sumacuadrada = 0;
                 for (int i = 0; i < n_mat; i++) {
-                    sumacuadrada += Math.Pow(criterio[i, j], 2);
+                    sumacuadrada += Math.Pow(criteria[i, j], 2);
                 }
                 den_normdecision[j] = Math.Sqrt(sumacuadrada);
             }
@@ -108,18 +108,18 @@ namespace CircularSeasManager.Models {
             double[,] crit_norm = new double[n_mat, n_crit];
             for (int i = 0; i < n_mat; i++) {
                 for (int j = 0; j < n_crit; j++) {
-                    crit_norm[i, j] = criterio[i, j] / den_normdecision[j];
+                    crit_norm[i, j] = criteria[i, j] / den_normdecision[j];
                 }
             }
 
             //Normalización de decision, para que la suma de ponderaciones sea 1. Wnj = Wj/(sumatorio Wj)
             double sumaeval = 0;
             for (int i = 0; i < n_eval; i++) {
-                sumaeval += evaluacion[i];
+                sumaeval += evaluation[i];
             }
             double[] eval_norm = new double[n_eval];
             for (int i = 0; i < n_eval; i++) {
-                eval_norm[i] = evaluacion[i] / sumaeval;
+                eval_norm[i] = evaluation[i] / sumaeval;
             }
 
             /*PASO 2: COnstrucción de matriz de decisión normalizada ponderada. Se calculan mediante
@@ -148,7 +148,7 @@ namespace CircularSeasManager.Models {
                     }
                 }
                 //Según el impacto, se hace positivo o negativo
-                if (impacto[j]) {
+                if (impact[j]) {
                     Amas[j] = max;
                     Amenos[j] = min;
                 }

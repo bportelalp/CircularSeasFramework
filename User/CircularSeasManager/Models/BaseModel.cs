@@ -21,10 +21,10 @@ namespace CircularSeasManager.Models {
         //Comando común para todas las páginas
         public Command CmdConfig { get; set; }
 
-        public void OnPropertyChanged([CallerMemberName] string nombre = "") {
+        public void OnPropertyChanged([CallerMemberName] string name = "") {
             /*A este método se le manda el nombre de la propiedad, con callerMemberName el sistema obtiene la propiedad
             (sobre la cual dentro de, se llamó a esto)*/
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nombre));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
             /*Creo un método que cuando cambia una propiedad se invoca. Los parámetros:
             - this, hace referencia a que uso este modelo (esta clase)
             new PropertyChangedEventArgs, se indica el nombre de la propiedad que cambia, pasada por parámetro*/
@@ -32,11 +32,11 @@ namespace CircularSeasManager.Models {
 
 
         //Propiedad para mostrar estado de solicitud, normalmente gestionando un ActivityIndicator
-        private bool _ocupado = false;
-        public bool Ocupado {
-            get { return _ocupado; }
+        private bool _busy = false;
+        public bool Busy {
+            get { return _busy; }
             set {
-                _ocupado = value;
+                _busy = value;
                 OnPropertyChanged();
             }
         }
@@ -45,11 +45,11 @@ namespace CircularSeasManager.Models {
         public bool InPage { get; set; }
 
         public async Task AvisoPerdidaConexion() {
-            var opcion = await Application.Current.MainPage.DisplayAlert(AlertResources.DisconnectedHeader, 
+            var option = await Application.Current.MainPage.DisplayAlert(AlertResources.DisconnectedHeader, 
                 AlertResources.DisconnectedBody, 
                 AlertResources.DisconnectedBack, 
                 AlertResources.DisconnectedWait);
-            if (opcion) {
+            if (option) {
                 Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
             }
             else {
@@ -60,7 +60,7 @@ namespace CircularSeasManager.Models {
         /// <summary>
         /// Abre la página de configuración
         /// </summary>
-        public async Task IrAConfig() {
+        public async Task GoToSettings() {
             //Abrir nueva página de configuración
             await Application.Current.MainPage.Navigation.PushAsync(new Views.SettingsPage());
         }

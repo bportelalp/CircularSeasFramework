@@ -28,21 +28,21 @@
                 <Label Grid.Row="0" Grid.Column="0" FontSize="Body"
                        Text="{x:Static resources:AppResources.PrinterStatus}" />
                 <Grid Grid.Row="0" Grid.Column="1">
-                    <Label x:Name="lblEstado" Text="{Binding estadoImpresora}" FontAttributes="Bold" FontSize="Subtitle"
+                    <Label x:Name="lblEstado" Text="{Binding PrinterState}" FontAttributes="Bold" FontSize="Subtitle"
                        Grid.Row="0" Grid.Column="0" />
-                    <Button Text="Conectar" Grid.Row="0" Grid.Column="1" IsVisible="{Binding ImpresoraOffline}"
+                    <Button Text="Conectar" Grid.Row="0" Grid.Column="1" IsVisible="{Binding PrinterOffline}"
                         Command="{Binding CmdConectar}" />
 
                     
                 </Grid>
                 <Label Grid.Row="1" Grid.Column="0" FontSize="Body"
                        Text="{x:Static resources:AppResources.Temperature}" />
-                <Label x:Name="lblhotendtemp" Text="{Binding TempCadena}"
+                <Label x:Name="lblhotendtemp" Text="{Binding StringTemperature}"
                        Grid.Row="1" Grid.Column="1" FontSize="Body"/>
                 
                 <Label Grid.Row="2" Grid.Column="0" FontSize="Body"
                        Text="{x:Static resources:AppResources.CurrentFile}" />
-                <Label x:Name="lblFichero" Text="{Binding nombreFichero}"
+                <Label x:Name="lblFichero" Text="{Binding FileName}"
                        Grid.Row="2" Grid.Column="1" FontSize="Body"/>
 
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Body"
@@ -52,10 +52,10 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <ProgressBar x:Name="ProgresoBar" Progress="{Binding progresoBar}" ProgressColor="Green" 
+                    <ProgressBar x:Name="ProgresoBar" Progress="{Binding ProgressBar}" ProgressColor="Green" 
                         Grid.Row="0" Grid.Column="0" />
                     <Label Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" FontSize="Body"
-                       Text="{Binding progreso, StringFormat='{0:F2} %'}" />
+                       Text="{Binding Progress, StringFormat='{0:F2} %'}" />
                 </Grid>
                 
                 <Label Grid.Row="4" Grid.Column="0" FontSize="Body"
@@ -67,7 +67,7 @@
             <Grid x:Name="GridBotones" >
                 <Button Text="{x:Static resources:AppResources.btnStop}" Grid.Row="0" Grid.Column="0" Margin="30, 5"
                         Command="{Binding CmdDetener}" />
-                <Button Text="{Binding PausaResume}" Grid.Row="0" Grid.Column="1" Margin="30, 5"
+                <Button Text="{Binding PauseOrResume}" Grid.Row="0" Grid.Column="1" Margin="30, 5"
                         Command="{Binding CmdPausar}" />
 
             </Grid>
@@ -79,7 +79,7 @@
                     Margin="30, 5"></Button>
             <Button Text="{x:Static resources:AppResources.btnLogout}" Command="{Binding CmdCerrarSesion}" 
                     Margin="30, 5" VerticalOptions="EndAndExpand"></Button>
-            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}"></ActivityIndicator>
+            <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

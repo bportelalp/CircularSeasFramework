@@ -15,7 +15,7 @@ namespace CircularSeasManager.ViewModels {
         public Command CmdEliminar { get; set; }
 
         public PrintLocalViewModel() {
-            ficherosCollection = new ObservableCollection<string>();
+            FilesCollection = new ObservableCollection<string>();
             CmdFicherosLocales = new Command(async () => await ObtenerArchivos());
             CmdEnviarImprimir = new Command(async () => await EnviarImprimir());
             CmdEliminar = new Command(async () => await EliminarFichero());
@@ -26,39 +26,39 @@ namespace CircularSeasManager.ViewModels {
         
         public async Task ObtenerArchivos() {
             
-            var resp = await Global.ClientePrint.GetFiles();
-            if (Global.ClientePrint.ResultRequest == EstadoRequest.Ok) {
+            var resp = await Global.PrinterClient.GetFiles();
+            if (Global.PrinterClient.ResultRequest == RequestState.Ok) {
                 //Copia la lista de ficheros que se devuelve en la colección, para que por binding se muestre en el listview
-                resp.ForEach(x => ficherosCollection.Add(x));
+                resp.ForEach(x => FilesCollection.Add(x));
             }
             else {
-                if (Global.ClientePrint.ResultRequest == EstadoRequest.SinConexion) {
+                if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
                     await AvisoPerdidaConexion();
                 }
             }
         }
 
         public async Task EnviarImprimir() {
-            if (gcodeSeleccionado == null) {
+            if (SelectedGCODE == null) {
                 //Tratamiento, no se seleccionó ningún gcode para imprimir.
                 await Application.Current.MainPage.DisplayAlert(AlertResources.PrintingHeaderError,
                             AlertResources.PrintingBodySelectOne,
                             AlertResources.PrintingReturn);
             }
             else {
-                var estado = await Global.ClientePrint.PostImprimir(gcodeSeleccionado);
+                var estado = await Global.PrinterClient.PostPrintFile(SelectedGCODE);
                 if (estado == false) { //si no se pudo hacer, se comprueba por qué
-                    if (Global.ClientePrint.ResultRequest == EstadoRequest.NoExiste) {
+                    if (Global.PrinterClient.ResultRequest == RequestState.NotExist) {
                         //Tratamiento de que no existe ese fichero
                     }
-                    else if (Global.ClientePrint.ResultRequest == EstadoRequest.Ocupado) {
+                    else if (Global.PrinterClient.ResultRequest == RequestState.Busy) {
                         //Tratamiento de que la impresora se encuentra imprimiendo
                         await Application.Current.MainPage.DisplayAlert(AlertResources.PrintingHeaderError,
                             AlertResources.PrintingBodyProcessing,
                             AlertResources.PrintingReturn);
                         await Application.Current.MainPage.Navigation.PopAsync();
                     }
-                    else if (Global.ClientePrint.ResultRequest == EstadoRequest.SinConexPrinter) {
+                    else if (Global.PrinterClient.ResultRequest == RequestState.FailPrinterConnection) {
                         //No se pudo establecer conexión con la impresora
                     }
                 }
@@ -70,21 +70,21 @@ namespace CircularSeasManager.ViewModels {
         }
 
         public async Task EliminarFichero() {
-            if (gcodeSeleccionado == null) {
+            if (SelectedGCODE == null) {
                 //Tratamiento, no se seleccionó ningún gcode para eliminar
                 await Application.Current.MainPage.DisplayAlert(AlertResources.DeletingHeader,
                             AlertResources.DeletingBodySelectOne,
                             AlertResources.PrintingReturn);
             }
             else {
-                var estado = await Global.ClientePrint.DeleteFile(gcodeSeleccionado);
-                ficherosCollection.Remove(gcodeSeleccionado);
+                var estado = await Global.PrinterClient.DeleteFile(SelectedGCODE);
+                FilesCollection.Remove(SelectedGCODE);
                 if (estado == false) {
                    //Cuando hubo error en la operación
-                    if (Global.ClientePrint.ResultRequest == EstadoRequest.NoExiste) {
+                    if (Global.PrinterClient.ResultRequest == RequestState.NotExist) {
                         //Tratamiento de que no existe ese fichero
                     }
-                    if (Global.ClientePrint.ResultRequest == EstadoRequest.Ocupado) {
+                    if (Global.PrinterClient.ResultRequest == RequestState.Busy) {
                         //Tratamiento de que ese fichero está siendo impreso y por lo tanto no se puede eliminar
                         await Application.Current.MainPage.DisplayAlert(AlertResources.DeletingHeader,
                             AlertResources.DeletingBodyErrorProcesing,

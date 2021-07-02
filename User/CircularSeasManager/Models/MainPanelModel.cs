@@ -11,45 +11,45 @@ namespace CircularSeasManager.Models {
 
 
         //Estado impresora, mostrado en pantalla
-        private string _estadoImpresora;
-        public string estadoImpresora {
-            get { return _estadoImpresora; }
+        private string _printerState;
+        public string PrinterState {
+            get { return _printerState; }
             set {
-                if (_estadoImpresora != value) {
-                    _estadoImpresora = value;
+                if (_printerState != value) {
+                    _printerState = value;
                     OnPropertyChanged();
                 }
             }
         }
 
         //Nombre del fichero, mostrando en pantalla
-        private string _nombreFichero;
-        public string nombreFichero {
-            get { return _nombreFichero; }
+        private string _fileName;
+        public string FileName {
+            get { return _fileName; }
             set {
-                if (_nombreFichero != value) {
-                    _nombreFichero = value;
+                if (_fileName != value) {
+                    _fileName = value;
                     OnPropertyChanged();
                 }
             }
         }
 
         //Porcentaje de trabajo realizadp
-        private float _progreso;
-        public float progreso {
-            get { return _progreso; } //Lo devuelve en porcentaje
+        private float _progress;
+        public float Progress {
+            get { return _progress; } //Lo devuelve en porcentaje
             set {
-                if (_progreso != value) {
-                    _progreso = value;
+                if (_progress != value) {
+                    _progress = value;
                     OnPropertyChanged();
-                    OnPropertyChanged(nameof(progresoBar));
+                    OnPropertyChanged(nameof(ProgressBar));
                 }
             }
         }
 
         //Porcentaje en tanto por uno, para la toolbar (sólo admite get)
-        public float progresoBar {
-            get { return (_progreso / 100); } //Lo devuelve en porcentaje
+        public float ProgressBar {
+            get { return _progress / 100; } //Lo devuelve en porcentaje
         }
 
         //Temperatura del extrusor
@@ -60,7 +60,7 @@ namespace CircularSeasManager.Models {
                 if (_HotendTemp != value) {
                     _HotendTemp = value;
                     //OnPropertyChanged();
-                    OnPropertyChanged(nameof(TempCadena)); //Notifica un cambio en la cadena
+                    OnPropertyChanged(nameof(StringTemperature)); //Notifica un cambio en la cadena
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace CircularSeasManager.Models {
                 if (_BedTemp != value) {
                     _BedTemp = value;
                     //OnPropertyChanged();
-                    OnPropertyChanged(nameof(TempCadena)); //Notifica un cambio en la cadena
+                    OnPropertyChanged(nameof(StringTemperature)); //Notifica un cambio en la cadena
                 }
             }
         }
@@ -99,16 +99,16 @@ namespace CircularSeasManager.Models {
             } 
         }
         
-        public string TempCadena {
+        public string StringTemperature {
             get { return $"{StringResources.Extruder}: {_HotendTemp} ºC / {StringResources.Hotbed}: {_BedTemp} ºC"; }
         }
 
-        private string _PausaResume = StringResources.Pause;
-        public string PausaResume {
-            get { return _PausaResume; }
+        private string _PauseOrResume = StringResources.Pause;
+        public string PauseOrResume {
+            get { return _PauseOrResume; }
             set {
-                if (_PausaResume != value) {
-                    _PausaResume = value;
+                if (_PauseOrResume != value) {
+                    _PauseOrResume = value;
                     OnPropertyChanged();
                    
                 }
@@ -116,12 +116,12 @@ namespace CircularSeasManager.Models {
         }
 
         //Impresora conectada
-        private bool _ImpresoraOffline;
-        public bool ImpresoraOffline {
-            get { return _ImpresoraOffline; }
+        private bool _printerOffline;
+        public bool PrinterOffline {
+            get { return _printerOffline; }
             set {
-                if (_ImpresoraOffline != value) {
-                    _ImpresoraOffline = value;
+                if (_printerOffline != value) {
+                    _printerOffline = value;
                     OnPropertyChanged();
                 }
             }

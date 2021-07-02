@@ -19,7 +19,7 @@ namespace CircularSeasManager.Views {
         }
 
         protected override void OnAppearing() {
-            context.materialSelected = Global.MaterialRecomendado;
+            context.MaterialSelected = Global.MaterialRecomendado;
             base.OnAppearing();
         }
     }

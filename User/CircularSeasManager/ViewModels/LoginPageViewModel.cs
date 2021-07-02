@@ -12,7 +12,7 @@ using Xamarin.Essentials;
 using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.ViewModels {
-    public class LoginPageViewModel : PaginaLoginModel {
+    public class LoginPageViewModel : LoginPageModel {
 
         /*COMANDOS: En arquitectura MVVM son métodos que se ejecutan en respuesta a una actividad específica
         Normalmente por ejemplo al clicar o pulsar un botón*/
@@ -21,27 +21,27 @@ namespace CircularSeasManager.ViewModels {
 
         public LoginPageViewModel() {
             /*Se asocia cada comando al método correspondiente(de forma asincrona) y además se indica que
-             se ejecutan sólo si ocupado es false, es decir, que no haya otro método en curso*/
-            CmdIniciarSesion = new Command(async()=>await IniciarSesion(), () => !Ocupado);
-            CmdConfig = new Command(async () => await IrAConfig(), () => !Ocupado);
-            CmdExpert = new Command(async () => await ModoExperto(), () => !Ocupado);
+             se ejecutan sólo si Busy es false, es decir, que no haya otro método en curso*/
+            CmdIniciarSesion = new Command(async()=>await Login(), () => !Busy);
+            CmdConfig = new Command(async () => await GoToSettings(), () => !Busy);
+            CmdExpert = new Command(async () => await ExpertMode(), () => !Busy);
             _ = GetSecureCredenciales(); //no es awaited pero no importa, porque no devuelve valor, se añade descarte
         }
         
         //Método asociado al comando iniciar sesión
-        private async Task IniciarSesion() {
+        private async Task Login() {
             //Crea el objeto con la nueva IP, comprobando antes si lleva la cabecera http://
-            Global.ClientePrint = new OctoCliente((IPOctoprint.StartsWith("http://") == true) ? IPOctoprint : ("http://" + IPOctoprint));
-            Global.ClienteSlice = new SliceCliente((IPSlicer.StartsWith("http://") == true) ? IPSlicer : ("http://" + IPSlicer));
-            Ocupado = true;
-            var resultado = await Global.ClientePrint.login(Usuario, Pass);
-            Ocupado = false;
+            Global.PrinterClient = new OctoClient((IPOctoprint.StartsWith("http://") == true) ? IPOctoprint : ("http://" + IPOctoprint));
+            Global.ClienteSlice = new SliceClient((IPSlicer.StartsWith("http://") == true) ? IPSlicer : ("http://" + IPSlicer));
+            Busy = true;
+            var result = await Global.PrinterClient.Login(UserInput, Pass);
+            Busy = false;
 
-            if (resultado) {
-                MensajeInicio = StringResources.Logged;
-                if (Recordarme) {
+            if (result) {
+                InitMessage = StringResources.Logged;
+                if (Rememberme) {
                     try {
-                        await SecureStorage.SetAsync("user", Usuario);
+                        await SecureStorage.SetAsync("user", UserInput);
                         await SecureStorage.SetAsync("password", Pass);
                     }
                     catch (Exception ex) {
@@ -53,7 +53,7 @@ namespace CircularSeasManager.ViewModels {
                 }
 
                 //Obtener Printer REVISION
-                var resultado2 = await Global.ClientePrint.GetConexPrinter();
+                var resultado2 = await Global.PrinterClient.GetConexPrinter();
                 if (resultado2 != null) {
                     printer = resultado2.options.printerProfiles[0].name;
                 }
@@ -61,16 +61,16 @@ namespace CircularSeasManager.ViewModels {
             }
 
             else { 
-                if (Global.ClientePrint.ResultRequest == Services.EstadoRequest.Auth) {
-                    MensajeInicio = StringResources.UserPassWrong;
+                if (Global.PrinterClient.ResultRequest == Services.RequestState.Auth) {
+                    InitMessage = StringResources.UserPassWrong;
                 }
-                else if (Global.ClientePrint.ResultRequest == Services.EstadoRequest.SinConexion) {
-                    MensajeInicio = StringResources.ErrorConnection;
+                else if (Global.PrinterClient.ResultRequest == Services.RequestState.NoConnection) {
+                    InitMessage = StringResources.ErrorConnection;
                 }
             }      
         }
 
-        private async Task ModoExperto() {
+        private async Task ExpertMode() {
             await Browser.OpenAsync(IPOctoprint, BrowserLaunchMode.SystemPreferred);
         }
     }

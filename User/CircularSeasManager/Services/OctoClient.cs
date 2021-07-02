@@ -15,53 +15,53 @@ namespace CircularSeasManager.Services {
 
     /*ESTE ES EL SERVICIO. Aqui se incorpora objeto y métodos encargados de gestionar los cálculos para pedir
      datos y demás*/
-    public enum EstadoRequest {
+    public enum RequestState {
         Ok,
-        SinConexion,
+        NoConnection,
         Auth,
-        Ocupado,
-        NoExiste,
-        SinConexPrinter,
-        Otro,
-        ExtensionIncorrecta,
+        Busy,
+        NotExist,
+        FailPrinterConnection,
+        Other,
+        BadFileExtension,
     }
 
-    public class OctoCliente {
+    public class OctoClient {
         private string urlbase;
-        private RestClient cliente;
-        private FilesJSON.RootObj FilesGuardado = new FilesJSON.RootObj();
-        public EstadoRequest ResultRequest;
+        private RestClient client;
+        private FilesJSON.RootObj FilesSaved = new FilesJSON.RootObj();
+        public RequestState ResultRequest;
 
         /// <summary>Constructor, construye objeto asociado a una URL del servidor </summary>
         /// <param name="urlbase_"> URL base del servicio REST</param>
-        public OctoCliente(string urlbase_) {
+        public OctoClient(string urlbase_) {
             urlbase = urlbase_;
-            cliente = new RestClient(urlbase);
+            client = new RestClient(urlbase);
         }
 
         /// <summary>Función interna para obtener si la petición fue bien. Si fue mal, guarda algunos de los códigos más comunes en ResultRequest.
         /// Para otros códigos más específicos, se realiza la comprobación en la propia tarea.</summary>
         /// <param name="statuscode">Se le pasa el response.statuscode para hacer a comprobación.</param>
         /// <returns>booleano indicando si todo bien o no</returns>
-        internal bool SinErroresHttp(HttpStatusCode statuscode) {
+        internal bool NoErrorsHTTP(HttpStatusCode statuscode) {
             switch (statuscode) {
                 case HttpStatusCode.OK:
-                    ResultRequest = EstadoRequest.Ok;
+                    ResultRequest = RequestState.Ok;
                     return true;
                 case HttpStatusCode.NoContent:
-                    ResultRequest = EstadoRequest.Ok;
+                    ResultRequest = RequestState.Ok;
                     return true;
                 case HttpStatusCode.Created:
-                    ResultRequest = EstadoRequest.Ok;
+                    ResultRequest = RequestState.Ok;
                     return true;
                 case HttpStatusCode.Forbidden:
-                    ResultRequest = EstadoRequest.Auth;
+                    ResultRequest = RequestState.Auth;
                     return false;
                 case 0:
-                    ResultRequest = EstadoRequest.SinConexion;
+                    ResultRequest = RequestState.NoConnection;
                     return false;
                 default:
-                    ResultRequest = EstadoRequest.Otro;
+                    ResultRequest = RequestState.Other;
                     return false;
             }
         }
@@ -76,33 +76,33 @@ namespace CircularSeasManager.Services {
          */
 
         ///<summary>Establece conexión autenticada con la REST API de Octoprint de forma asíncrona.</summary>
-        public async Task<bool> login(string user, string password) {
+        public async Task<bool> Login(string user, string password) {
             //Activa contenedor de cookies y establece los datos de autenticación
-            cliente.CookieContainer = new CookieContainer();
+            client.CookieContainer = new CookieContainer();
             //Genera body con los datos de inicio de sesión.
-            var credencial = new LoginJSON.RootObj();
-            credencial.user = user;
-            credencial.pass = password;
+            var credential = new LoginJSON.RootObj();
+            credential.user = user;
+            credential.pass = password;
 
             //Realiza la petición de login, con esta petición ya se guarda la primera cookie para sucesivas
             var request = new RestRequest("/api/login", Method.POST);
-            request.AddJsonBody(credencial);
+            request.AddJsonBody(credential);
 
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
 
-            if (SinErroresHttp(response.StatusCode)) { return true; }
+            if (NoErrorsHTTP(response.StatusCode)) { return true; }
             else { return false; }
 
         }
 
         /// <summary>Cierra sesión en el servidor.</summary>
         /// <returns></returns>
-        public async Task<bool> logout() {
+        public async Task<bool> Logout() {
             //Petición de cerrar la sesión.
             var request = new RestRequest("/api/logout", Method.POST);
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
 
-            if (SinErroresHttp(response.StatusCode)) { return true; }
+            if (NoErrorsHTTP(response.StatusCode)) { return true; }
             else { return false; }
 
         }
@@ -111,10 +111,10 @@ namespace CircularSeasManager.Services {
         public async Task<string> GetVersion() {
             // Realiza petición de la versión.
             var request = new RestRequest("/api/version", Method.GET);
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
             //Importa el JSON como objeto
 
-            if (SinErroresHttp(response.StatusCode)) {
+            if (NoErrorsHTTP(response.StatusCode)) {
                 var version = JsonConvert.DeserializeObject<VersionJSON.RootObj>(response.Content);
                 return version.text;
             }
@@ -126,9 +126,9 @@ namespace CircularSeasManager.Services {
         public async Task<ConexJSON.RootObj> GetConexPrinter() {
 
             var request = new RestRequest("/api/connection", Method.GET);
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
 
-            if (SinErroresHttp(response.StatusCode)) {
+            if (NoErrorsHTTP(response.StatusCode)) {
                 var conexion = JsonConvert.DeserializeObject<ConexJSON.RootObj>(response.Content);
                 return conexion;
             }
@@ -142,24 +142,24 @@ namespace CircularSeasManager.Services {
             var request = new RestRequest("/api/connection", Method.POST, DataFormat.Json);
 
             //Prepara los parámetros en función de si se pide encender o apagar
-            var peticion = new ConexRequestJSON.RootObj();
+            var requestconex = new ConexRequestJSON.RootObj();
             if (ordenConexion) {
                 //Conexión típica.
-                peticion.command = "connect";
-                peticion.port = port;
-                peticion.baudrate = baudrate;
-                peticion.printerProfile = printerProfile;
+                requestconex.command = "connect";
+                requestconex.port = port;
+                requestconex.baudrate = baudrate;
+                requestconex.printerProfile = printerProfile;
             }
             else {
                 //Sólo orden desconectar.
-                peticion.command = "disconnect";
+                requestconex.command = "disconnect";
             }
 
             //Añade cuerpo y ejecuta la petición
-            request.AddJsonBody(peticion);
-            var response = await cliente.ExecuteAsync(request);
+            request.AddJsonBody(requestconex);
+            var response = await client.ExecuteAsync(request);
 
-            if (SinErroresHttp(response.StatusCode)) {
+            if (NoErrorsHTTP(response.StatusCode)) {
                 return true;
             }
             else { return false; }
@@ -177,14 +177,14 @@ namespace CircularSeasManager.Services {
         public async Task<List<string>> GetFiles() {
             //Realizar la petición
             var request = new RestRequest("/api/files/local", Method.GET);
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
             //Construir lista con todos los nombres de los archivos encontrados en local, directorio raíz.
 
             
 
-            if (SinErroresHttp(response.StatusCode)) {
-                var ficheros = JsonConvert.DeserializeObject<FilesJSON.RootObj>(response.Content);
-                FilesGuardado = ficheros;
+            if (NoErrorsHTTP(response.StatusCode)) {
+                var files = JsonConvert.DeserializeObject<FilesJSON.RootObj>(response.Content);
+                FilesSaved = files;
                 
                 /*--------COSAS PRUEBAS-----------*/
                 /*var req = new RestRequest(ficheros.files[0].refs.download, Method.GET);
@@ -209,14 +209,14 @@ namespace CircularSeasManager.Services {
 
 
                 //Crear lista de ficheros
-                List<string> listafich = new List<string>();
-                for (int i = 0; i < ficheros.files.Length; i++) {
-                    if (ficheros.files[i].type == "machinecode") {
-                        listafich.Add(ficheros.files[i].name);
+                List<string> filelist = new List<string>();
+                for (int i = 0; i < files.files.Length; i++) {
+                    if (files.files[i].type == "machinecode") {
+                        filelist.Add(files.files[i].name);
                     }
                 }
 
-                return listafich;
+                return filelist;
             }
             else { return null; }
         }
@@ -227,19 +227,19 @@ namespace CircularSeasManager.Services {
         public async Task<bool> DeleteFile(string path) {
             //Ejecuta petición
             var request = new RestRequest("/api/files/local/" + path, Method.DELETE);
-            var response = await cliente.ExecuteAsync(request);
-            if (SinErroresHttp(response.StatusCode)) {
+            var response = await client.ExecuteAsync(request);
+            if (NoErrorsHTTP(response.StatusCode)) {
                 return true; //Borrado correcto
             }
             else {
                 if (response.StatusCode == HttpStatusCode.Conflict) {
                     //Se produce porque ese archivo está siendo procesado por la impresora
-                    ResultRequest = EstadoRequest.Ocupado;
+                    ResultRequest = RequestState.Busy;
                     return false;
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound) {
                     //Porque no existe ya en la base de datos
-                    ResultRequest = EstadoRequest.NoExiste;
+                    ResultRequest = RequestState.NotExist;
                     return false;
                 }
                 else {//Cualquer otro caso (auth, conexión...
@@ -252,28 +252,28 @@ namespace CircularSeasManager.Services {
         /// Envía al servicio Rest un archivo con extensión .gcode, para imprimirlo por Octoprint
         /// </summary>
         /// <param name="gcod">Archivo a enviar, de tipo FileData (Plugin Fileicker)</param>
-        /// <param name="imprimir">Orden de impresión (true imprimir, false no imprimir)</param>
+        /// <param name="printNow">Orden de impresión (true imprimir, false no imprimir)</param>
         /// <returns></returns>
-        public async Task<bool> UploadFile(byte[] gcod, string name, bool imprimir) {
+        public async Task<bool> UploadFile(byte[] gcod, string name, bool printNow) {
             var request = new RestRequest("/api/files/local", Method.POST);
 
             //FALTA POR IMPLEMENTAR TRY CATCH PARA EL FILEPICKER Y ADEMÁS LA GESTION DE ERRORES POR COMUNICACIONES.
-            if (imprimir) {
+            if (printNow) {
                 //si se desea imprimir, se añaden estos parámetros.
                 request.AddParameter("select", "true");
                 request.AddParameter("print", "true");
             }
             
             request.AddFileBytes("file", gcod, name, "application/octet-stream");
-            var response = await cliente.ExecuteAsync(request);
-            if (SinErroresHttp(response.StatusCode)) {
+            var response = await client.ExecuteAsync(request);
+            if (NoErrorsHTTP(response.StatusCode)) {
                 return true;
             }
             else {
                 if (response.StatusCode == HttpStatusCode.BadRequest) {
                     //Este bad request en realidad ocurre por enviar un archivo con extensión incorrecta, se lo indico
                     //No debería pasar por el if inicial pero igualmente se lo considero
-                    ResultRequest = EstadoRequest.ExtensionIncorrecta;
+                    ResultRequest = RequestState.BadFileExtension;
                     return false;
                 }
                 else {
@@ -294,11 +294,11 @@ namespace CircularSeasManager.Services {
         ///<summary>Devuelve información sobre el trabajo en curso</summary>
         public async Task<JobJSON.RootObj> GetCurrentjob() {
             var request = new RestRequest("/api/job", Method.GET);
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
 
-            if (SinErroresHttp(response.StatusCode)) {
-                var trabajo = JsonConvert.DeserializeObject<JobJSON.RootObj>(response.Content);
-                return trabajo;
+            if (NoErrorsHTTP(response.StatusCode)) {
+                var job = JsonConvert.DeserializeObject<JobJSON.RootObj>(response.Content);
+                return job;
             }
             else { return null; }
         }
@@ -306,44 +306,44 @@ namespace CircularSeasManager.Services {
         /// <summary>Envía una orden de impresión</summary>
         /// <param name="name">Nombre del archivo que se desea imprimir</param>
         /// <returns>Bool que indica si el resultado fue bueno, si no, el estado se almacena en ResultRequest.</returns>
-        public async Task<bool> PostImprimir(string name) {
+        public async Task<bool> PostPrintFile(string name) {
             string path = "";
-            for (int i = 0; i < FilesGuardado.files.Length; i++) {
-                if (FilesGuardado.files[i].name == name) {
-                    path = "local/" + FilesGuardado.files[i].path;
+            for (int i = 0; i < FilesSaved.files.Length; i++) {
+                if (FilesSaved.files[i].name == name) {
+                    path = "local/" + FilesSaved.files[i].path;
                     break;
                 }
             }
             var request = new RestRequest("/api/files/" + path, Method.POST);
             //Ejecuta comando seleccionar y activa la impresión inmediata.
-            var JSONenvio = new FileCommandJSON.RootObj();
-            JSONenvio.command = "select";
-            JSONenvio.print = true;
-            request.AddJsonBody(JSONenvio);
+            var jsonSended = new FileCommandJSON.RootObj();
+            jsonSended.command = "select";
+            jsonSended.print = true;
+            request.AddJsonBody(jsonSended);
 
-            var response = await cliente.ExecuteAsync(request);
-            if (SinErroresHttp(response.StatusCode)) {
+            var response = await client.ExecuteAsync(request);
+            if (NoErrorsHTTP(response.StatusCode)) {
                 return true;
             }
             else {
                 //Aquí podría ser adicionalmente 404 not found si no se encuentra el fichero o 409 Conflict si la impresora no está operativa.
                 if (response.StatusCode == HttpStatusCode.NotFound) {
-                    ResultRequest = EstadoRequest.NoExiste;
+                    ResultRequest = RequestState.NotExist;
                     return false;
                 }
                 if (response.StatusCode == HttpStatusCode.Conflict) {
                     //Comprueba el estado.
-                    var trabajoActual = await GetCurrentjob();
-                    if (trabajoActual == null) {
+                    var currentJob = await GetCurrentjob();
+                    if (currentJob == null) {
                         return false;
                     }
                     else {
-                        if (trabajoActual.state == "Printing") {
-                            ResultRequest = EstadoRequest.Ocupado;
+                        if (currentJob.state == "Printing") {
+                            ResultRequest = RequestState.Busy;
                             return false;
                         }
-                        if (trabajoActual.state == "Offline") {
-                            ResultRequest = EstadoRequest.SinConexPrinter;
+                        if (currentJob.state == "Offline") {
+                            ResultRequest = RequestState.FailPrinterConnection;
                             return false;
                         }
                     }
@@ -359,8 +359,8 @@ namespace CircularSeasManager.Services {
             request.AddParameter("exclude", "sd, state");
             request.AddParameter("history", "false");
 
-            var response = await cliente.ExecuteAsync(request);
-            if (SinErroresHttp(response.StatusCode)) {
+            var response = await client.ExecuteAsync(request);
+            if (NoErrorsHTTP(response.StatusCode)) {
                 var printerstatus = JsonConvert.DeserializeObject<PrinterStateJSON.RootObj>(response.Content);
                 return printerstatus;
             }
@@ -371,25 +371,25 @@ namespace CircularSeasManager.Services {
         /// <summary> Envía un comando a la impresora, permitiendo iniciar, para o cancelar trabajos de impresión.</summary>
         /// <param name="comando"> Cancelar enviar "cancel", Pausar enviar "pause"</param>
         /// <returns></returns>
-        public async Task<bool> PostComandoJob(string comando) {
+        public async Task<bool> PostJobCommand(string comando) {
             var request = new RestRequest("/api/job", Method.POST);
 
-            var JSONenvio = new FileCommandJSON.RootObj();
-            JSONenvio.command = comando;
+            var jsonSended = new FileCommandJSON.RootObj();
+            jsonSended.command = comando;
             if (comando == "pause") {
                 //Enviando toggle, si está pausado reanuda, si está funcionando, pausa.
-                JSONenvio.action = "toggle";
+                jsonSended.action = "toggle";
             }
-            request.AddJsonBody(JSONenvio);
+            request.AddJsonBody(jsonSended);
 
-            var response = await cliente.ExecuteAsync(request);
-            if (SinErroresHttp(response.StatusCode)) {
+            var response = await client.ExecuteAsync(request);
+            if (NoErrorsHTTP(response.StatusCode)) {
                 return true;
             }
             else {
                 if (response.StatusCode == HttpStatusCode.Conflict) {
                     //Esto se produce porque ya está parada o no tiene sentido, devuelve igualmente true
-                    ResultRequest = EstadoRequest.Ok;
+                    ResultRequest = RequestState.Ok;
                     return true;
                 }
                 else {

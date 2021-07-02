@@ -29,8 +29,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding feature}" HorizontalTextAlignment="Center"></Label>
-                                <Picker x:Name="PickerFeature" ItemsSource="{Binding optionsFeature}" SelectedItem="{Binding featureValueSelected}"
+                                <Label Grid.Column="0" Text="{Binding Feature}" HorizontalTextAlignment="Center"></Label>
+                                <Picker x:Name="PickerFeature" ItemsSource="{Binding OptionsFeature}" SelectedItem="{Binding FeatureValueSelected}"
                                     Grid.Row="0" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                             </Grid>
                         </ViewCell>
@@ -52,9 +52,9 @@
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" Text="{Binding Propiedade}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                <Label Grid.Column="0" Text="{Binding Property}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                 <Label Grid.Column="1" Text="Low" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
-                                <Slider Grid.Column="2" Value="{Binding Valoracion}" MaximumTrackColor="Black" 
+                                <Slider Grid.Column="2" Value="{Binding Valoration}" MaximumTrackColor="Black" 
                                         MinimumTrackColor="Black" Minimum="0.1" Maximum="5"/>
                                 <Label Grid.Column="3" Text="High" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                             </Grid>
@@ -65,7 +65,7 @@
 
             <Button Text="{x:Static resources:AppResources.btnSuggest}" Command="{Binding CmdSugerir}"/>
 
-            <ListView ItemsSource="{Binding ResultadoTOPSISCollection}" SelectedItem="{Binding MaterialSeleccionado}">
+            <ListView ItemsSource="{Binding TOPSISResultCollection}" SelectedItem="{Binding SelectedMaterial}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -76,9 +76,9 @@
                                     <ColumnDefinition Width="auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding NomeMaterial}" HorizontalTextAlignment="Center"></Label>
-                                <ProgressBar Grid.Column="1" Progress="{Binding Afinidade}" />
-                                <Label Grid.Column="2" Text="{Binding Afinidade100, StringFormat='{0:00.0} %'}"/>
+                                <Label Grid.Column="0" Text="{Binding MaterialName}" HorizontalTextAlignment="Center"></Label>
+                                <ProgressBar Grid.Column="1" Progress="{Binding Affinity}" />
+                                <Label Grid.Column="2" Text="{Binding Affinity100, StringFormat='{0:00.0} %'}"/>
                                 <Label Grid.Column="3" Text="{Binding Stock}" HorizontalTextAlignment="Center"></Label>
                             </Grid>
                         </ViewCell>
@@ -88,9 +88,9 @@
 
             <Label Text="{Binding InfoMaterial}" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center"/>
 
-            <Button Text="{x:Static resources:AppResources.btnAcceptSelection}" Command="{Binding CmdAceptarMaterial}" IsVisible="{Binding HayResultado}"/>
+            <Button Text="{x:Static resources:AppResources.btnAcceptSelection}" Command="{Binding CmdAceptarMaterial}" IsVisible="{Binding HaveResult}"/>
 
-            <ActivityIndicator IsRunning="{Binding Ocupado}" IsVisible="{Binding Ocupado}"></ActivityIndicator>
+            <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

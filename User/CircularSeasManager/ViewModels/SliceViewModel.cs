@@ -24,13 +24,13 @@ namespace CircularSeasManager.ViewModels {
         //Constructor
         public SliceViewModel() {
             CmdSendSTL = new Command(async () => await EnviarSTL());
-            CmdAyuda = new Command(async () => await AbrirAsistente(), () => !Ocupado);
+            CmdAyuda = new Command(async () => await AbrirAsistente(), () => !Busy);
             CmdPickSTL = new Command(async () => await PickSTL());
 
 
             //Inicializar las colecciones
             MaterialCollection = new ObservableCollection<string>();
-            CalidadCollection = new ObservableCollection<string>();
+            ProfileCollection = new ObservableCollection<string>();
 
             //llamada para rellenarlos campos
             _ = ObtenerDatos();
@@ -52,14 +52,14 @@ namespace CircularSeasManager.ViewModels {
             //Deserializar
             DataMaterial = JsonConvert.DeserializeObject<InfoTopsis>(reader);*/
 
-            DataMaterial = await Global.ClienteSlice.GetDatos(printer);
+            DataMaterial = await Global.ClienteSlice.GetData(printer);
             if (DataMaterial != null) {
                 //Cargar a información nas coleccións para visualizar
                 foreach (CircularSeas.Models.Filament item in DataMaterial.Filaments) {
                     MaterialCollection.Add(item.Name);
                 }
                 foreach (string item in DataMaterial.Printer.Profiles) {
-                    CalidadCollection.Add(item);
+                    ProfileCollection.Add(item);
                 }
             }
             else {
@@ -78,7 +78,7 @@ namespace CircularSeasManager.ViewModels {
         }
 
         public async Task PickSTL() {
-            Ocupado = true;
+            Busy = true;
             STL = await CrossFilePicker.Current.PickFile(new string[] { ".stl", ".STL" });
             try {
                 if (!STL.FileName.EndsWith(".stl") && !STL.FileName.EndsWith(".STL")) {
@@ -95,19 +95,19 @@ namespace CircularSeasManager.ViewModels {
                         AlertResources.FileNotProvided,
                         AlertResources.Accept);
             }
-            Ocupado = false;
+            Busy = false;
         }
 
         public async Task EnviarSTL() {
             //Implementación para enviar el stl e recibilo convertido
-            Ocupado = true;
+            Busy = true;
             if (TodoListo) {
                 Tuple<string, byte[]> datos = new Tuple<string, byte[]>(null, null);
                 MensajeStatus = StringResources.Slicing + " " + STL.FileName;
-                datos = await Global.ClienteSlice.PostSTL(STL, printer, materialSelected, calidadSelected, usarSoporte);
+                datos = await Global.ClienteSlice.PostSTL(STL, printer, MaterialSelected, calidadSelected, UseSupport);
                 if (Global.ClienteSlice.resultRequest == HttpStatusCode.OK) {
                     MensajeStatus = StringResources.Uploading;
-                    await Global.ClientePrint.UploadFile(datos.Item2, datos.Item1, false);
+                    await Global.PrinterClient.UploadFile(datos.Item2, datos.Item1, false);
                     MensajeStatus = StringResources.Completed;
                     await Application.Current.MainPage.DisplayAlert(AlertResources.Ready,
                         AlertResources.CanPrintedFromLocal,
@@ -137,7 +137,7 @@ namespace CircularSeasManager.ViewModels {
                         AlertResources.AllParametersMustProvide,
                         AlertResources.Accept);
             }
-            Ocupado = false;
+            Busy = false;
         }
 
         public async Task AbrirAsistente() {

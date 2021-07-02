@@ -9,25 +9,25 @@ using CircularSeasManager.Models;
 using CircularSeas;
 
 namespace CircularSeasManager.Services {
-    public class SliceCliente {
+    public class SliceClient {
         private string urlbase;
-        private RestClient cliente;
+        private RestClient client;
         public HttpStatusCode resultRequest;
 
-        public SliceCliente(string _urlbase) {
+        public SliceClient(string _urlbase) {
             urlbase = _urlbase;
-            cliente = new RestClient(urlbase);
+            client = new RestClient(urlbase);
         }
         /// <summary>
         /// Obter os datos de Materiais e calidades dispoñibles para facer a conversión
         /// </summary>
         /// <param name="IDprinter">Identificador da impresora</param>
         /// <returns>Obxeto ca información do JSON deserializada</returns>
-        public async Task<CircularSeas.Models.DTO.DataDTO> GetDatos(string IDprinter) {
+        public async Task<CircularSeas.Models.DTO.DataDTO> GetData(string IDprinter) {
             //Solicitude dos datos ao servizo na nube, para o ID da impresora fixado
             var request = new RestRequest("/circularseas/Printer/" + IDprinter, Method.GET);
             //Espera recepción
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
             //Comproba resultado e devolve en consonancia
             resultRequest = response.StatusCode;
             if (response.StatusCode == HttpStatusCode.OK) { //Non se estableceu conexion
@@ -58,15 +58,15 @@ namespace CircularSeasManager.Services {
             //Engadir o ficheiro entrante
             request.AddFileBytes("file", _STL.DataArray, _STL.FileName, "application/octet-stream");
             //Esperar pola resposta e recollela
-            var response = await cliente.ExecuteAsync(request);
+            var response = await client.ExecuteAsync(request);
             resultRequest = response.StatusCode;
             if (resultRequest == HttpStatusCode.OK) {
                 byte[] bites = Encoding.UTF8.GetBytes(response.Content);
-                var nomeGCODE = _STL.FileName.Split(new char[] { '.' })[0] + "_" + _Material + "_" + _Quality + ".gcode";
+                var gcodeName = _STL.FileName.Split(new char[] { '.' })[0] + "_" + _Material + "_" + _Quality + ".gcode";
                 //Reenviar ao servizo local
                 //await octoCliente.UploadFile(bites, nomeGCODE, false);
                 //Podria ponrse response.RawBytes e eliminar a liña anterior
-                return new Tuple<string, byte[]>(nomeGCODE, bites);
+                return new Tuple<string, byte[]>(gcodeName, bites);
             }
             else {
                 return new Tuple<string, byte[]>(null, null);

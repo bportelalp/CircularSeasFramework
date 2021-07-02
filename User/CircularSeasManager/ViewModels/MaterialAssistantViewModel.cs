@@ -29,7 +29,7 @@ namespace CircularSeasManager.ViewModels {
             //Instanciar colección con criterios para visualizar en View.
             ValueUserCollection = new ObservableCollection<ValueUser>();
             foreach (string item in DataMaterial.InfoTopsis.PropertiesNames) {
-                ValueUserCollection.Add(new ValueUser { Propiedade = item, Valoracion = 0.1 });
+                ValueUserCollection.Add(new ValueUser { Property = item, Valoration = 0.1 });
             }
 
             //Instanciar features
@@ -38,28 +38,28 @@ namespace CircularSeasManager.ViewModels {
             opciones.Add(StringResources.Yes); opciones.Add(StringResources.No); opciones.Add(StringResources.NotApplicable);
             foreach (string item in DataMaterial.InfoTopsis.FeaturesNames) {
                 FeaturesUserCollection.Add(new FeaturesUser {
-                    feature = item,
-                    optionsFeature = new ObservableCollection<string>(opciones),
-                    featureValueSelected = StringResources.NotApplicable
+                    Feature = item,
+                    OptionsFeature = new ObservableCollection<string>(opciones),
+                    FeatureValueSelected = StringResources.NotApplicable
                 });
             }
             //Instanciar colección de resultados
-            ResultadoTOPSISCollection = new ObservableCollection<ResultadoTOPSIS>();
+            TOPSISResultCollection = new ObservableCollection<TOPSISResult>();
 
             //Comando para calcular sugerencia de material
-            CmdSugerir = new Command(() => Sugerir(), () => !Ocupado);
-            CmdInfo = new Command(() => InformarMaterial(), () => !Ocupado);
-            CmdAceptarMaterial = new Command(async () => await AceptarMaterial(), () => !Ocupado);
+            CmdSugerir = new Command(() => Sugerir(), () => !Busy);
+            CmdInfo = new Command(() => InformarMaterial(), () => !Busy);
+            CmdAceptarMaterial = new Command(async () => await AceptarMaterial(), () => !Busy);
             CmdAyuda = new Command(() => Ayuda());
         }
 
         public void Sugerir() {
             List<int> cribado = new List<int>();
             foreach (var item in FeaturesUserCollection) {
-                if (item.featureValueSelected == StringResources.Yes) {
+                if (item.FeatureValueSelected == StringResources.Yes) {
                     cribado.Add(1);
                 }
-                else if (item.featureValueSelected == StringResources.No) {
+                else if (item.FeatureValueSelected == StringResources.No) {
                     cribado.Add(0);
                 }
                 else {
@@ -78,14 +78,14 @@ namespace CircularSeasManager.ViewModels {
             double[] decision = new double[DataMaterial.InfoTopsis.PropertiesNames.Length];
             int k = 0;
             foreach (ValueUser item in ValueUserCollection) {
-                decision[k] = item.Valoracion;
+                decision[k] = item.Valoration;
                 k++;
             }
             //Instanciar array de resultado
             double[] recomendacion = new double[DataMaterial.InfoTopsis.PropertiesNames.Length];
             //Calcular y cargar en colección
             recomendacion = TOPSIS(datos, decision, new bool[4] { true, true, true, true });
-            ResultadoTOPSISCollection.Clear();
+            TOPSISResultCollection.Clear();
             for (int i = 0; i < recomendacion.Length; i++) {
                 bool pasacribado = true;
                 for (int j = 0; j < DataMaterial.Filaments[i].FeaturesValues.Length; j++) {
@@ -105,17 +105,17 @@ namespace CircularSeasManager.ViewModels {
                     }
                 }
                 if (pasacribado) {
-                    ResultadoTOPSISCollection.Add(new ResultadoTOPSIS {
-                        NomeMaterial = DataMaterial.Filaments[i].Name,
-                        Afinidade = recomendacion[i],
-                        Afinidade100 = recomendacion[i] * 100.0,
+                    TOPSISResultCollection.Add(new TOPSISResult {
+                        MaterialName = DataMaterial.Filaments[i].Name,
+                        Affinity = recomendacion[i],
+                        Affinity100 = recomendacion[i] * 100.0,
                         Stock = (DataMaterial.Filaments[i].SpoolStock > 0) ? (DataMaterial.Filaments[i].SpoolStock + " in stock") : "Out of stock"
                     });
                 }
             }
 
-            Ocupado = false;
-            HayResultado = true;
+            Busy = false;
+            HaveResult = true;
 
 
         }
@@ -123,7 +123,7 @@ namespace CircularSeasManager.ViewModels {
         public void InformarMaterial() {
             //Buscar la descripción para el material seleccionado
             for (int i = 0; i < DataMaterial.Filaments.Length; i++) {
-                if (DataMaterial.Filaments[i].Name == MaterialSeleccionado.NomeMaterial) {
+                if (DataMaterial.Filaments[i].Name == SelectedMaterial.MaterialName) {
                     InfoMaterial = DataMaterial.Filaments[i].Description;
                     break;
                 }
@@ -131,9 +131,9 @@ namespace CircularSeasManager.ViewModels {
         }
 
         public async Task AceptarMaterial() {
-            if (MaterialSeleccionado != null) {
+            if (SelectedMaterial != null) {
                 foreach (var item in DataMaterial.Filaments) {
-                    if (item.Name == MaterialSeleccionado.NomeMaterial) {
+                    if (item.Name == SelectedMaterial.MaterialName) {
                         if (item.SpoolStock == 0) {
                             var decision = await Application.Current.MainPage.DisplayAlert("Sin stock", "No hay stock actual para este material", "Pedir", "Abortar");
                             if (decision) {
@@ -144,7 +144,7 @@ namespace CircularSeasManager.ViewModels {
                             }
                         }
                         else {
-                            Global.MaterialRecomendado = MaterialSeleccionado.NomeMaterial;
+                            Global.MaterialRecomendado = SelectedMaterial.MaterialName;
                             await Application.Current.MainPage.Navigation.PopAsync();
                             break;
                         }

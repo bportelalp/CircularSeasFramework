@@ -13,27 +13,27 @@ namespace CircularSeasManager.Models{
 
     /*MODELO PAGINALOGIN: Se incorporan todos los datos relevantes e importantes en la página de inicio que sean
      * necesarios para trabajar*/
-    public class PaginaLoginModel : BaseModel {
+    public class LoginPageModel : BaseModel {
 
 
         //Propiedad para visualizar el resultado del inicio de sesión
-        private string _mensajeinicio;
-        public string MensajeInicio {
-            get { return _mensajeinicio; }
+        private string _initMessage;
+        public string InitMessage {
+            get { return _initMessage; }
             set {
-                if (_mensajeinicio != value) {
-                    _mensajeinicio = value;
+                if (_initMessage != value) {
+                    _initMessage = value;
                     OnPropertyChanged(); //Ahora si cambia la propiedad se notificará que se cambia la propiedad.
                 }
             }
         }
 
         //Propiedad para el usuario que se introduce por teclado
-        private string _usuario;
-        public string Usuario {
-            get { return _usuario; }
+        private string _userInput;
+        public string UserInput {
+            get { return _userInput; }
             set {
-                _usuario = value;
+                _userInput = value;
                 OnPropertyChanged();
             }
         }
@@ -49,7 +49,7 @@ namespace CircularSeasManager.Models{
         }
 
         public async Task GetSecureCredenciales() {
-            Usuario = await SecureStorage.GetAsync("user");
+            UserInput = await SecureStorage.GetAsync("user");
             Pass = await SecureStorage.GetAsync("password");
             /*
             if (Preferences.ContainsKey("Recordarme")) {
@@ -58,18 +58,18 @@ namespace CircularSeasManager.Models{
         }
 
         //Propiedad para indicar si quiero que se recuerde el usuario
-        private bool _recordarme;
-        public bool Recordarme {
+        private bool _rememberme;
+        public bool Rememberme {
             get { 
-                if (Preferences.ContainsKey("Recordarme")) {
-                    _recordarme = Preferences.Get("Recordarme", false);
+                if (Preferences.ContainsKey("Rememberme")) {
+                    _rememberme = Preferences.Get("Rememberme", false);
                 }
-                return _recordarme; 
+                return _rememberme; 
             }
             set {
-                if (_recordarme != value) {
-                    _recordarme = value;
-                    Preferences.Set("Recordarme", _recordarme);
+                if (_rememberme != value) {
+                    _rememberme = value;
+                    Preferences.Set("Rememberme", _rememberme);
                 }
                 OnPropertyChanged();
             }

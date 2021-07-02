@@ -7,16 +7,16 @@ namespace CircularSeasManager.Models {
     class PrintLocalModel : BaseModel {
 
         //Colección para mostrar en el listview, que se listan todos los archivos gcode del documento.
-        public ObservableCollection<string> ficherosCollection { get; set; } //Colección para listar los ficheros.
+        public ObservableCollection<string> FilesCollection { get; set; } //Colección para listar los ficheros.
 
         //Enlace de datos con el item seleccionado.
-        private string _gcodeSeleccionado;
-        public string gcodeSeleccionado {
-            get { return _gcodeSeleccionado; }
+        private string _SelectedGCODE;
+        public string SelectedGCODE {
+            get { return _SelectedGCODE; }
             set {
-                if (_gcodeSeleccionado != value) {
-                    _gcodeSeleccionado = value;
-                    if (_gcodeSeleccionado == "") {
+                if (_SelectedGCODE != value) {
+                    _SelectedGCODE = value;
+                    if (_SelectedGCODE == "") {
                         IsSelectedGCODE = false;
                     }
                     else { IsSelectedGCODE = true;  }

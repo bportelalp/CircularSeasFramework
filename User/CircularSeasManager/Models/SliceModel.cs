@@ -13,17 +13,17 @@ namespace CircularSeasManager.Models {
         public ObservableCollection<string> MaterialCollection { get; set; }
 
         //Colección de calidades
-        public ObservableCollection<string> CalidadCollection { get; set; }
+        public ObservableCollection<string> ProfileCollection { get; set; }
 
         //Almacén de todos los datos
         public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();
 
         //Selección de Soporte
-        private bool _usarSoporte;
-        public bool usarSoporte {
-            get { return _usarSoporte; }
-            set { if(_usarSoporte != value) {
-                    _usarSoporte = value;
+        private bool _useSupport;
+        public bool UseSupport {
+            get { return _useSupport; }
+            set { if(_useSupport != value) {
+                    _useSupport = value;
                     OnPropertyChanged();
                 } 
             }
@@ -31,7 +31,7 @@ namespace CircularSeasManager.Models {
 
         //Material Seleccionado
         private string _materialSelected;
-        public string materialSelected {
+        public string MaterialSelected {
             get { return _materialSelected; }
             set {
                 if (_materialSelected != value) {
