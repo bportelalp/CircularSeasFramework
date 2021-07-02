@@ -11,14 +11,14 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 
 namespace CircularSeasManager.ViewModels {
-    public class PaginaLoginViewModel : PaginaLoginModel {
+    public class LoginPageViewModel : PaginaLoginModel {
 
         /*COMANDOS: En arquitectura MVVM son métodos que se ejecutan en respuesta a una actividad específica
         Normalmente por ejemplo al clicar o pulsar un botón*/
         public Command CmdIniciarSesion { get; set; }
         public Command CmdExpert { get; set; }
 
-        public PaginaLoginViewModel() {
+        public LoginPageViewModel() {
             /*Se asocia cada comando al método correspondiente(de forma asincrona) y además se indica que
              se ejecutan sólo si ocupado es false, es decir, que no haya otro método en curso*/
             CmdIniciarSesion = new Command(async()=>await IniciarSesion(), () => !Ocupado);
@@ -56,7 +56,7 @@ namespace CircularSeasManager.ViewModels {
                 if (resultado2 != null) {
                     printer = resultado2.options.printerProfiles[0].name;
                 }
-                Application.Current.MainPage = new NavigationPage(new Views.MenuPrincipal());
+                Application.Current.MainPage = new NavigationPage(new Views.MainPanel());
             }
 
             else { 

@@ -10,16 +10,16 @@ using CircularSeasManager.Models;
 
 namespace CircularSeasManager.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SlicerPagina : ContentPage {
+    public partial class SlicerPage : ContentPage {
 
-        public SliceViewModel contexto = new SliceViewModel();
-        public SlicerPagina() {
+        public SliceViewModel context = new SliceViewModel();
+        public SlicerPage() {
             InitializeComponent();
-            BindingContext = contexto;
+            BindingContext = context;
         }
 
         protected override void OnAppearing() {
-            contexto.materialSelected = Global.MaterialRecomendado;
+            context.materialSelected = Global.MaterialRecomendado;
             base.OnAppearing();
         }
     }

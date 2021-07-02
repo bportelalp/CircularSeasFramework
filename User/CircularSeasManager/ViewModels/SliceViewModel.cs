@@ -17,13 +17,13 @@ namespace CircularSeasManager.ViewModels {
     public class SliceViewModel : SliceModel {
 
         //Comandos
-        public Command CmdEnviarSTL { get; set; }
+        public Command CmdSendSTL { get; set; }
         public Command CmdAyuda { get; set; }
         public Command CmdPickSTL { get; set; }
 
         //Constructor
         public SliceViewModel() {
-            CmdEnviarSTL = new Command(async () => await EnviarSTL());
+            CmdSendSTL = new Command(async () => await EnviarSTL());
             CmdAyuda = new Command(async () => await AbrirAsistente(), () => !Ocupado);
             CmdPickSTL = new Command(async () => await PickSTL());
 
@@ -142,7 +142,7 @@ namespace CircularSeasManager.ViewModels {
 
         public async Task AbrirAsistente() {
             //Abrir asistente, se le pasa la información de los materiales.
-            await Application.Current.MainPage.Navigation.PushAsync(new Views.AsistenteMaterial(DataMaterial));
+            await Application.Current.MainPage.Navigation.PushAsync(new Views.MaterialAssistantPage(DataMaterial));
         }
 
     }

@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:resources="clr-namespace:CircularSeasManager.Resx"
-             x:Class="CircularSeasManager.Views.PaginaLogin">
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
+             x:Class="CircularSeasManager.Views.LoginPage">
 
     <NavigationPage.TitleView>
         <Label Text="CircularSeas Printer" HorizontalTextAlignment="Center" VerticalTextAlignment="Start" TextColor="White" FontSize="36"/>
     </NavigationPage.TitleView>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Configuración" Command="{Binding CmdConfig}"></ToolbarItem>
-        <ToolbarItem Text="Modo Experto"  Command="{Binding CmdExpert}"></ToolbarItem>
+        <ToolbarItem Text="{x:Static resources:AppResources.Settings}" Command="{Binding CmdConfig}"></ToolbarItem>
+        <ToolbarItem Text="{x:Static resources:AppResources.ExpertMode}"  Command="{Binding CmdExpert}"></ToolbarItem>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
@@ -20,13 +20,13 @@
                 <Image Source="Logo.png" Aspect="AspectFill"></Image>
             </Frame>
 
-            <Label Text="Inicio de sesión" 
+            <Label Text="{x:Static resources:AppResources.LoginHeader}" 
                HorizontalTextAlignment="Center"
                FontSize="Title" Padding="30,10,30,10"/>
 
-            <Entry x:Name="EditorUser" Placeholder="usuario octoprint" Margin="30, 5"
+            <Entry x:Name="EditorUser" Placeholder="{x:Static resources:AppResources.User}" Margin="30, 5"
                 Text="{Binding Usuario}"/>
-            <Entry x:Name="EditorPass" Placeholder="contraseña" IsPassword="True" Margin="30, 5"
+            <Entry x:Name="EditorPass" Placeholder="{x:Static resources:AppResources.Pass}" IsPassword="True" Margin="30, 5"
                 Text="{Binding Pass}" />
 
             <Grid x:Name="PanelRecuerdameDatos" Margin="40,0,40,0" >
@@ -36,9 +36,9 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox IsChecked="{Binding Recordarme}" 
                       Grid.Column="0" HorizontalOptions="End"/>
-                <Label Text="Recordarme" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
+                <Label Text="{x:Static resources:AppResources.Rememberme}" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center"/>
             </Grid>
-            <Button Text="Iniciar sesión" Command="{Binding CmdIniciarSesion}" Margin="30, 5" BorderColor="DarkBlue" />
+            <Button Text="{x:Static resources:AppResources.LoginButton}" Command="{Binding CmdIniciarSesion}" Margin="30, 5" BorderColor="DarkBlue" />
             <Label x:Name="lblresult" Text="{Binding MensajeInicio}" FontSize="16" TextColor="Red"
                HorizontalTextAlignment="Center"></Label>
 

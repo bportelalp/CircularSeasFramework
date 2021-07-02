@@ -13,11 +13,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{2A00B2F4-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1A2D30C5-7EED-4FBD-831E-EB554B081112}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularSeasWebAPI", "Backend\CircularSeasWebAPI\CircularSeasWebAPI.csproj", "{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeasWebAPI", "Backend\CircularSeasWebAPI\CircularSeasWebAPI.csproj", "{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{7BBB9187-B81A-40A9-9564-8C5C729076D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularSeas.Models", "Domain\CircularSeas.Models\CircularSeas.Models.csproj", "{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Models", "Domain\CircularSeas.Models\CircularSeas.Models.csproj", "{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +147,8 @@ Global
 		{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C} = {7BBB9187-B81A-40A9-9564-8C5C729076D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		RESX_SaveFilesImmediatelyUponChange = True
+		RESX_NeutralResourcesLanguage = en-150
 		SolutionGuid = {98FE19EA-81D2-471D-9D59-52F6F0340684}
 	EndGlobalSection
 EndGlobal

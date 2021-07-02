@@ -46,7 +46,7 @@ namespace CircularSeasManager.Models {
         public async Task AvisoPerdidaConexion() {
             var opcion = await Application.Current.MainPage.DisplayAlert("Sin conexión", "Se ha perdido la conexión con Octoprint", "Volver a inicio", "esperar");
             if (opcion) {
-                Application.Current.MainPage = new NavigationPage(new Views.PaginaLogin());
+                Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
             }
             else {
                 //Nada
@@ -58,7 +58,7 @@ namespace CircularSeasManager.Models {
         /// </summary>
         public async Task IrAConfig() {
             //Abrir nueva página de configuración
-            await Application.Current.MainPage.Navigation.PushAsync(new Views.Configuracion());
+            await Application.Current.MainPage.Navigation.PushAsync(new Views.SettingsPage());
         }
 
         //Preferencia común IP, utiliza el contenedor interno con clave IP para almacenarlo.

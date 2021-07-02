@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="CircularSeasManager.Views.SlicerPagina">
+             x:Class="CircularSeasManager.Views.SlicerPage">
 
     <NavigationPage.TitleView>
         <StackLayout Orientation="Horizontal">
@@ -59,7 +59,7 @@
 
             </Grid>
 
-            <Button Text="Enviar Archivo" Command="{Binding CmdEnviarSTL}" IsEnabled="True"
+            <Button Text="Enviar Archivo" Command="{Binding CmdSendSTL}" IsEnabled="True"
                     Margin="30, 5"></Button>
             <!--<Button Text="PICK" Command="{Binding CmdPickSTL}"
                     Margin="30, 5"></Button>-->

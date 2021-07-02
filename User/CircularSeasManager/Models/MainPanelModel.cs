@@ -6,7 +6,7 @@ using Xamarin.Forms;
 using System.Runtime.CompilerServices;
 
 namespace CircularSeasManager.Models {
-    class MenuPrincipalModel : BaseModel {
+    class MainPanelModel : BaseModel {
 
 
         //Estado impresora, mostrado en pantalla

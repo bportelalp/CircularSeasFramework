@@ -3,21 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CircularSeasManager.ViewModels;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using CircularSeasManager.Models;
 
 namespace CircularSeasManager.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ImprimirLocal : ContentPage {
+    public partial class SettingsPage : ContentPage {
 
-        ImprimirLocalViewModel contexto = new ImprimirLocalViewModel();
-        public ImprimirLocal() {
+        BaseModel context = new BaseModel();
+        public SettingsPage() {
             InitializeComponent();
-            BindingContext = contexto;
-            
+            BindingContext = context;
         }
-
-        
     }
 }

@@ -7,7 +7,7 @@ using Xamarin.Forms;
 using CircularSeas.Models;
 
 namespace CircularSeasManager.Models {
-    public class AsistenteMaterialModel : BaseModel {
+    public class MaterialAssistantModel : BaseModel {
 
         //Almacén de todos los datos
         public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();

@@ -4,7 +4,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 
 namespace CircularSeasManager.Models {
-    class ImprimirLocalModel : BaseModel {
+    class PrintLocalModel : BaseModel {
 
         //Colección para mostrar en el listview, que se listan todos los archivos gcode del documento.
         public ObservableCollection<string> ficherosCollection { get; set; } //Colección para listar los ficheros.

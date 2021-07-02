@@ -12,7 +12,7 @@ using Xamarin.Forms;
 using System.Threading;
 
 namespace CircularSeasManager.ViewModels {
-    public class AsistenteMaterialviewModel : AsistenteMaterialModel {
+    public class MaterialAssistantViewModel : MaterialAssistantModel {
         
         //Comando para calcular.
         public Command CmdSugerir { get; set; }
@@ -21,7 +21,7 @@ namespace CircularSeasManager.ViewModels {
         //Comando para llamar por teléfono
         public Command CmdAyuda { get; set; }
 
-        public AsistenteMaterialviewModel(CircularSeas.Models.DTO.DataDTO _material) {
+        public MaterialAssistantViewModel(CircularSeas.Models.DTO.DataDTO _material) {
 
             DataMaterial = _material;
             

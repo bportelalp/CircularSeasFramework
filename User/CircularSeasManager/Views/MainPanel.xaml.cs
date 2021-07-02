@@ -9,13 +9,13 @@ using Xamarin.Forms.Xaml;
 
 namespace CircularSeasManager.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MenuPrincipal : ContentPage {
+    public partial class MainPanel : ContentPage {
 
-        MenuPrincipalViewModel contexto = new MenuPrincipalViewModel();
-        public MenuPrincipal() {
+        MainPanelViewModel context = new MainPanelViewModel();
+        public MainPanel() {
             InitializeComponent();
-            //Enlaza el contexto de datos con el viewModel
-            BindingContext = contexto;
+            //Enlaza el context de datos con el viewModel
+            BindingContext = context;
         }
 
 

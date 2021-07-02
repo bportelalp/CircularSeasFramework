@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Plugin.FilePicker;
 
 namespace CircularSeasManager.ViewModels {
-    class MenuPrincipalViewModel : MenuPrincipalModel {
+    class MainPanelViewModel : MainPanelModel {
 
         //Definición de los comandos
         public Command CmdCerrarSesion { get; set; }
@@ -20,7 +20,7 @@ namespace CircularSeasManager.ViewModels {
         public Command CmdConectar { get; set; }
 
         //Constructor
-        public MenuPrincipalViewModel() {
+        public MainPanelViewModel() {
             //Inicia temporizador
             InPage = true;
             Device.StartTimer(TimeSpan.FromSeconds(1.5), OnTimerTick);
@@ -49,14 +49,14 @@ namespace CircularSeasManager.ViewModels {
             var resultado = await Global.ClientePrint.logout();
             Ocupado = false;
             if (resultado) {
-                Application.Current.MainPage = new NavigationPage(new Views.PaginaLogin());
+                Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
                 InPage = false;
             }
         }
 
         private async Task ImprimirLocal() {
             //Añade nueva página en la pila de navegación con la pestaña para imprimir
-            await Application.Current.MainPage.Navigation.PushAsync(new Views.ImprimirLocal());
+            await Application.Current.MainPage.Navigation.PushAsync(new Views.PrintLocal());
             
         }
 
@@ -194,7 +194,7 @@ namespace CircularSeasManager.ViewModels {
         private async Task AbrirSlicePage() {
             //Abrir página de Slicer
             InPage = false;
-            await Application.Current.MainPage.Navigation.PushAsync(new Views.SlicerPagina());
+            await Application.Current.MainPage.Navigation.PushAsync(new Views.SlicerPage());
             InPage = true;
             Device.StartTimer(TimeSpan.FromSeconds(1.5), OnTimerTick);
         }

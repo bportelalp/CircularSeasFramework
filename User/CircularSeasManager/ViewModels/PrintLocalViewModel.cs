@@ -8,13 +8,13 @@ using System.Collections.ObjectModel;
 using Xamarin.Forms;
 
 namespace CircularSeasManager.ViewModels {
-    class ImprimirLocalViewModel : ImprimirLocalModel {
+    class PrintLocalViewModel : PrintLocalModel {
 
         public Command CmdFicherosLocales { get; set; }
         public Command CmdEnviarImprimir { get; set; }
         public Command CmdEliminar { get; set; }
 
-        public ImprimirLocalViewModel() {
+        public PrintLocalViewModel() {
             ficherosCollection = new ObservableCollection<string>();
             CmdFicherosLocales = new Command(async () => await ObtenerArchivos());
             CmdEnviarImprimir = new Command(async () => await EnviarImprimir());

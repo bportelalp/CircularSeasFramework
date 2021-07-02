@@ -11,13 +11,13 @@ using CircularSeasManager.Models;
 
 namespace CircularSeasManager.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AsistenteMaterial : ContentPage {
+    public partial class MaterialAssistantPage : ContentPage {
 
-        AsistenteMaterialviewModel contexto;
-        public AsistenteMaterial(CircularSeas.Models.DTO.DataDTO _material) {
+        MaterialAssistantViewModel context;
+        public MaterialAssistantPage(CircularSeas.Models.DTO.DataDTO _material) {
             InitializeComponent();
-            contexto = new AsistenteMaterialviewModel(_material);
-            BindingContext = contexto;
+            context = new MaterialAssistantViewModel(_material);
+            BindingContext = context;
 
         }
 
