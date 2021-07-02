@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Threading;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.ViewModels {
     public class MaterialAssistantViewModel : MaterialAssistantModel {
@@ -34,12 +35,12 @@ namespace CircularSeasManager.ViewModels {
             //Instanciar features
             FeaturesUserCollection = new ObservableCollection<FeaturesUser>();
             List<string> opciones = new List<string>();
-            opciones.Add("Yes"); opciones.Add("No"); opciones.Add("Not applicable");
+            opciones.Add(StringResources.Yes); opciones.Add(StringResources.No); opciones.Add(StringResources.NotApplicable);
             foreach (string item in DataMaterial.InfoTopsis.FeaturesNames) {
                 FeaturesUserCollection.Add(new FeaturesUser {
                     feature = item,
                     optionsFeature = new ObservableCollection<string>(opciones),
-                    featureValueSelected = "Not applicable"
+                    featureValueSelected = StringResources.NotApplicable
                 });
             }
             //Instanciar colección de resultados
@@ -49,16 +50,16 @@ namespace CircularSeasManager.ViewModels {
             CmdSugerir = new Command(() => Sugerir(), () => !Ocupado);
             CmdInfo = new Command(() => InformarMaterial(), () => !Ocupado);
             CmdAceptarMaterial = new Command(async () => await AceptarMaterial(), () => !Ocupado);
-            CmdAyuda = new Command(async () => await Ayuda());
+            CmdAyuda = new Command(() => Ayuda());
         }
 
         public void Sugerir() {
             List<int> cribado = new List<int>();
             foreach (var item in FeaturesUserCollection) {
-                if (item.featureValueSelected == "Yes") {
+                if (item.featureValueSelected == StringResources.Yes) {
                     cribado.Add(1);
                 }
-                else if (item.featureValueSelected == "No") {
+                else if (item.featureValueSelected == StringResources.No) {
                     cribado.Add(0);
                 }
                 else {
@@ -156,7 +157,7 @@ namespace CircularSeasManager.ViewModels {
             }
         }
 
-        public async Task Ayuda() {
+        public void Ayuda() {
             PhoneDialer.Open("689356647");
         }
 

@@ -59,5 +59,158 @@ namespace CircularSeasManager.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Completado.
+        /// </summary>
+        internal static string Completed {
+            get {
+                return ResourceManager.GetString("Completed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Empty.
+        /// </summary>
+        internal static string Empty {
+            get {
+                return ResourceManager.GetString("Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Connection error. Make sure you are connected to the same network and that the server is working.
+        /// </summary>
+        internal static string ErrorConnection {
+            get {
+                return ResourceManager.GetString("ErrorConnection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Extruder.
+        /// </summary>
+        internal static string Extruder {
+            get {
+                return ResourceManager.GetString("Extruder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Hotbed.
+        /// </summary>
+        internal static string Hotbed {
+            get {
+                return ResourceManager.GetString("Hotbed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a hour.
+        /// </summary>
+        internal static string hour {
+            get {
+                return ResourceManager.GetString("hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a hours.
+        /// </summary>
+        internal static string hours {
+            get {
+                return ResourceManager.GetString("hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Logged.
+        /// </summary>
+        internal static string Logged {
+            get {
+                return ResourceManager.GetString("Logged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a minute.
+        /// </summary>
+        internal static string minute {
+            get {
+                return ResourceManager.GetString("minute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a minutes.
+        /// </summary>
+        internal static string minutes {
+            get {
+                return ResourceManager.GetString("minutes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Not applicable.
+        /// </summary>
+        internal static string NotApplicable {
+            get {
+                return ResourceManager.GetString("NotApplicable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pause.
+        /// </summary>
+        internal static string Pause {
+            get {
+                return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Slicing.
+        /// </summary>
+        internal static string Slicing {
+            get {
+                return ResourceManager.GetString("Slicing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Uploading to printer.
+        /// </summary>
+        internal static string Uploading {
+            get {
+                return ResourceManager.GetString("Uploading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Wrong username or password.
+        /// </summary>
+        internal static string UserPassWrong {
+            get {
+                return ResourceManager.GetString("UserPassWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Yes.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
     }
 }

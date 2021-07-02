@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using Plugin.FilePicker.Abstractions;
 using CircularSeasManager.Models;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.Models {
     public class SliceModel : BaseModel {
@@ -65,12 +66,12 @@ namespace CircularSeasManager.Models {
 
         //Ruta del STL
         public string NameSTL {
-            get { return (_STL == null? "Vacío":_STL.FileName);}
+            get { return _STL == null? StringResources.Empty : _STL.FileName;}
         }
 
         //Indica se están todolos items seleccionados
         public bool TodoListo {
-            get { if (String.IsNullOrEmpty(_calidadSelected) || String.IsNullOrEmpty(_materialSelected) || (_STL == null)) {
+            get { if (string.IsNullOrEmpty(_calidadSelected) || string.IsNullOrEmpty(_materialSelected) || (_STL == null)) {
                    return false;
                 }
                 else { return true; }

@@ -9,6 +9,7 @@ using CircularSeasManager.Models;
 using CircularSeasManager.Services;
 using Xamarin.Forms;
 using Xamarin.Essentials;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.ViewModels {
     public class LoginPageViewModel : PaginaLoginModel {
@@ -37,7 +38,7 @@ namespace CircularSeasManager.ViewModels {
             Ocupado = false;
 
             if (resultado) {
-                MensajeInicio = "Sesión Iniciada";
+                MensajeInicio = StringResources.Logged;
                 if (Recordarme) {
                     try {
                         await SecureStorage.SetAsync("user", Usuario);
@@ -61,10 +62,10 @@ namespace CircularSeasManager.ViewModels {
 
             else { 
                 if (Global.ClientePrint.ResultRequest == Services.EstadoRequest.Auth) {
-                    MensajeInicio = "Usuario o contraseña incorrectos";
+                    MensajeInicio = StringResources.UserPassWrong;
                 }
                 else if (Global.ClientePrint.ResultRequest == Services.EstadoRequest.SinConexion) {
-                    MensajeInicio = "Error de conexión. Asegúrese de estar conectado a la misma red y que el servidor está funcionando";
+                    MensajeInicio = StringResources.ErrorConnection;
                 }
             }      
         }

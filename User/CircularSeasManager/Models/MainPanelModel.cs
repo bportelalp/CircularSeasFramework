@@ -93,17 +93,17 @@ namespace CircularSeasManager.Models {
 
         //String de tempo restante estimado
         public string StringPrintTimeLeft {
-            get { 
-                return (PrintTimeLeft.Hours > 0? $"{PrintTimeLeft.Hours} hora"+ (PrintTimeLeft.Hours>1?"s":""):"") +
-                            $" {PrintTimeLeft.Minutes} minuto" + (PrintTimeLeft.Minutes > 1 ? "s" : "");
+            get {
+                return (PrintTimeLeft.Hours > 0 ? $"{PrintTimeLeft.Hours}" + (PrintTimeLeft.Hours > 1 ? $" {StringResources.hours}" : $" {StringResources.hour}") : "") +
+                            $" {PrintTimeLeft.Minutes}" + (PrintTimeLeft.Minutes > 1 ? $" {StringResources.minutes}" : $" {StringResources.minute}");
             } 
         }
         
         public string TempCadena {
-            get { return $"Extrusor: {_HotendTemp} ºC / Cama caliente: {_BedTemp} ºC"; }
+            get { return $"{StringResources.Extruder}: {_HotendTemp} ºC / {StringResources.Hotbed}: {_BedTemp} ºC"; }
         }
 
-        private string _PausaResume = "Pausar";
+        private string _PausaResume = StringResources.Pause;
         public string PausaResume {
             get { return _PausaResume; }
             set {

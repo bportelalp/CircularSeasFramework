@@ -22,7 +22,7 @@ namespace CircularSeasManager.Views {
             BindingContext = context;
         }
 
-        protected override async void OnAppearing() {
+        protected override void OnAppearing() {
             //Restaura al aparecer los parámetros almacenados en el secure storage, asociándolos con su context.
             /*context.Usuario = await SecureStorage.GetAsync("user");
             context.Pass = await SecureStorage.GetAsync("password");

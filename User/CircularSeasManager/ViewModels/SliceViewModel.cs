@@ -103,12 +103,12 @@ namespace CircularSeasManager.ViewModels {
             Ocupado = true;
             if (TodoListo) {
                 Tuple<string, byte[]> datos = new Tuple<string, byte[]>(null, null);
-                MensajeStatus = "Laminando " + STL.FileName;
+                MensajeStatus = StringResources.Slicing + " " + STL.FileName;
                 datos = await Global.ClienteSlice.PostSTL(STL, printer, materialSelected, calidadSelected, usarSoporte);
                 if (Global.ClienteSlice.resultRequest == HttpStatusCode.OK) {
-                    MensajeStatus = "Subiendo a servicio local";
+                    MensajeStatus = StringResources.Uploading;
                     await Global.ClientePrint.UploadFile(datos.Item2, datos.Item1, false);
-                    MensajeStatus = "Completado";
+                    MensajeStatus = StringResources.Completed;
                     await Application.Current.MainPage.DisplayAlert(AlertResources.Ready,
                         AlertResources.CanPrintedFromLocal,
                         AlertResources.Accept);
