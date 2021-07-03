@@ -1,5 +1,6 @@
 using CircularSeasWebAPI.Helpers;
 using CircularSeasWebAPI.Models;
+using CircularSeasWebAPI.SlicerEngine;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -39,9 +40,8 @@ namespace CircularSeasWebAPI {
 
             //Servicio Singleton to LOG
             services.AddSingleton<Log>();
-
-            //Servicio Scoped to Utilities and PrusaSlicer
-            services.AddScoped<Tools>();
+            services.AddSingleton<Tools>();
+            services.AddScoped<ISlicerCLI, PrusaSlicerCLI>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
