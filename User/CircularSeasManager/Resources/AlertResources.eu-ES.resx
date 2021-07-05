@@ -117,61 +117,109 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Completed" xml:space="preserve">
-    <value>Completed</value>
+  <data name="Accept" xml:space="preserve">
+    <value>Onartu</value>
   </data>
-  <data name="Empty" xml:space="preserve">
-    <value>Empty</value>
+  <data name="AllParametersMustProvide" xml:space="preserve">
+    <value>Parametro guztiak hautatu behar dituzu</value>
   </data>
-  <data name="ErrorConnection" xml:space="preserve">
-    <value>Connection error. Make sure you are connected to the same network and that the server is working</value>
+  <data name="CanPrintedFromLocal" xml:space="preserve">
+    <value>Fitxategia tokiko fitxategietan inprimatzeko erabilgarri dago</value>
   </data>
-  <data name="Extruder" xml:space="preserve">
-    <value>Extruder</value>
+  <data name="ConnectionError" xml:space="preserve">
+    <value>Konexioaren errorea</value>
   </data>
-  <data name="Hotbed" xml:space="preserve">
-    <value>Hotbed</value>
+  <data name="DeletingBodyErrorProcesing" xml:space="preserve">
+    <value>Ezin da inprimatzen ari den fitxategirik ezabatu</value>
   </data>
-  <data name="hour" xml:space="preserve">
-    <value>hour</value>
+  <data name="DeletingBodySelectOne" xml:space="preserve">
+    <value>Ezabatu beharreko fitxategi bat hautatu behar duzu</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>hours</value>
+  <data name="DeletingHeader" xml:space="preserve">
+    <value>Hutsegitea ezabatzen</value>
   </data>
-  <data name="InStock" xml:space="preserve">
-    <value>in stock</value>
+  <data name="DeletingReturn" xml:space="preserve">
+    <value>Itzuli</value>
   </data>
-  <data name="Logged" xml:space="preserve">
-    <value>Logged</value>
+  <data name="DisconnectedBack" xml:space="preserve">
+    <value>Zatoz menu nagusira</value>
   </data>
-  <data name="minute" xml:space="preserve">
-    <value>minute</value>
+  <data name="DisconnectedBody" xml:space="preserve">
+    <value>Ezin da Octoprint-era konektatu</value>
   </data>
-  <data name="minutes" xml:space="preserve">
-    <value>minutes</value>
+  <data name="DisconnectedHeader" xml:space="preserve">
+    <value>Konexioaren errorea</value>
+  </data>
+  <data name="DisconnectedWait" xml:space="preserve">
+    <value>Itxaron</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Errorea</value>
+  </data>
+  <data name="FileNotProvided" xml:space="preserve">
+    <value>Ez da fitxategirik eman</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>Ez</value>
   </data>
-  <data name="NotApplicable" xml:space="preserve">
-    <value>Not applicable</value>
+  <data name="OrderStock" xml:space="preserve">
+    <value>Agindua</value>
   </data>
   <data name="OutStock" xml:space="preserve">
-    <value>Out of stock</value>
+    <value>Agortuta</value>
   </data>
-  <data name="Pause" xml:space="preserve">
-    <value>Pause</value>
+  <data name="OutStockMessage" xml:space="preserve">
+    <value>Ez dago harizpi mota honetarako stockik</value>
   </data>
-  <data name="Slicing" xml:space="preserve">
-    <value>Slicing</value>
+  <data name="PerhapsSupportNeeded" xml:space="preserve">
+    <value>Eskaera ezin izan da bete. Saiatu laguntza gaitzen eta arazoak jarraitzen badu, jarri harremanetan administratzaile batekin.</value>
   </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>Uploading to printer</value>
+  <data name="PrintingBodyProcessing" xml:space="preserve">
+    <value>Inprimagailua pieza bat prozesatzen ari da. itxaron lehenengo amaitzeko</value>
   </data>
-  <data name="UserPassWrong" xml:space="preserve">
-    <value>Wrong username or password</value>
+  <data name="PrintingBodySelectOne" xml:space="preserve">
+    <value>Inprimatzeko fitxategi bat hautatu behar duzu</value>
+  </data>
+  <data name="PrintingDirectly" xml:space="preserve">
+    <value>Aukeratutako fitxategia zuzenean inprimatu nahi duzu?</value>
+  </data>
+  <data name="PrintingHeaderError" xml:space="preserve">
+    <value>Inprimatzearen huts egin du</value>
+  </data>
+  <data name="PrintingReturn" xml:space="preserve">
+    <value>Itzuli</value>
+  </data>
+  <data name="PrintingWorking" xml:space="preserve">
+    <value>Inprimagailua funtzionatzen ari da. Fitxategia kargatuko da, baina unea amaitu arte itxaron behar duzu. Geroago bertako inprimatze menuan hauta dezakezu</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Prest</value>
+  </data>
+  <data name="SelectMaterial" xml:space="preserve">
+    <value>Material bat hautatu behar duzu</value>
+  </data>
+  <data name="ServerDisconnected" xml:space="preserve">
+    <value>Ezin da zerbitzarira konektatu. Saiatu geroago</value>
+  </data>
+  <data name="Success" xml:space="preserve">
+    <value>Arrakasta</value>
+  </data>
+  <data name="SucessUpload" xml:space="preserve">
+    <value>Behar bezala kargatu da</value>
+  </data>
+  <data name="UnknownError" xml:space="preserve">
+    <value>Errore ezezaguna</value>
+  </data>
+  <data name="UploadOnlyGCODE" xml:space="preserve">
+    <value>.Gcode formatuko fitxategiak soilik onartzen dira. Ezin izan da kargatu</value>
+  </data>
+  <data name="UploadOnlySTL" xml:space="preserve">
+    <value>STL fitxategiak bakarrik hautatu behar dituzu</value>
+  </data>
+  <data name="WarningHeader" xml:space="preserve">
+    <value>Abisua</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Bai</value>
   </data>
 </root>

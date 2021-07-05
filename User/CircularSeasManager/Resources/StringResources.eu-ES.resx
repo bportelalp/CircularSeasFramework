@@ -118,60 +118,60 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Completed" xml:space="preserve">
-    <value>Completed</value>
+    <value>Osatua</value>
   </data>
   <data name="Empty" xml:space="preserve">
-    <value>Empty</value>
+    <value>Hutsik</value>
   </data>
   <data name="ErrorConnection" xml:space="preserve">
-    <value>Connection error. Make sure you are connected to the same network and that the server is working</value>
+    <value>Konexioaren errorea. Ziurtatu sare berera konektatuta zaudela eta zerbitzariak funtzionatzen duela</value>
   </data>
   <data name="Extruder" xml:space="preserve">
-    <value>Extruder</value>
+    <value>Extrusorea</value>
   </data>
   <data name="Hotbed" xml:space="preserve">
-    <value>Hotbed</value>
+    <value>Sutegia</value>
   </data>
   <data name="hour" xml:space="preserve">
-    <value>hour</value>
+    <value>ordu</value>
   </data>
   <data name="hours" xml:space="preserve">
-    <value>hours</value>
+    <value>ordu</value>
   </data>
   <data name="InStock" xml:space="preserve">
-    <value>in stock</value>
+    <value>stockean</value>
   </data>
   <data name="Logged" xml:space="preserve">
-    <value>Logged</value>
+    <value>Saioa hasita</value>
   </data>
   <data name="minute" xml:space="preserve">
-    <value>minute</value>
+    <value>minutua</value>
   </data>
   <data name="minutes" xml:space="preserve">
-    <value>minutes</value>
+    <value>minutu</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>Ez</value>
   </data>
   <data name="NotApplicable" xml:space="preserve">
-    <value>Not applicable</value>
+    <value>Ez da aplikagarria</value>
   </data>
   <data name="OutStock" xml:space="preserve">
-    <value>Out of stock</value>
+    <value>Agortuta</value>
   </data>
   <data name="Pause" xml:space="preserve">
-    <value>Pause</value>
+    <value>Eten</value>
   </data>
   <data name="Slicing" xml:space="preserve">
-    <value>Slicing</value>
+    <value>Xerra</value>
   </data>
   <data name="Uploading" xml:space="preserve">
-    <value>Uploading to printer</value>
+    <value>Inprimagailura kargatzen</value>
   </data>
   <data name="UserPassWrong" xml:space="preserve">
-    <value>Wrong username or password</value>
+    <value>Erabiltzaile edo pasahitz okerra</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Bai</value>
   </data>
 </root>

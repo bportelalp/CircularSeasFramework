@@ -61,7 +61,7 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Completado.
+        ///   Busca una cadena traducida similar a Completed.
         /// </summary>
         internal static string Completed {
             get {
