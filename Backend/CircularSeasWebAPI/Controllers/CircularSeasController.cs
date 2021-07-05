@@ -16,6 +16,7 @@ using CircularSeasWebAPI.Models;
 using CircularSeasWebAPI.Helpers;
 using CircularSeas.Models;
 using Microsoft.AspNetCore.Hosting;
+using CircularSeasWebAPI.SlicerEngine;
 
 namespace CircularSeasWebAPI.Controllers
 {
@@ -26,20 +27,21 @@ namespace CircularSeasWebAPI.Controllers
         // Service access
         private readonly Log _log;
         private readonly AppSettings _appsSettings;
+        private readonly ISlicerCLI _slicer;
         private readonly Tools _tools;
         private readonly IWebHostEnvironment _env;
 
         // Database context
         private readonly CircularSeasContext _DBContext;
 
-        public CircularSeasController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools, IWebHostEnvironment env)
+        public CircularSeasController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools, IWebHostEnvironment env, ISlicerCLI slicer)
         {
             // Assignment and initialization of services
             this._log = log;
             this._tools = tools;
             this._env = env;
             this._appsSettings = appSettings.Value;
-
+            this._slicer = slicer;
             this._DBContext = circularSeasContext;
         }
 
@@ -184,7 +186,7 @@ namespace CircularSeasWebAPI.Controllers
                 _log.logWrite("Command: " + attributes);
 
                 // Execution by CMD 
-                var resultConsola = _tools.ExecuteCommand(attributes);
+                string resultConsola = _slicer.ExecuteCommand(attributes);
                 if (resultConsola != null)
                 {
                     _log.logWrite("The request could not be completed. Return status code: " + HttpStatusCode.PreconditionFailed);
