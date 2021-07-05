@@ -3,16 +3,15 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace CircularSeasWebAPI.Models
+namespace CircularSeasWebAPI.Entities
 {
-    public partial class PropMat
+    public partial class Stock
     {
         public int Id { get; set; }
+        public int IdNode { get; set; }
         public int IdMaterial { get; set; }
-        public int IdProperty { get; set; }
-        public double Value { get; set; }
+        public int Quantity { get; set; }
 
         public virtual Material IdMaterialNavigation { get; set; }
-        public virtual Property IdPropertyNavigation { get; set; }
     }
 }

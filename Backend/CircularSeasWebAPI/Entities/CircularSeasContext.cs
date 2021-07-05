@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace CircularSeasWebAPI.Models
+namespace CircularSeasWebAPI.Entities
 {
     public partial class CircularSeasContext : DbContext
     {
@@ -20,16 +20,18 @@ namespace CircularSeasWebAPI.Models
         public virtual DbSet<Feature> Features { get; set; }
         public virtual DbSet<FeatureMat> FeatureMats { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
+        public virtual DbSet<Printer> Printers { get; set; }
+        public virtual DbSet<PrinterProfile> PrinterProfiles { get; set; }
         public virtual DbSet<PropMat> PropMats { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
-        public virtual DbSet<VistaDatosMcdm> VistaDatosMcdms { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=192.168.0.10;Database=CircularSeas;User Id=sa;Password=a123.456;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Data Source=192.168.0.10;Database=CircularSeas;User Id=sa;Password=a123.456;");
             }
         }
 
@@ -45,8 +47,7 @@ namespace CircularSeasWebAPI.Models
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsFixedLength(true);
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<FeatureMat>(entity =>
@@ -84,9 +85,38 @@ namespace CircularSeasWebAPI.Models
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(25)
-                    .HasDefaultValueSql("('Material Name')")
-                    .IsFixedLength(true);
+                    .HasMaxLength(50)
+                    .HasDefaultValueSql("('Material Name')");
+            });
+
+            modelBuilder.Entity<Printer>(entity =>
+            {
+                entity.ToTable("Printer");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<PrinterProfile>(entity =>
+            {
+                entity.ToTable("PrinterProfile");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.PrinterId).HasColumnName("PrinterID");
+
+                entity.Property(e => e.Profile)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.HasOne(d => d.Printer)
+                    .WithMany(p => p.PrinterProfiles)
+                    .HasForeignKey(d => d.PrinterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PrinterProfile_Printer");
             });
 
             modelBuilder.Entity<PropMat>(entity =>
@@ -120,13 +150,11 @@ namespace CircularSeasWebAPI.Models
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasMaxLength(30)
-                    .IsFixedLength(true);
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.Units)
                     .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Stock>(entity =>
@@ -144,28 +172,6 @@ namespace CircularSeasWebAPI.Models
                     .HasForeignKey(d => d.IdMaterial)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Stock_Material");
-            });
-
-            modelBuilder.Entity<VistaDatosMcdm>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToView("VistaDatosMCDM");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(25)
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.Prop)
-                    .IsRequired()
-                    .HasMaxLength(30)
-                    .IsFixedLength(true);
-
-                entity.Property(e => e.Units)
-                    .IsRequired()
-                    .HasMaxLength(10)
-                    .IsFixedLength(true);
             });
 
             OnModelCreatingPartial(modelBuilder);
