@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace CircularSeasWebAPI.Models
+namespace CircularSeasWebAPI.Entities
 {
     public partial class Feature
     {

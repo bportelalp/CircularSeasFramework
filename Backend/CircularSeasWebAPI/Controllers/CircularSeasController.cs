@@ -12,11 +12,12 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
-using CircularSeasWebAPI.Models;
+using CircularSeasWebAPI.Entities;
 using CircularSeasWebAPI.Helpers;
 using CircularSeas.Models;
 using Microsoft.AspNetCore.Hosting;
 using CircularSeasWebAPI.SlicerEngine;
+using System.Globalization;
 
 namespace CircularSeasWebAPI.Controllers
 {
@@ -53,62 +54,48 @@ namespace CircularSeasWebAPI.Controllers
         [HttpGet("Printer/{PrinterID}")]
         public async Task<JsonResult> GetInfoPrinter([FromRoute] string PrinterID)
         {
-
             CircularSeas.Models.DTO.DataDTO dataSet = new CircularSeas.Models.DTO.DataDTO();
 
             // Search in the database of the values of the Properties, characteristics and impact that each material has on the selection of materials.
-            CircularSeas.Models.InfoTopsis topsisData = new CircularSeas.Models.InfoTopsis();
-            topsisData.FeaturesNames = await _DBContext.Features
-                .OrderBy(s => s.Id)
-                .Select(s => s.Name)
-                .ToArrayAsync();
-            topsisData.PropertiesNames = await _DBContext.Properties
-                .OrderBy(s => s.Id)
-                .Select(s => s.Name)
-                .ToArrayAsync();
-            topsisData.ImpactPositive = await _DBContext.Properties
-                .OrderBy(s => s.Id)
-                .Select(s => s.PositiveImpact)
-                .ToArrayAsync();
-
-            dataSet.InfoTopsis = topsisData;
-
-            // Search in the DB for the list of all materials 
-            var materialsBBDDlist = await _DBContext.Materials.ToListAsync();
-
-            // Conversion of the DB Materials model into the reduced "Filaments" class 
-            List<CircularSeas.Models.Filament> filamentsList = new List<CircularSeas.Models.Filament>();
-            foreach (var item in materialsBBDDlist)
+            CircularSeas.Models.InfoTopsis infoTopsis = new CircularSeas.Models.InfoTopsis();
+            try
             {
-                filamentsList.Add(new CircularSeas.Models.Filament
-                {
-                    Name = item.Name,
-                    Description = item.Description,
-                    FeaturesValues = await _DBContext.FeatureMats
-                        .Where(s => s.IdMaterial == item.Id)
-                        .OrderBy(s => s.IdFeature)
-                        .Select(s => s.Value)
-                        .ToArrayAsync(),
-                    PropertiesValues = await _DBContext.PropMats
-                        .Where(s => s.IdMaterial == item.Id)
-                        .OrderBy(s => s.IdProperty)
-                        .Select(s => s.Value)
-                        .ToArrayAsync(),
-                    SpoolStock = 0
-                });
+                infoTopsis.FeaturesNames = await _DBContext.Features
+                .OrderBy(s => s.Id)
+                .Select(s => s.Name)
+                .ToArrayAsync();
+                infoTopsis.PropertiesNames = await _DBContext.Properties
+                    .OrderBy(s => s.Id)
+                    .Select(s => s.Name)
+                    .ToArrayAsync();
+                infoTopsis.ImpactPositive = await _DBContext.Properties
+                    .OrderBy(s => s.Id)
+                    .Select(s => s.PositiveImpact)
+                    .ToArrayAsync();
+                dataSet.InfoTopsis = infoTopsis;
+                //Get all profiles availables.
+                var printers = await _DBContext.Printers
+                    .Where(pr => pr.Name == PrinterID)
+                    .Include(pr => pr.PrinterProfiles)
+                    .FirstOrDefaultAsync();
+                dataSet.Printer = Mapper.Repo2Domain(printers);
+
+                // Search in the DB for the list of all materials 
+                var materialsBBDDlist = await _DBContext.Materials
+                    .Include(mat => mat.FeatureMats.OrderBy(f => f.IdFeature))
+                    .Include(mat => mat.PropMats.OrderBy(p => p.IdProperty))
+                    .ToListAsync();
+
+                // Conversion of the DB Materials model into the reduced "Filaments" class 
+                dataSet.Filaments = Mapper.Repo2Domain(materialsBBDDlist).ToArray();
+
             }
-            dataSet.Filaments = filamentsList.ToArray();
-
-            // Getting printer compatibility with available printer/quality profiles and default filament diameter. This will appear as user selectable in the application.
-            var comp = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(_tools.GetWebPath(WebFolder.Data) + "Compatibilities.json"));
-
-            // Fill the "Printer" object with the compatibility and filament diameter data
-            dataSet.Printer = new CircularSeas.Models.Printer
+            catch (Exception)
             {
-                Name = PrinterID,
-                Profiles = comp[PrinterID]["compatible_quality"].ToObject<string[]>(),
-                FilamentDiameter = comp[PrinterID]["filament_diameter"].ToObject<double>()
-            };
+
+                throw;
+            }
+            
             return Json(dataSet);
         }
 
@@ -170,10 +157,13 @@ namespace CircularSeasWebAPI.Controllers
                 Dictionary<string, string> paramsDict = new Dictionary<string, string>();
 
                 // Filament diameter overwrite
-                var comp = (JObject)JsonConvert.DeserializeObject(System.IO.File.ReadAllText(_tools.GetWebPath(WebFolder.Data) + "Compatibilities.json"));
+                double filamentDiameter = await _DBContext.Printers
+                    .Where(p => p.Name == printer)
+                    .Select(p => p.FilamentDiameter)
+                    .FirstOrDefaultAsync();
 
                 paramsDict.Add("support_material", bool.Parse(support) ? "1" : "0");
-                paramsDict.Add("filament_diameter", comp[printer]["filament_diameter"].ToObject<string>());
+                paramsDict.Add("filament_diameter", filamentDiameter.ToString(CultureInfo.InvariantCulture));
 
                 var iniName = _tools.ConfigFileCreator(printer, material, quality, paramsDict);
 

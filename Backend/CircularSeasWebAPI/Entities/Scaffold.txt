@@ -1,0 +1,1 @@
+Scaffold-DbContext 'Data Source=192.168.0.10;Database=CircularSeas;User Id=sa;Password=a123.456;' Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Force
