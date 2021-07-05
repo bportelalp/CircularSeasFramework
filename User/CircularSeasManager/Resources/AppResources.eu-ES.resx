@@ -117,61 +117,118 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Completed" xml:space="preserve">
-    <value>Completed</value>
+  <data name="LoginHeader" xml:space="preserve">
+    <value>Saioa hasi</value>
   </data>
-  <data name="Empty" xml:space="preserve">
-    <value>Empty</value>
+  <data name="Settings" xml:space="preserve">
+    <value>Ezarpenak</value>
   </data>
-  <data name="ErrorConnection" xml:space="preserve">
-    <value>Connection error. Make sure you are connected to the same network and that the server is working</value>
+  <data name="ExpertMode" xml:space="preserve">
+    <value>Modu aditua</value>
   </data>
-  <data name="Extruder" xml:space="preserve">
-    <value>Extruder</value>
+  <data name="88" xml:space="preserve">
+    <value>Octoprint erabiltzailea</value>
   </data>
-  <data name="Hotbed" xml:space="preserve">
-    <value>Hotbed</value>
+  <data name="Pass" xml:space="preserve">
+    <value>Pasahitza</value>
   </data>
-  <data name="hour" xml:space="preserve">
-    <value>hour</value>
+  <data name="Rememberme" xml:space="preserve">
+    <value>Gogorarazten dit</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>hours</value>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Hasi saioa</value>
   </data>
-  <data name="InStock" xml:space="preserve">
-    <value>in stock</value>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>Kontrol-panela</value>
   </data>
-  <data name="Logged" xml:space="preserve">
-    <value>Logged</value>
+  <data name="PrinterStatus" xml:space="preserve">
+    <value>Inprimagailuaren egoera</value>
   </data>
-  <data name="minute" xml:space="preserve">
-    <value>minute</value>
+  <data name="Temperature" xml:space="preserve">
+    <value>Tenperatura:</value>
   </data>
-  <data name="minutes" xml:space="preserve">
-    <value>minutes</value>
+  <data name="CurrentFile" xml:space="preserve">
+    <value>Uneko fitxategia:</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
+  <data name="Progress" xml:space="preserve">
+    <value>Aurrerapena (%):</value>
   </data>
-  <data name="NotApplicable" xml:space="preserve">
-    <value>Not applicable</value>
+  <data name="EstimatedTime" xml:space="preserve">
+    <value>Aurreikusitako denbora</value>
   </data>
-  <data name="OutStock" xml:space="preserve">
-    <value>Out of stock</value>
+  <data name="btnStop" xml:space="preserve">
+    <value>Gelditu</value>
   </data>
-  <data name="Pause" xml:space="preserve">
-    <value>Pause</value>
+  <data name="btnPrintLocal" xml:space="preserve">
+    <value>Inprimatu fitxategi lokalak</value>
   </data>
-  <data name="Slicing" xml:space="preserve">
-    <value>Slicing</value>
+  <data name="btnSendSTL" xml:space="preserve">
+    <value>Sortu eredu berria</value>
   </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>Uploading to printer</value>
+  <data name="btnUploadLocalGCODE" xml:space="preserve">
+    <value>Kargatu GCODE lokala</value>
   </data>
-  <data name="UserPassWrong" xml:space="preserve">
-    <value>Wrong username or password</value>
+  <data name="btnLogout" xml:space="preserve">
+    <value>Hasi saioa</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+  <data name="btnPause" xml:space="preserve">
+    <value>Eten</value>
+  </data>
+  <data name="btnResume" xml:space="preserve">
+    <value>Jarraitu</value>
+  </data>
+  <data name="LocalFilesOnPrinter" xml:space="preserve">
+    <value>Inprimagailuko fitxategi lokalak</value>
+  </data>
+  <data name="btnSendToPrint" xml:space="preserve">
+    <value>Bidali inprimatzera</value>
+  </data>
+  <data name="btnDeleteSelected" xml:space="preserve">
+    <value>Ezabatu hautatutakoa</value>
+  </data>
+  <data name="SliceSTL" xml:space="preserve">
+    <value>Ereduak zatitzeko panela</value>
+  </data>
+  <data name="SelectSTL" xml:space="preserve">
+    <value>Aukeratu STL:</value>
+  </data>
+  <data name="Printer" xml:space="preserve">
+    <value>Inprimagailua:</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Materiala:</value>
+  </data>
+  <data name="btnHelp" xml:space="preserve">
+    <value>Laguntza</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profila:</value>
+  </data>
+  <data name="EnableSupport" xml:space="preserve">
+    <value>Gaitu euskarriak:</value>
+  </data>
+  <data name="btnSendToSlice" xml:space="preserve">
+    <value>Bidali bihurtzera</value>
+  </data>
+  <data name="MaterialSuggest" xml:space="preserve">
+    <value>Materiala iradokitzea</value>
+  </data>
+  <data name="SuggestInfoSliders" xml:space="preserve">
+    <value>Erabili kontrolak propietate bakoitzaren garrantzia azken zatian ezartzeko</value>
+  </data>
+  <data name="btnSuggest" xml:space="preserve">
+    <value>Iradoki</value>
+  </data>
+  <data name="btnAcceptSelection" xml:space="preserve">
+    <value>Onartu</value>
+  </data>
+  <data name="stOperational" xml:space="preserve">
+    <value>Operatiboa</value>
+  </data>
+  <data name="stPrinting" xml:space="preserve">
+    <value>Inprimaketa</value>
+  </data>
+  <data name="stCancelling" xml:space="preserve">
+    <value>Bertan behera uzten</value>
   </data>
 </root>
