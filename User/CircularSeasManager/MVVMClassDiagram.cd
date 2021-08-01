@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CircularSeasManager.Models.BaseModel" Collapsed="true">
+    <Position X="8.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAhCAAAAAAIACAAAABgCAIAAAAAAAAgAAIkAE=</HashCode>
+      <FileName>Models\BaseModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="CircularSeasManager.Models.MainPanelModel" Collapsed="true">
+    <Position X="6.5" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAACAREAQIAAAEAAAAYBAAgAAEBoAAAADAAAA=</HashCode>
+      <FileName>Models\MainPanelModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Models.MaterialAssistantModel" Collapsed="true">
+    <Position X="11.75" Y="5.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAQAABAEAACAICCAAQIAAAAAAAAAAAAAAAQAAAARA=</HashCode>
+      <FileName>Models\MaterialAssistantModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Models.PrintLocalModel" Collapsed="true">
+    <Position X="8.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEBAgAAAABAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\PrintLocalModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.ViewModels.LoginPageViewModel" Collapsed="true">
+    <Position X="4.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAIAAAAAAAAAAEAAAAQAAAAAAA=</HashCode>
+      <FileName>ViewModels\LoginPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.ViewModels.MainPanelViewModel" Collapsed="true">
+    <Position X="6.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAAAAAAABCAIAgAgEIAgAAAAAKQAIAAAAAQQAA=</HashCode>
+      <FileName>ViewModels\MainPanelViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.ViewModels.MaterialAssistantViewModel" Collapsed="true">
+    <Position X="11.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAIAIACAAAAAAAgAAAAAAAAAAAAAAAAIACAA=</HashCode>
+      <FileName>ViewModels\MaterialAssistantViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.ViewModels.PrintLocalViewModel" Collapsed="true">
+    <Position X="8.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAgAAAAAAAAAAAAAAAEBAAAAEAQAA=</HashCode>
+      <FileName>ViewModels\PrintLocalViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Views.LoginPage" Collapsed="true">
+    <Position X="4.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Services.OctoClient">
+    <Position X="7.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MCAEAgAAAABAAgAAIAAgAAIAAQAAABAAACEQBAgAAAA=</HashCode>
+      <FileName>Services\OctoClient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Services.SliceClient">
+    <Position X="9" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAEAAAAAAAACQAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Services\SliceClient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Models.SliceModel" Collapsed="true">
+    <Position X="10" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAEAgCAIAAAAIgBAAAAABAQAAAAAAAMAAIAA=</HashCode>
+      <FileName>Models\SliceModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.ViewModels.SliceViewModel" Collapsed="true">
+    <Position X="10" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAACAAAAAAAAAAAIAAAgACgAAAIAAAA=</HashCode>
+      <FileName>ViewModels\SliceViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Xamarin.Forms.ContentPage" Collapsed="true">
+    <Position X="8.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="CircularSeasManager.Views.MainPanel" Collapsed="true">
+    <Position X="6.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MainPanel.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Views.MaterialAssistantPage" Collapsed="true">
+    <Position X="11.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\MaterialAssistantPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Views.PrintLocal" Collapsed="true">
+    <Position X="8.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\PrintLocal.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Views.SlicerPage" Collapsed="true">
+    <Position X="10" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SlicerPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircularSeasManager.Models.LoginPageModel" Collapsed="true">
+    <Position X="4.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAUAAAQAAgAAABAgABCAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\LoginPageModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

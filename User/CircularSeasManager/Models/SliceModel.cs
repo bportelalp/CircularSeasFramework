@@ -22,10 +22,11 @@ namespace CircularSeasManager.Models {
         private bool _useSupport;
         public bool UseSupport {
             get { return _useSupport; }
-            set { if(_useSupport != value) {
+            set {
+                if (_useSupport != value) {
                     _useSupport = value;
                     OnPropertyChanged();
-                } 
+                }
             }
         }
 
@@ -57,22 +58,24 @@ namespace CircularSeasManager.Models {
         private FileData _STL;
         public FileData STL {
             get { return _STL; }
-            set { if(_STL != value) {
+            set {
+                if (_STL != value) {
                     _STL = value;
                     OnPropertyChanged(nameof(NameSTL));
-                } 
+                }
             }
         }
 
         //Ruta del STL
         public string NameSTL {
-            get { return _STL == null? StringResources.Empty : _STL.FileName;}
+            get { return _STL == null ? StringResources.Empty : _STL.FileName; }
         }
 
         //Indica se están todolos items seleccionados
         public bool AllReady {
-            get { if (string.IsNullOrEmpty(_profileSelected) || string.IsNullOrEmpty(_materialSelected) || (_STL == null)) {
-                   return false;
+            get {
+                if (string.IsNullOrEmpty(_profileSelected) || string.IsNullOrEmpty(_materialSelected) || (_STL == null)) {
+                    return false;
                 }
                 else { return true; }
             }
@@ -82,12 +85,13 @@ namespace CircularSeasManager.Models {
         private string _statusMessage;
         public string StatusMessage {
             get { return _statusMessage; }
-            set { if (_statusMessage != value) {
+            set {
+                if (_statusMessage != value) {
                     _statusMessage = value;
                     OnPropertyChanged();
-                } 
+                }
             }
         }
-        
+
     }
 }
