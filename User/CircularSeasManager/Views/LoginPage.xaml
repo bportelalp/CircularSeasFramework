@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resources="clr-namespace:CircularSeasManager.Resources"
-             x:Class="CircularSeasManager.Views.LoginPage">
+             x:Class="CircularSeasManager.Views.LoginPage"
+             >
 
     <NavigationPage.TitleView>
         <Label Text="CircularSeas Printer" HorizontalTextAlignment="Center" VerticalTextAlignment="Start" TextColor="White" FontSize="36"/>
@@ -17,7 +18,7 @@
         <StackLayout>
             
             <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-                <Image Source="Logo.png" Aspect="AspectFill"></Image>
+                <Image Source="Images/Logo.png" Aspect="AspectFill"></Image>
             </Frame>
 
             <Label Text="{x:Static resources:AppResources.LoginHeader}" 

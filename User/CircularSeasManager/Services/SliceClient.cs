@@ -49,7 +49,7 @@ namespace CircularSeasManager.Services {
         /// <returns></returns>
         public async Task<Tuple<string,byte[]>> PostSTL(Plugin.FilePicker.Abstractions.FileData _STL, string _Printer, string _Material, string _Quality, bool _Support) {
             //Implementación de envío del stl para el laminado
-            var request = new RestRequest("/circularseas/upload", Method.POST);
+            var request = new RestRequest("/circularseas/convert", Method.POST);
             //Engadir os parámetros seleccionados para a configuración
             request.AddQueryParameter("printer", _Printer);
             request.AddQueryParameter("material", _Material);

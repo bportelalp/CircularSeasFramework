@@ -107,7 +107,7 @@ namespace CircularSeasWebAPI.Controllers
         /// <param name="quality">ID Print Profile/Quality, a string with its name </param>
         /// <param name="support"> Support structure generation enablement </param>
         /// <returns> The Gcode generated file </returns>
-        [HttpPost("upload")]
+        [HttpPost("convert")]
         public async Task<IActionResult> PostUpload([FromQuery(Name = "printer")] string printer, [FromQuery(Name = "material")] string material,
                 [FromQuery(Name = "quality")] string quality, [FromQuery(Name = "support")] string support)
         {
