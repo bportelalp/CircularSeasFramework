@@ -8,7 +8,7 @@ VAR_GLOBAL
 	//Modes control
 	Bt_Run: BOOL;
 	Bt_Stop: BOOL;
-	Sel_ManAuto: BOOL;
+	Sel_ManAuto: BOOL := TRUE;
 	Bt_EmStop: BOOL;
 	Bt_Rearm:BOOL;
 	Bt_Front: BOOL;

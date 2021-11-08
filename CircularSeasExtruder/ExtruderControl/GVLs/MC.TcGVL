@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="MC" Id="{65e0733b-c94a-4c09-adde-24ff96a614f2}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	// Axis ref
+	Extruder: AXIS_REF;
+	
+	// Orders
+	En_Power:BOOL;
+	Exec_Stop:BOOL;
+	Exec_Velocity:BOOL;
+	Exec_Relative:BOOL;
+	
+	// Motion variables
+	Override:LREAL := 100;
+	TargetVel:LREAL;
+	TargetPosRel:LREAL;
+	TargetDirection:LREAL;
+END_VAR
+
+VAR_GLOBAL CONSTANT
+	// Motion constants
+	StdVel:LREAL;
+	StdAcc:LREAL;
+	StdDecc:LREAL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

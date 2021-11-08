@@ -8,11 +8,13 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[OperatingModes();
-VisuLogic();]]></ST>
+VisuLogic();
+Motion();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
       <LineId Id="8" Count="0" />
+      <LineId Id="15" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
