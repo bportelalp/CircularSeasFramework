@@ -15,6 +15,7 @@
     <Implicit_KindOfTask>{68a33e22-a9fd-4db3-a528-ab1debffd4c4}</Implicit_KindOfTask>
     <Implicit_Jitter_Distribution>{514d3dc3-e18c-49be-b5f4-9d2e9a66f1b8}</Implicit_Jitter_Distribution>
     <LibraryReferences>{0e6aa1c9-ef7e-4bbe-ade4-3bd53d2491b9}</LibraryReferences>
+    <Released>false</Released>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DUTs\Modes.TcDUT">
@@ -40,6 +41,9 @@
       <LinkAlways>true</LinkAlways>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\AutoExtrusion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -127,6 +131,10 @@
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc3_Module</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="VisuDialogs">
+      <DefaultResolution>VisuDialogs, * (System)</DefaultResolution>
+      <Namespace>VisuDialogs</Namespace>
     </PlaceholderReference>
   </ItemGroup>
   <ItemGroup>

@@ -5,6 +5,7 @@
 VAR_GLOBAL
 	
 	Mode: Modes;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

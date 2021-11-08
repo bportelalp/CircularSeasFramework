@@ -8,7 +8,8 @@ TYPE Modes :
 	STOP_EM := 0,
 	STOP_OP := 1,
 	AUTO := 2,
-	MAN := 3
+	MAN := 3,
+	Stopping := 4
 );
 END_TYPE
 ]]></Declaration>

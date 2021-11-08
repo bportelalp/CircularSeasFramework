@@ -6,57 +6,194 @@
         <o xml:space="preserve" t="GlobalTextListObject">
           <l n="TextList" t="ArrayList" cet="TextListRow">
             <o>
+              <v n="TextID">"403"</v>
+              <v n="TextDefault">"%s"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"734"</v>
+              <v n="TextDefault">"%s ºC"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"600"</v>
               <v n="TextDefault">"Auto             Manual"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"864"</v>
               <v n="TextDefault">"Auto        Manual"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"794"</v>
               <v n="TextDefault">"Automatic"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Automático</v>
+                <v></v>
+              </l>
             </o>
             <o>
-              <v n="TextID">"723"</v>
-              <v n="TextDefault">"Automático"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <v n="TextID">"481"</v>
+              <v n="TextDefault">"Bottom Heater"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Calefactor inferior</v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"766"</v>
               <v n="TextDefault">"Emergency"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Emerxencia</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"130"</v>
+              <v n="TextDefault">"Error"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Erro</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"673"</v>
+              <v n="TextDefault">"Extruder"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Extrusor</v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"542"</v>
               <v n="TextDefault">"Manual"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Manual</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"668"</v>
+              <v n="TextDefault">"Modo: %s"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"653"</v>
+              <v n="TextDefault">"Moving"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Movendose</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"275"</v>
+              <v n="TextDefault">"Operating modes"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Modos de operación</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"139"</v>
+              <v n="TextDefault">"Power"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Potencia</v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"586"</v>
               <v n="TextDefault">"Rearm"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Rearme</v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"688"</v>
               <v n="TextDefault">"Start"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Inicio</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"765"</v>
+              <v n="TextDefault">"Start Cycle"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Iniciar ciclo</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"988"</v>
+              <v n="TextDefault">"Status"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Estado</v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"954"</v>
               <v n="TextDefault">"Stop"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Parada</v>
+                <v></v>
+              </l>
             </o>
             <o>
               <v n="TextID">"385"</v>
               <v n="TextDefault">"STOP"</v>
-              <l n="LanguageTexts" t="ArrayList" />
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Paro</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"524"</v>
+              <v n="TextDefault">"Temperature"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Temperatura</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"559"</v>
+              <v n="TextDefault">"Top Heater"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Calefactor superior</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"367"</v>
+              <v n="TextDefault">"Velocity"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v>Velocidade</v>
+                <v></v>
+              </l>
             </o>
           </l>
-          <l n="Languages" t="ArrayList" />
+          <l n="Languages" t="ArrayList" cet="String">
+            <v>Galician</v>
+            <v>Español</v>
+          </l>
           <v n="GuidInit">{b881f48d-6e73-4489-a8a5-1f9deb15291d}</v>
           <v n="GuidReInit">{1d5eef7b-1e1d-461a-a31c-d9e6b587bb6b}</v>
           <v n="GuidExitX">{517d6541-6a56-4ef8-a53f-79ba8d5d7c9d}</v>

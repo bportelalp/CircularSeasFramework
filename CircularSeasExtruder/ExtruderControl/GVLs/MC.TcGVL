@@ -16,14 +16,14 @@ VAR_GLOBAL
 	Override:LREAL := 100;
 	TargetVel:LREAL;
 	TargetPosRel:LREAL;
-	TargetDirection:LREAL;
+	TargetDirection:MC_Direction;
 END_VAR
 
 VAR_GLOBAL CONSTANT
 	// Motion constants
-	StdVel:LREAL;
-	StdAcc:LREAL;
-	StdDecc:LREAL;
+	StdVel:LREAL:= 100;
+	StdAcc:LREAL:= 1000;
+	StdDecc:LREAL:= 1000;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

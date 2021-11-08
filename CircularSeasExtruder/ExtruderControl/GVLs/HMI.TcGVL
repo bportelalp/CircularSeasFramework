@@ -5,7 +5,7 @@
 VAR_GLOBAL
 	
 
-	//Modes control
+	// Modes control
 	Bt_Run: BOOL;
 	Bt_Stop: BOOL;
 	Sel_ManAuto: BOOL := TRUE;
@@ -13,6 +13,14 @@ VAR_GLOBAL
 	Bt_Rearm:BOOL;
 	Bt_Front: BOOL;
 	Bt_Back:BOOL;
+	
+	//Process Control
+	Bt_StartCycle:BOOL;
+	Tb_Vel:LREAL;
+	Tb_TempL:LREAL;
+	Tb_TempU:LREAL;
+	Tb_Temp:LREAL;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
