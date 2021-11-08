@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="HMI" Id="{6440e730-8005-48b0-a8e6-25a7af6a8498}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+
+	//Modes control
+	Bt_Run: BOOL;
+	Bt_Stop: BOOL;
+	Sel_ManAuto: BOOL;
+	Bt_EmStop: BOOL;
+	Bt_Rearm:BOOL;
+	Bt_Front: BOOL;
+	Bt_Back:BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

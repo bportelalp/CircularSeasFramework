@@ -3,14 +3,16 @@
   <POU Name="MAIN" Id="{d8de5791-f153-470a-bfaa-453c619a7f06}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	luz:BOOL:=TRUE;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[Luz :=Luz;]]></ST>
+      <ST><![CDATA[OperatingModes();
+VisuLogic();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
+      <LineId Id="8" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

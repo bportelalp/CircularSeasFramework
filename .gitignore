@@ -392,7 +392,6 @@ FodyWeavers.xsd
 *.tclrs
 *.compiled-library
 *.compileinfo
-*.tmc
 *.tmcRefac
 *.library
 *.project.~u
