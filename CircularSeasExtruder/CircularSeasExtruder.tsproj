@@ -9,9 +9,9 @@
 			</Tasks>
 		</System>
 		<Plc>
-			<Project GUID="{9BF7D321-762D-4DBE-8D7F-940AA400B396}" Name="ControlExtrusora" PrjFilePath="ControlExtrusora\ControlExtrusora.plcproj" TmcFilePath="ControlExtrusora\ControlExtrusora.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="ControlExtrusora\ControlExtrusora.tmc">
-					<Name>ControlExtrusora Instance</Name>
+			<Project GUID="{9BF7D321-762D-4DBE-8D7F-940AA400B396}" Name="ExtruderControl" PrjFilePath="ExtruderControl\ExtruderControl.plcproj" TmcFilePath="ExtruderControl\ExtruderControl.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="ExtruderControl\ExtruderControl.tmc">
+					<Name>ExtruderControl Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>
 						<Context>
