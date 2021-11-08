@@ -386,3 +386,18 @@ FodyWeavers.xsd
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# TwinCAT
+*.tpy
+*.tclrs
+*.compiled-library
+*.compileinfo
+*.tmc
+*.tmcRefac
+*.library
+*.project.~u
+*.tsproj.bak
+*.xti.bak
+_Boot/
+_CompileInfo/
+_Libraries/
