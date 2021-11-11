@@ -11,6 +11,11 @@ END_VAR
 
 
 OperatingModes();
+
+IF GVL.Mode = Modes.AUTO THEN
+	Basic();
+END_IF
+
 VisuLogic();
 Motion();]]></ST>
     </Implementation>
@@ -19,6 +24,9 @@ Motion();]]></ST>
       <LineId Id="22" Count="0" />
       <LineId Id="21" Count="0" />
       <LineId Id="2" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="2" />
       <LineId Id="8" Count="0" />
       <LineId Id="15" Count="0" />
     </LineIds>

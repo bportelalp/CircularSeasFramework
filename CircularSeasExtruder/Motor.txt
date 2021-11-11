@@ -1,0 +1,7 @@
+Características
+	Servo:		AM3042-1E00
+	Resolución:	2^20
+
+Relaciones de transformación:
+	Numerador:	360
+	Denominador:	8388608

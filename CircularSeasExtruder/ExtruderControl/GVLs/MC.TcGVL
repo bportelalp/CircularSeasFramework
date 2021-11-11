@@ -11,6 +11,7 @@ VAR_GLOBAL
 	Exec_Stop:BOOL;
 	Exec_Velocity:BOOL;
 	Exec_Relative:BOOL;
+	Exec_Reset:BOOL;
 	
 	// Motion variables
 	Override:LREAL := 100;

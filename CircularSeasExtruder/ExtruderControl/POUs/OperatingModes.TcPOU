@@ -52,13 +52,13 @@ END_VAR
 	// Stopping
 	Modes.Stopping:
 		MC.Exec_Stop:= TRUE;
-		IF Motion.FB_Stop.Done THEN
+		IF Motion.FB_Stop.Done OR MC.Extruder.Status.Error THEN
 			GVL.Mode := AuxStopping;
 		END_IF
 END_CASE
 
 // Axis Power when not in stop
-IF GVL.Mode <> Modes.STOP_EM THEN
+IF GVL.Mode = Modes.AUTO OR GVL.Mode = Modes.MAN OR GVL.Mode = Modes.Stopping THEN
 	MC.En_Power := TRUE;
 END_IF]]></ST>
     </Implementation>

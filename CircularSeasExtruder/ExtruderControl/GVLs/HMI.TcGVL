@@ -16,6 +16,8 @@ VAR_GLOBAL
 	
 	//Process Control
 	Bt_StartCycle:BOOL;
+	Bt_StopCycle:BOOL;
+	Bt_ResetAxis:BOOL;
 	Tb_Vel:LREAL;
 	Tb_TempL:LREAL;
 	Tb_TempU:LREAL;

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Basic" Id="{ce22bfcc-fbf0-4f66-8f8a-cc86cf734ace}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Basic
+VAR
+	State:INT:= 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[MC.Exec_Stop:= FALSE;
+MC.Exec_Velocity := FALSE;
+
+CASE state OF
+	0:  MC.Exec_Stop:= TRUE;
+		IF HMI.Bt_StartCycle THEN
+			State:=1;
+			MC.TargetDirection:= MC_Direction.MC_Positive_Direction;
+			MC.TargetVel:= HMI.Tb_Vel;
+		END_IF
+	1:  MC.Exec_Velocity:=TRUE;
+		IF HMI.Bt_StopCycle THEN
+			State:=0;
+		END_IF
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="Basic">
+      <LineId Id="20" Count="2" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="11" Count="1" />
+      <LineId Id="15" Count="1" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="17" Count="2" />
+      <LineId Id="10" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
