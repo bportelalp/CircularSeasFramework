@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="PlcToSensor" Id="{64507981-7e7f-4412-8941-6ea371eb3cc8}">
+    <Declaration><![CDATA[TYPE PlcToSensor :
+STRUCT
+	VisionCommand AT %Q*:DWORD;
+	VisionControlFlag AT %Q*:DWORD;
+	EXE:BOOL;
+	TRIG:BOOL;
+	DSA:BOOL;
+	ERCLR:BOOL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

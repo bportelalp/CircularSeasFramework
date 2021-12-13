@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="VisionState" Id="{026550f6-bfbd-4c94-b22d-92157edaf3ed}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE VisionState :
+(
+	Error := 000,
+	StandStill := 010,
+	Continuous := 020,
+	Discrete := 030
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

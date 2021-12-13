@@ -21,16 +21,15 @@ CASE state OF
 		IF HMI.Bt_StopCycle THEN
 			State:=0;
 		END_IF
-END_CASE]]></ST>
+END_CASE
+
+State:= 1;]]></ST>
     </Implementation>
     <LineIds Name="Basic">
-      <LineId Id="20" Count="2" />
-      <LineId Id="8" Count="1" />
-      <LineId Id="11" Count="1" />
-      <LineId Id="15" Count="1" />
-      <LineId Id="13" Count="1" />
-      <LineId Id="17" Count="2" />
-      <LineId Id="10" Count="0" />
+      <LineId Id="39" Count="13" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="57" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

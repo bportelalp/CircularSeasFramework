@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="SensorToPlc" Id="{076bfb3b-5543-4abf-8ef3-217c18a1111d}">
+    <Declaration><![CDATA[TYPE SensorToPlc :
+STRUCT
+	VisionStatusFlag AT %I*:DWORD; //Doble Palabra que contiene los bits siguientes
+	FLG:BOOL; //Posicion 0
+	BUSY:BOOL; //Posicion 1
+	READY:BOOL; //Posicion 2
+	OR_Jud:BOOL; //Posicion 3
+	RUN:BOOL; //Posicion 4
+	ERR:BOOL; //Posicion 15
+	GATE:BOOL; //Posicion 16
+	
+	VisionResponseCode AT %I*:DWORD;
+	VisionResponseData AT %I*:DWORD;
+	
+	//Lecturas desde el sensor
+	VisionDataOutput1 AT %I*:REAL;
+	VisionDataOutput2 AT %I*:REAL;
+	VisionDataOutput3 AT %I*:REAL;
+	VisionDataOutput4 AT %I*:REAL;
+	VisionDataOutput5 AT %I*:REAL;
+	VisionDataOutput6 AT %I*:REAL;
+	VisionDataOutput7 AT %I*:REAL;
+	VisionDataOutput8 AT %I*:REAL;
+	
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
