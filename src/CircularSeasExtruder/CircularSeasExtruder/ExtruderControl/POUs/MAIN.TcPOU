@@ -3,12 +3,15 @@
   <POU Name="MAIN" Id="{d8de5791-f153-470a-bfaa-453c619a7f06}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	
+	En:BOOL;
+	Shot:BOOL;
+	Result:array [0..7] of real;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Motion.InitMotion();
-
+GVL.Vision();
+GVL.Vision.SingleShot(Enable:=en, Execute:=Shot, Results=>Result);
 
 OperatingModes();
 
@@ -22,6 +25,7 @@ Motion();]]></ST>
     <LineIds Name="MAIN">
       <LineId Id="19" Count="0" />
       <LineId Id="22" Count="0" />
+      <LineId Id="36" Count="0" />
       <LineId Id="21" Count="0" />
       <LineId Id="2" Count="0" />
       <LineId Id="28" Count="0" />

@@ -21,6 +21,15 @@
     <Compile Include="DUTs\Modes.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\PlcToSensor.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\SensorToPlc.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\VisionCmd.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
@@ -58,6 +67,9 @@
     <Compile Include="POUs\Operation\Basic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Vision\SensorFQM.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\VISUCode\VisuLogic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -72,6 +84,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\Vision" />
     <Folder Include="POUs\Operation" />
     <Folder Include="POUs\VISUCode" />
     <Folder Include="VISUs" />
@@ -153,6 +166,10 @@
     <None Include="ExtruderControl.tmc">
       <SubType>Content</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <SubObject Include="SensorFQM.PrepareCommand" />
+    <SubObject Include="SensorFQM.SingleShot" />
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

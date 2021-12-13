@@ -5,7 +5,7 @@
 VAR_GLOBAL
 	
 	Mode: Modes;
-	
+	Vision:SensorFQM;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
