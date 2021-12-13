@@ -23,6 +23,11 @@ VAR_GLOBAL
 	Tb_TempU:LREAL;
 	Tb_Temp:LREAL;
 	
+	//Vision control
+	Bt_ActivateContinuous:BOOL;
+	Bt_ActivateSingle:BOOL;
+	Bt_Shot:BOOL;
+	L_NewMeasurement:BOOL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

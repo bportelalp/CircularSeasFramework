@@ -2554,6 +2554,8 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput6" VarB="259th transmit PDO Mapping^Vision Data Output6"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput7" VarB="259th transmit PDO Mapping^Vision Data Output7"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput8" VarB="259th transmit PDO Mapping^Vision Data Output8"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionResponseCode" VarB="258th transmit PDO Mapping^Vision Response Code"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionResponseData" VarB="258th transmit PDO Mapping^Vision Response Data1"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionStatusFlag" VarB="257th transmit PDO Mapping^BUSY Bit" Size="1" OffsA="1"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionStatusFlag" VarB="257th transmit PDO Mapping^ERR Bit" Size="1" OffsA="15"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionStatusFlag" VarB="257th transmit PDO Mapping^FLG Bit"/>

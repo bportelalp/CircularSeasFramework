@@ -21,13 +21,16 @@
     <Compile Include="DUTs\Modes.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\PlcToSensor.TcDUT">
+    <Compile Include="DUTs\Vision\PlcToSensor.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\SensorToPlc.TcDUT">
+    <Compile Include="DUTs\Vision\SensorToPlc.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\VisionCmd.TcDUT">
+    <Compile Include="DUTs\Vision\VisionCmd.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\Vision\VisionState.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GlobalTextList.TcGTLO">
@@ -67,6 +70,9 @@
     <Compile Include="POUs\Operation\Basic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Operation\VisionJog.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Vision\SensorFQM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -76,13 +82,22 @@
     <Compile Include="Visualization Manager.TcVMO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="VISUs\BasicHMI.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
+    </Compile>
     <Compile Include="VISUs\MainHMI.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\VisionHMI.TcVIS">
       <SubType>Code</SubType>
       <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DUTs" />
+    <Folder Include="DUTs\Vision" />
     <Folder Include="GVLs" />
     <Folder Include="POUs\Vision" />
     <Folder Include="POUs\Operation" />
@@ -170,6 +185,11 @@
   <ItemGroup>
     <SubObject Include="SensorFQM.PrepareCommand" />
     <SubObject Include="SensorFQM.SingleShot" />
+  </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="VisuSymbols,3.5.10.0,System">
+      <Namespace>VisuSymbols</Namespace>
+    </LibraryReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>

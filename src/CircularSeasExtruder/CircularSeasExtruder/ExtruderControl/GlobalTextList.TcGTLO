@@ -22,6 +22,22 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"446"</v>
+              <v n="TextDefault">"%.4F"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"479"</v>
+              <v n="TextDefault">"%.4f"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"403"</v>
               <v n="TextDefault">"%s"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -32,6 +48,32 @@
             <o>
               <v n="TextID">"734"</v>
               <v n="TextDefault">"%s ºC"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"892"</v>
+              <v n="TextDefault">"Activate"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"111"</v>
+              <v n="TextDefault">"Activate
+Continuous"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"419"</v>
+              <v n="TextDefault">"Activate
+Single"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>
@@ -62,6 +104,14 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"279"</v>
+              <v n="TextDefault">"Basic Mode"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"481"</v>
               <v n="TextDefault">"Bottom Heater"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -70,10 +120,34 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"131"</v>
+              <v n="TextDefault">"BUSY"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"922"</v>
+              <v n="TextDefault">"Camera"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"766"</v>
               <v n="TextDefault">"Emergency"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v>Emerxencia</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"497"</v>
+              <v n="TextDefault">"ERR"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
                 <v></v>
               </l>
             </o>
@@ -94,10 +168,106 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"887"</v>
+              <v n="TextDefault">"FLC"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"296"</v>
+              <v n="TextDefault">"FLG"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"6"</v>
+              <v n="TextDefault">"GroupBox"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"542"</v>
               <v n="TextDefault">"Manual"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v>Manual</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"277"</v>
+              <v n="TextDefault">"Mediciones de la cámara"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"963"</v>
+              <v n="TextDefault">"Medida1"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"722"</v>
+              <v n="TextDefault">"Medida2"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"161"</v>
+              <v n="TextDefault">"Medida3"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"420"</v>
+              <v n="TextDefault">"Medida4"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"375"</v>
+              <v n="TextDefault">"Medida5"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"65"</v>
+              <v n="TextDefault">"Medida6"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"644"</v>
+              <v n="TextDefault">"Medida7"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"316"</v>
+              <v n="TextDefault">"Medida8"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
                 <v></v>
               </l>
             </o>
@@ -114,6 +284,22 @@
               <v n="TextDefault">"Moving"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v>Movendose</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"808"</v>
+              <v n="TextDefault">"NEW"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"548"</v>
+              <v n="TextDefault">"NG"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
                 <v></v>
               </l>
             </o>
@@ -142,6 +328,22 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"989"</v>
+              <v n="TextDefault">"Shoot"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"280"</v>
+              <v n="TextDefault">"Shot"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"688"</v>
               <v n="TextDefault">"Start"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -154,6 +356,14 @@
               <v n="TextDefault">"Start Cycle"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v>Iniciar ciclo</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"869"</v>
+              <v n="TextDefault">"State"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
                 <v></v>
               </l>
             </o>

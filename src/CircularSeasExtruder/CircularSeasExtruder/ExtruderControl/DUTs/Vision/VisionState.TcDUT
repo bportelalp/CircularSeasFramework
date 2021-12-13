@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="VisionState" Id="{2a406e9a-3181-4b1a-b7fb-fb3c55ea564c}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE VisionState :
+(
+	Error := 000,
+	Checking_error := 001,
+	Clear_data := 002,
+	Clear_error := 003,
+	StandStill := 010,
+	Switching_Single := 011,
+	Switching_Continuous := 012,
+	ContinuousMeasurement := 020,
+	Stopping_Continuous := 021,
+	SingleMeasurement := 030,
+	TakingSingleMeasurement := 031,
+	EmptyDebug := 999
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
