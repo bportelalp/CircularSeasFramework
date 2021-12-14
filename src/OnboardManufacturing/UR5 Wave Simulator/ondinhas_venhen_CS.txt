@@ -1,0 +1,22 @@
+ Programa
+   Programa de robot
+     ini_ond≔p0
+     Esperar: 0
+     MoverP
+       ini_ond
+       P10
+       P20
+       P30
+       P40
+       Esperar: 0.1
+       P30
+       P20
+       P10
+       p0
+       P10_2
+       P20_2
+       P30_2
+       Esperar: 0.1
+       P20_2
+       P10_2
+       ini_ond

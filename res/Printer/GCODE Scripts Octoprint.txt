@@ -1,0 +1,18 @@
+Ubicación: ~/.octoprint/scripts/gcode/[nameOfCustomScript]
+
+
+After print job is cancelled (afterPrintCancelled)
+
+G91 ;Set to Relative position
+G1 E-1 F300 ;Retraer el filamento 
+G0 Z15 ;Mover el eje Z ligeramente hacia arriba
+G28 X Y ;XY a home
+G90 ;Fijar posición absoluta
+M104 S0 ;Apagar Extrusor
+M140 S0 ;Apagar Cama Caliente
+M106 S0 ;Apagar ventilador
+M84 ;Deshabilitar motores
+
+After print job is paused (afterPrintPaused)
+
+G1 X20 Y20 F4000 ;Mover X e Y a coordenadas (20,20)
