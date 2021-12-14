@@ -342,7 +342,7 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
-# TwinCAT
+# TwinCAT3
 *.tpy
 *.tclrs
 *.compiled-library
