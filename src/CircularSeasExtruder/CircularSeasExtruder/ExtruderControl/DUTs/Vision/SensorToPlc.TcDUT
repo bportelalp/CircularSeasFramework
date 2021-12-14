@@ -16,15 +16,7 @@ STRUCT
 	VisionResponseData AT %I*:DWORD;
 	
 	//Lecturas desde el sensor
-	VisionDataOutput1 AT %I*:REAL;
-	VisionDataOutput2 AT %I*:REAL;
-	VisionDataOutput3 AT %I*:REAL;
-	VisionDataOutput4 AT %I*:REAL;
-	VisionDataOutput5 AT %I*:REAL;
-	VisionDataOutput6 AT %I*:REAL;
-	VisionDataOutput7 AT %I*:REAL;
-	VisionDataOutput8 AT %I*:REAL;
-	
+	VisionDataOutput AT %I*: ARRAY [0..7] OF REAL;
 END_STRUCT
 END_TYPE
 ]]></Declaration>
