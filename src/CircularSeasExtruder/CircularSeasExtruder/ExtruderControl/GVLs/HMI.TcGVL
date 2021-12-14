@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <GVL Name="HMI" Id="{6440e730-8005-48b0-a8e6-25a7af6a8498}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	
+
+	// Modes control
+	Bt_Run: BOOL;
+	Bt_Stop: BOOL;
+	Sel_ManAuto: BOOL := TRUE;
+	Bt_EmStop: BOOL;
+	Bt_Rearm:BOOL;
+	Bt_Front: BOOL;
+	Bt_Back:BOOL;
+	
+	//Process Control
+	Bt_StartCycle:BOOL;
+	Bt_StopCycle:BOOL;
+	Bt_ResetAxis:BOOL;
+	Tb_Vel:LREAL;
+	Tb_TempL:LREAL;
+	Tb_TempU:LREAL;
+	Tb_Temp:LREAL;
+	
+	//Vision control
+	Bt_ActivateContinuous:BOOL;
+	Bt_ActivateSingle:BOOL;
+	Bt_Shot:BOOL;
+	L_NewMeasurement:BOOL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

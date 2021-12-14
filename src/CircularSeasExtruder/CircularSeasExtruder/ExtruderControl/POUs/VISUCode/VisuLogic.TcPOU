@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="VisuLogic" Id="{8922458d-0421-4f98-b48e-184c3c0cea3c}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM VisuLogic
+VAR_OUTPUT
+	L_Run: BOOL;
+	L_StopOP: BOOL;
+	L_StopEM: BOOL;
+	L_Manual: BOOL;
+	
+	
+END_VAR
+VAR
+	T_StopOP: TON;
+	Time_Stop: TIME := T#1S;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+L_Run := (GVL.Mode = Modes.AUTO);
+L_Manual := (GVL.Mode = Modes.MAN);
+L_StopEM := (GVL.Mode = Modes.STOP_EM);
+IF GVL.Mode <> Modes.STOP_OP THEN
+	L_stopOP := FALSE;
+END_IF
+
+//Timing Stop OP
+IF GVL.Mode = Modes.STOP_OP THEN
+	T_StopOP(IN:=TRUE, PT:=Time_Stop);
+	IF T_StopOP.Q THEN
+		T_StopOP(IN:=FALSE);
+		L_StopOP := NOT L_StopOP;
+	END_IF
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="VisuLogic">
+      <LineId Id="24" Count="1" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="32" Count="1" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="20" Count="1" />
+      <LineId Id="23" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="SensorFQM" Id="{8ea74fb3-e201-4806-8f67-b84ba6b734a0}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK SensorFQM
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR_IN_OUT
+	
+END_VAR
+VAR
+	State:VisionState:= 0;
+	SensorToPlc AT %I*:SensorToPlc;
+	PlcToSensor AT %Q*:PlcToSensor;
+	KeepAliveTimer:TON;
+	
+	RExec:R_TRIG;
+	NextCycleResetFlags:BOOL;
+	Results: ARRAY [0..7] OF REAL;
+	
+	//Single measurement
+	RequestSingle:BOOL;
+	TakePhoto:BOOL;
+	TakePhotoFlag:R_TRIG;
+	MeasurementTimer:TON;
+	MeasureTime:TIME;
+	
+	//Continuous measurement
+	RequestStartCont:BOOL;
+	RequestStopCont:BOOL;
+	StopFromError:BOOL;
+	ResponseTimer:TON;
+	ResponseTime:TIME;
+	FEnable:F_TRIG;
+	
+	LastResult:INT:=0;//0-Null, 1-Ok, 2-NG
+	//Error Management
+	RequestErrorCode:BOOL;
+	LastError:DWORD;
+	Resultado:REAL;
+END_VAR
+VAR CONSTANT
+	KeepAliveBit:INT:=24;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Preparing Inputs
+SensorToPlc.FLG:= SensorToPlc.VisionStatusFlag.0;
+SensorToPlc.BUSY:= SensorToPlc.VisionStatusFlag.1;
+SensorToPlc.READY:= SensorToPlc.VisionStatusFlag.2;
+SensorToPlc.OR_Jud:= SensorToPlc.VisionStatusFlag.3;
+SensorToPlc.RUN:= SensorToPlc.VisionStatusFlag.4;
+SensorToPlc.ERR:= SensorToPlc.VisionStatusFlag.15;
+SensorToPlc.GATE:= SensorToPlc.VisionStatusFlag.16;
+//Change a bit every 500ms as Keep Alive bit
+KeepAliveTimer(in:=NOT KeepAliveTimer.Q, pt:=T#1S);
+IF KeepAliveTimer.Q THEN
+	PlcToSensor.VisionControlFlag.24:= NOT PlcToSensor.VisionControlFlag.24;
+END_IF
+PlcToSensor.EXE:=FALSE;
+//State machine
+CASE State OF
+	000: //Error
+		PlcToSensor.ERCLR:=FALSE;
+		IF NOT SensorToPlc.ERR THEN
+			State := 010;
+		ELSE
+			State := 001;
+		END_IF
+			
+	001: //Checking errors
+		//TODO: Revisar
+		PrepareCommand(Command:= VisionCmd.GetLatestError);
+		PlcToSensor.EXE := TRUE;
+		IF SensorToPlc.FLG THEN
+			PlcToSensor.EXE := FALSE;
+			LastError:= SensorToPlc.VisionResponseData;
+			State := 002;
+		END_IF
+	002: //Clear data
+		PrepareCommand(VisionCmd.ClearDataOutputBuffer);
+		PlcToSensor.EXE := TRUE;
+		IF SensorToPlc.FLG THEN
+			PlcToSensor.EXE := FALSE;
+			State := 003;
+		END_IF
+	003: //Clear Error
+		PlcToSensor.ERCLR:=TRUE;
+		IF NOT SensorToPlc.ERR THEN
+			PlcToSensor.ERCLR := FALSE;
+			State := 010;
+		END_IF
+	010: //StandStill
+		IF RequestSingle THEN
+			State := 011;
+		END_IF
+		IF RequestStartCont AND NOT RequestSingle THEN
+			State := 012;
+		END_IF
+		IF SensorToPlc.ERR THEN
+			State := 001;
+			
+		END_IF
+	011: //Switching to Single
+		PrepareCommand(VisionCmd.StartSingle);
+		PlcToSensor.EXE:=TRUE;
+		IF SensorToPlc.FLG THEN
+			PlcToSensor.EXE := FALSE;
+			State := 030;
+			LastResult:=0;
+		END_IF
+	012: //Switching to continuous
+		PrepareCommand(VisionCmd.StartContinuous);
+		PlcToSensor.EXE:=TRUE;
+		IF SensorToPlc.FLG THEN
+			PlcToSensor.EXE := FALSE;
+			State := 020;
+		END_IF
+	020: //Continuous Measurement
+		IF SensorToPLC.ERR THEN
+			PlcToSensor.EXE := FALSE;
+			StopFromError:=TRUE;
+			State := 021;
+		END_IF 
+		IF RequestStopCont THEN
+			PlcToSensor.EXE := FALSE;
+			State := 021;
+		END_IF
+	021: //Stopping continuous
+	    PrepareCommand(VisionCmd.StopContinuous);
+		PlcToSensor.EXE := TRUE;
+		IF SensorToPLC.FLG THEN
+			IF StopFromError THEN
+				PlcToSensor.EXE :=FALSE;
+				StopFromError:=FALSE;
+				State := 001;
+			ELSE
+				State := 010;
+			END_IF
+			RequestStopCont := FALSE;
+		END_IF
+	030: // Single Measurement Ready
+		
+		IF TakePhoto THEN
+			//Take photo and request
+			PlcToSensor.TRIG:=TRUE;
+			PlcToSensor.DSA:=TRUE;
+			MeasurementTimer(in:=FALSE);
+			MeasurementTimer(in:=TRUE, pt:=T#60s);
+			State := 31;
+		END_IF
+		IF NOT RequestSingle THEN
+			State := 010;
+		END_IF
+		IF SensorToPlc.ERR THEN
+			State := 001;
+			PrepareCommand(Command:= VisionCmd.GetLatestError);
+			PlcToSensor.EXE := TRUE;
+		END_IF
+	031: // Single Measurement Taking photo
+		MeasurementTimer(in:=TRUE);
+		IF SensorToPLC.GATE THEN
+			IF SensorToPlc.OR_Jud THEN
+				LastResult:=2;
+			ELSE
+				LastResult:=1;
+			END_IF	
+			Resultado:= SensorToPlc.VisionDataOutput1;
+			MeasureTime:=MeasurementTimer.ET;
+			MeasurementTimer(in:=FALSE);
+			State := 030;
+			PlcToSensor.TRIG:=FALSE;
+			PlcToSensor.DSA:=FALSE;
+		END_IF
+		IF SensorToPLC.ERR THEN
+			State := 001;
+		END_IF
+END_CASE
+
+//Update Flag Bits into DWORD
+PlcToSensor.VisionControlFlag.0:= PlcToSensor.EXE;
+PlcToSensor.VisionControlFlag.1:= PlcToSensor.TRIG;
+PlcToSensor.VisionControlFlag.15:= PlcToSensor.ERCLR;
+PlcToSensor.VisionControlFlag.16:= PlcToSensor.DSA;
+]]></ST>
+    </Implementation>
+    <Method Name="ContinuousShot" Id="{7aa3080a-191c-450f-ad99-76e6e4f7b2ac}">
+      <Declaration><![CDATA[METHOD PUBLIC ContinuousShot : BOOL
+VAR_INPUT
+	Enable:BOOL; //Habilita el modo continuo. NOTA: Tendrá prioridad el modo único
+END_VAR
+VAR_OUTPUT
+	Q:ARRAY [0..7] OF REAL;
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FEnable(CLK:=Enable);
+IF Enable THEN
+	RequestStartCont:=TRUE;
+	RequestStopCont:=FALSE;
+END_IF
+IF FEnable.Q THEN
+	RequestStartCont:=FALSE;
+	RequestStopCont:=TRUE;
+	PlcToSensor.DSA:=FALSE;
+	ResponseTimer(in:=FALSE);
+END_IF
+
+IF Enable THEN
+	IF SensorToPlc.GATE THEN
+		ResponseTime:=ResponseTimer.ET;
+		PlcToSensor.DSA := FALSE;
+		ResponseTimer(in:=FALSE, pt:=T#10S);
+	ELSIF NOT SensorToPLC.gate THEN
+		ResponseTimer(in:=TRUE, pt:=T#10S);
+		PlcToSensor.DSA := TRUE;
+	END_IF
+END_IF
+
+Q := MapResults();
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="MapResults" Id="{1007e553-2bdb-49c0-9584-1edc391e72ac}">
+      <Declaration><![CDATA[METHOD PRIVATE MapResults : ARRAY [0..7] OF REAL;
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[MapResults[0]:= SensorToPlc.VisionDataOutput1;
+MapResults[1]:= SensorToPlc.VisionDataOutput2;
+MapResults[2]:= SensorToPlc.VisionDataOutput3;
+MapResults[3]:= SensorToPlc.VisionDataOutput4;
+MapResults[4]:= SensorToPlc.VisionDataOutput5;
+MapResults[5]:= SensorToPlc.VisionDataOutput6;
+MapResults[6]:= SensorToPlc.VisionDataOutput7;
+MapResults[7]:= SensorToPlc.VisionDataOutput8;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="PrepareCommand" Id="{a5013f73-e3c6-4216-beb5-427e6727c662}">
+      <Declaration><![CDATA[METHOD PRIVATE PrepareCommand
+VAR_INPUT
+	Command:VisionCmd;
+END_VAR
+VAR
+	
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE Command OF
+	VisionCmd.StartSingle: PlcToSensor.VisionCommand:= 16#00101010;
+	VisionCmd.StartContinuous: PlcToSensor.VisionCommand:= 16#00101020;
+	VisionCmd.StopContinuous: PlcToSensor.VisionCommand:= 16#00101030;
+	VisionCmd.ClearValues: PlcToSensor.VisionCommand:= 16#00102010;
+	VisionCmd.ClearDataOutputBuffer: PlcToSensor.VisionCommand:= 16#00102020;
+	VisionCmd.Reset: PlcToSensor.VisionCommand:= 16#0010F010;
+	VisionCmd.GetLatestError: PlcToSensor.VisionCommand:= 16#00205000;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="SingleShot" Id="{87e13948-808e-4978-b44c-43911b4f1ae7}">
+      <Declaration><![CDATA[METHOD PUBLIC SingleShot : BOOL
+VAR_INPUT
+	Enable:BOOL;
+	Execute:BOOL;
+END_VAR
+VAR_OUTPUT
+	Active:BOOL;
+	Measurement:BOOL;
+	Ok:BOOL;
+	Ng:BOOL;
+	Q: ARRAY [0..7] OF REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF Enable THEN
+	RequestSingle:=TRUE;
+ELSE
+	RequestSingle:=FALSE;
+END_IF
+
+TakePhotoFlag(clk:= Execute);
+IF State = 030 THEN
+	Active:=TRUE;
+	IF TakePhotoFlag.Q THEN
+		TakePhoto:=TRUE;
+		Ok:=FALSE;
+		Ng:=FALSE;
+	END_IF
+	CASE LastResult OF
+		0: Ok:=FALSE; Ng:=FALSE; Measurement:=FALSE;
+		1: Ok:=TRUE; Ng:=FALSE; Measurement:=TRUE;
+		2: Ok:=FALSE; Ng:=TRUE; Measurement:= TRUE;
+	END_CASE
+	
+ELSIF State = 031 THEN
+	TakePhoto:=FALSE;
+END_IF
+
+Q := MapResults();
+]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="SensorFQM">
+      <LineId Id="210" Count="25" />
+      <LineId Id="370" Count="0" />
+      <LineId Id="377" Count="0" />
+      <LineId Id="236" Count="0" />
+      <LineId Id="365" Count="0" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="322" Count="0" />
+      <LineId Id="240" Count="0" />
+      <LineId Id="363" Count="0" />
+      <LineId Id="378" Count="0" />
+      <LineId Id="366" Count="1" />
+      <LineId Id="371" Count="0" />
+      <LineId Id="368" Count="1" />
+      <LineId Id="323" Count="3" />
+      <LineId Id="328" Count="0" />
+      <LineId Id="327" Count="0" />
+      <LineId Id="241" Count="0" />
+      <LineId Id="244" Count="2" />
+      <LineId Id="249" Count="2" />
+      <LineId Id="317" Count="0" />
+      <LineId Id="320" Count="1" />
+      <LineId Id="319" Count="0" />
+      <LineId Id="252" Count="0" />
+      <LineId Id="375" Count="1" />
+      <LineId Id="253" Count="5" />
+      <LineId Id="381" Count="1" />
+      <LineId Id="259" Count="0" />
+      <LineId Id="313" Count="0" />
+      <LineId Id="315" Count="0" />
+      <LineId Id="314" Count="0" />
+      <LineId Id="311" Count="0" />
+      <LineId Id="330" Count="0" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="332" Count="1" />
+      <LineId Id="331" Count="0" />
+      <LineId Id="263" Count="0" />
+      <LineId Id="380" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="308" Count="0" />
+      <LineId Id="349" Count="0" />
+      <LineId Id="379" Count="0" />
+      <LineId Id="360" Count="0" />
+      <LineId Id="352" Count="0" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="356" Count="0" />
+      <LineId Id="361" Count="0" />
+      <LineId Id="357" Count="1" />
+      <LineId Id="383" Count="1" />
+      <LineId Id="359" Count="0" />
+      <LineId Id="350" Count="0" />
+      <LineId Id="264" Count="42" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="SensorFQM.ContinuousShot">
+      <LineId Id="58" Count="0" />
+      <LineId Id="17" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="13" Count="1" />
+      <LineId Id="60" Count="1" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="43" Count="2" />
+      <LineId Id="54" Count="3" />
+      <LineId Id="41" Count="1" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="20" Count="0" />
+      <LineId Id="19" Count="0" />
+    </LineIds>
+    <LineIds Name="SensorFQM.MapResults">
+      <LineId Id="6" Count="6" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="SensorFQM.PrepareCommand">
+      <LineId Id="3" Count="7" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+    <LineIds Name="SensorFQM.SingleShot">
+      <LineId Id="3" Count="18" />
+      <LineId Id="29" Count="3" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

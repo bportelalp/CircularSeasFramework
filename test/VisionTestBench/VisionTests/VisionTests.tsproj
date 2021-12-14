@@ -1,0 +1,950 @@
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.22">
+	<DataTypes>
+		<DataType>
+			<Name GUID="{A7ACCFEE-1B91-F035-8568-4A330142F0E8}" AutoDeleteType="true">SensorToPlc</Name>
+			<BitSize>416</BitSize>
+			<SubItem>
+				<Name>VisionStatusFlag</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000007}">DWORD</Type>
+				<Comment><![CDATA[Doble Palabra que contiene los bits siguientes]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>0</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>FLG</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[Posicion 0]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>BUSY</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[Posicion 1]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>40</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>READY</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[Posicion 2]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>48</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>OR_Jud</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[Posicion 3]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>56</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>RUN</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[Posicion 4]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ERR</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[Posicion 15]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>72</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>GATE</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<Comment><![CDATA[Posicion 16]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>80</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>VisionResponseCode</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000007}">DWORD</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>96</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionResponseData</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000007}">DWORD</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>128</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput1</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<Comment><![CDATA[Lecturas desde el sensor]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>160</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput2</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>192</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput3</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>224</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput4</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>256</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput5</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>288</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput6</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>320</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput7</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>352</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionDataOutput8</Name>
+				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>384</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Input</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{DD77045A-1E36-7F9D-CAE6-935A43AEAEB7}" AutoDeleteType="true">PlcToSensor</Name>
+			<BitSize>96</BitSize>
+			<SubItem>
+				<Name>VisionCommand</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000007}">DWORD</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>0</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Output</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>VisionControlFlag</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000007}">DWORD</Type>
+				<BitSize>32</BitSize>
+				<BitOffs>32</BitOffs>
+				<Properties>
+					<Property>
+						<Name>TcAddressType</Name>
+						<Value>Output</Value>
+					</Property>
+				</Properties>
+			</SubItem>
+			<SubItem>
+				<Name>EXE</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>64</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>TRIG</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>72</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>DSA</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>80</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>ERCLR</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>88</BitOffs>
+			</SubItem>
+		</DataType>
+	</DataTypes>
+	<ImageDatas>
+		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1001">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
+	</ImageDatas>
+	<Project ProjectGUID="{9F7F2B80-9234-4FE3-B09A-DD08CC4AF8E3}" Target64Bit="true" ShowHideConfigurations="#x106">
+		<System>
+			<Settings MaxCpus="4" NonWinCpus="1">
+				<Cpu CpuId="3"/>
+			</Settings>
+			<Tasks>
+				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
+					<Name>PlcTask</Name>
+				</Task>
+			</Tasks>
+		</System>
+		<Plc>
+			<Project GUID="{A7D646D4-0834-4E7F-B5FA-B2D017C25D06}" Name="VisionLibrary" PrjFilePath="VisionLibrary\VisionLibrary.plcproj" TmcFilePath="VisionLibrary\VisionLibrary.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="VisionLibrary\VisionLibrary.tmc">
+					<Name>VisionLibrary Instance</Name>
+					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL.FQM.SensorToPlc</Name>
+							<Type GUID="{A7ACCFEE-1B91-F035-8568-4A330142F0E8}">SensorToPlc</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>GVL.FQM.PlcToSensor</Name>
+							<Type GUID="{DD77045A-1E36-7F9D-CAE6-935A43AEAEB7}">PlcToSensor</Type>
+						</Var>
+					</Vars>
+					<UnrestoredVarLinks ImportTime="2021-12-09T15:54:27">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 6 (FQ-MS12x-ECT)">
+								<Link VarA="GVL.VisionData1" TypeA="DINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="259th transmit PDO Mapping^Vision Data Output1" RestoreInfo="TypeMismatch" OldTypeA="DINT" OldGuidA="{18071995-0000-0000-0000-000000000009}" NewTypeA="REAL" NewGuidA="{18071995-0000-0000-0000-00000000000D}"/>
+								<Link VarA="GVL.VisionData2" TypeA="DINT" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000009}" VarB="259th transmit PDO Mapping^Vision Data Output2" RestoreInfo="TypeMismatch" OldTypeA="DINT" OldGuidA="{18071995-0000-0000-0000-000000000009}" NewTypeA="REAL" NewGuidA="{18071995-0000-0000-0000-00000000000D}"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<UnrestoredVarLinks ImportTime="2021-12-09T16:08:12">
+						<OwnerA Name="InputDst" Prefix="TIPC^Untitled1^Untitled1 Instance" Type="1">
+							<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 6 (FQ-MS12x-ECT)">
+								<Link VarA="GVL.VisionData1" TypeA="DWORD" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000007}" VarB="259th transmit PDO Mapping^Vision Data Output1" RestoreInfo="TypeMismatch" OldTypeA="DWORD" OldGuidA="{18071995-0000-0000-0000-000000000007}" NewTypeA="REAL" NewGuidA="{18071995-0000-0000-0000-00000000000D}"/>
+								<Link VarA="GVL.VisionData2" TypeA="DWORD" InOutA="0" GuidA="{18071995-0000-0000-0000-000000000007}" VarB="259th transmit PDO Mapping^Vision Data Output2" RestoreInfo="TypeMismatch" OldTypeA="DWORD" OldGuidA="{18071995-0000-0000-0000-000000000007}" NewTypeA="REAL" NewGuidA="{18071995-0000-0000-0000-00000000000D}"/>
+							</OwnerB>
+						</OwnerA>
+					</UnrestoredVarLinks>
+					<Contexts>
+						<Context>
+							<Id NeedCalleeCall="true">0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
+						</Context>
+					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
+				</Instance>
+			</Project>
+		</Plc>
+		<Io>
+			<Device Id="2" DevType="111" DevFlags="#x0003" AmsPort="28674" AmsNetId="10.0.2.15.3.1" RemoteName="Device 2 (EtherCAT)" InfoImageId="3">
+				<Name>Device 2 (EtherCAT)</Name>
+				<AddressInfo>
+					<Pnp>
+						<DeviceDesc>Ethernet Killer (TwinCAT-Intel PCI Ethernet Adapter</DeviceDesc>
+						<DeviceName>\DEVICE\{2FD0E682-E7B3-4AAC-8DC8-375D02EACDF3}</DeviceName>
+						<DeviceData>080027ef109d</DeviceData>
+					</Pnp>
+				</AddressInfo>
+				<Image Id="2" AddrType="9" ImageType="3">
+					<Name>Image</Name>
+				</Image>
+				<Box Id="4" BoxType="9099">
+					<Name>Term 4 (EK1100)</Name>
+					<ImageId>1000</ImageId>
+					<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x00ffffff"/>
+					<Box Id="5" BoxType="9099">
+						<Name>Term 5 (EL2008)</Name>
+						<ImageId>1001</ImageId>
+						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d83052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2008 8Ch. Dig. Output 24V, 0.5A" Desc="EL2008" PortABoxInfo="#x01000004">
+							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
+							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
+							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7010" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7020" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7030" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 5" Index="#x1604" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7040" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 6" Index="#x1605" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7050" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 7" Index="#x1606" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7060" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 8" Index="#x1607" InOut="1" Flags="#x0011" SyncMan="0">
+								<Entry Name="Output" Index="#x7070" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+							</Pdo>
+						</EtherCAT>
+					</Box>
+					<Box Id="7" BoxType="9099">
+						<Name>Term 7 (EL9011)</Name>
+						<ImageId>1002</ImageId>
+						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x01000005"/>
+					</Box>
+				</Box>
+				<Box Id="6" BoxType="9099" BoxFlags="#x00000020">
+					<Name>Box 6 (FQ-MS12x-ECT)</Name>
+					<ImageId>65</ImageId>
+					<EtherCAT EtherCatAddr="42" SlaveType="2" AdsServerAddress="000000000000eb03" PdiType="#x0c08" EtherCatAddrFixed="true" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="45" VendorId="#x00000083" ProductCode="#x00000062" RevisionNo="#x00010000" SerialNo="#x20000151" InfoDataAddr="true" InfoDataDcTimes="true" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="FQ-MS12x-ECT" Desc="FQ-MS12x-ECT" PortABoxInfo="#x02000004">
+						<SyncMan>001800022600010001000000000000000002001826010000</SyncMan>
+						<SyncMan>001c00022200010002000000000000000002001c22010000</SyncMan>
+						<SyncMan>001114006400010003000000000000000000001164010000</SyncMan>
+						<SyncMan>001234002200010004000000000000000000001222010000</SyncMan>
+						<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
+						<Fmmu>0000000000000000001200010100000002000000000000000000000000000000</Fmmu>
+						<DcData>0003000000000000000000000000000001000000000000000000000000000000</DcData>
+						<DcMode>44432053796e6330000000000000000044432053796e6330000000000000000000000000000000000000000000000000000000000000000000000000000000030100000000000000000000000000000000000000000000000000000000000000</DcMode>
+						<Pdo Name="256th transmit PDO Mapping" Index="#x1aff" Flags="#x0010" SyncMan="3">
+							<Entry Name="Vision Status Flag" Index="#x3001" Sub="#x01">
+								<Type>UDINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="257th transmit PDO Mapping" Index="#x1b00" Flags="#x0010">
+							<Entry Name="FLG" Index="#x3001" Sub="#x02">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="BUSY" Index="#x3001" Sub="#x03">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="READY" Index="#x3001" Sub="#x04">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="OR" Index="#x3001" Sub="#x05">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="RUN" Index="#x3001" Sub="#x06">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit05" Index="#x3001" Sub="#x07">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit06" Index="#x3001" Sub="#x08">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit07" Index="#x3001" Sub="#x09">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit08" Index="#x3001" Sub="#x0a">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit09" Index="#x3001" Sub="#x0b">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit10" Index="#x3001" Sub="#x0c">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit11" Index="#x3001" Sub="#x0d">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit12" Index="#x3001" Sub="#x0e">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit13" Index="#x3001" Sub="#x0f">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit14" Index="#x3001" Sub="#x10">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="ERR" Index="#x3001" Sub="#x11">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="GATE" Index="#x3001" Sub="#x12">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit17" Index="#x3001" Sub="#x13">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit18" Index="#x3001" Sub="#x14">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit19" Index="#x3001" Sub="#x15">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit20" Index="#x3001" Sub="#x16">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit21" Index="#x3001" Sub="#x17">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit22" Index="#x3001" Sub="#x18">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit23" Index="#x3001" Sub="#x19">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit24" Index="#x3001" Sub="#x1a">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit25" Index="#x3001" Sub="#x1b">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit26" Index="#x3001" Sub="#x1c">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit27" Index="#x3001" Sub="#x1d">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit28" Index="#x3001" Sub="#x1e">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit29" Index="#x3001" Sub="#x1f">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit30" Index="#x3001" Sub="#x20">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="Reserve Bit31" Index="#x3001" Sub="#x21">
+								<Type>BIT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="258th transmit PDO Mapping" Index="#x1b01" Flags="#x0010" SyncMan="3">
+							<Entry Name="Vision Response" Index="#x3003">
+								<Type>UDINT</Type>
+							</Entry>
+							<Entry Name="Vision Response Code" Index="#x3004">
+								<Type>UDINT</Type>
+							</Entry>
+							<Entry Name="Vision Response Data1" Index="#x3005" Sub="#x01">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Extended Data" Index="#x3006">
+								<Type>UDINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="259th transmit PDO Mapping" Index="#x1b02" Flags="#x0010" SyncMan="3">
+							<Entry Name="Vision Data Output1" Index="#x3020" Sub="#x01">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output2" Index="#x3020" Sub="#x02">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output3" Index="#x3020" Sub="#x03">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output4" Index="#x3020" Sub="#x04">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output5" Index="#x3020" Sub="#x05">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output6" Index="#x3020" Sub="#x06">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output7" Index="#x3020" Sub="#x07">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output8" Index="#x3020" Sub="#x08">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="260th transmit PDO Mapping" Index="#x1b03" Flags="#x0010">
+							<Entry Name="Vision Data Output9" Index="#x3020" Sub="#x09">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output10" Index="#x3020" Sub="#x0a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output11" Index="#x3020" Sub="#x0b">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output12" Index="#x3020" Sub="#x0c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output13" Index="#x3020" Sub="#x0d">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output14" Index="#x3020" Sub="#x0e">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output15" Index="#x3020" Sub="#x0f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output16" Index="#x3020" Sub="#x10">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="261th transmit PDO Mapping" Index="#x1b04" Flags="#x0010">
+							<Entry Name="Vision Data Output9" Index="#x3020" Sub="#x09">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output10" Index="#x3020" Sub="#x0a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output11" Index="#x3020" Sub="#x0b">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output12" Index="#x3020" Sub="#x0c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output13" Index="#x3020" Sub="#x0d">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output14" Index="#x3020" Sub="#x0e">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output15" Index="#x3020" Sub="#x0f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output16" Index="#x3020" Sub="#x10">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output17" Index="#x3020" Sub="#x11">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output18" Index="#x3020" Sub="#x12">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output19" Index="#x3020" Sub="#x13">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output20" Index="#x3020" Sub="#x14">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output21" Index="#x3020" Sub="#x15">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output22" Index="#x3020" Sub="#x16">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output23" Index="#x3020" Sub="#x17">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output24" Index="#x3020" Sub="#x18">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output25" Index="#x3020" Sub="#x19">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output26" Index="#x3020" Sub="#x1a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output27" Index="#x3020" Sub="#x1b">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output28" Index="#x3020" Sub="#x1c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output29" Index="#x3020" Sub="#x1d">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output30" Index="#x3020" Sub="#x1e">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output31" Index="#x3020" Sub="#x1f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output32" Index="#x3020" Sub="#x20">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="262th transmit PDO Mapping" Index="#x1b05" Flags="#x0010">
+							<Entry Name="Vision Data Output9" Index="#x3020" Sub="#x09">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output10" Index="#x3020" Sub="#x0a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output11" Index="#x3020" Sub="#x0b">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output12" Index="#x3020" Sub="#x0c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output13" Index="#x3020" Sub="#x0d">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output14" Index="#x3020" Sub="#x0e">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output15" Index="#x3020" Sub="#x0f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output16" Index="#x3020" Sub="#x10">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output17" Index="#x3020" Sub="#x11">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output18" Index="#x3020" Sub="#x12">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output19" Index="#x3020" Sub="#x13">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output20" Index="#x3020" Sub="#x14">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output21" Index="#x3020" Sub="#x15">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output22" Index="#x3020" Sub="#x16">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output23" Index="#x3020" Sub="#x17">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output24" Index="#x3020" Sub="#x18">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output25" Index="#x3020" Sub="#x19">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output26" Index="#x3020" Sub="#x1a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output27" Index="#x3020" Sub="#x1b">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output28" Index="#x3020" Sub="#x1c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output29" Index="#x3020" Sub="#x1d">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output30" Index="#x3020" Sub="#x1e">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output31" Index="#x3020" Sub="#x1f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output32" Index="#x3020" Sub="#x20">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output33" Index="#x3020" Sub="#x21">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output34" Index="#x3020" Sub="#x22">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output35" Index="#x3020" Sub="#x23">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output36" Index="#x3020" Sub="#x24">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output37" Index="#x3020" Sub="#x25">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output38" Index="#x3020" Sub="#x26">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output39" Index="#x3020" Sub="#x27">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output40" Index="#x3020" Sub="#x28">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output41" Index="#x3020" Sub="#x29">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output42" Index="#x3020" Sub="#x2a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output43" Index="#x3020" Sub="#x2b">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output44" Index="#x3020" Sub="#x2c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output45" Index="#x3020" Sub="#x2d">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output46" Index="#x3020" Sub="#x2e">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output47" Index="#x3020" Sub="#x2f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output48" Index="#x3020" Sub="#x30">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output49" Index="#x3020" Sub="#x31">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output50" Index="#x3020" Sub="#x32">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output51" Index="#x3020" Sub="#x33">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output52" Index="#x3020" Sub="#x34">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output53" Index="#x3020" Sub="#x35">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output54" Index="#x3020" Sub="#x36">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output55" Index="#x3020" Sub="#x37">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output56" Index="#x3020" Sub="#x38">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output57" Index="#x3020" Sub="#x39">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output58" Index="#x3020" Sub="#x3a">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output59" Index="#x3020" Sub="#x3b">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output60" Index="#x3020" Sub="#x3c">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output61" Index="#x3020" Sub="#x3d">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output62" Index="#x3020" Sub="#x3e">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output63" Index="#x3020" Sub="#x3f">
+								<Type>DINT</Type>
+							</Entry>
+							<Entry Name="Vision Data Output64" Index="#x3020" Sub="#x40">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="512th transmit PDO Mapping" Index="#x1bff" Flags="#x0010">
+							<Entry Name="Sysmac Error Status" Index="#x2002" Sub="#x01">
+								<Type>USINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="256th receive PDO Mapping" Index="#x16ff" InOut="1" Flags="#x0010" SyncMan="2">
+							<Entry Name="SubIndex 001" Index="#x3000" Sub="#x01">
+								<Type>UDINT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="257th receive PDO Mapping" Index="#x1700" InOut="1" Flags="#x0010">
+							<Entry Name="SubIndex 002" Index="#x3000" Sub="#x02">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 003" Index="#x3000" Sub="#x03">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 004" Index="#x3000" Sub="#x04">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 005" Index="#x3000" Sub="#x05">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 006" Index="#x3000" Sub="#x06">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 007" Index="#x3000" Sub="#x07">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 008" Index="#x3000" Sub="#x08">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 009" Index="#x3000" Sub="#x09">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 010" Index="#x3000" Sub="#x0a">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 011" Index="#x3000" Sub="#x0b">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 012" Index="#x3000" Sub="#x0c">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 013" Index="#x3000" Sub="#x0d">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 014" Index="#x3000" Sub="#x0e">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 015" Index="#x3000" Sub="#x0f">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 016" Index="#x3000" Sub="#x10">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 017" Index="#x3000" Sub="#x11">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 018" Index="#x3000" Sub="#x12">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 019" Index="#x3000" Sub="#x13">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 020" Index="#x3000" Sub="#x14">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 021" Index="#x3000" Sub="#x15">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 022" Index="#x3000" Sub="#x16">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 023" Index="#x3000" Sub="#x17">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 024" Index="#x3000" Sub="#x18">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 025" Index="#x3000" Sub="#x19">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 026" Index="#x3000" Sub="#x1a">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 027" Index="#x3000" Sub="#x1b">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 028" Index="#x3000" Sub="#x1c">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 029" Index="#x3000" Sub="#x1d">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 030" Index="#x3000" Sub="#x1e">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 031" Index="#x3000" Sub="#x1f">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 032" Index="#x3000" Sub="#x20">
+								<Type>BIT</Type>
+							</Entry>
+							<Entry Name="SubIndex 033" Index="#x3000" Sub="#x21">
+								<Type>BIT</Type>
+							</Entry>
+						</Pdo>
+						<Pdo Name="258th receive PDO Mapping" Index="#x1701" InOut="1" Flags="#x0010" SyncMan="2">
+							<Entry Name="Vision Command" Index="#x3002">
+								<Type>UDINT</Type>
+							</Entry>
+							<Entry Name="Vision Command Parameter1" Index="#x3010" Sub="#x01">
+								<Type>UDINT</Type>
+							</Entry>
+							<Entry Name="Vision Command Parameter2" Index="#x3010" Sub="#x02">
+								<Type>UDINT</Type>
+							</Entry>
+							<Entry Name="Vision Command Parameter3" Index="#x3010" Sub="#x03">
+								<Type>DINT</Type>
+							</Entry>
+						</Pdo>
+					</EtherCAT>
+				</Box>
+				<EtherCAT DcSyncMode="3"/>
+			</Device>
+		</Io>
+	</Project>
+	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500820000403}" Id="#x02030010"/>
+		<OwnerA Name="TIPC^VisionLibrary^VisionLibrary Instance">
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 6 (FQ-MS12x-ECT)">
+				<Link VarA="PlcTask Inputs^GVL.FQM.SensorToPlc^VisionDataOutput1" VarB="259th transmit PDO Mapping^Vision Data Output1"/>
+				<Link VarA="PlcTask Inputs^GVL.FQM.SensorToPlc^VisionDataOutput2" VarB="259th transmit PDO Mapping^Vision Data Output2"/>
+				<Link VarA="PlcTask Inputs^GVL.FQM.SensorToPlc^VisionResponseCode" VarB="258th transmit PDO Mapping^Vision Response Code"/>
+				<Link VarA="PlcTask Inputs^GVL.FQM.SensorToPlc^VisionResponseData" VarB="258th transmit PDO Mapping^Vision Response Data1"/>
+				<Link VarA="PlcTask Inputs^GVL.FQM.SensorToPlc^VisionStatusFlag" VarB="256th transmit PDO Mapping^Vision Status Flag"/>
+				<Link VarA="PlcTask Outputs^GVL.FQM.PlcToSensor^VisionCommand" VarB="258th receive PDO Mapping^Vision Command"/>
+				<Link VarA="PlcTask Outputs^GVL.FQM.PlcToSensor^VisionControlFlag" VarB="256th receive PDO Mapping^SubIndex 001"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
+</TcSmProject>

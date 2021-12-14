@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{b79f9dd0-5a5a-4986-a3c7-739531a1facc}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Single:BOOL;
+	Reset:bool;
+	foto: BOOL;
+	HaveResult:BOOL;
+	Resultado: ARRAY [0..7] OF REAL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+GVL.FQM.SingleShot(Enable:=Single,Execute:=foto,Measurement => HaveResult, Results => Resultado);
+GVL.FQM();
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="80" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="43" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

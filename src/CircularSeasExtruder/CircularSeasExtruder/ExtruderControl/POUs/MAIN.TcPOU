@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MAIN" Id="{d8de5791-f153-470a-bfaa-453c619a7f06}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	En:BOOL;
+	Shot:BOOL;
+	Result:array [0..7] of real;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Motion.InitMotion();
+GVL.Vision();
+
+
+OperatingModes();
+
+IF GVL.Mode = Modes.AUTO THEN
+	Basic();
+END_IF
+
+VisionJog();
+VisuLogic();
+Motion();]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="19" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="1" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="15" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

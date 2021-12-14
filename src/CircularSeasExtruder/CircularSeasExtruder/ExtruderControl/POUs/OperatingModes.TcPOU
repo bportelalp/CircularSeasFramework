@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="OperatingModes" Id="{041e3654-c2e6-485e-9be9-b8cb759cbbc6}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM OperatingModes
+VAR
+	AuxStopping:Modes;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE GVL.Mode OF
+	
+	// Emergency stop
+	Modes.STOP_EM:
+		IF HMI.Bt_Rearm THEN
+			gvl.Mode := modes.STOP_OP;
+		END_IF
+	
+	// Operative stop
+	Modes.STOP_OP:
+		IF HMI.Bt_EmStop THEN
+			GVL.Mode := Modes.STOP_EM;
+		END_IF
+		IF HMI.Bt_Run AND HMI.Sel_ManAuto THEN
+			GVL.Mode := Modes.AUTO;
+		END_IF
+		IF NOT HMI.Sel_ManAuto THEN
+			GVL.Mode := Modes.MAN;
+		END_IF
+		
+	// Automatic
+	Modes.AUTO:
+		IF HMI.Bt_EmStop THEN
+			GVL.Mode := Modes.STOP_EM;
+		END_IF
+		IF NOT HMI.Sel_ManAuto THEN
+			GVL.Mode := Modes.MAN;
+		END_IF
+		IF HMI.Bt_Stop THEN
+			GVL.Mode := Modes.Stopping;
+			AuxStopping := Modes.STOP_OP;
+		END_IF
+		
+	// Manual
+	Modes.MAN:
+		IF HMI.Bt_EmStop THEN
+			GVL.Mode := Modes.STOP_EM;
+		END_IF
+		IF HMi.Sel_ManAuto THEN
+			GVL.Mode := Modes.STOP_OP;
+		END_IF	
+		
+	// Stopping
+	Modes.Stopping:
+		MC.Exec_Stop:= TRUE;
+		IF Motion.FB_Stop.Done OR MC.Extruder.Status.Error THEN
+			GVL.Mode := AuxStopping;
+		END_IF
+END_CASE
+
+// Axis Power when not in stop
+IF GVL.Mode = Modes.AUTO OR GVL.Mode = Modes.MAN OR GVL.Mode = Modes.Stopping THEN
+	MC.En_Power := TRUE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="OperatingModes">
+      <LineId Id="5" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="18" Count="0" />
+      <LineId Id="17" Count="0" />
+      <LineId Id="11" Count="0" />
+      <LineId Id="19" Count="1" />
+      <LineId Id="38" Count="1" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="21" Count="2" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="24" Count="2" />
+      <LineId Id="34" Count="2" />
+      <LineId Id="27" Count="1" />
+      <LineId Id="30" Count="2" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="40" Count="2" />
+      <LineId Id="44" Count="1" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="50" Count="2" />
+      <LineId Id="58" Count="2" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="61" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="74" Count="2" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
