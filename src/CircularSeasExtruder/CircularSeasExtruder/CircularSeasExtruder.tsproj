@@ -1406,7 +1406,7 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 		<DataType>
-			<Name GUID="{A7ACCFEE-1B91-F035-8568-4A330142F0E8}" AutoDeleteType="true">SensorToPlc</Name>
+			<Name GUID="{EE3E7C4B-25B6-D5B8-E223-F57D4C2DCE8D}" AutoDeleteType="true">SensorToPlc</Name>
 			<BitSize>416</BitSize>
 			<SubItem>
 				<Name>VisionStatusFlag</Name>
@@ -1495,95 +1495,15 @@ External Setpoint Generation:
 				</Properties>
 			</SubItem>
 			<SubItem>
-				<Name>VisionDataOutput1</Name>
+				<Name>VisionDataOutput</Name>
 				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+				<ArrayInfo>
+					<LBound>0</LBound>
+					<Elements>8</Elements>
+				</ArrayInfo>
 				<Comment><![CDATA[Lecturas desde el sensor]]></Comment>
-				<BitSize>32</BitSize>
+				<BitSize>256</BitSize>
 				<BitOffs>160</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>VisionDataOutput2</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>192</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>VisionDataOutput3</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>224</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>VisionDataOutput4</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>256</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>VisionDataOutput5</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>288</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>VisionDataOutput6</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>320</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>VisionDataOutput7</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>352</BitOffs>
-				<Properties>
-					<Property>
-						<Name>TcAddressType</Name>
-						<Value>Input</Value>
-					</Property>
-				</Properties>
-			</SubItem>
-			<SubItem>
-				<Name>VisionDataOutput8</Name>
-				<Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
-				<BitSize>32</BitSize>
-				<BitOffs>384</BitOffs>
 				<Properties>
 					<Property>
 						<Name>TcAddressType</Name>
@@ -1866,7 +1786,7 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>GVL.Vision.SensorToPlc</Name>
-							<Type GUID="{A7ACCFEE-1B91-F035-8568-4A330142F0E8}">SensorToPlc</Type>
+							<Type GUID="{EE3E7C4B-25B6-D5B8-E223-F57D4C2DCE8D}">SensorToPlc</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2" AreaNo="1">
@@ -2546,14 +2466,14 @@ External Setpoint Generation:
 		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030010" Watchdog="14000000040000000400000004000000"/>
 		<OwnerA Name="TIPC^ExtruderControl^ExtruderControl Instance">
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Box 3 (FQ-MS12x-ECT)">
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput1" VarB="259th transmit PDO Mapping^Vision Data Output1"/>
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput2" VarB="259th transmit PDO Mapping^Vision Data Output2"/>
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput3" VarB="259th transmit PDO Mapping^Vision Data Output3"/>
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput4" VarB="259th transmit PDO Mapping^Vision Data Output4"/>
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput5" VarB="259th transmit PDO Mapping^Vision Data Output5"/>
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput6" VarB="259th transmit PDO Mapping^Vision Data Output6"/>
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput7" VarB="259th transmit PDO Mapping^Vision Data Output7"/>
-				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput8" VarB="259th transmit PDO Mapping^Vision Data Output8"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output1"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output2" Size="32" OffsA="32"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output3" Size="32" OffsA="64"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output4" Size="32" OffsA="96"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output5" Size="32" OffsA="128"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output6" Size="32" OffsA="160"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output7" Size="32" OffsA="192"/>
+				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionDataOutput" VarB="259th transmit PDO Mapping^Vision Data Output8" Size="32" OffsA="224"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionResponseCode" VarB="258th transmit PDO Mapping^Vision Response Code"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionResponseData" VarB="258th transmit PDO Mapping^Vision Response Data1"/>
 				<Link VarA="PlcTask Inputs^GVL.Vision.SensorToPlc^VisionStatusFlag" VarB="257th transmit PDO Mapping^BUSY Bit" Size="1" OffsA="1"/>

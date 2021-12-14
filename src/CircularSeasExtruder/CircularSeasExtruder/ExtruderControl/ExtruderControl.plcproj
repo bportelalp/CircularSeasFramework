@@ -183,7 +183,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <SubObject Include="SensorFQM.PrepareCommand" />
+    <SubObject Include="SensorFQM._prepareCommand" />
     <SubObject Include="SensorFQM.SingleShot" />
   </ItemGroup>
   <ItemGroup>
