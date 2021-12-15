@@ -20,10 +20,10 @@ END_VAR
 		IF HMI.Bt_EmStop THEN
 			GVL.Mode := Modes.STOP_EM;
 		END_IF
-		IF HMI.Bt_Run AND HMI.Sel_ManAuto THEN
+		IF HMI.Bt_Run AND HMI.S_ManAuto THEN
 			GVL.Mode := Modes.AUTO;
 		END_IF
-		IF NOT HMI.Sel_ManAuto THEN
+		IF NOT HMI.S_ManAuto THEN
 			GVL.Mode := Modes.MAN;
 		END_IF
 		
@@ -32,7 +32,7 @@ END_VAR
 		IF HMI.Bt_EmStop THEN
 			GVL.Mode := Modes.STOP_EM;
 		END_IF
-		IF NOT HMI.Sel_ManAuto THEN
+		IF NOT HMI.S_ManAuto THEN
 			GVL.Mode := Modes.MAN;
 		END_IF
 		IF HMI.Bt_Stop THEN
@@ -45,7 +45,7 @@ END_VAR
 		IF HMI.Bt_EmStop THEN
 			GVL.Mode := Modes.STOP_EM;
 		END_IF
-		IF HMi.Sel_ManAuto THEN
+		IF HMi.S_ManAuto THEN
 			GVL.Mode := Modes.STOP_OP;
 		END_IF	
 		

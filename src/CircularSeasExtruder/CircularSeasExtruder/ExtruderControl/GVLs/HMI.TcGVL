@@ -8,7 +8,7 @@ VAR_GLOBAL
 	// Modes control
 	Bt_Run: BOOL;
 	Bt_Stop: BOOL;
-	Sel_ManAuto: BOOL := TRUE;
+	S_ManAuto: BOOL := TRUE;
 	Bt_EmStop: BOOL;
 	Bt_Rearm:BOOL;
 	Bt_Front: BOOL;
@@ -19,8 +19,8 @@ VAR_GLOBAL
 	Bt_StopCycle:BOOL;
 	Bt_ResetAxis:BOOL;
 	Tb_Vel:LREAL;
-	Tb_TempL:LREAL;
-	Tb_TempU:LREAL;
+	Tb_TempB:LREAL;
+	Tb_TempT:LREAL;
 	Tb_Temp:LREAL;
 	
 	//Vision control
@@ -28,6 +28,13 @@ VAR_GLOBAL
 	Bt_ActivateSingle:BOOL;
 	Bt_Shot:BOOL;
 	L_NewMeasurement:BOOL;
+	
+	//Manual HMI
+	Bt_ManHeatTop:BOOL;
+	Bt_ManHeatBot:BOOL;
+	Bt_ManForward:BOOL;
+	Bt_ManBackwards:BOOL;
+	Tb_ManVel:REAL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

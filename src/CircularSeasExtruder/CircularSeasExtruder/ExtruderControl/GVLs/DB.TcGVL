@@ -1,17 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <GVL Name="IO" Id="{f19c6e7d-dfbd-4478-b507-c13927482bf7}">
+  <GVL Name="DB" Id="{9653628f-efdc-46ab-863c-cf454af8c46d}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	
-	// Heater outputs
-	Q_HeaterT AT %Q*:BOOL;
-	Q_HeaterB AT %Q*:BOOL;
-	
-	// RTD Sensors (PT100)
-	I_TermT AT %I*:LREAL;
-	I_TermB AT %I*:LREAL;
-	
+	Variable1:REAL;
+	id:GUID;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ServerSettings>
+  <TargetNetID>10.0.2.15.1.1</TargetNetID>
+  <LogMode>1</LogMode>
+  <LogPath>C:\TwinCAT\Functions\TF6420-Database-Server\Win32\Server</LogPath>
+  <LogMaxLength>10</LogMaxLength>
+  <Impersonate>False</Impersonate>
+  <DBNULLAllowed>False</DBNULLAllowed>
+  <DBCommandTimeout>30</DBCommandTimeout>
+  <DBConnectionTimeout>15</DBConnectionTimeout>
+  <MaxByteArrayLength>256</MaxByteArrayLength>
+  <MaxStringLength>256</MaxStringLength>
+  <WSTRINGSupportActive>False</WSTRINGSupportActive>
+  <TcDbSrvProject>
+    <tcdbsrvdbCompile Include="TcDatabaseServer\CircularSeasDatabase\CircularSeasDatabase.tcdbsrvdb" />
+    <tcdbsrvautoCompile Include="TcDatabaseServer\CircularSeasDatabase\AutoLogGroup\AutoLogGroup.tcdbsrvauto" />
+    <tcdbsrvadsCompile Include="TcDatabaseServer\CircularSeasDatabase\AutoLogGroup\AdsDevice.tcdbsrvads" />
+    <tcdbsrvsymCompile Include="TcDatabaseServer\CircularSeasDatabase\AutoLogGroup\Symbols.tcdbsrvsym" />
+    <tcdbsrvtblCompile Include="TcDatabaseServer\CircularSeasDatabase\AutoLogGroup\DBTable.tcdbsrvtbl" />
+  </TcDbSrvProject>
+</ServerSettings>

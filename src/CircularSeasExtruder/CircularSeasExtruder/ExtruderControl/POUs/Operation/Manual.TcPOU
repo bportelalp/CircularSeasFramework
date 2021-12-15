@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="Manual" Id="{ee1bf0c1-cf50-4f2d-9ac3-afa6241a629b}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Manual
+VAR
+	ExitManual:F_TRIG;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GVL.Mode = Modes.MAN THEN
+	IO.Q_HeaterB := HMI.Bt_ManHeatBot;
+	IO.Q_HeaterT := HMI.Bt_ManHeatTop;
+	MC.Man_Forward := HMI.Bt_ManForward;
+	MC.Man_Backwards := HMI.Bt_ManBackwards;
+ELSE
+	HMI.Bt_ManHeatBot := FALSE;
+	HMI.Bt_ManHeatTop:= FALSE;
+	MC.Man_Forward := FALSE;
+	HMI.Bt_ManForward := FALSE;
+	MC.Man_Backwards := FALSE;
+	HMI.Bt_ManBackwards := FALSE;
+END_IF
+
+ExitManual(clk:=(GVL.Mode = Modes.MAN));
+IF ExitManual.Q THEN
+	IO.Q_HeaterB := FALSE;
+	IO.Q_HeaterT :=FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Manual">
+      <LineId Id="5" Count="0" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="15" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

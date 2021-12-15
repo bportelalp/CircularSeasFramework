@@ -13,6 +13,9 @@ VAR_GLOBAL
 	Exec_Relative:BOOL;
 	Exec_Reset:BOOL;
 	
+	Man_Forward:BOOL;
+	Man_Backwards:BOOL;
+	
 	// Motion variables
 	Override:LREAL := 100;
 	TargetVel:LREAL;

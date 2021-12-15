@@ -36,6 +36,10 @@
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="GVLs\DB.TcGVL">
+      <SubType>Code</SubType>
+      <LinkAlways>true</LinkAlways>
+    </Compile>
     <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -70,6 +74,9 @@
     <Compile Include="POUs\Operation\Basic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Operation\Manual.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Operation\VisionJog.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -87,6 +94,10 @@
       <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>
     <Compile Include="VISUs\MainHMI.TcVIS">
+      <SubType>Code</SubType>
+      <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
+    </Compile>
+    <Compile Include="VISUs\ManualHMI.TcVIS">
       <SubType>Code</SubType>
       <DependentUpon>Visualization Manager.TcVMO</DependentUpon>
     </Compile>

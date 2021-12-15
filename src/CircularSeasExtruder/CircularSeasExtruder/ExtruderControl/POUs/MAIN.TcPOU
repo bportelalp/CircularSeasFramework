@@ -11,7 +11,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[Motion.InitMotion();
 GVL.Vision();
-
+Db.Variable1 := DB.Variable1 + 1;
 
 OperatingModes();
 
@@ -19,6 +19,7 @@ IF GVL.Mode = Modes.AUTO THEN
 	Basic();
 END_IF
 
+Manual();
 VisionJog();
 VisuLogic();
 Motion();]]></ST>
@@ -32,6 +33,7 @@ Motion();]]></ST>
       <LineId Id="28" Count="0" />
       <LineId Id="27" Count="0" />
       <LineId Id="29" Count="1" />
+      <LineId Id="48" Count="0" />
       <LineId Id="41" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="8" Count="0" />
