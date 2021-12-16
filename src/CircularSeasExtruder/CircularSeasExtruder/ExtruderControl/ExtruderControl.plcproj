@@ -21,6 +21,9 @@
     <Compile Include="DUTs\Modes.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\ST_Material.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\Vision\PlcToSensor.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -60,6 +63,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AutoExtrusion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Database\DatabaseManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
@@ -110,6 +116,7 @@
     <Folder Include="DUTs" />
     <Folder Include="DUTs\Vision" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\Database" />
     <Folder Include="POUs\Vision" />
     <Folder Include="POUs\Operation" />
     <Folder Include="POUs\VISUCode" />
@@ -178,6 +185,10 @@
     <PlaceholderReference Include="Tc2_TempController">
       <DefaultResolution>Tc2_TempController, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_TempController</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc3_Database">
+      <DefaultResolution>Tc3_Database, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc3_Database</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc3_Module">
       <DefaultResolution>Tc3_Module, * (Beckhoff Automation GmbH)</DefaultResolution>

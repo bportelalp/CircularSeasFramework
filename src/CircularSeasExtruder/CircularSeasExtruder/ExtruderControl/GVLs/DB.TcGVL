@@ -3,8 +3,6 @@
   <GVL Name="DB" Id="{9653628f-efdc-46ab-863c-cf454af8c46d}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	Variable1:REAL;
-	id:GUID;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

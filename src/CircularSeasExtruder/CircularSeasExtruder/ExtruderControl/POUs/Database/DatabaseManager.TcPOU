@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="DatabaseManager" Id="{7f24c347-266a-4e66-9af0-99de11dd79f1}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK PUBLIC DatabaseManager
+VAR_INPUT
+	Execute:BOOL;
+	SQLCmd:STRING[999];
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	bCONNECT: BOOL;
+	bEXECUTE: BOOL;
+	bREAD : BOOL;
+	bDISCONNECT: BOOL;
+	R_TRIG1: R_TRIG;
+	R_TRIG2: R_TRIG;
+	R_TRIG3: R_TRIG;
+	R_TRIG4: R_TRIG;
+	nState: INT;
+	nState_Connect: INT;
+	nState_Disconnect: INT;
+	bConn: BOOL;
+	bSP: BOOL;
+	bResult: BOOL;
+	bData: BOOL;
+	nDBID: UDINT := 1;
+	fbSQLDatabase: FB_SQLDatabaseEvt(sNetID:='', tTimeout:=T#10S);
+	fbSQLStoredProcedure: FB_SQLStoredProcedureEvt(sNetID:='', tTimeout:=T#10S);
+	fbSQLResult: FB_SQLResultEvt(sNetID:='', tTimeout:=T#10S);
+	
+	fbSQLCommandEvt: FB_SQLCommandEvt(sNetId:='',tTimeout:=T#10S);
+	
+	Cmd:STRING[500]:='SELECT CONVERT(VARBINARY(16), ID) AS [ByteArray], [Name], [Description], [BedTemperature], [HotendTemperature], [IdealTempExtr], [MinTempExtr], [MaxTempExtr] FROM [dbo].[Material] ';
+	arrParameter: ARRAY [0..0] OF ST_SQLSPParameter;
+	nCustomerID: DINT := 12345;
+	nRecordStartIndex: UDINT;
+	stRecordArr: ARRAY [1..20] OF ST_Material;
+	nRecs: UDINT;
+	bError : BOOL;
+	nEventID: UDINT;
+	sEventClass : STRING(255);
+	sEventMsg : STRING(255);
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[R_TRIG1(CLK:=bCONNECT);
+IF R_TRIG1.Q AND nState = 0 THEN
+	nState := 1;
+END_IF
+R_TRIG2(CLK:=bEXECUTE);
+IF R_TRIG2.Q AND nState = 0 THEN
+	nState := 2;
+END_IF
+R_TRIG3(CLK:=bREAD);
+IF R_TRIG3.Q AND nState = 0 THEN
+	nState := 3;
+END_IF
+R_TRIG4(CLK:=bDISCONNECT);
+IF R_TRIG4.Q THEN
+	nState := 4;
+END_IF
+
+CASE nState OF
+0:(*Idle*)
+;
+1: // Connect to database and create stored procedure instance
+	CASE nState_Connect OF
+	0:
+		IF fbSQLDatabase.Connect(hDBID:= nDBID) THEN
+			bConn := NOT fbSQLDatabase.bError;
+			IF bConn THEN
+				nState_Connect := 1;
+			ELSE
+				nState:=200;
+			END_IF
+		END_IF
+	1:
+		arrParameter[0].sParameterName := '@Customer_ID';
+		arrParameter[0].eParameterDataType :=
+		Tc3_Database.E_ColumnType.Integer;
+		arrParameter[0].eParameterType := E_SPParameterType.Input;
+		arrParameter[0].nParameterSize := SIZEOF(nCustomerID);
+		IF fbSQLDatabase.CreateCmd(ADR(fbSQLCommandEvt)) THEN
+			bSP := NOT fbSQLDatabase.bError;
+			nState_Connect:=0;
+			nState := 200;
+		END_IF
+	END_CASE
+2: // Execute command
+	IF fbSQLCommandEvt.ExecuteDataReturn(pSQLCmd:= ADR(Cmd),cbSQLCmd:= SIZEOF(Cmd),pSQLDBResult:= ADR(fbSQLResult)) THEN
+		MEMSET(ADR(stRecordArr),0,SIZEOF(stRecordArr));
+		bResult := NOT fbSQLStoredProcedure.bError;
+		nState := 200;
+	END_IF
+3: // Read customer positions
+	IF fbSQLResult.Read(nRecordStartIndex, 20, ADR(stRecordArr),SIZEOF(stRecordArr), TRUE, FALSE) THEN
+		bData := NOT fbSQLStoredProcedure.bError;
+		nRecs := fbSQLResult.nDataCount;
+		nState := 200;
+	END_IF
+4:// Disconnect all
+	CASE nState_Disconnect OF
+	0:
+		IF bData THEN
+			IF fbSQLResult.Release() THEN
+				nState_Disconnect := 1;
+			END_IF
+		ELSE
+			nState_Disconnect := 1;
+		END_IF
+	1:
+		IF bSP THEN
+			IF fbSQLStoredProcedure.Release() THEN
+				nState_Disconnect := 2;
+			END_IF
+		ELSE
+			nState_Disconnect := 2;
+		END_IF
+	2:
+		IF bConn THEN
+			IF fbSQLDatabase.Disconnect() THEN
+				nState_Disconnect := 3;
+			END_IF
+		ELSE
+			nState_Disconnect := 3;
+		END_IF
+	3:
+		bData := FALSE;
+		bSP := FALSE;
+		bConn := FALSE;
+		bResult := FALSE;
+		nEventID := 0;
+		bError := FALSE;
+		nState_Disconnect := 0;
+		nState := 0;
+	END_CASE
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="DatabaseManager">
+      <LineId Id="40" Count="14" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="56" Count="7" />
+      <LineId Id="65" Count="1" />
+      <LineId Id="55" Count="0" />
+      <LineId Id="68" Count="10" />
+      <LineId Id="82" Count="6" />
+      <LineId Id="93" Count="5" />
+      <LineId Id="101" Count="33" />
+      <LineId Id="137" Count="5" />
+      <LineId Id="146" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

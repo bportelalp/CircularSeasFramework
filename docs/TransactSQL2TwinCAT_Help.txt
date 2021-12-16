@@ -1,0 +1,8 @@
+uniqueidentifier (GUID) se intentan leer como BYTE[] pero no se consigue una
+conversión directa con las órdenes SELECT. En lugar de:
+
+SELECT [ID] FROM dbo.table
+
+usar para que funcione
+
+SELECT CONVERT(VARBINARY(16), ID) AS [ByteArray] FROM dbo.table
