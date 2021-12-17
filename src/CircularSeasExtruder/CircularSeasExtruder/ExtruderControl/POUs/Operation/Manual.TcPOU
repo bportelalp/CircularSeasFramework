@@ -4,6 +4,8 @@
     <Declaration><![CDATA[PROGRAM Manual
 VAR
 	ExitManual:F_TRIG;
+	
+	LoopCounter:INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -12,6 +14,19 @@ END_VAR
 	IO.Q_HeaterT := HMI.Bt_ManHeatTop;
 	MC.Man_Forward := HMI.Bt_ManForward;
 	MC.Man_Backwards := HMI.Bt_ManBackwards;
+	IO.Q_VisionLight := HMI.Bt_Light;
+	
+	GVL.Vision.SingleShot(Enable:=HMI.Bt_ActivateSingle, 
+						Execute:=HMI.Bt_Shot,
+						Q=>GVL.VisionResults,
+						Measurement=>HMI.L_NewMeasurement);
+    GVL.Vision.ContinuousShot(Enable:=HMI.Bt_ActivateContinuous,
+						Q=>GVL.VisionResults);
+	
+	FOR LoopCounter:=0 TO 7 BY 1 DO
+		GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
+	END_FOR					
+	
 ELSE
 	HMI.Bt_ManHeatBot := FALSE;
 	HMI.Bt_ManHeatTop:= FALSE;
@@ -19,12 +34,16 @@ ELSE
 	HMI.Bt_ManForward := FALSE;
 	MC.Man_Backwards := FALSE;
 	HMI.Bt_ManBackwards := FALSE;
+	HMI.Bt_Light := FALSE;
+	HMI.Bt_ActivateSingle:=FALSE;
+	HMI.Bt_ActivateContinuous:=FALSE;
 END_IF
 
 ExitManual(clk:=(GVL.Mode = Modes.MAN));
 IF ExitManual.Q THEN
 	IO.Q_HeaterB := FALSE;
 	IO.Q_HeaterT :=FALSE;
+	IO.Q_VisionLight := FALSE;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Manual">
@@ -32,6 +51,15 @@ END_IF]]></ST>
       <LineId Id="8" Count="1" />
       <LineId Id="27" Count="0" />
       <LineId Id="29" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="47" Count="4" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="54" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="55" Count="0" />
       <LineId Id="7" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="26" Count="0" />
@@ -39,12 +67,15 @@ END_IF]]></ST>
       <LineId Id="32" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="33" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="52" Count="1" />
       <LineId Id="25" Count="0" />
       <LineId Id="21" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="12" Count="0" />
       <LineId Id="14" Count="0" />
       <LineId Id="16" Count="0" />
+      <LineId Id="40" Count="0" />
       <LineId Id="15" Count="0" />
     </LineIds>
   </POU>

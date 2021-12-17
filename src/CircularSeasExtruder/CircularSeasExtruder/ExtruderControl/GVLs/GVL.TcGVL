@@ -7,6 +7,8 @@ VAR_GLOBAL
 	Mode: Modes;
 	Vision:SensorFQM;
 	VisionResults:ARRAY [0..7] OF REAL;
+	VisionResultsmm:ARRAY [0..7] OF REAL;
+	ScalingFactor:REAL:= 0.164;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -46,6 +46,22 @@
               </l>
             </o>
             <o>
+              <v n="TextID">"377"</v>
+              <v n="TextDefault">"%.4f mm"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"56"</v>
+              <v n="TextDefault">"%.4f px"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"403"</v>
               <v n="TextDefault">"%s"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -239,6 +255,14 @@ inferior</v>
             <o>
               <v n="TextID">"358"</v>
               <v n="TextDefault">"Heater Group"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"461"</v>
+              <v n="TextDefault">"Light"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v></v>
                 <v></v>

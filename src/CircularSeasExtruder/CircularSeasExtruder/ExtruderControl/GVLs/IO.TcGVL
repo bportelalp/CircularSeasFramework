@@ -7,6 +7,7 @@ VAR_GLOBAL
 	// Heater outputs
 	Q_HeaterT AT %Q*:BOOL;
 	Q_HeaterB AT %Q*:BOOL;
+	Q_VisionLight AT %Q*:BOOL;
 	
 	// RTD Sensors (PT100)
 	I_TermT AT %I*:LREAL;

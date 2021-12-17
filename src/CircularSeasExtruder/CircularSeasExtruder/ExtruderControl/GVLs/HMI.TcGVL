@@ -34,7 +34,13 @@ VAR_GLOBAL
 	Bt_ManHeatBot:BOOL;
 	Bt_ManForward:BOOL;
 	Bt_ManBackwards:BOOL;
+	Bt_Light:BOOL;
 	Tb_ManVel:REAL;
+	
+END_VAR
+
+VAR_GLOBAL CONSTANT
+	MeasurementNames: ARRAY [0..7] OF STRING:= ['Top diameter','Mid diameter','Low diameter','Empty','Empty','Empty','Empty','Empty'];
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
