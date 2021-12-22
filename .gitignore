@@ -356,3 +356,6 @@ _Boot/
 _CompileInfo/
 _Libraries/
 _Config/
+
+#Resultado de compilado, fichero .tmc no se hace git provisionalmente
+*.tmc

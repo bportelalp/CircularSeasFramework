@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Infrastructure.TcADS;
 using TwinCAT.Ads;
 
 namespace HMI
@@ -21,10 +22,9 @@ namespace HMI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow(AdsClient client)
+        public MainWindow(IClientADS client)
         {
             var Tc = client;
-            Tc.Connect(AmsNetId.Local, 851);
             InitializeComponent();
         }
     }

@@ -13,7 +13,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{4B856D9F-2912-4D30-8B91-AF8CE0680BF6}" Name="ServerPLC" PrjFilePath="ServerPLC\ServerPLC.plcproj" TmcFilePath="ServerPLC\ServerPLC.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="ServerPLC\ServerPLC.tmc">
 					<Name>ServerPLC Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

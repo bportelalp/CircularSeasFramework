@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using TwinCAT.Ads;
+using Infrastructure.TcADS;
 
 namespace HMI
 {
@@ -27,7 +28,7 @@ namespace HMI
         private void ConfigureServices(ServiceCollection services)
         {
             services.AddSingleton<MainWindow>();
-            services.AddSingleton<TwinCAT.Ads.AdsClient>();
+            services.AddSingleton<IClientADS, ClientADS>();
         }
 
         private void OnStartup(object sender, StartupEventArgs e)
