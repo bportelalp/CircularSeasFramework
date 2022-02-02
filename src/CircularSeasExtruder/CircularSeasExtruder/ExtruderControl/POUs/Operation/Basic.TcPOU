@@ -22,14 +22,10 @@ CASE state OF
 			State:=0;
 		END_IF
 END_CASE
-
-State:= 1;
 ]]></ST>
     </Implementation>
     <LineIds Name="Basic">
       <LineId Id="39" Count="13" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="58" Count="0" />
       <LineId Id="57" Count="0" />
       <LineId Id="63" Count="0" />
     </LineIds>

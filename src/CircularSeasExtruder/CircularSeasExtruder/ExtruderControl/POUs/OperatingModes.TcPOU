@@ -58,7 +58,7 @@ END_VAR
 END_CASE
 
 // Axis Power when not in stop
-IF GVL.Mode = Modes.AUTO OR GVL.Mode = Modes.MAN OR GVL.Mode = Modes.Stopping THEN
+IF GVL.Mode = Modes.AUTO OR GVL.Mode = Modes.Stopping THEN
 	MC.En_Power := TRUE;
 END_IF]]></ST>
     </Implementation>

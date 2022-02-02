@@ -12,8 +12,26 @@ END_VAR
       <ST><![CDATA[IF GVL.Mode = Modes.MAN THEN
 	IO.Q_HeaterB := HMI.Bt_ManHeatBot;
 	IO.Q_HeaterT := HMI.Bt_ManHeatTop;
-	MC.Man_Forward := HMI.Bt_ManForward;
-	MC.Man_Backwards := HMI.Bt_ManBackwards;
+	//Al pulsar botones, primero dar orden de potencia
+	IF HMI.Bt_ManForward OR HMI.Bt_ManBackwards THEN
+		MC.En_Power := TRUE;
+		//Ya en potencia, se ejecuta la orden
+		IF Motion.FB_Power.Status THEN
+			MC.Man_Forward := HMI.Bt_ManForward;
+			MC.Man_Backwards := HMI.Bt_ManBackwards;
+		END_IF
+	//Si se deja de pulsar, al acabar movimiento, se quita potencia
+	ELSE
+		MC.Man_Forward := FALSE;
+		MC.Man_Backwards := FALSE;
+		IF NOT Motion.FB_Manual.Busy THEN
+			MC.En_Power := FALSE;
+		ELSE
+			MC.En_Power := TRUE;
+		END_IF
+	END_IF
+//	MC.Man_Forward := HMI.Bt_ManForward;
+//	MC.Man_Backwards := HMI.Bt_ManBackwards;
 	IO.Q_VisionLight := HMI.Bt_Light;
 	
 	GVL.Vision.SingleShot(Enable:=HMI.Bt_ActivateSingle, 
@@ -49,6 +67,20 @@ END_IF]]></ST>
     <LineIds Name="Manual">
       <LineId Id="5" Count="0" />
       <LineId Id="8" Count="1" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="68" Count="1" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="71" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="87" Count="1" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="92" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="70" Count="0" />
       <LineId Id="27" Count="0" />
       <LineId Id="29" Count="0" />
       <LineId Id="38" Count="0" />
