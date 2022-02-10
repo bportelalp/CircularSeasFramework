@@ -47,6 +47,15 @@ namespace CircularSeasWebAPI.Controllers
         }
 
         /// <summary>
+        /// Function to test the connection status to the API
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet] public async Task<IActionResult> GetConnectionStatus()
+        {
+            return Ok("You are correctly connected to the API");
+        }
+
+        /// <summary>
         ///  Getting printer information, materials and assistance to the selection of materials.
         /// </summary>
         /// <param name="PrinterID"> Name of the printer </param>
@@ -200,6 +209,43 @@ namespace CircularSeasWebAPI.Controllers
                 return BadRequest(ex.ToString());
                 //return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
             }
+        }
+        
+        /// <summary>
+        /// This function upload a STL file.
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("uploadSTL")]
+        public async Task<IActionResult> PostUploadSTL()
+        {
+            // Getting the STL file
+            Microsoft.AspNetCore.Http.IFormFile file;
+            if (Request.Form.Files.Count == 0)
+            {
+                return NotFound("STL file missing");
+            }
+            else
+            {
+                file = Request.Form.Files[0];
+            }
+
+            // Start time calculation metrics
+            Stopwatch tictoc = new Stopwatch();
+            tictoc.Start();
+            _log.logWrite("\n");
+            _log.logWrite("CAM process start");
+
+            // STL file identification and storage in memory
+            var NameSTL = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            NameSTL = NameSTL.Split(".")[0];
+            string extension = Path.GetExtension(file.FileName);
+            var fullPathSTL = _tools.GetWebPath(WebFolder.STL) + NameSTL + extension;
+            var streamSTLFile = new FileStream(fullPathSTL, FileMode.Create);
+            file.CopyTo(streamSTLFile);
+            streamSTLFile.Close();
+            _log.logWrite("File reception completed (" + tictoc.ElapsedMilliseconds + "ms): " + NameSTL + extension);
+
+            return Ok("Upload completed");
         }
     }
 
