@@ -2,23 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CircularSeas.DB.Entities;
 
 namespace CircularSeasWebAPI.Helpers
 {
     internal static class Mapper
     {
-        internal static CircularSeas.Models.Printer Repo2Domain(Entities.Printer _printer)
+        internal static CircularSeas.Models.Printer Repo2Domain(CircularSeas.DB.Entities.Printer _printer)
         {
             CircularSeas.Models.Printer dom = new CircularSeas.Models.Printer();
-            dom.Name = _printer.Name;
+            dom.Name = _printer.ModelName;
             dom.FilamentDiameter = _printer.FilamentDiameter;
             List<string> profiles = new List<string>();
-            _printer.PrinterProfiles.ToList().ForEach(pr => profiles.Add(pr.Profile));
+            _printer.PrinterProfiles.ToList().ForEach(pr => profiles.Add(pr.ProfileName));
             dom.Profiles = profiles.ToArray();
             return dom;
         }
 
-        internal static List<CircularSeas.Models.Filament> Repo2Domain(List<Entities.Material> _material)
+        internal static List<CircularSeas.Models.Filament> Repo2Domain(List<CircularSeas.DB.Entities.Material> _material)
         {
             List<CircularSeas.Models.Filament> dom = new List<CircularSeas.Models.Filament>();
 

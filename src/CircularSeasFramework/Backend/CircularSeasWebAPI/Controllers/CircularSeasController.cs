@@ -12,7 +12,8 @@ using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Net;
 using Microsoft.EntityFrameworkCore;
-using CircularSeasWebAPI.Entities;
+using CircularSeas.DB.Entities;
+using CircularSeas.DB.Context;
 using CircularSeasWebAPI.Helpers;
 using CircularSeas.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +28,7 @@ namespace CircularSeasWebAPI.Controllers
     {
         // Service access
         private readonly Log _log;
-        private readonly AppSettings _appsSettings;
+        private readonly AppSettings _appSettings;
         private readonly ISlicerCLI _slicer;
         private readonly Tools _tools;
         private readonly IWebHostEnvironment _env;
@@ -41,7 +42,7 @@ namespace CircularSeasWebAPI.Controllers
             this._log = log;
             this._tools = tools;
             this._env = env;
-            this._appsSettings = appSettings.Value;
+            this._appSettings = appSettings.Value;
             this._slicer = slicer;
             this._DBContext = circularSeasContext;
         }
@@ -70,29 +71,29 @@ namespace CircularSeasWebAPI.Controllers
             try
             {
                 infoTopsis.FeaturesNames = await _DBContext.Features
-                .OrderBy(s => s.Id)
+                .OrderBy(s => s.ID)
                 .Select(s => s.Name)
                 .ToArrayAsync();
                 infoTopsis.PropertiesNames = await _DBContext.Properties
-                    .OrderBy(s => s.Id)
+                    .OrderBy(s => s.ID)
                     .Select(s => s.Name)
                     .ToArrayAsync();
                 infoTopsis.ImpactPositive = await _DBContext.Properties
-                    .OrderBy(s => s.Id)
+                    .OrderBy(s => s.ID)
                     .Select(s => s.PositiveImpact)
                     .ToArrayAsync();
                 dataSet.InfoTopsis = infoTopsis;
                 //Get all profiles availables.
                 var printers = await _DBContext.Printers
-                    .Where(pr => pr.Name == PrinterID)
+                    .Where(pr => pr.ModelName == PrinterID)
                     .Include(pr => pr.PrinterProfiles)
                     .FirstOrDefaultAsync();
                 dataSet.Printer = Mapper.Repo2Domain(printers);
 
                 // Search in the DB for the list of all materials 
                 var materialsBBDDlist = await _DBContext.Materials
-                    .Include(mat => mat.FeatureMats.OrderBy(f => f.IdFeature))
-                    .Include(mat => mat.PropMats.OrderBy(p => p.IdProperty))
+                    .Include(mat => mat.FeatureMats.OrderBy(f => f.FeatureFK))
+                    .Include(mat => mat.PropMats.OrderBy(p => p.PropertyFK))
                     .ToListAsync();
 
                 // Conversion of the DB Materials model into the reduced "Filaments" class 
@@ -167,7 +168,7 @@ namespace CircularSeasWebAPI.Controllers
 
                 // Filament diameter overwrite
                 double filamentDiameter = await _DBContext.Printers
-                    .Where(p => p.Name == printer)
+                    .Where(p => p.ModelName == printer)
                     .Select(p => p.FilamentDiameter)
                     .FirstOrDefaultAsync();
 
