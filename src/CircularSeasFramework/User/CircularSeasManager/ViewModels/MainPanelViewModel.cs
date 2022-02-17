@@ -11,6 +11,9 @@ using CircularSeasManager.Resources;
 namespace CircularSeasManager.ViewModels {
     class MainPanelViewModel : MainPanelModel {
 
+        //DI
+        public Services.OctoClient OctoClient => DependencyService.Get<Services.OctoClient>();
+        public Services.SliceClient SliceClient => DependencyService.Get<Services.SliceClient>();
         //Definición de los comandos
         public Command CmdLogout { get; set; }
         public Command CmdPrintLocal { get; set; }
@@ -47,7 +50,7 @@ namespace CircularSeasManager.ViewModels {
 
         private async Task Logout() {
             Busy = true;
-            var result = await Global.PrinterClient.Logout();
+            var result = await OctoClient.Logout();
             Busy = false;
             if (result) {
                 Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
@@ -63,7 +66,7 @@ namespace CircularSeasManager.ViewModels {
 
         private async Task DataRefresh() {
             //Obtener datos de trabajo actual
-            var currentJob = await Models.Global.PrinterClient.GetCurrentjob();
+            var currentJob = await OctoClient.GetCurrentjob();
             if (currentJob != null) {
                 PrinterState = currentJob.state;
                 FileName = currentJob.job.file.name;
@@ -91,7 +94,7 @@ namespace CircularSeasManager.ViewModels {
                 
             }
             else {
-                if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
+                if (OctoClient.ResultRequest == RequestState.NoConnection) {
                     //Coming to starpage
                     await AlertConnectionLost();
                     Application.Current.MainPage = new NavigationPage(new Views.LoginPage());
@@ -99,7 +102,7 @@ namespace CircularSeasManager.ViewModels {
                 }
             }
 
-            Services.PrinterStateJSON.RootObj printer = await Models.Global.PrinterClient.GetPrinterState();
+            Services.PrinterStateJSON.RootObj printer = await OctoClient.GetPrinterState();
             if (printer != null) {
                 /*Puede haber un pequeño transitorio mientras conecta y octoprint le pide la info a la impresora, donde
                  tool0 y bed devuelve null, entonces no se puede acceder a actual y target*/
@@ -113,7 +116,7 @@ namespace CircularSeasManager.ViewModels {
                     //Ignora expeción, simplemente espera a que llegue el dato bueno
                 }
             }
-            else if (Global.PrinterClient.ResultRequest == RequestState.Other) {
+            else if (OctoClient.ResultRequest == RequestState.Other) {
                 /*Si pasa esto, es debido a Conflict de "Printer is not operational", así que 
                  se ponen a 0*/
                 HotendTemp = 0;
@@ -125,10 +128,10 @@ namespace CircularSeasManager.ViewModels {
 
         private async Task StopPrinting() {
             Busy = true;
-            var estado = await Global.PrinterClient.PostJobCommand("cancel");
+            var estado = await OctoClient.PostJobCommand("cancel");
             Busy = false;
             if (!estado) {
-                if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
+                if (OctoClient.ResultRequest == RequestState.NoConnection) {
                     await AlertConnectionLost();
                 }
                 
@@ -137,10 +140,10 @@ namespace CircularSeasManager.ViewModels {
 
         private async Task PausePrinting() {
             Busy = true;
-            var estado = await Global.PrinterClient.PostJobCommand("pause");
+            var estado = await OctoClient.PostJobCommand("pause");
             Busy = false;
             if (!estado) {
-                if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
+                if (OctoClient.ResultRequest == RequestState.NoConnection) {
                     await AlertConnectionLost();
                 }
 
@@ -169,13 +172,13 @@ namespace CircularSeasManager.ViewModels {
                             AlertResources.Accept);
                     }
 
-                    var estado = await Global.PrinterClient.UploadFile(gco.DataArray, gco.FileName, quiereimprimir);
+                    var estado = await OctoClient.UploadFile(gco.DataArray, gco.FileName, quiereimprimir);
                     Busy = false;
                     if (!estado) {
-                        if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
+                        if (OctoClient.ResultRequest == RequestState.NoConnection) {
                             await AlertConnectionLost();
                         }
-                        if (Global.PrinterClient.ResultRequest == RequestState.BadFileExtension) {
+                        if (OctoClient.ResultRequest == RequestState.BadFileExtension) {
                             await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
                                 AlertResources.UploadOnlyGCODE,
                                 AlertResources.Accept);
@@ -215,7 +218,7 @@ namespace CircularSeasManager.ViewModels {
 
         private async Task ConnectPrinter() {
             Busy = true;
-            var resultado = await Global.PrinterClient.PostConexPrinter(true, "/dev/ttyACM0", 250000, "_default");
+            var resultado = await OctoClient.PostConexPrinter(true, "/dev/ttyACM0", 250000, "_default");
             Busy = false;
         }
     }

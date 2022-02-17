@@ -8,6 +8,6 @@ namespace CircularSeas.Models.Management
     {
         public string NodeName { get; set; }
         public string IsProvider { get; set; }
-        public List<Models.Filament> Filaments { get; set; }
+        public List<Models.Material> Filaments { get; set; }
     }
 }

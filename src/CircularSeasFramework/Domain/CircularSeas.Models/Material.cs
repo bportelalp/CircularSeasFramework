@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CircularSeas.Models
 {
-    public class Filament
+    public class Material
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -19,5 +19,7 @@ namespace CircularSeas.Models
         public bool[] FeaturesValues { get; set; }
         public double[] PropertiesValues { get; set; }
         public int SpoolStock { get; set; }
+
+        public List<Property> Properties {get;set;}
     }
 }

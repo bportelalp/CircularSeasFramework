@@ -18,8 +18,6 @@ namespace CircularSeas.DB.Context
         {
         }
 
-        public virtual DbSet<Feature> Features { get; set; }
-        public virtual DbSet<FeatureMat> FeatureMats { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<Node> Nodes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
@@ -42,28 +40,6 @@ namespace CircularSeas.DB.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
-            modelBuilder.Entity<Feature>(entity =>
-            {
-                entity.Property(e => e.ID).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<FeatureMat>(entity =>
-            {
-                entity.Property(e => e.ID).ValueGeneratedNever();
-
-                entity.HasOne(d => d.FeatureFKNavigation)
-                    .WithMany(p => p.FeatureMats)
-                    .HasForeignKey(d => d.FeatureFK)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FeatureMat_Feature");
-
-                entity.HasOne(d => d.MaterialFKNavigation)
-                    .WithMany(p => p.FeatureMats)
-                    .HasForeignKey(d => d.MaterialFK)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_FeatureMat_Material");
-            });
 
             modelBuilder.Entity<Material>(entity =>
             {
@@ -130,7 +106,7 @@ namespace CircularSeas.DB.Context
                     .WithMany(p => p.PropMats)
                     .HasForeignKey(d => d.PropertyFK)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PropMat_Property");
+                    .HasConstraintName("FK_PropMat_Properties");
             });
 
             modelBuilder.Entity<Property>(entity =>

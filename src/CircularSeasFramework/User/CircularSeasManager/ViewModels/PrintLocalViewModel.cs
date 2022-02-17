@@ -10,6 +10,9 @@ using CircularSeasManager.Resources;
 namespace CircularSeasManager.ViewModels {
     class PrintLocalViewModel : PrintLocalModel {
 
+        //DI
+        public Services.OctoClient OctoClient => DependencyService.Get<Services.OctoClient>();
+        public Services.SliceClient SliceClient => DependencyService.Get<Services.SliceClient>();
         public Command CmdFicherosLocales { get; set; }
         public Command CmdSendToPrint { get; set; }
         public Command CmdDelete { get; set; }
@@ -26,13 +29,13 @@ namespace CircularSeasManager.ViewModels {
         
         public async Task GetlocalFiles() {
             
-            var resp = await Global.PrinterClient.GetFiles();
-            if (Global.PrinterClient.ResultRequest == RequestState.Ok) {
+            var resp = await OctoClient.GetFiles();
+            if (OctoClient.ResultRequest == RequestState.Ok) {
                 //Copia la lista de ficheros que se devuelve en la colección, para que por binding se muestre en el listview
                 resp.ForEach(x => FilesCollection.Add(x));
             }
             else {
-                if (Global.PrinterClient.ResultRequest == RequestState.NoConnection) {
+                if (OctoClient.ResultRequest == RequestState.NoConnection) {
                     await AlertConnectionLost();
                 }
             }
@@ -46,19 +49,19 @@ namespace CircularSeasManager.ViewModels {
                             AlertResources.PrintingReturn);
             }
             else {
-                var estado = await Global.PrinterClient.PostPrintFile(SelectedGCODE);
+                var estado = await OctoClient.PostPrintFile(SelectedGCODE);
                 if (estado == false) { //si no se pudo hacer, se comprueba por qué
-                    if (Global.PrinterClient.ResultRequest == RequestState.NotExist) {
+                    if (OctoClient.ResultRequest == RequestState.NotExist) {
                         //Tratamiento de que no existe ese fichero
                     }
-                    else if (Global.PrinterClient.ResultRequest == RequestState.Busy) {
+                    else if (OctoClient.ResultRequest == RequestState.Busy) {
                         //Tratamiento de que la impresora se encuentra imprimiendo
                         await Application.Current.MainPage.DisplayAlert(AlertResources.PrintingHeaderError,
                             AlertResources.PrintingBodyProcessing,
                             AlertResources.PrintingReturn);
                         await Application.Current.MainPage.Navigation.PopAsync();
                     }
-                    else if (Global.PrinterClient.ResultRequest == RequestState.FailPrinterConnection) {
+                    else if (OctoClient.ResultRequest == RequestState.FailPrinterConnection) {
                         //No se pudo establecer conexión con la impresora
                     }
                 }
@@ -77,14 +80,14 @@ namespace CircularSeasManager.ViewModels {
                             AlertResources.PrintingReturn);
             }
             else {
-                var estado = await Global.PrinterClient.DeleteFile(SelectedGCODE);
+                var estado = await OctoClient.DeleteFile(SelectedGCODE);
                 FilesCollection.Remove(SelectedGCODE);
                 if (estado == false) {
                    //Cuando hubo error en la operación
-                    if (Global.PrinterClient.ResultRequest == RequestState.NotExist) {
+                    if (OctoClient.ResultRequest == RequestState.NotExist) {
                         //Tratamiento de que no existe ese fichero
                     }
-                    if (Global.PrinterClient.ResultRequest == RequestState.Busy) {
+                    if (OctoClient.ResultRequest == RequestState.Busy) {
                         //Tratamiento de que ese fichero está siendo impreso y por lo tanto no se puede eliminar
                         await Application.Current.MainPage.DisplayAlert(AlertResources.DeletingHeader,
                             AlertResources.DeletingBodyErrorProcesing,

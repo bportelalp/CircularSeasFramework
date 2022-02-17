@@ -41,6 +41,7 @@ namespace CircularSeasWebAPI {
             services.AddSingleton<Log>();
             services.AddSingleton<Tools>();
             services.AddScoped<ISlicerCLI, PrusaSlicerCLI>();
+            services.AddScoped<CircularSeas.DB.DbService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

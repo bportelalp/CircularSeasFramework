@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CircularSeas.DB.Entities
 {
-    [Table("Property")]
     public partial class Property
     {
         public Property()
@@ -19,12 +18,14 @@ namespace CircularSeas.DB.Entities
         [Key]
         public Guid ID { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Name { get; set; }
-        [Required]
-        [StringLength(50)]
+        public bool IsDichotomous { get; set; }
+        [StringLength(10)]
         public string Unit { get; set; }
-        public bool PositiveImpact { get; set; }
+        public bool MoreIsBetter { get; set; }
+        [StringLength(500)]
+        public string HelpText { get; set; }
 
         [InverseProperty(nameof(PropMat.PropertyFKNavigation))]
         public virtual ICollection<PropMat> PropMats { get; set; }

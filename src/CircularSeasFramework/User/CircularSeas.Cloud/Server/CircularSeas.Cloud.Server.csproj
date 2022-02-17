@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.11" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.DB\CircularSeas.DB.csproj" />
+    <ProjectReference Include="..\Client\CircularSeas.Cloud.Client.csproj" />
+    <ProjectReference Include="..\Shared\CircularSeas.Cloud.Shared.csproj" />
+  </ItemGroup>
+
+
+</Project>

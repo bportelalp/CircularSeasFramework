@@ -18,4 +18,8 @@
     <Folder Include="Entities\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\CircularSeas.Models\CircularSeas.Models.csproj" />
+  </ItemGroup>
+
 </Project>

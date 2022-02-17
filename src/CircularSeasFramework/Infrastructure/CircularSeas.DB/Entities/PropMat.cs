@@ -15,7 +15,8 @@ namespace CircularSeas.DB.Entities
         public Guid ID { get; set; }
         public Guid MaterialFK { get; set; }
         public Guid PropertyFK { get; set; }
-        public double Value { get; set; }
+        public double? ValueDec { get; set; }
+        public bool? ValueBin { get; set; }
 
         [ForeignKey(nameof(MaterialFK))]
         [InverseProperty(nameof(Material.PropMats))]

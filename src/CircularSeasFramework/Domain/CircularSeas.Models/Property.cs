@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CircularSeas.Models
+{
+    public class Property
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public bool IsDichotomous { get; set; }
+        public string Unit { get; set; }
+        public bool MoreIsBetter { get; set; }
+        public string HelpText  { get; set; }
+        public float? ValueDec  { get; set; } = null;
+        public bool? ValueBin { get; set; } = null;
+
+    }
+}

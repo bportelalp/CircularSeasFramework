@@ -10,13 +10,24 @@ using CircularSeas;
 
 namespace CircularSeasManager.Services {
     public class SliceClient {
-        private string urlbase;
+        public string urlbase { get; set; }
         private RestClient client;
         public HttpStatusCode resultRequest;
 
         public SliceClient(string _urlbase) {
             urlbase = _urlbase;
             client = new RestClient(urlbase);
+        }
+
+        public SliceClient()
+        {
+            client = new RestClient();
+        }
+
+        public void SetUrlBase(string urlbase_)
+        {
+            urlbase = urlbase_;
+            client.BaseUrl = new Uri(urlbase);
         }
         /// <summary>
         /// Obter os datos de Materiais e calidades dispoñibles para facer a conversión

@@ -13,7 +13,6 @@ namespace CircularSeas.DB.Entities
     {
         public Material()
         {
-            FeatureMats = new HashSet<FeatureMat>();
             PropMats = new HashSet<PropMat>();
             Stocks = new HashSet<Stock>();
         }
@@ -31,8 +30,6 @@ namespace CircularSeas.DB.Entities
         public double? MinTempExtr { get; set; }
         public double? MaxTempExtr { get; set; }
 
-        [InverseProperty(nameof(FeatureMat.MaterialFKNavigation))]
-        public virtual ICollection<FeatureMat> FeatureMats { get; set; }
         [InverseProperty(nameof(PropMat.MaterialFKNavigation))]
         public virtual ICollection<PropMat> PropMats { get; set; }
         [InverseProperty(nameof(Stock.MaterialFKNavigation))]

@@ -11,7 +11,7 @@ namespace CircularSeasManager.Models {
 
         //Almacén de todos los datos
         public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();
-        public List<Filament> filtredFilaments = new List<Filament>();
+        public List<Material> filtredFilaments = new List<Material>();
         //Colección con identificador de propiedad y valor de usuario de "importancia"
         public ObservableCollection<ValueUser> ValueUserCollection { get; set; }
         //Colección co resultado da avaliación TOPSIS

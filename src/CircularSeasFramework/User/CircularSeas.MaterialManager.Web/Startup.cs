@@ -31,6 +31,9 @@ namespace CircularSeas.MaterialManager.Web
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddDbContext<CircularSeas.DB.Context.CircularSeasContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CSDatabase")));
+
+            //Services
+            services.AddSingleton<CircularSeas.DB.DbService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,6 +16,9 @@ using Plugin.FilePicker;
 namespace CircularSeasManager.ViewModels {
     public class SliceViewModel : SliceModel {
 
+        //Dependency injection
+        public Services.OctoClient OctoClient => DependencyService.Get<Services.OctoClient>();
+        public Services.SliceClient SliceClient => DependencyService.Get<Services.SliceClient>();
         //Comandos
         public Command CmdSendSTL { get; set; }
         public Command CmdHelp { get; set; }
@@ -51,10 +54,10 @@ namespace CircularSeasManager.ViewModels {
             //Deserializar
             DataMaterial = JsonConvert.DeserializeObject<InfoTopsis>(reader);*/
 
-            DataMaterial = await Global.ClienteSlice.GetData(printer);
+            DataMaterial = await SliceClient.GetData(printer);
             if (DataMaterial != null) {
                 //Cargar a información nas coleccións para visualizar
-                foreach (CircularSeas.Models.Filament item in DataMaterial.Filaments) {
+                foreach (CircularSeas.Models.Material item in DataMaterial.Filaments) {
                     MaterialCollection.Add(item.Name);
                 }
                 foreach (string item in DataMaterial.Printer.Profiles) {
@@ -62,10 +65,10 @@ namespace CircularSeasManager.ViewModels {
                 }
             }
             else {
-                if (Global.ClienteSlice.resultRequest == HttpStatusCode.NotFound) {
+                if (SliceClient.resultRequest == HttpStatusCode.NotFound) {
 
                 }
-                else if (Global.ClienteSlice.resultRequest == 0) {
+                else if (SliceClient.resultRequest == 0) {
                     //Sin conexión
                     await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
                         AlertResources.ServerDisconnected,
@@ -103,28 +106,28 @@ namespace CircularSeasManager.ViewModels {
             if (AllReady) {
                 Tuple<string, byte[]> datos = new Tuple<string, byte[]>(null, null);
                 StatusMessage = StringResources.Slicing + " " + STL.FileName;
-                datos = await Global.ClienteSlice.PostSTL(STL, printer, MaterialSelected, ProfileSelected, UseSupport);
-                if (Global.ClienteSlice.resultRequest == HttpStatusCode.OK) {
+                datos = await SliceClient.PostSTL(STL, printer, MaterialSelected, ProfileSelected, UseSupport);
+                if (SliceClient.resultRequest == HttpStatusCode.OK) {
                     StatusMessage = StringResources.Uploading;
-                    await Global.PrinterClient.UploadFile(datos.Item2, datos.Item1, false);
+                    await OctoClient.UploadFile(datos.Item2, datos.Item1, false);
                     StatusMessage = StringResources.Completed;
                     await Application.Current.MainPage.DisplayAlert(AlertResources.Ready,
                         AlertResources.CanPrintedFromLocal,
                         AlertResources.Accept);
                 }
                 else {
-                    if (Global.ClienteSlice.resultRequest == HttpStatusCode.PreconditionFailed) {
+                    if (SliceClient.resultRequest == HttpStatusCode.PreconditionFailed) {
                         await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
                         AlertResources.PerhapsSupportNeeded,
                         AlertResources.Accept);
                     }
-                    if (Global.ClienteSlice.resultRequest == 0) {
+                    if (SliceClient.resultRequest == 0) {
                         await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
                         AlertResources.ConnectionError,
                         AlertResources.Accept);
                         await Application.Current.MainPage.Navigation.PopAsync();
                     }
-                    if (Global.ClienteSlice.resultRequest == HttpStatusCode.BadRequest) {
+                    if (SliceClient.resultRequest == HttpStatusCode.BadRequest) {
                         await Application.Current.MainPage.DisplayAlert(AlertResources.Error,
                         AlertResources.UnknownError,
                         AlertResources.Accept);

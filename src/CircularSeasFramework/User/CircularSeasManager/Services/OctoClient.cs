@@ -27,7 +27,7 @@ namespace CircularSeasManager.Services {
     }
 
     public class OctoClient {
-        private string urlbase;
+        public string urlbase { get; set; }
         private RestClient client;
         private FilesJSON.RootObj FilesSaved = new FilesJSON.RootObj();
         public RequestState ResultRequest;
@@ -39,6 +39,16 @@ namespace CircularSeasManager.Services {
             client = new RestClient(urlbase);
         }
 
+        public OctoClient()
+        {
+            client = new RestClient();
+        }
+
+        public void SetUrlBase(string urlbase_)
+        {
+            urlbase = urlbase_;
+            client.BaseUrl = new Uri(urlbase);
+        }
         /// <summary>Función interna para obtener si la petición fue bien. Si fue mal, guarda algunos de los códigos más comunes en ResultRequest.
         /// Para otros códigos más específicos, se realiza la comprobación en la propia tarea.</summary>
         /// <param name="statuscode">Se le pasa el response.statuscode para hacer a comprobación.</param>

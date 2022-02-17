@@ -7,7 +7,7 @@ namespace CircularSeas.Models.DTO
     public class DataDTO
     {
         public Printer Printer { get; set; }
-        public Filament[] Filaments { get; set; }
+        public Material[] Filaments { get; set; }
         public InfoTopsis InfoTopsis { get; set; }
     }
 }

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testQRScanner.UWP", "testQR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testQRScanner.Android", "testQRScanner\testQRScanner.Android\testQRScanner.Android.csproj", "{66BB8979-AAD8-4874-8967-754D3E44BE72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testQRScanner", "testQRScanner\testQRScanner\testQRScanner.csproj", "{BB8897D0-EED8-4F8F-A6A2-F40FA5097CC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testQRScanner", "testQRScanner\testQRScanner\testQRScanner.csproj", "{BB8897D0-EED8-4F8F-A6A2-F40FA5097CC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,6 +14,10 @@ using CircularSeasManager.Resources;
 namespace CircularSeasManager.ViewModels {
     public class LoginPageViewModel : LoginPageModel {
 
+        //DI
+        public Services.OctoClient OctoClient => DependencyService.Get<Services.OctoClient>();
+        public Services.SliceClient SliceClient => DependencyService.Get<Services.SliceClient>();
+
         /*COMANDOS: En arquitectura MVVM son métodos que se ejecutan en respuesta a una actividad específica
         Normalmente por ejemplo al clicar o pulsar un botón*/
         public Command CmdLogin { get; set; }
@@ -31,10 +35,10 @@ namespace CircularSeasManager.ViewModels {
         //Método asociado al comando iniciar sesión
         private async Task Login() {
             //Crea el objeto con la nueva IP, comprobando antes si lleva la cabecera http://
-            Global.PrinterClient = new OctoClient((IPOctoprint.StartsWith("http://") == true) ? IPOctoprint : ("http://" + IPOctoprint));
-            Global.ClienteSlice = new SliceClient((IPSlicer.StartsWith("http://") == true) ? IPSlicer : ("http://" + IPSlicer));
+            OctoClient.SetUrlBase((IPOctoprint.StartsWith("http://") == true) ? IPOctoprint: ("http://" + IPOctoprint));
+            SliceClient.SetUrlBase((IPSlicer.StartsWith("http://") == true) ? IPSlicer : ("http://" + IPSlicer));
             Busy = true;
-            var result = await Global.PrinterClient.Login(UserInput, Pass);
+            var result = await OctoClient.Login(UserInput, Pass);
             Busy = false;
 
             if (result) {
@@ -53,7 +57,7 @@ namespace CircularSeasManager.ViewModels {
                 }
 
                 //Obtener Printer REVISION
-                var resultado2 = await Global.PrinterClient.GetConexPrinter();
+                var resultado2 = await OctoClient.GetConexPrinter();
                 if (resultado2 != null) {
                     printer = resultado2.options.printerProfiles[0].name;
                 }
@@ -61,10 +65,10 @@ namespace CircularSeasManager.ViewModels {
             }
 
             else { 
-                if (Global.PrinterClient.ResultRequest == Services.RequestState.Auth) {
+                if (OctoClient.ResultRequest == Services.RequestState.Auth) {
                     InitMessage = StringResources.UserPassWrong;
                 }
-                else if (Global.PrinterClient.ResultRequest == Services.RequestState.NoConnection) {
+                else if (OctoClient.ResultRequest == Services.RequestState.NoConnection) {
                     InitMessage = StringResources.ErrorConnection;
                 }
             }      
