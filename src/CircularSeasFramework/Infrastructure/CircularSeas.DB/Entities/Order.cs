@@ -8,20 +8,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CircularSeas.DB.Entities
 {
-    [Table("Stock")]
-    public partial class Stock
+    [Keyless]
+    public partial class Order
     {
-        [Key]
         public Guid ID { get; set; }
         public Guid NodeFK { get; set; }
+        public Guid ProviderFK { get; set; }
         public Guid MaterialFK { get; set; }
         public int SpoolQuantity { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime CreationDate { get; set; }
+        public bool Delivered { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? DeliveryDate { get; set; }
 
         [ForeignKey(nameof(MaterialFK))]
-        [InverseProperty(nameof(Material.Stocks))]
         public virtual Material MaterialFKNavigation { get; set; }
         [ForeignKey(nameof(NodeFK))]
-        [InverseProperty(nameof(Node.Stocks))]
         public virtual Node NodeFKNavigation { get; set; }
+        [ForeignKey(nameof(ProviderFK))]
+        public virtual Node ProviderFKNavigation { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace CircularSeas.DB.Context
         public virtual DbSet<Feature> Features { get; set; }
         public virtual DbSet<FeatureMat> FeatureMats { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
+        public virtual DbSet<Node> Nodes { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Printer> Printers { get; set; }
         public virtual DbSet<PrinterProfile> PrinterProfiles { get; set; }
         public virtual DbSet<PropMat> PropMats { get; set; }
@@ -72,6 +74,32 @@ namespace CircularSeas.DB.Context
                 entity.Property(e => e.Name).HasDefaultValueSql("('Material Name')");
             });
 
+            modelBuilder.Entity<Node>(entity =>
+            {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.HasOne(d => d.MaterialFKNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.MaterialFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Orders_Material");
+
+                entity.HasOne(d => d.NodeFKNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.NodeFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Orders_Node");
+
+                entity.HasOne(d => d.ProviderFKNavigation)
+                    .WithMany()
+                    .HasForeignKey(d => d.ProviderFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Orders_Node1");
+            });
+
             modelBuilder.Entity<Printer>(entity =>
             {
                 entity.Property(e => e.ID).ValueGeneratedNever();
@@ -119,6 +147,12 @@ namespace CircularSeas.DB.Context
                     .HasForeignKey(d => d.MaterialFK)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Stock_Material");
+
+                entity.HasOne(d => d.NodeFKNavigation)
+                    .WithMany(p => p.Stocks)
+                    .HasForeignKey(d => d.NodeFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Stock_Node");
             });
 
             OnModelCreatingPartial(modelBuilder);

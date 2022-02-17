@@ -27,7 +27,6 @@ namespace CircularSeasManager.ViewModels {
             CmdHelp = new Command(async () => await OpenAssistant(), () => !Busy);
             CmdPickSTL = new Command(async () => await PickSTL());
 
-
             //Inicializar las colecciones
             MaterialCollection = new ObservableCollection<string>();
             ProfileCollection = new ObservableCollection<string>();
