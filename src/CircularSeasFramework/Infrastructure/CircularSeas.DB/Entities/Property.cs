@@ -26,6 +26,7 @@ namespace CircularSeas.DB.Entities
         public bool MoreIsBetter { get; set; }
         [StringLength(500)]
         public string HelpText { get; set; }
+        public bool Visible { get; set; }
 
         [InverseProperty(nameof(PropMat.PropertyFKNavigation))]
         public virtual ICollection<PropMat> PropMats { get; set; }

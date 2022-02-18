@@ -12,8 +12,14 @@ namespace CircularSeas.Models
         public string Unit { get; set; }
         public bool MoreIsBetter { get; set; }
         public string HelpText  { get; set; }
-        public float? ValueDec  { get; set; } = null;
-        public bool? ValueBin { get; set; } = null;
+        public bool Visible { get; set; }
+    }
 
+    public class Evaluation
+    {
+        public Guid Id { get; set; }
+        public Property Property { get; set; }
+        public double? ValueDec  { get; set; } = null;
+        public bool? ValueBin { get; set; } = null;
     }
 }

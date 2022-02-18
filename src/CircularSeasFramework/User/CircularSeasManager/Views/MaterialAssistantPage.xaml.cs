@@ -14,7 +14,7 @@ namespace CircularSeasManager.Views {
     public partial class MaterialAssistantPage : ContentPage {
 
         MaterialAssistantViewModel context;
-        public MaterialAssistantPage(CircularSeas.Models.DTO.DataDTO _material) {
+        public MaterialAssistantPage(CircularSeas.Models.DTO.PrintDTO _material) {
             InitializeComponent();
             context = new MaterialAssistantViewModel(_material);
             BindingContext = context;

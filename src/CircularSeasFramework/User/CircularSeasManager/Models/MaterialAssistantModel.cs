@@ -10,7 +10,7 @@ namespace CircularSeasManager.Models {
     public class MaterialAssistantModel : BaseModel {
 
         //Almacén de todos los datos
-        public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();
+        public CircularSeas.Models.DTO.PrintDTO DataMaterial = new CircularSeas.Models.DTO.PrintDTO();
         public List<Material> filtredFilaments = new List<Material>();
         //Colección con identificador de propiedad y valor de usuario de "importancia"
         public ObservableCollection<ValueUser> ValueUserCollection { get; set; }
@@ -19,7 +19,6 @@ namespace CircularSeasManager.Models {
         //Colección cas features
         public ObservableCollection<FeaturesUser> FeaturesUserCollection { get; set; }
         //Comando intermedio para mostrar info (dado que no se puede bindear un command en listview
-        public Command CmdInfo { get; set; }
 
         //Almacén del resultado seleccionado
         private TOPSISResult _selectedMaterial;
@@ -29,13 +28,11 @@ namespace CircularSeasManager.Models {
                 if (_selectedMaterial != value) {
                     _selectedMaterial = value;
                     //Lanza comando
-                    CmdInfo.Execute(_selectedMaterial);
+                    InfoMaterial = _selectedMaterial.Material.Description;
                     OnPropertyChanged();
                 }
             }
         }
-        //uohwefefhw
-
 
         //Confirmación de que existe un resultado calculado
         private bool _HaveResult = false;
@@ -57,22 +54,25 @@ namespace CircularSeasManager.Models {
         }
         //Clase para contener datos de valoración
         public class ValueUser {
-            public string Property { get; set; }
+            public CircularSeas.Models.Property Property { get; set; }
+            public string Name => Property.Name;
             public double Valoration { get; set; }
         }
 
         //Clase de resultado
         public class TOPSISResult {
-            public string MaterialName { get; set; }
+            public CircularSeas.Models.Material Material { get; set; }
+            public string MaterialName => Material.Name;
             public double Affinity { get; set; }
-            public double Affinity100 { get; set; }
+            public double Affinity100 => Affinity * 100.0;
             public string Stock { get; set; }
         }
 
         public class FeaturesUser {
-            public string Feature { get; set; }
+            public CircularSeas.Models.Property PropertyDisc { get; set; } = new Property();
+            public string Name => PropertyDisc.Name;
             public ObservableCollection<string> OptionsFeature { get; set; }
-            public string FeatureValueSelected { get; set; }
+            public string OptionSelected { get; set; }
         }
 
         /// <summary> Devuelve índices de desempeño de los materiales dados</summary>

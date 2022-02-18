@@ -33,16 +33,16 @@ namespace CircularSeasManager.Services {
         /// Obter os datos de Materiais e calidades dispoñibles para facer a conversión
         /// </summary>
         /// <param name="IDprinter">Identificador da impresora</param>
-        /// <returns>Obxeto ca información do JSON deserializada</returns>
-        public async Task<CircularSeas.Models.DTO.DataDTO> GetData(string IDprinter) {
+        /// <returns>Obxeto ca información do JSON deserializada</returns>'
+        public async Task<CircularSeas.Models.DTO.PrintDTO> GetData(string IDprinter) {
             //Solicitude dos datos ao servizo na nube, para o ID da impresora fixado
-            var request = new RestRequest("/circularseas/Printer/" + IDprinter, Method.GET);
+            var request = new RestRequest("/process/printerinfo/" + IDprinter, Method.GET);
             //Espera recepción
             var response = await client.ExecuteAsync(request);
             //Comproba resultado e devolve en consonancia
             resultRequest = response.StatusCode;
             if (response.StatusCode == HttpStatusCode.OK) { //Non se estableceu conexion
-                return JsonConvert.DeserializeObject<CircularSeas.Models.DTO.DataDTO>(response.Content);
+                return JsonConvert.DeserializeObject<CircularSeas.Models.DTO.PrintDTO>(response.Content);
             }
             else {
                 return null;

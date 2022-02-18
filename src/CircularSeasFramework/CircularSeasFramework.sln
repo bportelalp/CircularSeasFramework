@@ -11,15 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeasManager", "User
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{2A00B2F4-578F-4513-87A7-F070C9BBD022}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1A2D30C5-7EED-4FBD-831E-EB554B081112}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeasWebAPI", "Backend\CircularSeasWebAPI\CircularSeasWebAPI.csproj", "{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{1A2D30C5-7EED-4FBD-831E-EB554B081112}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{7BBB9187-B81A-40A9-9564-8C5C729076D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Models", "Domain\CircularSeas.Models\CircularSeas.Models.csproj", "{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Tools.BundleConfigurator", "Backend\CircularSeas.Tools.BundleConfigurator\CircularSeas.Tools.BundleConfigurator.csproj", "{CD9C99CB-DC8C-48FA-9B89-4B8BC53DA3CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Tools.BundleConfigurator", "Tools\CircularSeas.Tools.BundleConfigurator\CircularSeas.Tools.BundleConfigurator.csproj", "{CD9C99CB-DC8C-48FA-9B89-4B8BC53DA3CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}"
 EndProject
@@ -27,11 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.DB", "Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.MaterialManager.Web", "User\CircularSeas.MaterialManager.Web\CircularSeas.MaterialManager.Web.csproj", "{51DECE87-C01B-45F1-918E-94AD234889D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularSeas.Cloud.Server", "User\CircularSeas.Cloud\Server\CircularSeas.Cloud.Server.csproj", "{809279F1-7F4F-4F01-8D18-D25F246158E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Server", "User\CircularSeas.Cloud\Server\CircularSeas.Cloud.Server.csproj", "{809279F1-7F4F-4F01-8D18-D25F246158E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularSeas.Cloud.Client", "User\CircularSeas.Cloud\Client\CircularSeas.Cloud.Client.csproj", "{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Client", "User\CircularSeas.Cloud\Client\CircularSeas.Cloud.Client.csproj", "{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularSeas.Cloud.Shared", "User\CircularSeas.Cloud\Shared\CircularSeas.Cloud.Shared.csproj", "{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Shared", "User\CircularSeas.Cloud\Shared\CircularSeas.Cloud.Shared.csproj", "{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -117,22 +115,6 @@ Global
 		{3B60034A-3585-4E85-84F2-2D46B343E235}.Release|x86.ActiveCfg = Release|Any CPU
 		{3B60034A-3585-4E85-84F2-2D46B343E235}.Release|x86.Build.0 = Release|Any CPU
 		{3B60034A-3585-4E85-84F2-2D46B343E235}.Release|x86.Deploy.0 = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|ARM.Build.0 = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|x64.Build.0 = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Debug|x86.Build.0 = Debug|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|ARM.ActiveCfg = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|ARM.Build.0 = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|x64.ActiveCfg = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|x64.Build.0 = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|x86.ActiveCfg = Release|Any CPU
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1}.Release|x86.Build.0 = Release|Any CPU
 		{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -253,7 +235,6 @@ Global
 		{E3DD8BC6-7019-49FC-8BB3-61E4BB5F82DF} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
 		{3C95547D-F2BB-461B-B017-1DB0CD6B159A} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
 		{3B60034A-3585-4E85-84F2-2D46B343E235} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
-		{A3C2F64B-57B6-46EB-BE1E-B3BE1AC063E1} = {1A2D30C5-7EED-4FBD-831E-EB554B081112}
 		{FA73D6A7-0BB6-44B6-A082-C131F29ECA4C} = {7BBB9187-B81A-40A9-9564-8C5C729076D7}
 		{CD9C99CB-DC8C-48FA-9B89-4B8BC53DA3CF} = {1A2D30C5-7EED-4FBD-831E-EB554B081112}
 		{B15DE2C5-E2BC-40AA-A442-70F8A16D8783} = {76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}
@@ -263,8 +244,8 @@ Global
 		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_SaveFilesImmediatelyUponChange = True
-		RESX_NeutralResourcesLanguage = en-150
 		SolutionGuid = {98FE19EA-81D2-471D-9D59-52F6F0340684}
+		RESX_NeutralResourcesLanguage = en-150
+		RESX_SaveFilesImmediatelyUponChange = True
 	EndGlobalSection
 EndGlobal

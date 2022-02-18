@@ -10,6 +10,7 @@ namespace CircularSeas.DB
     {
         internal static Models.Printer Repo2Domain(Entities.Printer row)
         {
+            if (row == null) return null;
             Models.Printer dom = new Models.Printer()
             {
                 Id = row.ID,
@@ -21,42 +22,22 @@ namespace CircularSeas.DB
             return dom;
         }
 
-        internal static Entities.Printer Domain2Repo(Models.Printer printer)
+        internal static Entities.Printer Domain2Repo(Models.Printer dom)
         {
+            if (dom == null) return null;
             Entities.Printer row = new Entities.Printer()
             {
-                ID = printer.Id,
-                ModelName = printer.Name,
-                FilamentDiameter = printer.FilamentDiameter
+                ID = dom.Id,
+                ModelName = dom.Name,
+                FilamentDiameter = dom.FilamentDiameter
                 //Ignore printer profiles by now
             };
             return row;
         }
 
-        internal static List<Models.Material> Repo2Domain(List<Entities.Material> _material)
-        {
-            List<Models.Material> dom = new List<Models.Material>();
-
-            foreach (var item in _material)
-            {
-                List<bool> featuresValues = new List<bool>();
-                List<double> propertiesValues = new List<double>();
-                //item.PropMats.ToList().ForEach(pm => propertiesValues.Add(pm.ValueDec));
-
-                dom.Add(new CircularSeas.Models.Material
-                {
-                    Name = item.Name,
-                    Description = item.Description,
-                    FeaturesValues = featuresValues.ToArray(),
-                    PropertiesValues = propertiesValues.ToArray(),
-                    SpoolStock = 0
-                });
-            }
-
-            return dom;
-        }
         internal static Models.Material Repo2Domain(Entities.Material row)
         {
+            if (row == null) return null;
             Models.Material dom = new Models.Material()
             {
                 Id = row.ID,
@@ -66,30 +47,54 @@ namespace CircularSeas.DB
                 HotendTemperature = row.HotendTemperature,
                 IdealTempExtr = row.IdealTempExtr,
                 MinTempExtr = row.MinTempExtr,
-                MaxTempExtr = row.MaxTempExtr
-                //TODO: Spool Stock
+                MaxTempExtr = row.MaxTempExtr,
+                SpoolStock = row.Stocks?.FirstOrDefault()?.SpoolQuantity ?? 0,
             };
             return dom;
         }
 
-        internal static Entities.Material Domain2Repo(Models.Material material)
+        internal static Entities.Material Domain2Repo(Models.Material dom)
         {
+            if (dom == null) return null;
             Entities.Material row = new Entities.Material()
             {
-                ID = material.Id,
-                Name = material.Name,
-                Description= material.Description,
-                BedTemperature= material.BedTemperature,
-                HotendTemperature= material.HotendTemperature,
-                IdealTempExtr = material.IdealTempExtr,
-                MinTempExtr = material.MinTempExtr,
-                MaxTempExtr = material.MaxTempExtr
+                ID = dom.Id,
+                Name = dom.Name,
+                Description = dom.Description,
+                BedTemperature = dom.BedTemperature,
+                HotendTemperature = dom.HotendTemperature,
+                IdealTempExtr = dom.IdealTempExtr,
+                MinTempExtr = dom.MinTempExtr,
+                MaxTempExtr = dom.MaxTempExtr
             };
             return row;
         }
 
+        internal static Models.Evaluation Repo2Domain(Entities.PropMat row)
+        {
+            if (row == null) return null;
+            Models.Evaluation dom = new Models.Evaluation()
+            {
+                Id = row.ID,
+                ValueBin = row.ValueBin,
+                ValueDec = row.ValueDec,
+            };
+            return dom;
+        }
+        internal static Entities.PropMat Domain2Repo(Models.Evaluation dom)
+        {
+            if (dom == null) return null;
+            Entities.PropMat row = new Entities.PropMat()
+            {
+                ID = dom.Id,
+                ValueBin = dom.ValueBin,
+                ValueDec = dom.ValueDec,
+            };
+            return row;
+        }
         internal static Models.Property Repo2Domain(Entities.Property row)
         {
+            if (row == null) return null;
             Models.Property dom = new Models.Property()
             {
                 Id = row.ID,
@@ -98,20 +103,23 @@ namespace CircularSeas.DB
                 IsDichotomous = row.IsDichotomous,
                 MoreIsBetter = row.MoreIsBetter,
                 Unit = row.Unit,
+                Visible = row.Visible,
             };
             return dom;
         }
 
-        internal static Entities.Property Domain2Repo(Models.Property property)
+        internal static Entities.Property Domain2Repo(Models.Property dom)
         {
+            if (dom == null) return null;
             Entities.Property row = new Entities.Property()
             {
-                ID = property.Id,
-                Name = property.Name,
-                HelpText = property.HelpText,
-                IsDichotomous = property.IsDichotomous,
-                MoreIsBetter = property.MoreIsBetter,
-                Unit = property.Unit,
+                ID = dom.Id,
+                Name = dom.Name,
+                HelpText = dom.HelpText,
+                IsDichotomous = dom.IsDichotomous,
+                MoreIsBetter = dom.MoreIsBetter,
+                Unit = dom.Unit,
+                Visible = dom.Visible,
             };
             return row;
         }

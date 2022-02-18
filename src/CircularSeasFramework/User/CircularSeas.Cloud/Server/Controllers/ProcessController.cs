@@ -25,7 +25,7 @@ namespace CircularSeas.Cloud.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CircularSeasController : Controller
+    public class ProcessController : Controller
     {
         // Service access
         private readonly Log _log;
@@ -38,7 +38,7 @@ namespace CircularSeas.Cloud.Server.Controllers
         private readonly CircularSeasContext _DBContext;
         private readonly DbService _DbService;
 
-        public CircularSeasController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools, IWebHostEnvironment env, ISlicerCLI slicer, DbService dbService)
+        public ProcessController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools, IWebHostEnvironment env, ISlicerCLI slicer, DbService dbService)
         {
             // Assignment and initialization of services
             this._log = log;
@@ -59,63 +59,36 @@ namespace CircularSeas.Cloud.Server.Controllers
             return Ok("You are correctly connected to the API");
         }
 
-        [HttpGet]
+        [HttpGet("db")]
         public async Task<IActionResult> TestRoute()
         {
-            return Ok();
+            var result = await _DbService.GetMaterials();
+            return Ok(result);
         }
 
         /// <summary>
         ///  Getting printer information, materials and assistance to the selection of materials.
         /// </summary>
-        /// <param name="PrinterID"> Name of the printer </param>
+        /// <param name="printerId"> Name of the printer </param>
         /// <returns> An object with printer, materials and topsis data </returns>
-        [HttpGet("Printer/{PrinterID}")]
-        public async Task<JsonResult> GetInfoPrinter([FromRoute] string PrinterID)
+        [HttpGet("printerinfo/{PrinterID}")]
+        public async Task<IActionResult> GetInfoPrinter([FromRoute] string printerId)
         {
-            CircularSeas.Models.DTO.DataDTO dataSet = new CircularSeas.Models.DTO.DataDTO();
-
-            // Search in the database of the values of the Properties, characteristics and impact that each material has on the selection of materials.
-            CircularSeas.Models.InfoTopsis infoTopsis = new CircularSeas.Models.InfoTopsis();
+            CircularSeas.Models.DTO.PrintDTO dto = new CircularSeas.Models.DTO.PrintDTO();
             try
             {
-                
-
-
-                infoTopsis.PropertiesNames = await _DBContext.Properties
-                    .OrderBy(s => s.ID)
-                    .Select(s => s.Name)
-                    .ToArrayAsync();
-                infoTopsis.ImpactPositive = await _DBContext.Properties
-                    .OrderBy(s => s.ID)
-                    .Select(s => s.MoreIsBetter)
-                    .ToArrayAsync();
-                dataSet.InfoTopsis = infoTopsis;
-                //Get all profiles availables.
-                var printers = await _DBContext.Printers
-                    .Where(pr => pr.ModelName == PrinterID)
-                    .Include(pr => pr.PrinterProfiles)
-                    .FirstOrDefaultAsync();
-
-                dataSet.Printer = await _DbService.GetPrinterInfo(PrinterID);
-
-                // Search in the DB for the list of all materials 
-                var materialsBBDDlist = await _DBContext.Materials
-                    .Include(mat => mat.PropMats.OrderBy(p => p.PropertyFK))
-                    .ToListAsync();
-
-                // Conversion of the DB Materials model into the reduced "Filaments" class 
-                //dataSet.Filaments = Mapper.Repo2Domain(materialsBBDDlist).ToArray();
-
+                dto.Printer = await _DbService.GetPrinterInfo(printerId);
+                dto.Materials = await _DbService.GetMaterials(true);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                return BadRequest(ex.Message);
                 throw;
             }
-            
-            return Json(dataSet);
+            return Ok(dto);
         }
+
+
 
         /// <summary>
         /// Automatic machine code generation (STL to Gcode converter/slicer)

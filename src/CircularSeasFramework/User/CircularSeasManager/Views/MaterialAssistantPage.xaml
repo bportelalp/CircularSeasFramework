@@ -29,8 +29,8 @@
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Grid.Column="0" Text="{Binding Feature}" HorizontalTextAlignment="Center"></Label>
-                                <Picker x:Name="PickerFeature" ItemsSource="{Binding OptionsFeature}" SelectedItem="{Binding FeatureValueSelected}"
+                                <Label Grid.Column="0" Text="{Binding Name}" HorizontalTextAlignment="Center"></Label>
+                                <Picker x:Name="PickerFeature" ItemsSource="{Binding OptionsFeature}" SelectedItem="{Binding OptionSelected}"
                                     Grid.Row="0" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                             </Grid>
                         </ViewCell>
@@ -52,7 +52,7 @@
                                     <ColumnDefinition Width="auto"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Column="0" Text="{Binding Property}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
+                                <Label Grid.Column="0" Text="{Binding Name}" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                 <Label Grid.Column="1" Text="Low" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"></Label>
                                 <Slider Grid.Column="2" Value="{Binding Valoration}" MaximumTrackColor="Black" 
                                         MinimumTrackColor="Black" Minimum="0.1" Maximum="5"/>

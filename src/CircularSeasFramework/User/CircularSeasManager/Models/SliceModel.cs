@@ -16,7 +16,7 @@ namespace CircularSeasManager.Models {
         public ObservableCollection<string> ProfileCollection { get; set; }
 
         //Almacén de todos los datos
-        public CircularSeas.Models.DTO.DataDTO DataMaterial = new CircularSeas.Models.DTO.DataDTO();
+        public CircularSeas.Models.DTO.PrintDTO DataMaterial = new CircularSeas.Models.DTO.PrintDTO();
 
         //Selección de Soporte
         private bool _useSupport;

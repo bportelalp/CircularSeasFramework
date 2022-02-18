@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Net;
+using System.Linq;
 using CircularSeasManager.Models;
 using CircularSeasManager.Resources;
 using Xamarin.Forms;
@@ -57,12 +58,12 @@ namespace CircularSeasManager.ViewModels {
             DataMaterial = await SliceClient.GetData(printer);
             if (DataMaterial != null) {
                 //Cargar a información nas coleccións para visualizar
-                foreach (CircularSeas.Models.Material item in DataMaterial.Filaments) {
+                foreach (CircularSeas.Models.Material item in DataMaterial.Materials) {
                     MaterialCollection.Add(item.Name);
                 }
-                foreach (string item in DataMaterial.Printer.Profiles) {
-                    ProfileCollection.Add(item);
-                }
+                //foreach (string item in DataMaterial.Printer?.Profiles?) {
+                //    ProfileCollection.Add(item);
+                //}
             }
             else {
                 if (SliceClient.resultRequest == HttpStatusCode.NotFound) {

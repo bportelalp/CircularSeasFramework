@@ -16,10 +16,7 @@ namespace CircularSeas.Models
         public double? MaxTempExtr { get; set; }
 
         //Data comes in array because they´re identified by position according to InfoTopsis data
-        public bool[] FeaturesValues { get; set; }
-        public double[] PropertiesValues { get; set; }
         public int SpoolStock { get; set; }
-
-        public List<Property> Properties {get;set;}
+        public List<Evaluation> Evaluations {get;set;}
     }
 }
