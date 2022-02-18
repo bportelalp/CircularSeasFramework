@@ -48,3 +48,46 @@ a, .btn-link {
         right: 0.75rem;
         top: 0.5rem;
     }
+
+
+.cslabelheader {
+    background-color: #007ec7;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    color: white;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: normal;
+    border: 1px solid #007ec7;
+    border-radius: .5rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.cslabelcontent {
+    padding: .375rem .75rem;
+    /*font-weight: 400;*/
+    height: auto;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #007ec7;
+    border-radius: .5rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
+}
+
+.cssticky-bar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 70px;
+    padding: .75rem 0 .75rem 0;
+    padding-top: 10px;
+    z-index: 200;
+}

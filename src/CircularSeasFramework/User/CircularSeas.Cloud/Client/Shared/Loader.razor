@@ -1,0 +1,17 @@
+﻿<div class="d-flex flex-column loader @(Center? "loader-center__viewport": "") @(RelativeCentering? "loader-center__container": "")" >
+    <div>
+        <div class="d-flex flex-row justify-content-around">
+            <div class="loader__message">@Message</div>
+        </div>
+        <div class="bar">
+
+
+        </div>
+    </div>
+</div>
+
+@code{
+    [Parameter] public string Message { get; set; } = "Cargando...";
+    [Parameter] public bool Center { get; set; } = true;
+    [Parameter] public bool RelativeCentering { get; set; } = false;
+}

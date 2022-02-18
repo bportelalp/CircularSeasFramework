@@ -1,0 +1,38 @@
+﻿<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <a class="navbar-brand" href="#">
+        Circular Seas
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item px-1">
+                <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </li>
+
+            <li class="nav-item px-1">
+                <NavLink class="nav-link" href="nodes" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Nodes
+                </NavLink>
+            </li>
+
+            <li class="nav-item px-1 dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="oi oi-cog" aria-hidden="true"></span> Materials
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1" style="min-width: 20em">
+                    <NavLink class="nav-link" href="materials/management">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Management
+                    </NavLink>
+                    <NavLink class="nav-link" href="materials/orders">
+                        <span class="oi oi-eye" aria-hidden="true"></span> Orders
+                    </NavLink>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

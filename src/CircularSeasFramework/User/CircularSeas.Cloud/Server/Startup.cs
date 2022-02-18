@@ -62,6 +62,7 @@ namespace CircularSeas.Cloud.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+            
 
             app.UseEndpoints(endpoints =>
             {

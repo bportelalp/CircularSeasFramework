@@ -1,0 +1,75 @@
+﻿@keyframes loader-animation {
+    0% {
+        width: 0%;
+    }
+
+    24% {
+        width: 100%;
+        left: 0%
+    }
+
+    25% {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    50% {
+        margin-left: 100%;
+        width: 0%
+    }
+
+    74% {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    75% {
+        width: 100%;
+        left: 0%
+    }
+
+    100% {
+        width: 0%
+    }
+}
+
+.loader-center__viewport {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.loader-center__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader {
+    padding: 20px;
+    min-width: 10%
+}
+
+
+    .bar {
+        position: relative;
+        height: 5px;
+        background-color: dodgerblue;
+        animation-name: loader-animation;
+        animation-duration: 3s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+    }
+
+.loader__message {
+    margin: auto;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+
+.loader_background {
+    background-color: rgba(255, 255, 255, 0.99);
+    z-index: 1000
+}

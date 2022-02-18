@@ -36,7 +36,7 @@ namespace CircularSeasManager.Services {
         /// <returns>Obxeto ca información do JSON deserializada</returns>'
         public async Task<CircularSeas.Models.DTO.PrintDTO> GetData(string IDprinter) {
             //Solicitude dos datos ao servizo na nube, para o ID da impresora fixado
-            var request = new RestRequest("/process/printerinfo/" + IDprinter, Method.GET);
+            var request = new RestRequest("/api/process/printerinfo/" + IDprinter, Method.GET);
             //Espera recepción
             var response = await client.ExecuteAsync(request);
             //Comproba resultado e devolve en consonancia
@@ -60,7 +60,7 @@ namespace CircularSeasManager.Services {
         /// <returns></returns>
         public async Task<Tuple<string,byte[]>> PostSTL(Plugin.FilePicker.Abstractions.FileData _STL, string _Printer, string _Material, string _Quality, bool _Support) {
             //Implementación de envío del stl para el laminado
-            var request = new RestRequest("/circularseas/convert", Method.POST);
+            var request = new RestRequest("/api/process/convert", Method.POST);
             //Engadir os parámetros seleccionados para a configuración
             request.AddQueryParameter("printer", _Printer);
             request.AddQueryParameter("material", _Material);

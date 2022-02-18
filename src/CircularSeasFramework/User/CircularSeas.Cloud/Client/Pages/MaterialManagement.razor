@@ -1,0 +1,58 @@
+﻿@page "/materials/management"
+
+<h3>MaterialManagement</h3>
+@if (_loading)
+{
+    <Loader Center="true"/>
+}
+
+<!--Sticky bar with search fields-->
+<div class="d-flex flex-row cssticky-bar" style="background-color: white; z-index: 500">
+    <div class="flex-fill">
+        <div class="d-flex flex-row mr-2">
+            <div class="flex-fill cslabelheader">Name</div>
+            <input class="w-75 form-control cslabelcontent" type="text" placeholder="Buscar por código..."
+                   @bind="_filterMaterial"
+                   @bind:event="oninput" />
+        </div>
+    </div>
+</div>
+
+<!--Responsive table showing assessments, including interactive table header for sorting-->
+<div class="table-responsive-md">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">
+                    Nombre
+                </th>
+                <th scope="col">
+                    Working temperature
+                </th>
+                <th scope="col" style="width: 10%">Modify</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_materials != null)
+            {
+                @foreach (var mat in _materials)
+                {
+                    <tr>
+                        <td>@mat.Name</td>
+                        <td>@mat.HotendTemperature</td>
+                        <td>
+                            <button class="btn btn-secondary"> Ver
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <span class="esyerror">ERROR ACCEDIENDO A LA LISTA DE VALORACIONES</span>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -24,7 +24,7 @@ using CircularSeas.Cloud.Server.SlicerEngine;
 namespace CircularSeas.Cloud.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProcessController : Controller
     {
         // Service access
