@@ -1,32 +1,27 @@
-﻿@page "/materials/management"
+﻿@page "/properties/management"
+<h3>Properties manager</h3>
 
-<h3>Material Manager</h3>
 @if (_loading)
 {
     <Loader Center="true" />
 }
-
 <!--Sticky bar with search fields-->
 <div class="d-flex flex-row cssticky-bar" style="background-color: white; z-index: 500">
     <div class="flex-fill">
         <div class="d-flex flex-row mr-2">
             <div class="flex-fill cslabelheader">Name</div>
             <input class="w-75 form-control cslabelcontent" type="text" placeholder="Buscar por código..."
-                   @bind="_filterMaterial"
+                   @bind="_filterProperty"
                    @bind:event="oninput" />
         </div>
     </div>
     <div>
-        <button class="btn btn-outline-primary" @onclick="@(()=> _isNew = !_isNew)">Nuevo Material</button>
+        <button class="btn btn-outline-primary" @onclick="@(()=> _newProperty = !_newProperty)">Nueva propiedad</button>
     </div>
-    <div>
-        <button class="btn btn-outline-primary" @onclick="@(()=> nm.NavigateTo("properties/management"))">Administrar propiedades</button>
-    </div>
-    </div>
-
-@if (_isNew)
+</div>
+@if (_newProperty)
 {
-    <MaterialCreator />
+    <PropertyCreator />
 }
 else
 {
@@ -45,27 +40,25 @@ else
                 </tr>
             </thead>
             <tbody>
-                @if (_materials != null)
+                @if (_properties != null)
                 {
-                    @foreach (var mat in _materials)
+                    @foreach (var prop in _properties)
                     {
                         <tr>
-                            <td>@mat.Name</td>
-                            <td>@mat.HotendTemperature</td>
+                            <td>@prop.Name</td>
+                            <td>@prop.HelpText</td>
                             <td>
-                                <button class="btn btn-secondary" @onclick="@(() => _ViewingMaterial = _ViewingMaterial==mat.Id? Guid.Empty:mat.Id)">
+                                <button class="btn btn-secondary" @onclick="@(() => _viewingProperty = _viewingProperty==prop.Id? Guid.Empty:prop.Id)">
                                     Details
                                 </button>
-                                <button class="btn btn-danger" @onclick="@(() => Delete(mat))">
-                                    Delete
-                                </button>
+                                <button class="btn btn-secondary" @onclick="@(()=> Delete(prop))">Delete</button>
                             </td>
                         </tr>
-                        @if (_ViewingMaterial == mat.Id)
+                        @if (_viewingProperty == prop.Id)
                         {
                             <tr>
                                 <td colspan="3">
-                                    <PropertiesEditor Material="@mat" />
+                                    <PropertyCreator Property="prop" />
                                 </td>
                             </tr>
                         }
@@ -80,5 +73,5 @@ else
             </tbody>
         </table>
     </div>
-
 }
+

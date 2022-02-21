@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using CircularSeas.DB;
 using CircularSeas.Models;
@@ -18,95 +19,191 @@ namespace CircularSeas.Cloud.Server.Controllers
             this.dbService = dbService;
         }
 
+        #region GETs
         [HttpGet("materials")]
         public async Task<IActionResult> GetMaterials()
         {
             try
             {
-                var result = await dbService.GetMaterials(true, System.Guid.Empty, false);
+                var result = await dbService.GetMaterials(true, Guid.Empty, false);
                 return Ok(result);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                
-                return null;
+                return BadRequest(ex.Message);
                 throw;
             }
         }
 
-        // GET: ManagementController
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: ManagementController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: ManagementController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: ManagementController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [HttpGet("material/detail/{materialId}")]
+        public async Task<IActionResult> GetMaterialDetail([FromRoute] Guid materialId)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var result = await dbService.GetMaterialDetail(materialId);
+                return Ok(result);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return BadRequest(ex.Message);
+                throw;
             }
+
         }
 
-        // GET: ManagementController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ManagementController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        [HttpGet("properties")]
+        public async Task<IActionResult> GetProperties()
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var result = await dbService.GetProperties();
+                return Ok(result);
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return BadRequest();
+                throw;
             }
         }
 
-        // GET: ManagementController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ManagementController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [HttpGet("property/detail/{propertyId}")]
+        public async Task<IActionResult> GetPropertyDetail([FromRoute] Guid propertyId)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                var result = await dbService.GetPropertyDetail(propertyId);
+                return Ok();
             }
-            catch
+            catch (Exception)
             {
-                return View();
+                return BadRequest();
+                throw;
             }
         }
+
+        [HttpGet("material/schema")]
+        public async Task<IActionResult> GetMaterialSchema()
+        {
+            try
+            {
+                var schema = await dbService.GetMaterialSchema();
+                return Ok(schema);
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+                throw;
+            }
+        }
+
+
+        #endregion
+
+
+        #region POSTs
+        [HttpPost("property/new")]
+        public async Task<IActionResult> PostProperty([FromBody] Models.Property property)
+        {
+            try
+            {
+                await dbService.CreateProperty(property);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+
+        [HttpPost("material/new")]
+        public async Task<IActionResult> PostMaterial([FromBody] Models.Material material)
+        {
+            try
+            {
+                await dbService.CreateMaterial(material);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+        #endregion
+
+        #region PUTs
+        [HttpPut("property/visibility/{propertyId}/{visible}")]
+        public async Task<IActionResult> PutPropertyVisibility(Guid propertyId, bool visible)
+        {
+            try
+            {
+                var incorrectMaterials = await dbService.CheckBadMaterialsVisible(propertyId);
+                if (incorrectMaterials == null)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return Conflict(incorrectMaterials);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+                return BadRequest(ex.Message);
+
+            }
+        }
+
+        [HttpPut("material/update-properties")]
+        public async Task<IActionResult> PutChangeMaterialProperties([FromBody] Models.Material material)
+        {
+            try
+            {
+                await dbService.UpdateMaterialEvaluations(material);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+                throw;
+            }
+
+            return NoContent();
+        }
+        #endregion
+
+        #region DELETE
+        [HttpDelete("property/delete/{propertyId}")]
+        public async Task<IActionResult> DeleteProperty([FromRoute] Guid propertyId)
+        {
+            try
+            {
+                await dbService.DeleteProperty(propertyId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpDelete("material/delete/{materialId}")]
+        public async Task<IActionResult> DeleteMaterial([FromRoute] Guid materialId)
+        {
+            try
+            {
+                await dbService.DeleteMaterial(materialId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+                throw;
+            }
+        }
+        #endregion
     }
 }

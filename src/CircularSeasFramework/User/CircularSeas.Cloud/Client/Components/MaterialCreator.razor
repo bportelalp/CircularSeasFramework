@@ -1,0 +1,97 @@
+﻿@if (_loading)
+{
+    <Loader Message="Preparing editor" />
+}
+else
+{
+    <EditForm Model="Material" OnSubmit="SaveMaterial">
+        <div class="d-flex flex-row">
+            <div class="flex-fill">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Property Name</label>
+                    <div class="col-sm-10">
+                        <InputText disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.Name" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Help text</label>
+                    <div class="col-sm-10">
+                        <InputText disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.Description" />
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="form-group row flex-fill">
+                        <label class="col-sm-4 col-form-label">Temperatura de Extrusor</label>
+                        <div class="col-sm-8">
+                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.HotendTemperature" />
+                        </div>
+
+                    </div>
+                    <div class="form-group row flex-fill">
+                        <label class="col-sm-4 col-form-label">Temperatura de Cama</label>
+                        <div class="col-sm-8">
+                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.BedTemperature" />
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="form-group row flex-fill">
+                        <label class="col-sm-4 col-form-label">Temperatura de fabricacion máxima</label>
+                        <div class="col-sm-8">
+                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.MaxTempExtr" />
+                        </div>
+
+                    </div>
+                    <div class="form-group row flex-fill">
+                        <label class="col-sm-4 col-form-label">Temperatura de fabricación mínima</label>
+                        <div class="col-sm-8">
+                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.MinTempExtr" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row flex-fill">
+                    <label class="col-sm-4 col-form-label">Temperatura de fabricación ideal</label>
+                    <div class="col-sm-8">
+                        <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.IdealTempExtr" />
+                    </div>
+                </div>
+                @foreach (var eval in Material.Evaluations.OrderBy(e => e.Property.Name))
+                {
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">@eval.Property.Name</label>
+                        <div class="col-sm-7">
+                            @if (eval.Property.IsDichotomous)
+                            {
+                                <InputSelect disabled="@_disabled" class="@_editingCSS" @bind-Value="eval.ValueBinStr">
+                                    <option value="Si">Sí</option>
+                                    <option value="No">No</option>
+                                </InputSelect>
+                            }
+                            else
+                            {
+                                <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="eval.ValueDec" />
+                            }
+                        </div>
+                        <div class="col-sm-2">
+                            @eval.Property.Unit
+                        </div>
+                        @if (eval.Property.Visible && eval.ValueBin == null && eval.ValueDec == null)
+                        {
+                            <div class="col-sm-1">
+                                <span class="oi oi-warning" style="color: red"></span>
+                            </div>
+                        }
+
+                    </div>
+
+                }
+                <div>
+                    <button class="btn btn-outline-primary" type="submit">Aceptar cambios</button>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+
+}
+

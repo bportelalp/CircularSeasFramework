@@ -123,5 +123,21 @@ namespace CircularSeas.DB
             };
             return row;
         }
+
+        internal static Models.Material MapMaterial(Entities.Material row)
+        {
+            if(row == null) return null;
+            var dom = Mapper.Repo2Domain(row);
+            dom.Evaluations = new List<Models.Evaluation>();
+            foreach (var eval in row.PropMats)
+            {
+                var evaluation = Mapper.Repo2Domain(eval);
+                evaluation.Property = Mapper.Repo2Domain(eval.PropertyFKNavigation);
+                dom.Evaluations.Add(evaluation);
+
+            }
+            return dom;
+        }
+
     }
 }

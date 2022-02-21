@@ -11,22 +11,29 @@ namespace CircularSeas.Cloud.Client.Pages
 {
     public partial class MaterialManagement
     {
-        [Inject] HttpClient http { get; set; }
+        [Inject] public HttpClient Http { get; set; }
+        [Inject] public NavigationManager nm { get; set; }
 
         private List<Material> _materials = new List<Material>();
         private string _filterMaterial = string.Empty;
         private bool _loading = true;
-
+        private Guid _ViewingMaterial = Guid.Empty;
+        private bool _isNew { get; set; } = false;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                var response = await http.GetAsync("api/management/materials");
+                var response = await Http.GetAsync("api/management/materials");
                 _materials = await response.Content.ReadFromJsonAsync<List<Material>>();
                 _loading = false;
                 StateHasChanged();
             }
+        }
+
+        private async Task Delete(Models.Material material)
+        {
+            var response = await Http.DeleteAsync($"api/management/material/delete/{material.Id}");
         }
     }
 }

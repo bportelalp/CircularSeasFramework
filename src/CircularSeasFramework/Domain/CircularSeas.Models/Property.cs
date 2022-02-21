@@ -21,5 +21,11 @@ namespace CircularSeas.Models
         public Property Property { get; set; }
         public double? ValueDec  { get; set; } = null;
         public bool? ValueBin { get; set; } = null;
+
+        public string ValueBinStr
+        {
+            get { return ValueBin==null? "Nulo":(ValueBin==true? "Si":"No"); }
+            set { ValueBin = value=="Nulo"? null:(value=="Si"? (bool?)true: (bool?)false); }
+        }
     }
 }
