@@ -97,11 +97,37 @@ namespace CircularSeas.DB
         {
             var response = new Models.Material();
             response.Evaluations = new List<Models.Evaluation>();
-            var properties = await DbContext.Properties.ToListAsync();
-            foreach(var prop in properties)
+            var properties = await DbContext.Properties.AsNoTracking().ToListAsync();
+            foreach (var prop in properties)
             {
                 response.Evaluations.Add(new Models.Evaluation() { Property = Mapper.Repo2Domain(prop) });
             }
+            return response;
+        }
+
+        public async Task<List<Models.Order>> GetOrders(bool pending = false, Guid specificNode = default(Guid), bool includeMaterial = true)
+        {
+            var response = new List<Models.Order>();
+
+            var query = DbContext.Orders.AsNoTracking();
+            if (pending)
+                query = query.Where(o => o.Delivered == false);
+            if (specificNode != default(Guid))
+                query = query.Where(o => o.NodeFK == specificNode);
+            if (includeMaterial)
+                query = query.Include(o => o.MaterialFKNavigation);
+
+            var orders = await query
+                .Include(o => o.NodeFKNavigation)
+                .ToListAsync();
+            foreach (var order in orders)
+            {
+                var dom = Mapper.Repo2Domain(order);
+                dom.Material = Mapper.Repo2Domain(order.MaterialFKNavigation);
+                dom.Node = Mapper.Repo2Domain(order.NodeFKNavigation);
+                response.Add(dom);
+            }
+
             return response;
         }
 
@@ -123,6 +149,24 @@ namespace CircularSeas.DB
             return response;
         }
 
+        public async Task UpdateMaterial(Models.Material material)
+        {
+            if (material == null) return;
+            var rowMat = Mapper.Domain2Repo(material);
+
+            DbContext.Update(rowMat);
+            await UpdateMaterialEvaluations(material);
+        }
+
+        public async Task UpdateProperty(Models.Property property)
+        {
+            if (property == null) return;
+            var rowProp = Mapper.Domain2Repo(property);
+
+            DbContext.Update(rowProp);
+            await DbContext.SaveChangesAsync();
+        }
+
         public async Task UpdateMaterialEvaluations(Models.Material material)
         {
             List<Entities.PropMat> propmats = new List<Entities.PropMat>();
@@ -141,10 +185,18 @@ namespace CircularSeas.DB
             await DbContext.SaveChangesAsync();
         }
 
-        public async Task CreateProperty(Models.Property property)
+        public async Task UpdateVisibility(Guid id, bool visible)
+        {
+            var property = await DbContext.Properties.Where(p => p.ID == id).FirstOrDefaultAsync();
+            property.Visible = visible;
+            DbContext.Update(property);
+            await DbContext.SaveChangesAsync();
+        }
+
+        public async Task<Models.Property> CreateProperty(Models.Property property)
         {
             property.Id = Guid.NewGuid();
-            
+
             List<Guid> materialsID = await DbContext.Materials.AsNoTracking().Select(m => m.ID).ToListAsync();
             Entities.Property row = Mapper.Domain2Repo(property);
             List<Entities.PropMat> propMats = new List<Entities.PropMat>();
@@ -164,9 +216,10 @@ namespace CircularSeas.DB
             DbContext.Add(row);
             DbContext.AddRange(propMats);
             await DbContext.SaveChangesAsync();
+            return Mapper.Repo2Domain(row);
         }
 
-        public async Task CreateMaterial(Models.Material material)
+        public async Task<Models.Material> CreateMaterial(Models.Material material)
         {
             material.Id = Guid.NewGuid();
             var rowMat = Mapper.Domain2Repo(material);
@@ -174,9 +227,10 @@ namespace CircularSeas.DB
             List<Entities.PropMat> propmats = new List<Entities.PropMat>();
             foreach (var eval in material.Evaluations)
             {
+                eval.Id = Guid.NewGuid();
                 propmats.Add(new Entities.PropMat()
                 {
-                    ID = Guid.NewGuid(),
+                    ID = eval.Id,
                     MaterialFK = material.Id,
                     PropertyFK = eval.Property.Id,
                     ValueBin = eval.ValueBin,
@@ -186,6 +240,8 @@ namespace CircularSeas.DB
             DbContext.Add(rowMat);
             DbContext.AddRange(propmats);
             await DbContext.SaveChangesAsync();
+
+            return material;
 
         }
 

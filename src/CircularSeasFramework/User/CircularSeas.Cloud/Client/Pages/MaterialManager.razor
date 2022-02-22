@@ -1,0 +1,136 @@
+﻿@page "/materials/management"
+
+<h3>Material Manager</h3>
+@if (_loading)
+{
+    <Loader Center="true" />
+}
+
+<!--Sticky bar with search fields-->
+<div class="d-flex flex-row cssticky-bar" style="background-color: white; z-index: 500">
+    <div class="flex-fill">
+        <div class="d-flex flex-row mr-2">
+            <div class="flex-fill cslabelheader">Name</div>
+            <input class="w-75 form-control cslabelcontent" type="text" placeholder="Buscar por código..."
+                   @bind="_filterMaterial"
+                   @bind:event="oninput" />
+        </div>
+    </div>
+    <div>
+        <button class="btn btn-outline-primary" @onclick="@(()=> LaunchEdition(null))">New Material</button>
+    </div>
+    <div>
+        <button class="btn btn-outline-primary" @onclick="@(()=> nm.NavigateTo("properties/management"))">Manage properties</button>
+    </div>
+</div>
+
+@if (_state != Tools.StateEdition.None)
+{
+    <MaterialEditor Material="_editingMaterial" MaterialChange="FinishEdition" />
+}
+else
+{
+    <!--Responsive table showing assessments, including interactive table header for sorting-->
+    <div class="table-responsive-md">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        Name
+                    </th>
+                    <th scope="col">
+                        Working temperature
+                    </th>
+                    <th scope="col">
+                        Bed temperature
+                    </th>
+                    <th scope="col" style="width: 10%">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (_materials != null)
+                {
+                    @foreach (var mat in _materials)
+                    {
+                        <tr>
+                            <td>@mat.Name</td>
+                            <td>@mat.HotendTemperature</td>
+                            <td>@mat.BedTemperature</td>
+                            <td>
+                                <!--Detai buttons-->
+                    <button class="btn btn-outline-secondary" @onclick="@(() => _ViewingMaterial = _ViewingMaterial==mat.Id? Guid.Empty:mat.Id)">
+                                    <span class="oi oi-magnifying-glass"></span>
+                                </button>
+                                <button class="btn btn-outline-primary" @onclick="@(() => LaunchEdition(mat))">
+                                    <span class="oi oi-pencil"></span>
+                                </button>
+                                <button class="btn btn-outline-danger" @onclick="@(() => DeleteMaterial(mat))">
+                                    <span class="oi oi-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        @if (_ViewingMaterial == mat.Id)
+                        {
+                            <tr style=" background-color: white">
+                                <td colspan="3">
+                                    <div class="col-md-8 table-responsive-md" style="margin: 0 auto;">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Property</th>
+                                                    <th scope="col">Value</th>
+                                                    <th scope="col">unit</th>
+                                                    <th scope="col">Visible</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var eval in mat.Evaluations.OrderBy(e => e.ValueBinStr).ThenBy(e => e.Property.Name))
+                                                {
+                                                    <tr>
+                                                        <td>@eval.Property.Name</td>
+                                                        <td>@eval.ValueStr</td>
+                                                        <td>@eval.Property.Unit</td>
+
+                                                        @if (!eval.Property.Visible)
+                                                        {
+                                                            <td>
+                                                                <span class="oi oi-x"></span>
+                                                            </td>
+                                                        }
+                                                        else if (eval.Property.Visible && eval.ValueBin == null && eval.ValueDec == null)
+                                                        {
+                                                            <td class="btn col-sm-1" type="button" data-toggle="tooltip" data-placement="bottom" title="@($"Property is visible, but no data is avaliable for {@mat.Name}")">
+                                                                <span class="oi oi-warning" style="color: red"></span>
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>
+                                                                <span class="oi oi-check" style="color: green"></span>
+                                                            </td>
+
+                                                        }
+
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <span class="esyerror">ERROR ACCEDIENDO A LA LISTA DE VALORACIONES</span>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}

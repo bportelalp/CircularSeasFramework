@@ -26,7 +26,6 @@ namespace CircularSeas.DB.Context
         public virtual DbSet<PropMat> PropMats { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
-        public virtual DbSet<TestTwinCAT> TestTwinCATs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -57,20 +56,22 @@ namespace CircularSeas.DB.Context
 
             modelBuilder.Entity<Order>(entity =>
             {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+
                 entity.HasOne(d => d.MaterialFKNavigation)
-                    .WithMany()
+                    .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.MaterialFK)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Material");
 
                 entity.HasOne(d => d.NodeFKNavigation)
-                    .WithMany()
+                    .WithMany(p => p.OrderNodeFKNavigations)
                     .HasForeignKey(d => d.NodeFK)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Node");
 
                 entity.HasOne(d => d.ProviderFKNavigation)
-                    .WithMany()
+                    .WithMany(p => p.OrderProviderFKNavigations)
                     .HasForeignKey(d => d.ProviderFK)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Node1");

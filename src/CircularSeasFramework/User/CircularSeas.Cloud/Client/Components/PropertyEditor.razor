@@ -1,0 +1,70 @@
+﻿<div class="col-md-8" style="margin: 0 auto;">
+
+    <EditForm Model="Property" OnSubmit="ApplyChanges">
+        <div class="d-flex flex-row">
+            <div class="flex-fill">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Property Name</label>
+                    <div class="col-sm-10">
+                        <InputText class="form-control" @bind-Value="Property.Name" />
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Help text</label>
+                    <div class="col-sm-10">
+                        <InputText class="form-control" @bind-Value="Property.HelpText" />
+                    </div>
+                </div>
+
+                <div class="d-flex">
+                    <div class="form-group row flex-fill">
+                        <label class="col-sm-2 col-form-label">Dichotomous variable</label>
+                        <div class="col-sm-10">
+                            <InputSelect class="form-control" @bind-Value="Property.IsDichotomousStr">
+                                @foreach (var option in Property.DichotomousOptions)
+                                {
+                                    <option value="@option">@option</option>
+                                }
+                            </InputSelect>
+                            <small>La propiedad es de tipo Si/No</small>
+                        </div>
+
+                    </div>
+                    <div class="form-group row flex-fill">
+                        <label class="col-sm-2 col-form-label">Positive variable</label>
+                        <div class="col-sm-10">
+                            <InputSelect class="form-control" @bind-Value="Property.MoreIsBetterStr">
+                                @foreach (var option in Property.MoreIsBetterOptions)
+                                {
+                                    <option value="@option">@option</option>
+                                }
+                            </InputSelect>
+
+                            <small>More is better</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Units</label>
+                    <div class="col-sm-10">
+                        <InputText class="form-control" @bind-Value="Property.Unit" />
+                    </div>
+                    <small>Note, type "Bool" if variable is dichotomous</small>
+                </div>
+
+                <div>
+                    <div style="margin: 10px 2px">
+                        <button class="btn btn-outline-primary" type="button" @onclick="@(()=> PropertyChange.InvokeAsync(null))">
+                            Descartar cambios
+                        </button>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary" type="submit">Aceptar cambios</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>

@@ -16,12 +16,12 @@
         </div>
     </div>
     <div>
-        <button class="btn btn-outline-primary" @onclick="@(()=> _newProperty = !_newProperty)">Nueva propiedad</button>
+        <button class="btn btn-outline-primary" @onclick="@(()=> LaunchEdition(null))">Nueva propiedad</button>
     </div>
 </div>
-@if (_newProperty)
+@if (_state != Tools.StateEdition.None)
 {
-    <PropertyCreator />
+    <PropertyEditor Property="_editingProperty" PropertyChange="FinishEdition" />
 }
 else
 {
@@ -31,10 +31,13 @@ else
             <thead>
                 <tr>
                     <th scope="col">
-                        Nombre
+                        Name
                     </th>
                     <th scope="col">
-                        Working temperature
+                        Description
+                    </th>
+                    <th scope="col">
+                        Visibility to users
                     </th>
                     <th scope="col" style="width: 10%">Modify</th>
                 </tr>
@@ -48,20 +51,31 @@ else
                             <td>@prop.Name</td>
                             <td>@prop.HelpText</td>
                             <td>
-                                <button class="btn btn-secondary" @onclick="@(() => _viewingProperty = _viewingProperty==prop.Id? Guid.Empty:prop.Id)">
-                                    Details
+                                @if (prop.MoreIsBetter != null)
+                                {
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="@prop.Id" checked="@prop.Visible"
+                                            @onchange="(ChangeEventArgs e) => ChangeVisibility(e, prop)">
+                                        <label class="custom-control-label" for="@prop.Id"></label>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        Set "More is better" to yes/no first
+                                    </div>
+                                }
+
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-secondary" @onclick="@(() => LaunchEdition(prop))">
+                                    <span class="oi oi-pencil"></span>
                                 </button>
-                                <button class="btn btn-secondary" @onclick="@(()=> Delete(prop))">Delete</button>
+                                <button class="btn btn-outline-danger" @onclick="@(()=> Delete(prop))">
+                                    <span class="oi oi-trash"></span>
+                                </button>
                             </td>
                         </tr>
-                        @if (_viewingProperty == prop.Id)
-                        {
-                            <tr>
-                                <td colspan="3">
-                                    <PropertyCreator Property="prop" />
-                                </td>
-                            </tr>
-                        }
                     }
                 }
                 else

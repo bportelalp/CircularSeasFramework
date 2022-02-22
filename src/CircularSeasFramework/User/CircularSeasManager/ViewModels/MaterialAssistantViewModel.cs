@@ -81,7 +81,7 @@ namespace CircularSeasManager.ViewModels
                 k++;
             }
             //Cargar valoracion de impacto de materiales
-            bool[] impactPositive = ValueUserCollection.Select(e => e.Property.MoreIsBetter).ToArray();
+            bool[] impactPositive = ValueUserCollection.Select(e => (bool)e.Property.MoreIsBetter).ToArray();
             //Instanciar array de resultado
             double[] result = new double[ValueUserCollection.Count];
             //Calcular y cargar en colección

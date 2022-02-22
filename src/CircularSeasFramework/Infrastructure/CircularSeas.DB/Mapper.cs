@@ -45,10 +45,8 @@ namespace CircularSeas.DB
                 Description = row.Description,
                 BedTemperature = row.BedTemperature,
                 HotendTemperature = row.HotendTemperature,
-                IdealTempExtr = row.IdealTempExtr,
-                MinTempExtr = row.MinTempExtr,
-                MaxTempExtr = row.MaxTempExtr,
                 SpoolStock = row.Stocks?.FirstOrDefault()?.SpoolQuantity ?? 0,
+                Deprecated = row.Deprecated,
             };
             return dom;
         }
@@ -63,9 +61,7 @@ namespace CircularSeas.DB
                 Description = dom.Description,
                 BedTemperature = dom.BedTemperature,
                 HotendTemperature = dom.HotendTemperature,
-                IdealTempExtr = dom.IdealTempExtr,
-                MinTempExtr = dom.MinTempExtr,
-                MaxTempExtr = dom.MaxTempExtr
+                Deprecated = dom.Deprecated,
             };
             return row;
         }
@@ -124,9 +120,69 @@ namespace CircularSeas.DB
             return row;
         }
 
-        internal static Models.Material MapMaterial(Entities.Material row)
+        internal static Models.Node Repo2Domain(Entities.Node row)
+        {
+            if (row == null) return null;
+            Models.Node dom = new Models.Node()
+            {
+                Id = row.ID,
+                Name = row.NodeName,
+                IsProvider = row.IsProvider,
+            };
+            return dom;
+        }
+
+        internal static Entities.Node Domain2Repo(Models.Node dom)
+        {
+            if(dom == null) return null;
+            Entities.Node row = new Entities.Node()
+            {
+                ID = dom.Id,
+                NodeName = dom.Name,
+                IsProvider = dom.IsProvider
+            };
+            return row;
+        }
+
+        internal static Models.Order Repo2Domain(Entities.Order row)
         {
             if(row == null) return null;
+            Models.Order dom = new Models.Order()
+            {
+                Id = row.ID,
+                NodeFK = row.NodeFK,
+                ProviderFK = row.ProviderFK,
+                MaterialFK = row.MaterialFK,
+                Delivered = row.Delivered,
+                DeliveryDate = row.DeliveryDate,
+                CreationDate = row.CreationDate,
+                SpoolQuantity = row.SpoolQuantity
+            };
+            return dom;
+        }
+
+        internal static Entities.Order Domain2Repo(Models.Order dom)
+        {
+            if (dom == null) return null;
+            Entities.Order row = new Entities.Order()
+            {
+                ID = dom.Id,
+                NodeFK = dom.NodeFK,
+                ProviderFK = dom.ProviderFK,
+                MaterialFK = dom.MaterialFK,
+                Delivered = dom.Delivered,
+                DeliveryDate = dom.DeliveryDate,
+                CreationDate = dom.CreationDate,
+                SpoolQuantity = dom.SpoolQuantity
+            };
+            return row;
+        }
+
+
+
+        internal static Models.Material MapMaterial(Entities.Material row)
+        {
+            if (row == null) return null;
             var dom = Mapper.Repo2Domain(row);
             dom.Evaluations = new List<Models.Evaluation>();
             foreach (var eval in row.PropMats)

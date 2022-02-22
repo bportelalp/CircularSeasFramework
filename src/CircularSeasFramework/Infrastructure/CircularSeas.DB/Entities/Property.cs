@@ -23,7 +23,7 @@ namespace CircularSeas.DB.Entities
         public bool IsDichotomous { get; set; }
         [StringLength(10)]
         public string Unit { get; set; }
-        public bool MoreIsBetter { get; set; }
+        public bool? MoreIsBetter { get; set; }
         [StringLength(500)]
         public string HelpText { get; set; }
         public bool Visible { get; set; }

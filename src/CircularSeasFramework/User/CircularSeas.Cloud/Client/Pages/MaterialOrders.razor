@@ -1,5 +1,16 @@
-﻿<h3>MaterialOrders</h3>
+﻿@page "/materials/orders"
 
-@code {
+<h3>Material Orders</h3>
+
+@if (_loading)
+{
+    <Loader/>
+}
+@foreach(var order in _orders)
+{
+    <div>
+        @order.Id
+    </div>
+
 
 }

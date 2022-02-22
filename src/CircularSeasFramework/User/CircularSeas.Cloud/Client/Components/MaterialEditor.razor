@@ -8,54 +8,34 @@ else
         <div class="d-flex flex-row">
             <div class="flex-fill">
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Property Name</label>
+                    <label class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-10">
-                        <InputText disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.Name" />
+                        <InputText class="form-control" @bind-Value="Material.Name" />
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Help text</label>
                     <div class="col-sm-10">
-                        <InputText disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.Description" />
+                        <InputText class="form-control" @bind-Value="Material.Description" />
                     </div>
                 </div>
                 <div class="d-flex">
                     <div class="form-group row flex-fill">
                         <label class="col-sm-4 col-form-label">Temperatura de Extrusor</label>
                         <div class="col-sm-8">
-                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.HotendTemperature" />
+                            <InputNumber class="form-control" @bind-Value="Material.HotendTemperature" />
                         </div>
 
                     </div>
                     <div class="form-group row flex-fill">
                         <label class="col-sm-4 col-form-label">Temperatura de Cama</label>
                         <div class="col-sm-8">
-                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.BedTemperature" />
+                            <InputNumber class="form-control" @bind-Value="Material.BedTemperature" />
                         </div>
                     </div>
                 </div>
-                <div class="d-flex">
-                    <div class="form-group row flex-fill">
-                        <label class="col-sm-4 col-form-label">Temperatura de fabricacion máxima</label>
-                        <div class="col-sm-8">
-                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.MaxTempExtr" />
-                        </div>
 
-                    </div>
-                    <div class="form-group row flex-fill">
-                        <label class="col-sm-4 col-form-label">Temperatura de fabricación mínima</label>
-                        <div class="col-sm-8">
-                            <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.MinTempExtr" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row flex-fill">
-                    <label class="col-sm-4 col-form-label">Temperatura de fabricación ideal</label>
-                    <div class="col-sm-8">
-                        <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="Material.IdealTempExtr" />
-                    </div>
-                </div>
                 @foreach (var eval in Material.Evaluations.OrderBy(e => e.Property.Name))
                 {
                     <div class="form-group row">
@@ -63,14 +43,16 @@ else
                         <div class="col-sm-7">
                             @if (eval.Property.IsDichotomous)
                             {
-                                <InputSelect disabled="@_disabled" class="@_editingCSS" @bind-Value="eval.ValueBinStr">
-                                    <option value="Si">Sí</option>
-                                    <option value="No">No</option>
+                                <InputSelect class="form-control" @bind-Value="eval.ValueBinStr">
+                                    @foreach (var option in eval.BinOptions)
+                                    {
+                                        <option value="@option">@option</option>
+                                    }
                                 </InputSelect>
                             }
                             else
                             {
-                                <InputNumber disabled="@_disabled" class="@_editingCSS" @bind-Value="eval.ValueDec" />
+                                <InputNumber class="form-control" @bind-Value="eval.ValueDec" />
                             }
                         </div>
                         <div class="col-sm-2">
@@ -78,7 +60,8 @@ else
                         </div>
                         @if (eval.Property.Visible && eval.ValueBin == null && eval.ValueDec == null)
                         {
-                            <div class="col-sm-1">
+                            <div class="btn col-sm-1" type="button" data-toggle="tooltip" data-placement="bottom"
+                     title="@($"Property is visible, so that is required")">
                                 <span class="oi oi-warning" style="color: red"></span>
                             </div>
                         }

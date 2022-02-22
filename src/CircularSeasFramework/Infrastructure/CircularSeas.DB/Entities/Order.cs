@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CircularSeas.DB.Entities
 {
-    [Keyless]
     public partial class Order
     {
+        [Key]
         public Guid ID { get; set; }
         public Guid NodeFK { get; set; }
         public Guid ProviderFK { get; set; }
@@ -23,10 +23,13 @@ namespace CircularSeas.DB.Entities
         public DateTime? DeliveryDate { get; set; }
 
         [ForeignKey(nameof(MaterialFK))]
+        [InverseProperty(nameof(Material.Orders))]
         public virtual Material MaterialFKNavigation { get; set; }
         [ForeignKey(nameof(NodeFK))]
+        [InverseProperty(nameof(Node.OrderNodeFKNavigations))]
         public virtual Node NodeFKNavigation { get; set; }
         [ForeignKey(nameof(ProviderFK))]
+        [InverseProperty(nameof(Node.OrderProviderFKNavigations))]
         public virtual Node ProviderFKNavigation { get; set; }
     }
 }

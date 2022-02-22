@@ -1,13 +1,15 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
 
 namespace CircularSeas.Cloud.Client.Components
 {
-    public partial class PropertyCreator
+    public partial class PropertyEditor
     {
         [Inject] public HttpClient Http { get; set; }
         [Parameter] public Models.Property Property { get; set; }
+        [Parameter] public EventCallback<Models.Property> PropertyChange { get; set;}
 
         
 
@@ -27,15 +29,10 @@ namespace CircularSeas.Cloud.Client.Components
             base.OnParametersSet();
         }
 
-        private async void ApplyChanges()
+        private async Task ApplyChanges()
         {
-            if (_isNew)
-            {
-                var content = new StringContent(JsonConvert.SerializeObject(Property));
-                content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-                var response = await Http.PostAsync("api/management/property/new", content);
-                var code = response.StatusCode;
-            }
+            await PropertyChange.InvokeAsync(Property);
         }
+
     }
 }

@@ -96,7 +96,20 @@ namespace CircularSeas.Cloud.Server.Controllers
             }
         }
 
-
+        [HttpGet("order/list")]
+        public async Task<IActionResult> GetOrders([FromQuery] bool pending = true, [FromQuery] Guid nodeId = default(Guid))
+        {
+            try
+            {
+                var orders = await dbService.GetOrders(pending, nodeId);
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+                throw;
+            }
+        }
         #endregion
 
 
@@ -106,8 +119,8 @@ namespace CircularSeas.Cloud.Server.Controllers
         {
             try
             {
-                await dbService.CreateProperty(property);
-                return Ok();
+                var created = await dbService.CreateProperty(property);
+                return Ok(created);
             }
             catch (Exception ex)
             {
@@ -121,8 +134,8 @@ namespace CircularSeas.Cloud.Server.Controllers
         {
             try
             {
-                await dbService.CreateMaterial(material);
-                return NoContent();
+                var created = await dbService.CreateMaterial(material);
+                return Ok(created);
             }
             catch (Exception ex)
             {
@@ -134,14 +147,16 @@ namespace CircularSeas.Cloud.Server.Controllers
 
         #region PUTs
         [HttpPut("property/visibility/{propertyId}/{visible}")]
-        public async Task<IActionResult> PutPropertyVisibility(Guid propertyId, bool visible)
+        public async Task<IActionResult> PutPropertyVisibility([FromRoute] Guid propertyId, [FromRoute] bool visible)
         {
             try
             {
                 var incorrectMaterials = await dbService.CheckBadMaterialsVisible(propertyId);
+                incorrectMaterials = null; //TODO
                 if (incorrectMaterials == null)
                 {
-                    return Ok();
+                    await dbService.UpdateVisibility(propertyId, visible);
+                    return Ok("Bieeenn");
                 }
                 else
                 {
@@ -155,6 +170,7 @@ namespace CircularSeas.Cloud.Server.Controllers
 
             }
         }
+
 
         [HttpPut("material/update-properties")]
         public async Task<IActionResult> PutChangeMaterialProperties([FromBody] Models.Material material)
@@ -171,6 +187,36 @@ namespace CircularSeas.Cloud.Server.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPut("material/update-material")]
+        public async Task<IActionResult> PutUpdateMaterial([FromBody] Models.Material material)
+        {
+            try
+            {
+                await dbService.UpdateMaterial(material);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPut("property/update-property")]
+        public async Task<IActionResult> PutUpdateProperty([FromBody] Models.Property property)
+        {
+            try
+            {
+                await dbService.UpdateProperty(property);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+                throw;
+            }
         }
         #endregion
 
