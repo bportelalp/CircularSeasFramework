@@ -1,5 +1,6 @@
 ﻿using CircularSeasManager.Views;
 using System;
+using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,7 +10,9 @@ namespace CircularSeasManager {
             InitializeComponent();
             DependencyService.Register<Services.OctoClient>();
             DependencyService.Register<Services.SliceClient>();
-            MainPage = new NavigationPage(new LoginPage());
+            DependencyService.Register<System.Net.Http.HttpClient>();
+            //MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage(new OrderPage());
         }
 
         protected override void OnStart() {

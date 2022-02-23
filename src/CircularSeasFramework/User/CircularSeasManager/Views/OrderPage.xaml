@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:CircularSeasManager.Resources"
+             x:Class="CircularSeasManager.Views.OrderPage"
+             >
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{x:Static resources:OrderResources.TxTitle}" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" TextColor="White" FontSize="Title"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{x:Static resources:OrderResources.TxInfo}"
+                HorizontalOptions="CenterAndExpand" />
+
+            <Grid x:Name="PrepareOrder" Margin="20,35,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!--1st row-->
+                <Label Grid.Row="0" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
+                       Text="{x:Static resources:OrderResources.TxMaterial}" />
+                <Picker x:Name="PickMaterialOrder" Grid.Row="0" Grid.Column="1"
+                        ItemsSource="{Binding Materials}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding MaterialSelected}"
+                     FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+
+
+                <!--2nd row-->
+                <Label Grid.Row="1" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
+                       Text="{x:Static resources:OrderResources.TxAmount}" />
+                <Entry x:Name="EntryAmountSpools" Grid.Row="1" Grid.Column="1" Keyboard="Numeric"
+                        Text="{Binding Amount}" Placeholder="{x:Static resources:OrderResources.PlhAmount}"
+                     FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                
+            </Grid>
+            
+            <!--Confirm-->
+            <Button Text="{x:Static resources:OrderResources.BtnOrder}" Command="{Binding CmdOrder}" IsEnabled="True"
+                    Margin="30, 5"></Button>
+
+            <Label Text="Pending Orders"
+                HorizontalOptions="CenterAndExpand" FontSize="Title"/>
+            <ListView x:Name="PendingOrders" Margin="20,0,20,0"
+                      ItemsSource="{Binding PendingOrders}">
+                <ListView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="Material" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="Creation date" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="Spools" FontSize="Subtitle"></Label>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="{Binding Material.Name}"></Label>
+                                <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="{Binding CreationDate}"></Label>
+                                <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="{Binding SpoolQuantity}"></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                
+            </ListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

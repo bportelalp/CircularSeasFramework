@@ -8,13 +8,16 @@ using Newtonsoft.Json;
 using CircularSeasManager.Models;
 using CircularSeas;
 
-namespace CircularSeasManager.Services {
-    public class SliceClient {
+namespace CircularSeasManager.Services
+{
+    public class SliceClient
+    {
         public string urlbase { get; set; }
         private RestClient client;
         public HttpStatusCode resultRequest;
 
-        public SliceClient(string _urlbase) {
+        public SliceClient(string _urlbase)
+        {
             urlbase = _urlbase;
             client = new RestClient(urlbase);
         }
@@ -34,17 +37,20 @@ namespace CircularSeasManager.Services {
         /// </summary>
         /// <param name="IDprinter">Identificador da impresora</param>
         /// <returns>Obxeto ca información do JSON deserializada</returns>'
-        public async Task<CircularSeas.Models.DTO.PrintDTO> GetData(string IDprinter) {
+        public async Task<CircularSeas.Models.DTO.PrintDTO> GetData(string IDprinter)
+        {
             //Solicitude dos datos ao servizo na nube, para o ID da impresora fixado
             var request = new RestRequest("/api/process/printerinfo/" + IDprinter, Method.GET);
             //Espera recepción
             var response = await client.ExecuteAsync(request);
             //Comproba resultado e devolve en consonancia
             resultRequest = response.StatusCode;
-            if (response.StatusCode == HttpStatusCode.OK) { //Non se estableceu conexion
+            if (response.StatusCode == HttpStatusCode.OK)
+            { //Non se estableceu conexion
                 return JsonConvert.DeserializeObject<CircularSeas.Models.DTO.PrintDTO>(response.Content);
             }
-            else {
+            else
+            {
                 return null;
             }
         }
@@ -58,7 +64,8 @@ namespace CircularSeasManager.Services {
         /// <param name="_Support">Habilitar ou non os soportes</param>
         /// <param name="octoCliente">Instancia que se comunica co servizo local</param>
         /// <returns></returns>
-        public async Task<Tuple<string,byte[]>> PostSTL(Plugin.FilePicker.Abstractions.FileData _STL, string _Printer, string _Material, string _Quality, bool _Support) {
+        public async Task<Tuple<string, byte[]>> PostSTL(Plugin.FilePicker.Abstractions.FileData _STL, string _Printer, string _Material, string _Quality, bool _Support)
+        {
             //Implementación de envío del stl para el laminado
             var request = new RestRequest("/api/process/convert", Method.POST);
             //Engadir os parámetros seleccionados para a configuración
@@ -71,7 +78,8 @@ namespace CircularSeasManager.Services {
             //Esperar pola resposta e recollela
             var response = await client.ExecuteAsync(request);
             resultRequest = response.StatusCode;
-            if (resultRequest == HttpStatusCode.OK) {
+            if (resultRequest == HttpStatusCode.OK)
+            {
                 byte[] bites = Encoding.UTF8.GetBytes(response.Content);
                 var gcodeName = _STL.FileName.Split(new char[] { '.' })[0] + "_" + _Material + "_" + _Quality + ".gcode";
                 //Reenviar ao servizo local
@@ -79,16 +87,28 @@ namespace CircularSeasManager.Services {
                 //Podria ponrse response.RawBytes e eliminar a liña anterior
                 return new Tuple<string, byte[]>(gcodeName, bites);
             }
-            else {
+            else
+            {
                 return new Tuple<string, byte[]>(null, null);
             }
-
-
         }
 
-        
+        public async Task<List<CircularSeas.Models.Material>> GetMaterials()
+        {
+            var request = new RestRequest("api/management/materials", Method.GET);
+            request.AddQueryParameter("includeProperties", "false");
+            request.AddQueryParameter("forUsers", "true");
+
+            var response = await client.ExecuteAsync(request);
+            resultRequest = response.StatusCode;
+            if (resultRequest == HttpStatusCode.OK)
+            {
+                return JsonConvert.DeserializeObject<List<CircularSeas.Models.Material>>(response.Content);
+            }
+            else return null;
+        }
     }
 
-    
-    
+
+
 }

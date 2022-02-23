@@ -40,6 +40,7 @@ namespace CircularSeas.Cloud.Server
             services.AddSingleton<Tools>();
             services.AddScoped<ISlicerCLI, PrusaSlicerCLI>();
             services.AddScoped<CircularSeas.DB.DbService>();
+            services.AddScoped<CircularSeas.GenPDF.PdfGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

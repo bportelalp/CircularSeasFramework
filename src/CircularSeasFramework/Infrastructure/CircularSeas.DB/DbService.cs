@@ -131,6 +131,22 @@ namespace CircularSeas.DB
             return response;
         }
 
+        public async Task<Models.Order> GetOrder(Guid orderId)
+        {
+            var response = new Models.Order();
+            var order = await DbContext.Orders.AsNoTracking()
+                .Where(o => o.ID == orderId)
+                .Include(o => o.NodeFKNavigation)
+                .Include(o => o.MaterialFKNavigation)
+                .FirstOrDefaultAsync();
+
+            response = Mapper.Repo2Domain(order);
+            response.Material = Mapper.Repo2Domain(order.MaterialFKNavigation);
+            response.Node = Mapper.Repo2Domain(order.NodeFKNavigation);
+
+            return response;
+        }
+
         public async Task<List<Models.Material>> CheckBadMaterialsVisible(Guid propertyId)
         {
             var response = new List<Models.Material>();
@@ -243,6 +259,16 @@ namespace CircularSeas.DB
 
             return material;
 
+        }
+
+        public async Task<Models.Order> CreateOrder(Models.Order order)
+        {
+            order.Id = Guid.NewGuid();
+            var rowOrd = Mapper.Domain2Repo(order);
+
+            DbContext.Add(rowOrd);
+            await DbContext.SaveChangesAsync();
+            return order;
         }
 
         public async Task DeleteProperty(Guid id)

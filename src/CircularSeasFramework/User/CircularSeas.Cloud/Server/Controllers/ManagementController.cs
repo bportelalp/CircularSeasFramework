@@ -21,11 +21,11 @@ namespace CircularSeas.Cloud.Server.Controllers
 
         #region GETs
         [HttpGet("materials")]
-        public async Task<IActionResult> GetMaterials()
+        public async Task<IActionResult> GetMaterials([FromQuery] bool includeProperties = true, [FromQuery] Guid nodeStock = default(Guid), bool forUsers = false)
         {
             try
             {
-                var result = await dbService.GetMaterials(true, Guid.Empty, false);
+                var result = await dbService.GetMaterials(includeProperties, nodeStock, forUsers);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -139,7 +139,22 @@ namespace CircularSeas.Cloud.Server.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPost("order/new")]
+        public async Task<IActionResult> PostOrder([FromBody] Models.Order order)
+        {
+            try
+            {
+                var created = await dbService.CreateOrder(order);
+                return Ok(created);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
                 throw;
             }
         }
