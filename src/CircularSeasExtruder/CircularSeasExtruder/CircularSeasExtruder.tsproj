@@ -3229,6 +3229,7 @@ External Setpoint Generation:
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 2 (EL2008)">
 				<Link VarA="PlcTask Outputs^IO.Q_HeaterB" VarB="Channel 2^Output"/>
 				<Link VarA="PlcTask Outputs^IO.Q_HeaterT" VarB="Channel 1^Output"/>
+				<Link VarA="PlcTask Outputs^IO.Q_VisionLight" VarB="Channel 3^Output"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task Extruder SAF^Axes^ExtruderAxis">
 				<Link VarA="PlcTask Inputs^MC.Extruder.NcToPlc" VarB="Outputs^ToPlc"/>
