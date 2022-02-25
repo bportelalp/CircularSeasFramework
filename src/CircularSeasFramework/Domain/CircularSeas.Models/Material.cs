@@ -13,8 +13,9 @@ namespace CircularSeas.Models
         public double? HotendTemperature { get; set; }
 
         //Data comes in array because they´re identified by position according to InfoTopsis data
-        public int SpoolStock { get; set; }
         public bool Deprecated { get; set; }
         public List<Evaluation> Evaluations {get;set;}
+        public Models.Stock Stock { get; set; }
+        public string SpoolQuantity => (Stock?.SpoolQuantity > 0) ? (Stock.SpoolQuantity + $" In Stock") : "Out Stock";
     }
 }

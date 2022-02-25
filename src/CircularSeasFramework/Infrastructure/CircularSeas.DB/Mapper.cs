@@ -45,7 +45,6 @@ namespace CircularSeas.DB
                 Description = row.Description,
                 BedTemperature = row.BedTemperature,
                 HotendTemperature = row.HotendTemperature,
-                SpoolStock = row.Stocks?.FirstOrDefault()?.SpoolQuantity ?? 0,
                 Deprecated = row.Deprecated,
             };
             return dom;
@@ -134,7 +133,7 @@ namespace CircularSeas.DB
 
         internal static Entities.Node Domain2Repo(Models.Node dom)
         {
-            if(dom == null) return null;
+            if (dom == null) return null;
             Entities.Node row = new Entities.Node()
             {
                 ID = dom.Id,
@@ -146,7 +145,7 @@ namespace CircularSeas.DB
 
         internal static Models.Order Repo2Domain(Entities.Order row)
         {
-            if(row == null) return null;
+            if (row == null) return null;
             Models.Order dom = new Models.Order()
             {
                 Id = row.ID,
@@ -154,7 +153,8 @@ namespace CircularSeas.DB
                 ProviderFK = row.ProviderFK,
                 MaterialFK = row.MaterialFK,
                 Delivered = row.Delivered,
-                DeliveryDate = row.DeliveryDate,
+                ShippingDate = row.ShippingDate,
+                FinishedDate = row.FinishedDate,
                 CreationDate = row.CreationDate,
                 SpoolQuantity = row.SpoolQuantity
             };
@@ -171,8 +171,35 @@ namespace CircularSeas.DB
                 ProviderFK = dom.ProviderFK,
                 MaterialFK = dom.MaterialFK,
                 Delivered = dom.Delivered,
-                DeliveryDate = dom.DeliveryDate,
+                ShippingDate = dom.ShippingDate,
+                FinishedDate = dom.FinishedDate,
                 CreationDate = dom.CreationDate,
+                SpoolQuantity = dom.SpoolQuantity
+            };
+            return row;
+        }
+
+        internal static Models.Stock Repo2Domain(Entities.Stock row)
+        {
+            if (row == null) return null;
+            Models.Stock dom = new Models.Stock()
+            {
+                Id = row.ID,
+                NodeFK = row.NodeFK,
+                MaterialFK = row.MaterialFK,
+                SpoolQuantity = row.SpoolQuantity
+            };
+            return dom;
+        }
+
+        internal static Entities.Stock Domain2Repo(Models.Stock dom)
+        {
+            if (dom == null) return null;
+            Entities.Stock row = new Entities.Stock()
+            {
+                ID = dom.Id,
+                NodeFK = dom.NodeFK,
+                MaterialFK = dom.MaterialFK,
                 SpoolQuantity = dom.SpoolQuantity
             };
             return row;

@@ -94,8 +94,7 @@ namespace CircularSeasManager.ViewModels
                 TOPSISResultCollection.Add(new TOPSISResult
                 {
                     Material = DataMaterial.Materials[i],
-                    Affinity = result[i],
-                    Stock = (DataMaterial.Materials[i].SpoolStock > 0) ? (DataMaterial.Materials[i].SpoolStock + $" {StringResources.InStock}") : StringResources.OutStock
+                    Affinity = result[i]
                 });
             }
 
@@ -129,7 +128,7 @@ namespace CircularSeasManager.ViewModels
             {
                 if (SelectedMaterial.Material.Name == SelectedMaterial.MaterialName)
                 {
-                    if (SelectedMaterial.Material.SpoolStock == 0)
+                    if (SelectedMaterial.Material.Stock == null || SelectedMaterial.Material.Stock?.SpoolQuantity == 0)
                     {
                         var decision = await Application.Current.MainPage.DisplayAlert(AlertResources.OutStock,
                             AlertResources.OutStockMessage,
@@ -137,7 +136,7 @@ namespace CircularSeasManager.ViewModels
                             AlertResources.PrintingReturn);
                         if (decision)
                         {
-                            await Browser.OpenAsync("https://circularseas.com/es/inicio-2/");
+                            await Application.Current.MainPage.Navigation.PushAsync(new Views.OrderPage(SelectedMaterial.Material.Id));
                         };
                     }
                     else

@@ -11,8 +11,9 @@ namespace CircularSeasManager {
             DependencyService.Register<Services.OctoClient>();
             DependencyService.Register<Services.SliceClient>();
             DependencyService.Register<System.Net.Http.HttpClient>();
-            //MainPage = new NavigationPage(new LoginPage());
-            MainPage = new NavigationPage(new OrderPage());
+            DependencyService.Register<Services.IQrService>();
+            MainPage = new NavigationPage(new LoginPage());
+            //MainPage = new NavigationPage(new OrderPage());
         }
 
         protected override void OnStart() {

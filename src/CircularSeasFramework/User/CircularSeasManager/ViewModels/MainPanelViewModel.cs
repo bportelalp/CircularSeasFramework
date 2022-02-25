@@ -14,6 +14,7 @@ namespace CircularSeasManager.ViewModels {
         //DI
         public Services.OctoClient OctoClient => DependencyService.Get<Services.OctoClient>();
         public Services.SliceClient SliceClient => DependencyService.Get<Services.SliceClient>();
+        
         //Definición de los comandos
         public Command CmdLogout { get; set; }
         public Command CmdPrintLocal { get; set; }
@@ -22,6 +23,8 @@ namespace CircularSeasManager.ViewModels {
         public Command CmdUploadGCODE { get; set; }
         public Command CmdSlice { get; set; }
         public Command CmdConnect { get; set; }
+        public Command CmdOrder { get; set; }
+
 
         //Constructor
         public MainPanelViewModel() {
@@ -35,7 +38,8 @@ namespace CircularSeasManager.ViewModels {
             CmdUploadGCODE = new Command(async() => await UploadGCODE(), () => !Busy);
             CmdSlice = new Command(async () => await OpenSlicePage(), () => !Busy);
             CmdConnect = new Command(async () => await ConnectPrinter(), () => !Busy);
-            
+            CmdOrder = new Command(async () => await OpenOrderPage(), () => !Busy);
+
         }
 
         bool OnTimerTick() {
@@ -212,6 +216,15 @@ namespace CircularSeasManager.ViewModels {
             //Abrir página de Slicer
             InPage = false;
             await Application.Current.MainPage.Navigation.PushAsync(new Views.SlicerPage());
+            InPage = true;
+            Device.StartTimer(TimeSpan.FromSeconds(1.5), OnTimerTick);
+        }
+
+        private async Task OpenOrderPage()
+        {
+            //Abrir página de Slicer
+            InPage = false;
+            await Application.Current.MainPage.Navigation.PushAsync(new Views.OrderPage());
             InPage = true;
             Device.StartTimer(TimeSpan.FromSeconds(1.5), OnTimerTick);
         }

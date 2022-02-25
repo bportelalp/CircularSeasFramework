@@ -71,14 +71,14 @@ namespace CircularSeas.Cloud.Server.Controllers
         /// </summary>
         /// <param name="printerId"> Name of the printer </param>
         /// <returns> An object with printer, materials and topsis data </returns>
-        [HttpGet("printerinfo/{PrinterID}")]
-        public async Task<IActionResult> GetInfoPrinter([FromRoute] string printerId)
+        [HttpGet("printerinfo/{PrinterID}/{nodeID}")]
+        public async Task<IActionResult> GetInfoPrinter([FromRoute] string printerId, [FromRoute] Guid nodeId)
         {
             CircularSeas.Models.DTO.PrintDTO dto = new CircularSeas.Models.DTO.PrintDTO();
             try
             {
                 dto.Printer = await _DbService.GetPrinterInfo(printerId);
-                dto.Materials = await _DbService.GetMaterials(true);
+                dto.Materials = await _DbService.GetMaterials(true, nodeId, true);
             }
             catch (Exception ex)
             {

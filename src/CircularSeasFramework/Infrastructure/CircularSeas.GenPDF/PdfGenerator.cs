@@ -53,9 +53,15 @@ namespace CircularSeas.GenPDF
                 header.AddCell("Material");
                 header.AddCell(order.Material.Name);
 
+                var qrInfo = new CircularSeas.Models.DTO.QrDTO()
+                {
+                    OrderId = order.Id,
+                    MaterialId = order.Material.Id
+                };
+                string qrJson = JsonConvert.SerializeObject(qrInfo);
                 //Add paragraph to the document
                 document.Add(header);
-                ImageData imageData = ImageDataFactory.Create(QrGenerator.GenerateByteArray(order.Id.ToString()));
+                ImageData imageData = ImageDataFactory.Create(QrGenerator.GenerateByteArray(qrJson));
                 var qr = new Image(imageData).SetWidth(300).SetHeight(300);
 
                 document.Add(qr);

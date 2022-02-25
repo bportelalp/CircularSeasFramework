@@ -11,22 +11,28 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.WebUtilities;
+using CircularSeas.Models.DTO;
 
 namespace CircularSeasManager.ViewModels
 {
     public class OrderViewModel : OrderModel
     {
         public Services.SliceClient SliceClient => DependencyService.Get<Services.SliceClient>();
+        public Services.IQrService qrService => DependencyService.Get<Services.IQrService>();
         public HttpClient Http => DependencyService.Get<HttpClient>();
 
         public Command CmdOrder { get; set; }
+        public Command CmdScanSpool { get; set; }
+        public Command CmdDiscardSpool { get; set; }
         public OrderViewModel(Guid materialCandidate)
         {
-            SliceClient.SetUrlBase("http://localhost:5000"); //TODO
-            Http.BaseAddress = new Uri("http://localhost:5000");
             _materialCandidate = materialCandidate;
 
             CmdOrder = new Command(async () => await SendOrder(), () => !Busy);
+            CmdScanSpool = new Command(async () => await ManageSpool(true), () => !Busy);
+            CmdDiscardSpool = new Command(async () => await ManageSpool(false), () => !Busy);
+
+
             Materials = new ObservableCollection<CircularSeas.Models.Material>();
             PendingOrders = new ObservableCollection<CircularSeas.Models.Order>();
             _ = GetData();
@@ -39,6 +45,8 @@ namespace CircularSeasManager.ViewModels
             MaterialSelected = Materials
                 .Where(m => m.Id == _materialCandidate)
                 .FirstOrDefault();
+
+
 
             await GetOrders();
         }
@@ -72,12 +80,50 @@ namespace CircularSeasManager.ViewModels
             var route = QueryHelpers.AddQueryString("api/management/order/list",
                 new Dictionary<string, string>()
                 {
-                    {"pending", "true"},
+                    {"status", "0"},
                     {"nodeId", NodeId.ToString() }
                 });
             var response = await Http.GetAsync(route);
             var orders = await response.Content.ReadFromJsonAsync<List<CircularSeas.Models.Order>>();
             orders.OrderBy(o => o.CreationDate).ToList().ForEach(o => PendingOrders.Add(o));
+        }
+
+        public async Task ManageSpool(bool registration)
+        {
+            if (Device.RuntimePlatform == Device.Android)
+            {
+                if (registration)
+                {
+                    var scanned = await qrService.ScanAsync();
+                    if (scanned != null)
+                    {
+                        QrDTO qr = JsonConvert.DeserializeObject<QrDTO>(scanned);
+
+                        var response = await Http.PutAsync($"api/management/order/mark-received/{qr.OrderId}", null);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("TodoOk", "Registrado", "Aceptar");
+                        }
+                    }
+
+                }
+                else
+                {
+                    var scanned = await qrService.ScanAsync();
+                    QrDTO qr = JsonConvert.DeserializeObject<QrDTO>(scanned);
+                    var response = await Http.PutAsync($"api/management/order/mark-spended/{NodeId}/{qr.MaterialId}/1", null);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await Application.Current.MainPage.DisplayAlert("TodoOk", "Registrado", "Aceptar");
+                    }
+                }
+            }
+
+            else if (Device.RuntimePlatform == Device.UWP)
+            {
+
+            }
+
         }
     }
 }

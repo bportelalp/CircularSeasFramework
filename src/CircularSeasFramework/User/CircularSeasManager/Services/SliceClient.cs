@@ -37,22 +37,32 @@ namespace CircularSeasManager.Services
         /// </summary>
         /// <param name="IDprinter">Identificador da impresora</param>
         /// <returns>Obxeto ca información do JSON deserializada</returns>'
-        public async Task<CircularSeas.Models.DTO.PrintDTO> GetData(string IDprinter)
+        public async Task<CircularSeas.Models.DTO.PrintDTO> GetData(string IDprinter, Guid nodeId)
         {
             //Solicitude dos datos ao servizo na nube, para o ID da impresora fixado
-            var request = new RestRequest("/api/process/printerinfo/" + IDprinter, Method.GET);
+            var request = new RestRequest($"/api/process/printerinfo/{IDprinter}/{nodeId}", Method.GET);
             //Espera recepción
-            var response = await client.ExecuteAsync(request);
-            //Comproba resultado e devolve en consonancia
-            resultRequest = response.StatusCode;
-            if (response.StatusCode == HttpStatusCode.OK)
-            { //Non se estableceu conexion
-                return JsonConvert.DeserializeObject<CircularSeas.Models.DTO.PrintDTO>(response.Content);
-            }
-            else
+            try
             {
-                return null;
+                var response = await client.ExecuteAsync(request);
+                //Comproba resultado e devolve en consonancia
+                resultRequest = response.StatusCode;
+                if (response.StatusCode == HttpStatusCode.OK)
+                { //Non se estableceu conexion
+                    return JsonConvert.DeserializeObject<CircularSeas.Models.DTO.PrintDTO>(response.Content);
+                }
+                else
+                {
+                    return null;
+                }
             }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
         }
         /// <summary>
         /// Solicitar unha conversion de STL->GCODE no servizo na nube
@@ -98,6 +108,7 @@ namespace CircularSeasManager.Services
             var request = new RestRequest("api/management/materials", Method.GET);
             request.AddQueryParameter("includeProperties", "false");
             request.AddQueryParameter("forUsers", "true");
+            request.AddQueryParameter("nodeStock", "F7A71713-0C05-4C71-B7D4-9E7528392F5A");
 
             var response = await client.ExecuteAsync(request);
             resultRequest = response.StatusCode;

@@ -13,6 +13,22 @@
 
     <ContentPage.Content>
         <StackLayout>
+            <Grid x:Name="ButtonsQR" Margin="20,35,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Row="0" Grid.Column="0"
+                    Text="Accept Order" Command="{Binding CmdScanSpool}" IsEnabled="True"
+                    Margin="30, 5"></Button>
+                <Button Grid.Row="0" Grid.Column="1"
+                    Text="Mark Spool finished" Command="{Binding CmdDiscardSpool}" IsEnabled="True"
+                    Margin="30, 5"></Button>
+            </Grid>
+
             <Label Text="{x:Static resources:OrderResources.TxInfo}"
                 HorizontalOptions="CenterAndExpand" />
 
@@ -40,9 +56,9 @@
                 <Entry x:Name="EntryAmountSpools" Grid.Row="1" Grid.Column="1" Keyboard="Numeric"
                         Text="{Binding Amount}" Placeholder="{x:Static resources:OrderResources.PlhAmount}"
                      FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                
+
             </Grid>
-            
+
             <!--Confirm-->
             <Button Text="{x:Static resources:OrderResources.BtnOrder}" Command="{Binding CmdOrder}" IsEnabled="True"
                     Margin="30, 5"></Button>
@@ -79,7 +95,38 @@
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-                
+
+            </ListView>
+
+            <Label Text="My stock"
+                HorizontalOptions="CenterAndExpand" FontSize="Title"/>
+            <ListView x:Name="MyStock" Margin="20,0,20,0"
+                      ItemsSource="{Binding Materials}">
+                <ListView.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="Material" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="Spools" FontSize="Subtitle"></Label>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="{Binding Name}"></Label>
+                                <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="{Binding SpoolQuantity}"></Label>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
             </ListView>
 
         </StackLayout>

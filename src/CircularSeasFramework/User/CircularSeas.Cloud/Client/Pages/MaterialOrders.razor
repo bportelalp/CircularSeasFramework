@@ -7,6 +7,17 @@
     <Loader />
 }
 
+<div class="card">
+    <div class="card-header">
+        Order list
+    </div>
+    <div class="card-body btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(1)">Pending</button>
+        <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(2)">In progress</button>
+        <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(3)">Finished</button>
+    </div>
+</div>
+
 <div class="table-responsive-md">
     <table class="table table-hover">
         <thead>
@@ -20,6 +31,12 @@
                 <th scope="col">
                     Material
                 </th>
+                @if (_currentSection == 1 || _currentSection == 2)
+                {
+                    <th scope="col">Mark as sended</th>
+
+                }
+
                 <th scope="col">
                     Quantity
                 </th>
@@ -32,19 +49,43 @@
                 @foreach (var order in _orders)
                 {
                     <tr>
-                        <td>@order.CreationDate.ToString("dd/MM/yy")</td>
+
+                        <td>
+                            @switch (_currentSection)
+                            {
+                                case 1:
+                                    @order.CreationDate.ToString("dd/MM/yy")
+                                    ; break;
+                                case 2:
+                                    @order.ShippingDate?.ToString("dd/MM/yy")
+                                    ; break;
+                                case 3:
+                                    @order.FinishedDate?.ToString("dd/MM/yy")
+                                    ; break;
+                            }
+                        </td>
                         <td>@order.Node.Name</td>
                         <td>@order.Material.Name</td>
+                        @if (_currentSection == 1 || _currentSection == 2)
+                        {
+                            <td>
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" class="custom-control-input" id="@order.Id" checked="@order.Delivered"
+                               @onchange="(ChangeEventArgs e) => MarkDelivered(e, order,_currentSection)">
+                                    <label class="custom-control-label" for="@order.Id"></label>
+                                </div>
+                            </td>
+                        }
                         <td>@order.SpoolQuantity</td>
                         <td>
                             <!--Detai buttons-->
-                            <a class="btn btn-outline-secondary" href="@($"{Http.BaseAddress}api/docs/pdf/{order.Id}")" target="_blank">
+                    <a class="btn btn-outline-secondary" href="@($"{Http.BaseAddress}api/docs/pdf/{order.Id}")" target="_blank">
                                 <span class="oi oi-data-transfer-download"></span>
                             </a>
 
                         </td>
                     </tr>
-                   
+
                 }
             }
             else

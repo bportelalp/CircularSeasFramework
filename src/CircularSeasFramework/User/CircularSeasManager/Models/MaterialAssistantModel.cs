@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 using CircularSeas.Models;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.Models {
     public class MaterialAssistantModel : BaseModel {
@@ -65,7 +66,7 @@ namespace CircularSeasManager.Models {
             public string MaterialName => Material.Name;
             public double Affinity { get; set; }
             public double Affinity100 => Affinity * 100.0;
-            public string Stock { get; set; }
+            public string Stock => (Material.Stock?.SpoolQuantity > 0) ? (Material.Stock.SpoolQuantity + $" {StringResources.InStock}") : StringResources.OutStock;
         }
 
         public class FeaturesUser {

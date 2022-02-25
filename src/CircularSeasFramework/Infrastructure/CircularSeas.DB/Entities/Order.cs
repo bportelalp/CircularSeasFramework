@@ -20,7 +20,9 @@ namespace CircularSeas.DB.Entities
         public DateTime CreationDate { get; set; }
         public bool Delivered { get; set; }
         [Column(TypeName = "datetime")]
-        public DateTime? DeliveryDate { get; set; }
+        public DateTime? ShippingDate { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? FinishedDate { get; set; }
 
         [ForeignKey(nameof(MaterialFK))]
         [InverseProperty(nameof(Material.Orders))]

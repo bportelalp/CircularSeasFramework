@@ -37,7 +37,7 @@ namespace CircularSeas.DB
                 query = query.Include(m => m.PropMats).ThenInclude(m => m.PropertyFKNavigation);
             else if (includeProperties && forUsers)
                 query = query.Include(m => m.PropMats.Where(m => m.PropertyFKNavigation.Visible)).ThenInclude(m => m.PropertyFKNavigation);
-            if (stockInNode == Guid.Empty)
+            if (stockInNode != Guid.Empty)
                 query = query.Include(m => m.Stocks);
 
             var mats = await query.ToListAsync();
@@ -53,6 +53,7 @@ namespace CircularSeas.DB
                     material.Evaluations.Add(evaluation);
 
                 }
+                material.Stock = Mapper.Repo2Domain(entity.Stocks.FirstOrDefault());
                 response.Add(material);
             }
             return response;
@@ -105,13 +106,20 @@ namespace CircularSeas.DB
             return response;
         }
 
-        public async Task<List<Models.Order>> GetOrders(bool pending = false, Guid specificNode = default(Guid), bool includeMaterial = true)
+        public async Task<List<Models.Order>> GetOrders(int status = 0, Guid specificNode = default(Guid), bool includeMaterial = true)
         {
             var response = new List<Models.Order>();
 
             var query = DbContext.Orders.AsNoTracking();
-            if (pending)
-                query = query.Where(o => o.Delivered == false);
+            if (status == 1)
+                query = query.Where(o => o.ShippingDate == null);
+            else if (status == 2)
+                query = query.Where(o => o.ShippingDate != null && o.FinishedDate == null);
+            else if (status == 3)
+                query = query.Where(o => o.FinishedDate != null);
+            else if (status == 0)
+                query = query.Where(o => o.FinishedDate == null);
+
             if (specificNode != default(Guid))
                 query = query.Where(o => o.NodeFK == specificNode);
             if (includeMaterial)
@@ -181,6 +189,67 @@ namespace CircularSeas.DB
 
             DbContext.Update(rowProp);
             await DbContext.SaveChangesAsync();
+        }
+
+        public async Task<Models.Order> UpdateOrder(Models.Order order)
+        {
+            if (order == null) return null;
+            var rowOrder = Mapper.Domain2Repo(order);
+
+            DbContext.Update(rowOrder);
+            await DbContext.SaveChangesAsync();
+            return order;
+        }
+
+        public async Task<Models.Stock> UpdateStock(Models.Order order)
+        {
+            if (order == null) return null;
+
+            var stock = await DbContext.Stocks.AsNoTracking()
+                .Where(s => s.NodeFK == order.NodeFK && s.MaterialFK == order.MaterialFK)
+                .FirstOrDefaultAsync();
+            if (stock == null)
+            {
+                stock = new Entities.Stock()
+                {
+                    ID = Guid.NewGuid(),
+                    NodeFK = order.NodeFK,
+                    MaterialFK = order.MaterialFK,
+                    SpoolQuantity = order.SpoolQuantity,
+                };
+                DbContext.Add(stock);
+            }
+            else
+            {
+                stock.SpoolQuantity = order.SpoolQuantity + stock.SpoolQuantity;
+                DbContext.Update(stock);
+            }
+
+            await DbContext.SaveChangesAsync();
+
+            var stk = Mapper.Repo2Domain(stock);
+            stk.Material = order.Material;
+            stk.Node = order.Node;
+            return stk;
+        }
+
+        public async Task<Models.Stock> UpdateStock(Guid nodeId, Guid materialId, int amount)
+        {
+            var stock = await DbContext.Stocks.AsNoTracking()
+                .Where(s => s.MaterialFK == materialId)
+                .Where(s => s.NodeFK == nodeId)
+                .FirstOrDefaultAsync();
+
+            if(stock == null) return null;
+
+            if (stock.SpoolQuantity >= amount)
+                stock.SpoolQuantity = stock.SpoolQuantity - amount;
+
+            DbContext.Update(stock);
+            await DbContext.SaveChangesAsync();
+
+            var stk = Mapper.Repo2Domain(stock);
+            return stk;
         }
 
         public async Task UpdateMaterialEvaluations(Models.Material material)

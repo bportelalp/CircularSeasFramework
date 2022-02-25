@@ -17,6 +17,7 @@ namespace CircularSeasManager.ViewModels {
         //DI
         public Services.OctoClient OctoClient => DependencyService.Get<Services.OctoClient>();
         public Services.SliceClient SliceClient => DependencyService.Get<Services.SliceClient>();
+        public HttpClient Http => DependencyService.Get<HttpClient>();
 
         /*COMANDOS: En arquitectura MVVM son métodos que se ejecutan en respuesta a una actividad específica
         Normalmente por ejemplo al clicar o pulsar un botón*/
@@ -37,6 +38,7 @@ namespace CircularSeasManager.ViewModels {
             //Crea el objeto con la nueva IP, comprobando antes si lleva la cabecera http://
             OctoClient.SetUrlBase((IPOctoprint.StartsWith("http://") == true) ? IPOctoprint: ("http://" + IPOctoprint));
             SliceClient.SetUrlBase((IPSlicer.StartsWith("http://") == true) ? IPSlicer : ("http://" + IPSlicer));
+            Http.BaseAddress = new Uri((IPSlicer.StartsWith("http://") == true) ? IPSlicer : ("http://" + IPSlicer));
             Busy = true;
             var result = await OctoClient.Login(UserInput, Pass);
             Busy = false;

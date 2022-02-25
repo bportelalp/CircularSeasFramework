@@ -15,6 +15,7 @@ namespace CircularSeas.Models
         public int SpoolQuantity { get; set; }
         public DateTime CreationDate { get; set; }
         public bool Delivered { get; set; }
-        public DateTime? DeliveryDate { get; set; }
+        public DateTime? ShippingDate { get; set; }
+        public DateTime? FinishedDate { get; set; }
     }
 }

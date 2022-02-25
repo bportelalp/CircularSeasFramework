@@ -61,7 +61,7 @@ namespace CircularSeas.Cloud.Server.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -97,11 +97,12 @@ namespace CircularSeas.Cloud.Server.Controllers
         }
 
         [HttpGet("order/list")]
-        public async Task<IActionResult> GetOrders([FromQuery] bool pending = true, [FromQuery] Guid nodeId = default(Guid))
+        public async Task<IActionResult> GetOrders([FromQuery] int status = 0, [FromQuery] Guid nodeId = default(Guid))
         {
+            //Status: 0: all, 1:pending, 2: delivering, 3:finished
             try
             {
-                var orders = await dbService.GetOrders(pending, nodeId);
+                var orders = await dbService.GetOrders(status, nodeId);
                 return Ok(orders);
             }
             catch (Exception ex)
@@ -226,6 +227,61 @@ namespace CircularSeas.Cloud.Server.Controllers
             {
                 await dbService.UpdateProperty(property);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPut("order/update")]
+        public async Task<IActionResult> PutUpdateOrder([FromBody] Models.Order order)
+        {
+            try
+            {
+                var updated = await dbService.UpdateOrder(order);
+                return Ok(updated);
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPut("order/mark-received/{orderId}")]
+        public async Task<IActionResult> PutReceiveOrder([FromRoute] Guid orderId)
+        {
+            try
+            {
+                var order = await dbService.GetOrder(orderId);
+                if(order.FinishedDate != null)
+                {
+                    return BadRequest();
+                }
+                order.FinishedDate = DateTime.Now;
+                var updated = await dbService.UpdateOrder(order);
+                var stockUpdated = await dbService.UpdateStock(order);
+
+                return Ok(stockUpdated);
+            }
+            catch (Exception ex)
+            {
+                return Conflict(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpPut("order/mark-spended/{nodeId}/{materialId}/{amount}")]
+        public async Task<IActionResult> PutSpendSpool([FromRoute] Guid nodeId, [FromRoute] Guid materialId, [FromRoute] int amount)
+        {
+            try
+            {
+                var stockUpdated = await dbService.UpdateStock(nodeId, materialId, amount);
+                if (stockUpdated == null) return NotFound();
+
+                return Ok(stockUpdated);
             }
             catch (Exception ex)
             {
