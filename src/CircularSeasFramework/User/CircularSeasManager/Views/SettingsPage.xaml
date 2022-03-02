@@ -18,6 +18,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -28,15 +29,25 @@
                 <Label Grid.Row="0" Grid.Column="0" FontSize="Body" VerticalTextAlignment="Center"
                        Text="IP Octoprint" />
                 <Entry x:Name="EditorIPOctoprint"  Margin="30, 5" Grid.Row="0" Grid.Column="1"
-                        Placeholder="IP" Text="{Binding IPOctoprint}" />
-                <!--Campo 2: Editor IP ISO Generator-->
-                <Label Grid.Row="1" Grid.Column="0" FontSize="Body" VerticalTextAlignment="Center"
+                        Placeholder="IP" Text="{Binding IpIntermediateOprint}" />
+                <Label Grid.Row="1" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center"
+                       Text="{Binding TryOprintMessage}" TextColor="{Binding TryOprintMessageColor}"/>
+                <!--Campo 2: Editor IP RESTful API-->
+                <Label Grid.Row="2" Grid.Column="0" FontSize="Body" VerticalTextAlignment="Center"
                        Text="IP nube" />
-                <Entry x:Name="EditorIPSlicer"  Margin="30, 5" Grid.Row="1" Grid.Column="1"
-                        Placeholder="IP" Text="{Binding IPSlicer}"/>
+                <Entry x:Name="EditorIPSlicer"  Margin="30, 5" Grid.Row="2" Grid.Column="1"
+                        Placeholder="IP" Text="{Binding IpIntermediateCloud}"/>
+                <Label Grid.Row="3" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center"
+                       Text="{Binding TryCloudMessage}" TextColor="{Binding TryCloudMessageColor}"/>
+                <!--Campo 2: Editor Node Name-->
+                <Label Grid.Row="4" Grid.Column="0" FontSize="Body" VerticalTextAlignment="Center"
+                       Text="Node" />
+                <Picker x:Name="PickNode" Grid.Row="4" Grid.Column="1" Margin="30, 5"
+                        ItemsSource="{Binding Nodes}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding NodeSelected}"
+                     FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                 
             </Grid>
-
+            <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

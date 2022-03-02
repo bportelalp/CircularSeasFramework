@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Domain\CircularSeas.Models\CircularSeas.Models.csproj" />
-    <ProjectReference Include="..\Shared\CircularSeas.Cloud.Shared.csproj" />
   </ItemGroup>
 
 </Project>

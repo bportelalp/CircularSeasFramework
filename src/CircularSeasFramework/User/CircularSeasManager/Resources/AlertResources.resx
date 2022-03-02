@@ -126,6 +126,9 @@
   <data name="CanPrintedFromLocal" xml:space="preserve">
     <value>File available for printing from local files</value>
   </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
   <data name="ConnectionError" xml:space="preserve">
     <value>Connection error</value>
   </data>
@@ -159,8 +162,17 @@
   <data name="FileNotProvided" xml:space="preserve">
     <value>No file has been provided</value>
   </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="OrderID" xml:space="preserve">
+    <value>Order Identifier</value>
+  </data>
+  <data name="OrderRegistered" xml:space="preserve">
+    <value>Order registered successfully</value>
   </data>
   <data name="OrderStock" xml:space="preserve">
     <value>Order</value>
@@ -192,6 +204,9 @@
   <data name="PrintingWorking" xml:space="preserve">
     <value>The printer is working. The file will be uploaded but you must wait for the current one to finish. Later you can select it from the local print menu</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
@@ -201,11 +216,17 @@
   <data name="ServerDisconnected" xml:space="preserve">
     <value>Can't connect to server. Try it later</value>
   </data>
+  <data name="SpendOneSpool" xml:space="preserve">
+    <value>Confirms that you have spent 1 spool of</value>
+  </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>
   </data>
   <data name="SucessUpload" xml:space="preserve">
     <value>Uploaded successfully</value>
+  </data>
+  <data name="SureConfirmOrders" xml:space="preserve">
+    <value>Are you sure to confirm the order with the following data?</value>
   </data>
   <data name="UnknownError" xml:space="preserve">
     <value>Unknown error</value>
@@ -215,6 +236,12 @@
   </data>
   <data name="UploadOnlySTL" xml:space="preserve">
     <value>You must select only stl files</value>
+  </data>
+  <data name="UwpOrder" xml:space="preserve">
+    <value>On the desktop app, you can't scan a QR. Instead, select the order from the list displayed on the screen and then click this button to accept.</value>
+  </data>
+  <data name="UwpSpoolStock" xml:space="preserve">
+    <value>On the desktop app, you can't scan a QR. Instead, select the material from the list that was displayed on the screen and then click this button to discard a spent spool.</value>
   </data>
   <data name="WarningHeader" xml:space="preserve">
     <value>Warning</value>

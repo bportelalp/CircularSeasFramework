@@ -27,9 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Server",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Client", "User\CircularSeas.Cloud\Client\CircularSeas.Cloud.Client.csproj", "{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Shared", "User\CircularSeas.Cloud\Shared\CircularSeas.Cloud.Shared.csproj", "{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CircularSeas.GenPDF", "Infrastructure\CircularSeas.GenPDF\CircularSeas.GenPDF.csproj", "{43D8C204-0FDA-4C95-80C6-11B842D44E0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.GenPDF", "Infrastructure\CircularSeas.GenPDF\CircularSeas.GenPDF.csproj", "{43D8C204-0FDA-4C95-80C6-11B842D44E0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -195,22 +193,6 @@ Global
 		{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453}.Release|x64.Build.0 = Release|Any CPU
 		{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453}.Release|x86.ActiveCfg = Release|Any CPU
 		{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453}.Release|x86.Build.0 = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|ARM.Build.0 = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|x64.Build.0 = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Debug|x86.Build.0 = Debug|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|ARM.ActiveCfg = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|ARM.Build.0 = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|x64.ActiveCfg = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|x64.Build.0 = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|x86.ActiveCfg = Release|Any CPU
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB}.Release|x86.Build.0 = Release|Any CPU
 		{43D8C204-0FDA-4C95-80C6-11B842D44E0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{43D8C204-0FDA-4C95-80C6-11B842D44E0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43D8C204-0FDA-4C95-80C6-11B842D44E0C}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -240,12 +222,11 @@ Global
 		{B15DE2C5-E2BC-40AA-A442-70F8A16D8783} = {76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}
 		{809279F1-7F4F-4F01-8D18-D25F246158E0} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
 		{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
-		{5FE741BF-EBFD-4642-ABB1-4BBD3A7103FB} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
 		{43D8C204-0FDA-4C95-80C6-11B842D44E0C} = {76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_SaveFilesImmediatelyUponChange = True
-		RESX_NeutralResourcesLanguage = en-150
 		SolutionGuid = {98FE19EA-81D2-471D-9D59-52F6F0340684}
+		RESX_NeutralResourcesLanguage = en-150
+		RESX_SaveFilesImmediatelyUponChange = True
 	EndGlobalSection
 EndGlobal

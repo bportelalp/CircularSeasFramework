@@ -20,6 +20,11 @@ namespace CircularSeas.Cloud.Server.Controllers
         }
 
         #region GETs
+        [HttpGet("connection")]
+        public IActionResult GetConnectionStatus()
+        {
+            return Ok("You are correctly connected to the API");
+        }
         [HttpGet("materials")]
         public async Task<IActionResult> GetMaterials([FromQuery] bool includeProperties = true, [FromQuery] Guid nodeStock = default(Guid), bool forUsers = false)
         {
@@ -103,6 +108,22 @@ namespace CircularSeas.Cloud.Server.Controllers
             try
             {
                 var orders = await dbService.GetOrders(status, nodeId);
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                BadRequest(ex.Message);
+                throw;
+            }
+        }
+
+        [HttpGet("nodes/list")]
+        public async Task<IActionResult> GetNodes()
+        {
+            //Status: 0: all, 1:pending, 2: delivering, 3:finished
+            try
+            {
+                var orders = await dbService.GetNodes();
                 return Ok(orders);
             }
             catch (Exception ex)
@@ -258,7 +279,11 @@ namespace CircularSeas.Cloud.Server.Controllers
                 var order = await dbService.GetOrder(orderId);
                 if(order.FinishedDate != null)
                 {
-                    return BadRequest();
+                    return BadRequest("Order is already mark as finished");
+                }
+                else if (order.ShippingDate == null)
+                {
+                    return BadRequest("Can't mark as received a order which hasn't already sended");
                 }
                 order.FinishedDate = DateTime.Now;
                 var updated = await dbService.UpdateOrder(order);

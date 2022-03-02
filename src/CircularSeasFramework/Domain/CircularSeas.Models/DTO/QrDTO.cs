@@ -8,5 +8,6 @@ namespace CircularSeas.Models.DTO
     {
         public Guid OrderId { get; set; }
         public Guid MaterialId { get; set; }
+        public string MaterialName { get; set; }
     }
 }

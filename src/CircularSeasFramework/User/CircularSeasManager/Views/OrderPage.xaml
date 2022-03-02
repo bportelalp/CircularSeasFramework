@@ -66,10 +66,11 @@
             <Label Text="Pending Orders"
                 HorizontalOptions="CenterAndExpand" FontSize="Title"/>
             <ListView x:Name="PendingOrders" Margin="20,0,20,0"
-                      ItemsSource="{Binding PendingOrders}">
+                      ItemsSource="{Binding PendingOrders}" SelectedItem="{Binding OrderSelected}">
                 <ListView.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -77,6 +78,7 @@
                         <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="Material" FontSize="Subtitle"></Label>
                         <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="Creation date" FontSize="Subtitle"></Label>
                         <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="Spools" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="3" HorizontalTextAlignment="Center" Text="Status" FontSize="Subtitle"></Label>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>
@@ -91,6 +93,7 @@
                                 <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="{Binding Material.Name}"></Label>
                                 <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="{Binding CreationDate}"></Label>
                                 <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="{Binding SpoolQuantity}"></Label>
+                                <Label Grid.Column="3" HorizontalTextAlignment="Center" Text="{Binding Status}"></Label>
                             </Grid>
                         </ViewCell>
                     </DataTemplate>
@@ -101,7 +104,7 @@
             <Label Text="My stock"
                 HorizontalOptions="CenterAndExpand" FontSize="Title"/>
             <ListView x:Name="MyStock" Margin="20,0,20,0"
-                      ItemsSource="{Binding Materials}">
+                      ItemsSource="{Binding Materials}" SelectedItem="{Binding MaterialStocked}">
                 <ListView.Header>
                     <Grid>
                         <Grid.ColumnDefinitions>

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using CircularSeasManager.Resources;
+using System.Collections.ObjectModel;
 
 namespace CircularSeasManager.Models
 {
@@ -88,9 +89,10 @@ namespace CircularSeasManager.Models
             }
             set
             {
-                if (_IPOctoprint != value)
+                var corrected = (value.StartsWith("http://") == true) ? value : ("http://" + value);
+                if (_IPOctoprint != corrected)
                 {
-                    _IPOctoprint = value;
+                    _IPOctoprint = corrected;
                     Preferences.Set("IPOctoprint", _IPOctoprint);
                     OnPropertyChanged();
                 }
@@ -111,9 +113,10 @@ namespace CircularSeasManager.Models
             }
             set
             {
-                if (_IPSlicer != value)
+                var corrected = (value.StartsWith("http://") == true) ? value : ("http://" + value);
+                if (_IPSlicer != corrected)
                 {
-                    _IPSlicer = value;
+                    _IPSlicer = corrected;
                     Preferences.Set("IPSlicer", _IPSlicer);
                     OnPropertyChanged();
                 }
@@ -165,14 +168,14 @@ namespace CircularSeasManager.Models
             }
         }
 
-        private Guid _NodeId = new Guid("F7A71713-0C05-4C71-B7D4-9E7528392F5A");
+        private Guid _NodeId;
         public Guid NodeId
         {
             get
             {
-                if (Preferences.ContainsKey("NodeName"))
+                if (Preferences.ContainsKey("NodeId"))
                 {
-                    _NodeId = new Guid(Preferences.Get("NodeName", "F7A71713-0C05-4C71-B7D4-9E7528392F5A"));
+                    _NodeId = new Guid(Preferences.Get("NodeId", Guid.Empty.ToString()));
                 }
                 return _NodeId;
             }
@@ -181,10 +184,15 @@ namespace CircularSeasManager.Models
                 if (_NodeId != value)
                 {
                     _NodeId = value;
-                    Preferences.Set("NodeName", _NodeId.ToString());
+                    if (_NodeId != default(Guid))
+                    {
+                        Preferences.Set("NodeId", _NodeId.ToString());
+                    }
+
                     OnPropertyChanged();
                 }
             }
         }
+
     }
 }

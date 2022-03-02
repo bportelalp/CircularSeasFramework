@@ -15,7 +15,6 @@
     <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.DB\CircularSeas.DB.csproj" />
     <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.GenPDF\CircularSeas.GenPDF.csproj" />
     <ProjectReference Include="..\Client\CircularSeas.Cloud.Client.csproj" />
-    <ProjectReference Include="..\Shared\CircularSeas.Cloud.Shared.csproj" />
   </ItemGroup>
 
 

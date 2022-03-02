@@ -56,7 +56,8 @@ namespace CircularSeas.GenPDF
                 var qrInfo = new CircularSeas.Models.DTO.QrDTO()
                 {
                     OrderId = order.Id,
-                    MaterialId = order.Material.Id
+                    MaterialId = order.Material.Id,
+                    MaterialName = order.Material.Name,
                 };
                 string qrJson = JsonConvert.SerializeObject(qrInfo);
                 //Add paragraph to the document

@@ -33,7 +33,7 @@ namespace CircularSeasManager.Models
             get { return _materialSelected; }
             set
             {
-                if(_materialSelected != value)
+                if (_materialSelected != value)
                 {
                     _materialSelected = value;
                     OnPropertyChanged();
@@ -49,6 +49,40 @@ namespace CircularSeasManager.Models
 
         //orders Section
         public ObservableCollection<CircularSeas.Models.Order> PendingOrders { get; set; }
-        
+
+
+        private CircularSeas.Models.Order _orderSelected;
+        public CircularSeas.Models.Order OrderSelected
+        {
+            get
+            {
+                return _orderSelected;
+            }
+            set
+            {
+                if (_orderSelected != value)
+                {
+                    _orderSelected = value;
+                    OnPropertyChanged();
+                }
+
+            }
+        }
+
+        private CircularSeas.Models.Material _materialStocked;
+        public CircularSeas.Models.Material MaterialStocked
+        {
+            get { return _materialStocked; }
+            set
+            {
+                if (_materialStocked != value)
+                {
+                    _materialStocked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+
     }
 }

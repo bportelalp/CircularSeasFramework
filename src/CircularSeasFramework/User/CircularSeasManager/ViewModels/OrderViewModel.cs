@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.WebUtilities;
 using CircularSeas.Models.DTO;
+using CircularSeasManager.Resources;
 
 namespace CircularSeasManager.ViewModels
 {
@@ -40,14 +41,10 @@ namespace CircularSeasManager.ViewModels
 
         public async Task GetData()
         {
-            var result = await SliceClient.GetMaterials();
-            result.ForEach(r => Materials.Add(r));
+            await GetMaterials();
             MaterialSelected = Materials
                 .Where(m => m.Id == _materialCandidate)
                 .FirstOrDefault();
-
-
-
             await GetOrders();
         }
 
@@ -74,6 +71,13 @@ namespace CircularSeasManager.ViewModels
             Busy = false;
         }
 
+        public async Task GetMaterials()
+        {
+            var result = await SliceClient.GetMaterials();
+            Materials.Clear();
+            result.ForEach(r => Materials.Add(r));
+        }
+
         public async Task GetOrders()
         {
             PendingOrders.Clear();
@@ -98,12 +102,8 @@ namespace CircularSeasManager.ViewModels
                     if (scanned != null)
                     {
                         QrDTO qr = JsonConvert.DeserializeObject<QrDTO>(scanned);
-
-                        var response = await Http.PutAsync($"api/management/order/mark-received/{qr.OrderId}", null);
-                        if (response.IsSuccessStatusCode)
-                        {
-                            await Application.Current.MainPage.DisplayAlert("TodoOk", "Registrado", "Aceptar");
-                        }
+                        var orderLocated = PendingOrders.Where(po => po.Id == qr.OrderId).FirstOrDefault();
+                        await this.ConfirmOrder(orderLocated);
                     }
 
                 }
@@ -111,19 +111,98 @@ namespace CircularSeasManager.ViewModels
                 {
                     var scanned = await qrService.ScanAsync();
                     QrDTO qr = JsonConvert.DeserializeObject<QrDTO>(scanned);
-                    var response = await Http.PutAsync($"api/management/order/mark-spended/{NodeId}/{qr.MaterialId}/1", null);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("TodoOk", "Registrado", "Aceptar");
-                    }
+                    await this.MarkSpoolSpend(qr.MaterialId, qr.MaterialName);
                 }
             }
 
             else if (Device.RuntimePlatform == Device.UWP)
             {
-
+                if (registration)
+                {
+                    if (OrderSelected == null)
+                    {
+                        await Application.Current.MainPage.DisplayAlert(
+                                    AlertResources.WarningHeader,
+                                    AlertResources.UwpOrder,
+                                    AlertResources.Accept);
+                    }
+                    else
+                        await this.ConfirmOrder(OrderSelected);
+                }
+                else
+                {
+                    if(MaterialStocked == null)
+                    {
+                        await Application.Current.MainPage.DisplayAlert(
+                                    AlertResources.WarningHeader,
+                                    AlertResources.UwpSpoolStock,
+                                    AlertResources.Accept);
+                    }
+                    else
+                        await this.MarkSpoolSpend(MaterialStocked.Id, MaterialStocked.Name);
+                }
             }
 
+        }
+
+        private async Task ConfirmOrder(CircularSeas.Models.Order order)
+        {
+            var decision = await Application.Current.MainPage.DisplayAlert(
+                            AlertResources.Confirmation,
+                            $"{AlertResources.SureConfirmOrders}\n\r " +
+                            $"{AlertResources.OrderID}: {order.Id}\n\r " +
+                            $"{AlertResources.Material}: {order.Material.Name}\n\r " +
+                            $"{AlertResources.Quantity}: {order.SpoolQuantity}",
+                            AlertResources.Yes,
+                            AlertResources.No);
+            if (decision)
+            {
+                var response = await Http.PutAsync($"api/management/order/mark-received/{order.Id}", null);
+                if (response.IsSuccessStatusCode)
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        AlertResources.Confirmation,
+                        AlertResources.OrderRegistered,
+                        AlertResources.Accept);
+                    _ = GetOrders();
+                    _ = GetMaterials();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                        AlertResources.Confirmation,
+                        AlertResources.Error,
+                        AlertResources.Accept);
+                }
+            }
+        }
+
+        private async Task MarkSpoolSpend(Guid materialId, string materialName)
+        {
+            var decision = await Application.Current.MainPage.DisplayAlert(
+                            AlertResources.Confirmation,
+                            $"{AlertResources.SpendOneSpool} {materialName} ",
+                            AlertResources.Yes,
+                            AlertResources.No);
+            if (decision)
+            {
+                var response = await Http.PutAsync($"api/management/order/mark-spended/{NodeId}/{materialId}/1", null);
+                if (response.IsSuccessStatusCode)
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                            AlertResources.Confirmation,
+                            AlertResources.Ready,
+                            AlertResources.Accept);
+                    _ = GetMaterials();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert(
+                            AlertResources.Confirmation,
+                            AlertResources.Error,
+                            AlertResources.Accept);
+                }
+            }
         }
     }
 }

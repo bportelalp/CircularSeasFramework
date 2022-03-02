@@ -19,7 +19,7 @@ namespace CircularSeasManager.Resources {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AlertResources {
@@ -84,6 +84,15 @@ namespace CircularSeasManager.Resources {
         internal static string CanPrintedFromLocal {
             get {
                 return ResourceManager.GetString("CanPrintedFromLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Confirmation.
+        /// </summary>
+        internal static string Confirmation {
+            get {
+                return ResourceManager.GetString("Confirmation", resourceCulture);
             }
         }
         
@@ -187,11 +196,38 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Material.
+        /// </summary>
+        internal static string Material {
+            get {
+                return ResourceManager.GetString("Material", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No.
         /// </summary>
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order Identifier.
+        /// </summary>
+        internal static string OrderID {
+            get {
+                return ResourceManager.GetString("OrderID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Order registered successfully.
+        /// </summary>
+        internal static string OrderRegistered {
+            get {
+                return ResourceManager.GetString("OrderRegistered", resourceCulture);
             }
         }
         
@@ -286,6 +322,15 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Quantity.
+        /// </summary>
+        internal static string Quantity {
+            get {
+                return ResourceManager.GetString("Quantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ready.
         /// </summary>
         internal static string Ready {
@@ -313,6 +358,15 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Confirms that you have spent 1 spool of.
+        /// </summary>
+        internal static string SpendOneSpool {
+            get {
+                return ResourceManager.GetString("SpendOneSpool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Success.
         /// </summary>
         internal static string Success {
@@ -327,6 +381,15 @@ namespace CircularSeasManager.Resources {
         internal static string SucessUpload {
             get {
                 return ResourceManager.GetString("SucessUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Are you sure to confirm the order with the following data?.
+        /// </summary>
+        internal static string SureConfirmOrders {
+            get {
+                return ResourceManager.GetString("SureConfirmOrders", resourceCulture);
             }
         }
         
@@ -354,6 +417,24 @@ namespace CircularSeasManager.Resources {
         internal static string UploadOnlySTL {
             get {
                 return ResourceManager.GetString("UploadOnlySTL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a On the desktop app, you can&apos;t scan a QR. Instead, select the order from the list displayed on the screen and then click this button to accept..
+        /// </summary>
+        internal static string UwpOrder {
+            get {
+                return ResourceManager.GetString("UwpOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a On the desktop app, you can&apos;t scan a QR. Instead, select the material from the list that was displayed on the screen and then click this button to discard a spent spool..
+        /// </summary>
+        internal static string UwpSpoolStock {
+            get {
+                return ResourceManager.GetString("UwpSpoolStock", resourceCulture);
             }
         }
         

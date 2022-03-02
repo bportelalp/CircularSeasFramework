@@ -94,6 +94,17 @@ namespace CircularSeas.DB
             return response;
         }
 
+        public async Task<List<Models.Node>> GetNodes()
+        {
+            var response = new List<Models.Node>();
+            var nodes = await DbContext.Nodes.AsNoTracking().ToListAsync();
+
+            foreach (var node in nodes)
+            {
+                response.Add(Mapper.Repo2Domain(node));
+            }
+            return response;
+        }
         public async Task<Models.Material> GetMaterialSchema()
         {
             var response = new Models.Material();

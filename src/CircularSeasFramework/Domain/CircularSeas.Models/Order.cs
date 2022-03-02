@@ -17,5 +17,7 @@ namespace CircularSeas.Models
         public bool Delivered { get; set; }
         public DateTime? ShippingDate { get; set; }
         public DateTime? FinishedDate { get; set; }
+
+        public string Status => ShippingDate == null ? "Ordered" : "In delivery";
     }
 }
