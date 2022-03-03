@@ -9,8 +9,6 @@ namespace CircularSeas.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public double? BedTemperature { get; set; }
-        public double? HotendTemperature { get; set; }
 
         //Data comes in array because they´re identified by position according to InfoTopsis data
         public bool Deprecated { get; set; }

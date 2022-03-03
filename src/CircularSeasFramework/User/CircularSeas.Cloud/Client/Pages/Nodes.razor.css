@@ -1,0 +1,70 @@
+﻿/*--------Árboles de decisión contraíbles-------*/
+.tree__ul {
+    list-style-type: none;
+    padding-left: 2rem;
+}
+
+.tree__first-ul {
+    margin: 0;
+    padding: 0;
+}
+
+.tree-item__caret-parent {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari 3.1+ */
+    -moz-user-select: none; /* Firefox 2+ */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
+    visibility: visible;
+}
+
+.tree-item__caret-parent-nochilds {
+    visibility: hidden;
+}
+
+.tree-item__caret-down {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+
+.tree-item__text {
+    cursor: pointer;
+}
+
+.required::after {
+    content: "*";
+    color: red;
+}
+
+.tree-item {
+    padding: 0.25rem;
+    margin: 0.2rem 0;
+    color: #007ec7;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+}
+
+    .tree-item > span, tree-item__icon {
+        padding-right: 0.25em;
+    }
+
+    .tree-item:hover {
+        outline: 2px solid;
+        outline-color: #007ec7;
+        transition: border 1s;
+    }
+
+    .tree-item:active, .tree-item__active {
+        outline: 2px solid;
+    }
+
+.tree-item__errors {
+    color: red;
+}
+
+    .tree-item__errors:hover {
+        outline-color: red;
+    }

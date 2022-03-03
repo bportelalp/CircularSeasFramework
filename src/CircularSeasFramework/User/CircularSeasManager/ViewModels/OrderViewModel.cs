@@ -73,9 +73,21 @@ namespace CircularSeasManager.ViewModels
 
         public async Task GetMaterials()
         {
-            var result = await SliceClient.GetMaterials();
-            Materials.Clear();
-            result.ForEach(r => Materials.Add(r));
+            var query = QueryHelpers.AddQueryString("api/management/materials", new Dictionary<string, string>
+            {
+                {"includeProperties", "false" },
+                {"forUsers", "true" },
+                {"nodeStock", NodeId.ToString()}
+            });
+
+            var response = await Http.GetAsync(query);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<List<CircularSeas.Models.Material>>();
+                Materials.Clear();
+                result.ForEach(r => Materials.Add(r));
+            }
+            
         }
 
         public async Task GetOrders()

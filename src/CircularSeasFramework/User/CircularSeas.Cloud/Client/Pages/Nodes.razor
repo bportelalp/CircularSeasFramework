@@ -1,3 +1,59 @@
 ﻿@page "/nodes"
 
 <h3>Nodes</h3>
+
+@if (_loading)
+{
+    <Loader />
+}
+
+<div class="d-flex">
+    <div class="card">
+        <div class="card-header">
+            Node list
+        </div>
+        <div class="card-body">
+            <ul class="tree__ul tree__first-ul">
+                @foreach (var node in _nodes)
+                {
+                    <li class="tree-item @GetNodeCSS(node.Id)" @onclick="@(()=> NavigateNode(node))">
+                        @node.Name
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="card flex-fill">
+        <div class="card-header">
+            Stocks
+        </div>
+        <div class="card-body">
+            <div class="table-responsive-md">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Deprecated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var mat in _materialsCurrent.OrderBy(m => m.Deprecated)
+                        .ThenBy(m => m.Name))
+                        {
+                            <tr>
+                                <td>@mat.Name</td>
+                                <td>@mat.Description</td>
+                                <td>@mat.SpoolQuantity</td>
+                                <td>@(mat.Deprecated? "Yes":"No")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>

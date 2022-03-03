@@ -38,7 +38,7 @@ namespace CircularSeas.DB
             else if (includeProperties && forUsers)
                 query = query.Include(m => m.PropMats.Where(m => m.PropertyFKNavigation.Visible)).ThenInclude(m => m.PropertyFKNavigation);
             if (stockInNode != Guid.Empty)
-                query = query.Include(m => m.Stocks);
+                query = query.Include(m => m.Stocks.Where(s => s.NodeFK == stockInNode));
 
             var mats = await query.ToListAsync();
 

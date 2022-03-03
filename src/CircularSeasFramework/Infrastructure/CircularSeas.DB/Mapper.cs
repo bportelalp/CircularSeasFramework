@@ -43,8 +43,6 @@ namespace CircularSeas.DB
                 Id = row.ID,
                 Name = row.Name,
                 Description = row.Description,
-                BedTemperature = row.BedTemperature,
-                HotendTemperature = row.HotendTemperature,
                 Deprecated = row.Deprecated,
             };
             return dom;
@@ -58,8 +56,6 @@ namespace CircularSeas.DB
                 ID = dom.Id,
                 Name = dom.Name,
                 Description = dom.Description,
-                BedTemperature = dom.BedTemperature,
-                HotendTemperature = dom.HotendTemperature,
                 Deprecated = dom.Deprecated,
             };
             return row;

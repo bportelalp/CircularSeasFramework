@@ -20,26 +20,11 @@ else
                         <InputText class="form-control" @bind-Value="Material.Description" />
                     </div>
                 </div>
-                <div class="d-flex">
-                    <div class="form-group row flex-fill">
-                        <label class="col-sm-4 col-form-label">Temperatura de Extrusor</label>
-                        <div class="col-sm-8">
-                            <InputNumber class="form-control" @bind-Value="Material.HotendTemperature" />
-                        </div>
-
-                    </div>
-                    <div class="form-group row flex-fill">
-                        <label class="col-sm-4 col-form-label">Temperatura de Cama</label>
-                        <div class="col-sm-8">
-                            <InputNumber class="form-control" @bind-Value="Material.BedTemperature" />
-                        </div>
-                    </div>
-                </div>
-
+                
                 @foreach (var eval in Material.Evaluations.OrderBy(e => e.Property.Name))
                 {
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">@eval.Property.Name</label>
+                        <label class="col-sm-2 col-form-label @(eval.Property.Visible? "required":null)">@eval.Property.Name</label>
                         <div class="col-sm-7">
                             @if (eval.Property.IsDichotomous)
                             {

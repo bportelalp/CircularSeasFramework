@@ -24,8 +24,6 @@ namespace CircularSeas.DB.Entities
         [StringLength(50)]
         public string Name { get; set; }
         public string Description { get; set; }
-        public double? BedTemperature { get; set; }
-        public double? HotendTemperature { get; set; }
         public bool Deprecated { get; set; }
 
         [InverseProperty(nameof(Order.MaterialFKNavigation))]

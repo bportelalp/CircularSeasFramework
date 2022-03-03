@@ -102,22 +102,6 @@ namespace CircularSeasManager.Services
                 return new Tuple<string, byte[]>(null, null);
             }
         }
-
-        public async Task<List<CircularSeas.Models.Material>> GetMaterials()
-        {
-            var request = new RestRequest("api/management/materials", Method.GET);
-            request.AddQueryParameter("includeProperties", "false");
-            request.AddQueryParameter("forUsers", "true");
-            request.AddQueryParameter("nodeStock", "F7A71713-0C05-4C71-B7D4-9E7528392F5A");
-
-            var response = await client.ExecuteAsync(request);
-            resultRequest = response.StatusCode;
-            if (resultRequest == HttpStatusCode.OK)
-            {
-                return JsonConvert.DeserializeObject<List<CircularSeas.Models.Material>>(response.Content);
-            }
-            else return null;
-        }
     }
 
 

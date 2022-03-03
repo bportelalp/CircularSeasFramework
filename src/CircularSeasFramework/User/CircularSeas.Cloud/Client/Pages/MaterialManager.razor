@@ -39,12 +39,12 @@ else
                         Name
                     </th>
                     <th scope="col">
-                        Working temperature
+                        Description
                     </th>
                     <th scope="col">
-                        Bed temperature
+                        Deprecated
                     </th>
-                    <th scope="col" style="width: 10%">Actions</th>
+                    <th scope="col" style="width: 20%">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,8 +54,8 @@ else
                     {
                         <tr>
                             <td>@mat.Name</td>
-                            <td>@mat.HotendTemperature</td>
-                            <td>@mat.BedTemperature</td>
+                            <td>@mat.Description</td>
+                            <td>@(mat.Deprecated? "Yes":"No")</td>
                             <td>
                                 <!--Detai buttons-->
                     <button class="btn btn-outline-secondary" @onclick="@(() => _ViewingMaterial = _ViewingMaterial==mat.Id? Guid.Empty:mat.Id)">

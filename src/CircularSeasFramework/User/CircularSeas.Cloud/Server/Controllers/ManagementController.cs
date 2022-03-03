@@ -123,8 +123,8 @@ namespace CircularSeas.Cloud.Server.Controllers
             //Status: 0: all, 1:pending, 2: delivering, 3:finished
             try
             {
-                var orders = await dbService.GetNodes();
-                return Ok(orders);
+                var nodes = await dbService.GetNodes();
+                return Ok(nodes);
             }
             catch (Exception ex)
             {
