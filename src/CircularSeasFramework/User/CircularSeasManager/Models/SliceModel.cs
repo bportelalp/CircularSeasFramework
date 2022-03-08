@@ -5,15 +5,16 @@ using System.Text;
 using Plugin.FilePicker.Abstractions;
 using CircularSeasManager.Models;
 using CircularSeasManager.Resources;
+using System.Linq;
 
 namespace CircularSeasManager.Models {
     public class SliceModel : BaseModel {
 
         //Colección de materiales
-        public ObservableCollection<string> MaterialCollection { get; set; }
+        public ObservableCollection<CircularSeas.Models.Material> MaterialCollection { get; set; }
 
         //Colección de calidades
-        public ObservableCollection<string> ProfileCollection { get; set; }
+        public ObservableCollection<CircularSeas.Models.Slicer.Print> ProfileCollection { get; set; }
 
         //Almacén de todos los datos
         public CircularSeas.Models.DTO.PrintDTO DataMaterial = new CircularSeas.Models.DTO.PrintDTO();
@@ -31,20 +32,25 @@ namespace CircularSeasManager.Models {
         }
 
         //Material Seleccionado
-        private string _materialSelected;
-        public string MaterialSelected {
+        private CircularSeas.Models.Material _materialSelected;
+        public CircularSeas.Models.Material MaterialSelected {
             get { return _materialSelected; }
             set {
                 if (_materialSelected != value) {
                     _materialSelected = value;
+                    ProfileCollection.Clear();
+                    foreach(var print in DataMaterial.Filaments.Find(f => f.MaterialFK == _materialSelected.Id).CompatiblePrints)
+                    {
+                        ProfileCollection.Add(print);
+                    }
                     OnPropertyChanged();
                 }
             }
         }
 
         //Calidad seleccionada
-        private string _profileSelected;
-        public string ProfileSelected {
+        private CircularSeas.Models.Slicer.Print _profileSelected;
+        public CircularSeas.Models.Slicer.Print ProfileSelected {
             get { return _profileSelected; }
             set {
                 if (_profileSelected != value) {
@@ -74,7 +80,7 @@ namespace CircularSeasManager.Models {
         //Indica se están todolos items seleccionados
         public bool AllReady {
             get {
-                if (string.IsNullOrEmpty(_profileSelected) || string.IsNullOrEmpty(_materialSelected) || (_STL == null)) {
+                if (_profileSelected == null || _materialSelected == null || (_STL == null)) {
                     return false;
                 }
                 else { return true; }

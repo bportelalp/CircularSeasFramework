@@ -40,7 +40,7 @@ namespace CircularSeasManager.Services
         public async Task<CircularSeas.Models.DTO.PrintDTO> GetData(string IDprinter, Guid nodeId)
         {
             //Solicitude dos datos ao servizo na nube, para o ID da impresora fixado
-            var request = new RestRequest($"/api/process/printerinfo/{IDprinter}/{nodeId}", Method.GET);
+            var request = new RestRequest($"/api/process/available-materials/{IDprinter}/{nodeId}", Method.GET);
             //Espera recepción
             try
             {
@@ -69,20 +69,20 @@ namespace CircularSeasManager.Services
         /// </summary>
         /// <param name="_STL">Ficheiro STL</param>
         /// <param name="_Printer">Identificador da impresora</param>
-        /// <param name="_Material">Identificador do material</param>
-        /// <param name="_Quality">Identificador da calidade</param>
-        /// <param name="_Support">Habilitar ou non os soportes</param>
+        /// <param name="_filament">Identificador do material</param>
+        /// <param name="_print">Identificador da calidade</param>
+        /// <param name="_support">Habilitar ou non os soportes</param>
         /// <param name="octoCliente">Instancia que se comunica co servizo local</param>
         /// <returns></returns>
-        public async Task<Tuple<string, byte[]>> PostSTL(Plugin.FilePicker.Abstractions.FileData _STL, string _Printer, string _Material, string _Quality, bool _Support)
+        public async Task<Tuple<string, byte[]>> PostSTL(Plugin.FilePicker.Abstractions.FileData _STL, string _Printer, string _filament, string _print, bool _support)
         {
             //Implementación de envío del stl para el laminado
-            var request = new RestRequest("/api/process/convert", Method.POST);
+            var request = new RestRequest("/api/process/slice", Method.POST);
             //Engadir os parámetros seleccionados para a configuración
             request.AddQueryParameter("printer", _Printer);
-            request.AddQueryParameter("material", _Material);
-            request.AddQueryParameter("quality", _Quality);
-            request.AddQueryParameter("support", _Support.ToString());
+            request.AddQueryParameter("filament", _filament);
+            request.AddQueryParameter("print", _print);
+            request.AddQueryParameter("support", _support.ToString());
             //Engadir o ficheiro entrante
             request.AddFileBytes("file", _STL.DataArray, _STL.FileName, "application/octet-stream");
             //Esperar pola resposta e recollela
@@ -91,7 +91,7 @@ namespace CircularSeasManager.Services
             if (resultRequest == HttpStatusCode.OK)
             {
                 byte[] bites = Encoding.UTF8.GetBytes(response.Content);
-                var gcodeName = _STL.FileName.Split(new char[] { '.' })[0] + "_" + _Material + "_" + _Quality + ".gcode";
+                var gcodeName = _STL.FileName.Split(new char[] { '.' })[0] + "_" + _filament + "_" + _print + ".gcode";
                 //Reenviar ao servizo local
                 //await octoCliente.UploadFile(bites, nomeGCODE, false);
                 //Podria ponrse response.RawBytes e eliminar a liña anterior

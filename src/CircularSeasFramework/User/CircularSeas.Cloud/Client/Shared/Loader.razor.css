@@ -48,7 +48,8 @@
 
 .loader {
     padding: 20px;
-    min-width: 10%
+    min-width: 10%;
+    z-index: 1000;
 }
 
 

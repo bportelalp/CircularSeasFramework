@@ -8,18 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CircularSeas.DB.Entities
 {
-    [Table("PrinterProfile")]
-    public partial class PrinterProfile
+    [Table("PrinterSettings", Schema = "slicer")]
+    public partial class PrinterSetting
     {
         [Key]
         public Guid ID { get; set; }
         public Guid PrinterFK { get; set; }
         [Required]
-        [StringLength(200)]
-        public string ProfileName { get; set; }
+        [StringLength(100)]
+        public string iniKey { get; set; }
+        [StringLength(2000)]
+        public string iniValue { get; set; }
 
         [ForeignKey(nameof(PrinterFK))]
-        [InverseProperty(nameof(Printer.PrinterProfiles))]
+        [InverseProperty(nameof(Printer.PrinterSettings))]
         public virtual Printer PrinterFKNavigation { get; set; }
     }
 }

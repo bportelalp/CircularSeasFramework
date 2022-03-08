@@ -9,6 +9,6 @@ namespace CircularSeasManager.Models {
         //Instancia estática del cliente rest que se usará en todo el proyecto.
         public static Services.OctoClient PrinterClient;
         public static Services.SliceClient ClienteSlice;
-        public static string RecommendedMaterial;
+        public static Guid RecommendedMaterialId;
     }
 }

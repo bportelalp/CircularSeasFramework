@@ -8,14 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CircularSeas.DB.Entities
 {
-    [Table("Printers", Schema = "slicer")]
-    public partial class Printer
+    [Table("Filaments", Schema = "slicer")]
+    public partial class Filament
     {
-        public Printer()
+        public Filament()
         {
             FilamentCompatibilities = new HashSet<FilamentCompatibility>();
-            PrintCompatibilities = new HashSet<PrintCompatibility>();
-            PrinterSettings = new HashSet<PrinterSetting>();
+            FilamentSettings = new HashSet<FilamentSetting>();
         }
 
         [Key]
@@ -26,12 +25,14 @@ namespace CircularSeas.DB.Entities
         [Required]
         [StringLength(100)]
         public string iniKeyword { get; set; }
+        public Guid? MaterialFK { get; set; }
 
-        [InverseProperty(nameof(FilamentCompatibility.PrinterFKNavigation))]
+        [ForeignKey(nameof(MaterialFK))]
+        [InverseProperty(nameof(Material.Filaments))]
+        public virtual Material MaterialFKNavigation { get; set; }
+        [InverseProperty(nameof(FilamentCompatibility.FilamentFKNavigation))]
         public virtual ICollection<FilamentCompatibility> FilamentCompatibilities { get; set; }
-        [InverseProperty(nameof(PrintCompatibility.PrinterFKNavigation))]
-        public virtual ICollection<PrintCompatibility> PrintCompatibilities { get; set; }
-        [InverseProperty(nameof(PrinterSetting.PrinterFKNavigation))]
-        public virtual ICollection<PrinterSetting> PrinterSettings { get; set; }
+        [InverseProperty(nameof(FilamentSetting.FilamentFKNavigation))]
+        public virtual ICollection<FilamentSetting> FilamentSettings { get; set; }
     }
 }

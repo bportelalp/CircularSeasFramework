@@ -13,6 +13,7 @@ namespace CircularSeas.DB.Entities
     {
         public Material()
         {
+            Filaments = new HashSet<Filament>();
             Orders = new HashSet<Order>();
             PropMats = new HashSet<PropMat>();
             Stocks = new HashSet<Stock>();
@@ -26,6 +27,8 @@ namespace CircularSeas.DB.Entities
         public string Description { get; set; }
         public bool Deprecated { get; set; }
 
+        [InverseProperty(nameof(Filament.MaterialFKNavigation))]
+        public virtual ICollection<Filament> Filaments { get; set; }
         [InverseProperty(nameof(Order.MaterialFKNavigation))]
         public virtual ICollection<Order> Orders { get; set; }
         [InverseProperty(nameof(PropMat.MaterialFKNavigation))]

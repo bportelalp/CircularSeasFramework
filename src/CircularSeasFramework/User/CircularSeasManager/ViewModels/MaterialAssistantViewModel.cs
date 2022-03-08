@@ -141,7 +141,7 @@ namespace CircularSeasManager.ViewModels
                     }
                     else
                     {
-                        Global.RecommendedMaterial = SelectedMaterial.MaterialName;
+                        Global.RecommendedMaterialId = SelectedMaterial.Material.Id;
                         await Application.Current.MainPage.Navigation.PopAsync();
                     }
                 }

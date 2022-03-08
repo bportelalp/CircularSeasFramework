@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using CircularSeas.DB;
 using CircularSeas.Models;
+using CircularSeas.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +15,7 @@ namespace CircularSeas.Cloud.Server.Controllers
     public class ManagementController : Controller
     {
         private readonly DbService dbService;
+        Guid identificador = Guid.Empty;
 
         public ManagementController(DbService dbService)
         {
@@ -20,11 +23,7 @@ namespace CircularSeas.Cloud.Server.Controllers
         }
 
         #region GETs
-        [HttpGet("connection")]
-        public IActionResult GetConnectionStatus()
-        {
-            return Ok("You are correctly connected to the API");
-        }
+
         [HttpGet("materials")]
         public async Task<IActionResult> GetMaterials([FromQuery] bool includeProperties = true, [FromQuery] Guid nodeStock = default(Guid), bool forUsers = false)
         {
@@ -180,6 +179,56 @@ namespace CircularSeas.Cloud.Server.Controllers
                 throw;
             }
         }
+
+
+        [HttpPost("settings/bundle-file")]
+        public async Task<IActionResult> PostSettingsBundle([FromForm] IFormFile file)
+        {
+            try
+            {
+                using (var ms = new MemoryStream())
+                {
+                    await file.CopyToAsync(ms);
+                    await dbService.ProcessSettingsBundle(ms);
+                }
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+
+        [HttpPost("settings/bundle-lines")]
+        public async Task<IActionResult> PostSettingsLines([FromBody] ConfigDTO bundle)
+        {
+            try
+            {
+                await dbService.ProcessSettingsBundle(bundle.Lines, bundle.Matching);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+
+        [HttpGet("settings/match-materials")]
+        public async Task<IActionResult> GetFilamentsCandidates([FromBody] Dictionary<Guid, Guid> matching)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
         #endregion
 
         #region PUTs
@@ -277,7 +326,7 @@ namespace CircularSeas.Cloud.Server.Controllers
             try
             {
                 var order = await dbService.GetOrder(orderId);
-                if(order.FinishedDate != null)
+                if (order.FinishedDate != null)
                 {
                     return BadRequest("Order is already mark as finished");
                 }

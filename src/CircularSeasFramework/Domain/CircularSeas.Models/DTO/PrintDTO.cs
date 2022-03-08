@@ -6,7 +6,7 @@ namespace CircularSeas.Models.DTO
 {
     public class PrintDTO
     {
-        public Models.Printer Printer { get; set; }
         public List<Models.Material> Materials { get; set; }
+        public List<Models.Slicer.Filament> Filaments { get; set; }
     }
 }

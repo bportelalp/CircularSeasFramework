@@ -32,7 +32,7 @@ namespace CircularSeas.Cloud.Server
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
-            services.AddDbContext<CircularSeasContext>(options => options.UseSqlServer(appSettings.DBConnectionString));
+            services.AddDbContext<CircularSeasContext>(options => options.UseSqlServer(appSettings.DBConnectionString, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
             services.AddScoped<CircularSeas.DB.DbService>();
 
             //Servicio Singleton to LOG

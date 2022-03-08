@@ -42,7 +42,7 @@
                 <Label Grid.Row="2" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
                        Text="{x:Static resources:AppResources.Material}" />
 
-                <Picker x:Name="PickerMaterial" ItemsSource="{Binding MaterialCollection}" SelectedItem="{Binding MaterialSelected}" 
+                <Picker x:Name="PickerMaterial" ItemsSource="{Binding MaterialCollection}" SelectedItem="{Binding MaterialSelected}" ItemDisplayBinding="{Binding Name}"
                     Grid.Row="2" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
                 <Button Text="{x:Static resources:AppResources.btnHelp}" Command="{Binding CmdHelp}" IsEnabled="true"
                         Grid.Row="2" Grid.Column="2"></Button>
@@ -50,7 +50,7 @@
 
                 <Label Grid.Row="3" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"
                        Text="{x:Static resources:AppResources.Profile}" />
-                <Picker x:Name="PickerCalidad" ItemsSource="{Binding ProfileCollection}" SelectedItem="{Binding ProfileSelected}"
+                <Picker x:Name="PickerCalidad" ItemsSource="{Binding ProfileCollection}" SelectedItem="{Binding ProfileSelected}" ItemDisplayBinding="{Binding Name}"
                         Grid.Row="3" Grid.Column="1" FontSize="Body" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
 
                 <Label Grid.Row="4" Grid.Column="0" FontSize="Body" FontAttributes="Bold" VerticalTextAlignment="Center"

@@ -83,7 +83,9 @@ namespace CircularSeasManager.ViewModels
                 var resultado2 = await OctoClient.GetConexPrinter();
                 if (resultado2 != null)
                 {
-                    printer = resultado2.options.printerProfiles[0].name;
+                    //TODO: Modelo impresora
+                    //printer = resultado2.options.printerProfiles[0].name;
+                    printer = "CS_Ultimaker2plus";
                 }
                 Application.Current.MainPage = new NavigationPage(new Views.MainPanel());
             }

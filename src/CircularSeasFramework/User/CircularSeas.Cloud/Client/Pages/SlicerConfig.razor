@@ -1,0 +1,77 @@
+﻿@page "/slicer"
+<h3>SlicerConfig</h3>
+
+@if (_loading)
+{
+    <Loader Center="true" Message="Processing" />
+}
+
+@if (_stage >= 0)
+{
+    <div class="input-group">
+        <div class="custom-file">
+            <InputFile OnChange="@LoadFile" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" />
+            <label class="custom-file-label" for="inputGroupFile04">@(_browserFile == null? "Choose  file":_browserFile.Name)</label>
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04" @onclick="AnalizeFirstStep">Analize</button>
+        </div>
+    </div>
+}
+@if (_stage >= 1)
+{
+    <div class="my-4">
+        The following Filaments are found on the .ini files. Please adjust matching filaments-materials available on database dragging materials to the dropping area
+    </div>
+    <div class="d-flex justify-content-between">
+        <div class="card w-50 mx-4">
+            <div class="card-header">
+                Founded filaments on @_browserFile.Name slicer config bundle.
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    @foreach (var fil in _filaments)
+                    {
+                        <div class="d-flex">
+                            <div class="card w-50 m-1" style="padding: 2em; @BorderColor()">
+                                @fil
+                            </div>
+                            <div class="card w-50 d-flex flex-row" style="padding: 2em; margin: 0.25em; @BorderColor(fil)" @ondrop="@(() =>DragEnd(fil))" ondragover="event.preventDefault()">
+                                <div class="flex-fill">
+                                    @(_matching.ContainsKey(fil)? _materials.Find(m=> m.Id == _matching[fil]).Name:"drop here")
+                                </div>
+
+                                @if (_matching.ContainsKey(fil))
+                                {
+                                    <div class="btn btn-outline-info rounded__button" style="border-radius: 50%" @onclick="@(()=>_matching.Remove(fil))">
+                                        <span class="oi oi-x"></span>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="card w-50">
+            <div class="card-header">
+                Summary of materials
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column">
+                    @foreach (var mat in _materials)
+                    {
+                        <div class="card" style="padding: 2em; margin: 0.25em;" draggable="true" @ondragstart="@(()=> DragStart(mat.Id))">
+                            @mat.Name
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-outline-success" @onclick="SaveConfig">Save Config</button>
+}
+
+
+
+

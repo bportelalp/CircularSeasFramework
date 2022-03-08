@@ -11,28 +11,29 @@ namespace CircularSeas.DB
         internal static Models.Printer Repo2Domain(Entities.Printer row)
         {
             if (row == null) return null;
-            Models.Printer dom = new Models.Printer()
-            {
-                Id = row.ID,
-                Name = row.ModelName,
-                FilamentDiameter = row.FilamentDiameter
+            //Models.Printer dom = new Models.Printer()
+            //{
+            //    Id = row.ID,
+            //    Name = row.ModelName,
+            //    FilamentDiameter = row.FilamentDiameter
 
-            };
-            row.PrinterProfiles.ToList().ForEach(pr => dom.Profiles.Add(pr.ProfileName));
-            return dom;
+            //};
+            //dom.Profiles = new List<string>();
+            //row.PrinterProfiles.ToList().ForEach(pr => dom.Profiles.Add(pr.CompatibleProfileId));
+            return null;
         }
 
         internal static Entities.Printer Domain2Repo(Models.Printer dom)
         {
             if (dom == null) return null;
-            Entities.Printer row = new Entities.Printer()
-            {
-                ID = dom.Id,
-                ModelName = dom.Name,
-                FilamentDiameter = dom.FilamentDiameter
-                //Ignore printer profiles by now
-            };
-            return row;
+            //Entities.Printer row = new Entities.Printer()
+            //{
+            //    ID = dom.Id,
+            //    ModelName = dom.Name,
+            //    FilamentDiameter = dom.FilamentDiameter
+            //    //Ignore printer profiles by now
+            //};
+            return null;
         }
 
         internal static Models.Material Repo2Domain(Entities.Material row)

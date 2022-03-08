@@ -18,11 +18,17 @@ namespace CircularSeas.DB.Context
         {
         }
 
+        public virtual DbSet<Filament> Filaments { get; set; }
+        public virtual DbSet<FilamentCompatibility> FilamentCompatibilities { get; set; }
+        public virtual DbSet<FilamentSetting> FilamentSettings { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<Node> Nodes { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Print> Prints { get; set; }
+        public virtual DbSet<PrintCompatibility> PrintCompatibilities { get; set; }
+        public virtual DbSet<PrintSetting> PrintSettings { get; set; }
         public virtual DbSet<Printer> Printers { get; set; }
-        public virtual DbSet<PrinterProfile> PrinterProfiles { get; set; }
+        public virtual DbSet<PrinterSetting> PrinterSettings { get; set; }
         public virtual DbSet<PropMat> PropMats { get; set; }
         public virtual DbSet<Property> Properties { get; set; }
         public virtual DbSet<Stock> Stocks { get; set; }
@@ -39,6 +45,48 @@ namespace CircularSeas.DB.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<Filament>(entity =>
+            {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+
+                entity.HasOne(d => d.MaterialFKNavigation)
+                    .WithMany(p => p.Filaments)
+                    .HasForeignKey(d => d.MaterialFK)
+                    .HasConstraintName("FK_Filaments_Material");
+            });
+
+            modelBuilder.Entity<FilamentCompatibility>(entity =>
+            {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+
+                entity.HasOne(d => d.FilamentFKNavigation)
+                    .WithMany(p => p.FilamentCompatibilities)
+                    .HasForeignKey(d => d.FilamentFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FilamentCompatibility_Filaments");
+
+                entity.HasOne(d => d.PrintFKNavigation)
+                    .WithMany(p => p.FilamentCompatibilities)
+                    .HasForeignKey(d => d.PrintFK)
+                    .HasConstraintName("FK_FilamentCompatibility_Prints");
+
+                entity.HasOne(d => d.PrinterFKNavigation)
+                    .WithMany(p => p.FilamentCompatibilities)
+                    .HasForeignKey(d => d.PrinterFK)
+                    .HasConstraintName("FK_FilamentCompatibility_Printers");
+            });
+
+            modelBuilder.Entity<FilamentSetting>(entity =>
+            {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+
+                entity.HasOne(d => d.FilamentFKNavigation)
+                    .WithMany(p => p.FilamentSettings)
+                    .HasForeignKey(d => d.FilamentFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_FilamentSettings_Filaments");
+            });
 
             modelBuilder.Entity<Material>(entity =>
             {
@@ -77,20 +125,53 @@ namespace CircularSeas.DB.Context
                     .HasConstraintName("FK_Orders_Node1");
             });
 
+            modelBuilder.Entity<Print>(entity =>
+            {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+            });
+
+            modelBuilder.Entity<PrintCompatibility>(entity =>
+            {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+
+                entity.HasOne(d => d.PrintFKNavigation)
+                    .WithMany(p => p.PrintCompatibilities)
+                    .HasForeignKey(d => d.PrintFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PrintCompatibility_Prints");
+
+                entity.HasOne(d => d.PrinterFKNavigation)
+                    .WithMany(p => p.PrintCompatibilities)
+                    .HasForeignKey(d => d.PrinterFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PrintCompatibility_Printers");
+            });
+
+            modelBuilder.Entity<PrintSetting>(entity =>
+            {
+                entity.Property(e => e.ID).ValueGeneratedNever();
+
+                entity.HasOne(d => d.PrintFKNavigation)
+                    .WithMany(p => p.PrintSettings)
+                    .HasForeignKey(d => d.PrintFK)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PrintSettings_Prints");
+            });
+
             modelBuilder.Entity<Printer>(entity =>
             {
                 entity.Property(e => e.ID).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<PrinterProfile>(entity =>
+            modelBuilder.Entity<PrinterSetting>(entity =>
             {
                 entity.Property(e => e.ID).ValueGeneratedNever();
 
                 entity.HasOne(d => d.PrinterFKNavigation)
-                    .WithMany(p => p.PrinterProfiles)
+                    .WithMany(p => p.PrinterSettings)
                     .HasForeignKey(d => d.PrinterFK)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_PrinterProfile_Printer");
+                    .HasConstraintName("FK_PrinterSettings_Printers");
             });
 
             modelBuilder.Entity<PropMat>(entity =>

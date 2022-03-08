@@ -7,16 +7,39 @@
     <Loader />
 }
 
-<div class="card">
+@*<div class="card">
     <div class="card-header">
-        Order list
+
+    Order list
     </div>
     <div class="card-body btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(1)">Pending</button>
-        <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(2)">In progress</button>
-        <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(3)">Finished</button>
+    <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(1)">Pending</button>
+    <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(2)">In progress</button>
+    <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(3)">Finished</button>
     </div>
+    </div>*@
+
+<div class="card-body btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(1)">Pending</button>
+    <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(2)">In progress</button>
+    <button type="button" class="btn btn-secondary" @onclick="() => ChangeSection(3)">Finished</button>
 </div>
+
+
+@if (_currentSection == 1)
+{
+    <h4>Pending Orders</h4>
+}
+else if (_currentSection == 2)
+{
+    <h4>In progress orders</h4>
+}
+else if (_currentSection == 3)
+{
+    <h4>Finished Orders</h4>
+
+}
+
 
 <div class="table-responsive-md">
     <table class="table table-hover">

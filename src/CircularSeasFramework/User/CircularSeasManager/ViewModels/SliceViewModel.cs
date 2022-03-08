@@ -26,6 +26,7 @@ namespace CircularSeasManager.ViewModels
         public Command CmdSendSTL { get; set; }
         public Command CmdHelp { get; set; }
         public Command CmdPickSTL { get; set; }
+        public Command CmdRequestCompatiblePrints { get; set; }
 
         //Constructor
         public SliceViewModel()
@@ -35,8 +36,8 @@ namespace CircularSeasManager.ViewModels
             CmdPickSTL = new Command(async () => await PickSTL());
 
             //Inicializar las colecciones
-            MaterialCollection = new ObservableCollection<string>();
-            ProfileCollection = new ObservableCollection<string>();
+            MaterialCollection = new ObservableCollection<CircularSeas.Models.Material>();
+            ProfileCollection = new ObservableCollection<CircularSeas.Models.Slicer.Print>();
 
             //llamada para rellenarlos campos
             _ = GetDataFromCloud();
@@ -44,32 +45,18 @@ namespace CircularSeasManager.ViewModels
 
         public async Task GetDataFromCloud()
         {
-
-            //Implementación GET para obtener datos de material y calidades para la impresora dada
-
-            /*PROVISIONAL. Importar .json de datos como recurso embebido. En esta petición idealmente
-            debería pedir el JSON al servicio REST con el que poder operar. En el vendría contenida toda
-            la información del sistema. Quizá auí también pedir a octoprint la impresora utilizada para no
-            estar cargándola todo el tiempo en la etapa anterior.*/
-            /*
-            var archivos = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-            
-            Stream original = Assembly.GetExecutingAssembly().GetManifestResourceStream("EntornoIntegrado.Modelo.Materiales.json");
-            string reader = new StreamReader(original, Encoding.GetEncoding("iso-8859-1")).ReadToEnd();
-            //Deserializar
-            DataMaterial = JsonConvert.DeserializeObject<InfoTopsis>(reader);*/
-
             DataMaterial = await SliceClient.GetData(printer, NodeId);
             if (DataMaterial != null)
             {
                 //Cargar a información nas coleccións para visualizar
                 foreach (CircularSeas.Models.Material item in DataMaterial.Materials)
                 {
-                    MaterialCollection.Add(item.Name);
+                    MaterialCollection.Add(item);
                 }
-                //foreach (string item in DataMaterial.Printer?.Profiles?) {
-                //    ProfileCollection.Add(item);
-                //}
+                if(Global.RecommendedMaterialId != default(Guid) & MaterialCollection.Select(mc => mc.Id).Contains(Global.RecommendedMaterialId))
+                {
+                    MaterialSelected = MaterialCollection.Where(s => s.Id == Global.RecommendedMaterialId).FirstOrDefault();
+                }
             }
             else
             {
@@ -122,7 +109,11 @@ namespace CircularSeasManager.ViewModels
             {
                 Tuple<string, byte[]> datos = new Tuple<string, byte[]>(null, null);
                 StatusMessage = StringResources.Slicing + " " + STL.FileName;
-                datos = await SliceClient.PostSTL(STL, printer, MaterialSelected, ProfileSelected, UseSupport);
+                datos = await SliceClient.PostSTL(STL, 
+                    printer, 
+                    DataMaterial.Filaments.Find(f => f.MaterialFK == MaterialSelected.Id).Name, 
+                    ProfileSelected.Name, 
+                    UseSupport);
                 if (SliceClient.resultRequest == HttpStatusCode.OK)
                 {
                     StatusMessage = StringResources.Uploading;
@@ -168,6 +159,10 @@ namespace CircularSeasManager.ViewModels
         {
             //Abrir asistente, se le pasa la información de los materiales.
             await Application.Current.MainPage.Navigation.PushAsync(new Views.MaterialAssistantPage(DataMaterial));
+            if (Global.RecommendedMaterialId != default(Guid) & MaterialCollection.Select(mc => mc.Id).Contains(Global.RecommendedMaterialId))
+            {
+                MaterialSelected = MaterialCollection.Where(s => s.Id == Global.RecommendedMaterialId).FirstOrDefault();
+            }
         }
 
     }

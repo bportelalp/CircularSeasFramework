@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using CircularSeas.DB.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace CircularSeas.DB
 {
@@ -17,16 +19,104 @@ namespace CircularSeas.DB
 
         public CircularSeasContext DbContext { get; }
 
-
-        public async Task<Models.Printer> GetPrinterInfo(string printerName)
+        #region READ
+        public async Task<Models.DTO.PrintDTO> GetPrintDTO(string printerCompatible, Guid stockInNode) //TODO
         {
-            var response = await DbContext.Printers.AsNoTracking()
-                .Where(p => p.ModelName == printerName)
-                .Include(p => p.PrinterProfiles)
-                .FirstOrDefaultAsync();
+            var response = new Models.DTO.PrintDTO();
 
-            return Mapper.Repo2Domain(response);
+            //Preliminary
+
+            //ID de la impresora que se solicita
+            var printerId = (await DbContext.Printers.AsNoTracking().FirstOrDefaultAsync(p => p.Name == printerCompatible)).ID;
+
+            //Todos los filamentos compatibles con esa impresora, incluido el material asociado
+            //  Descartar aquellos que no tienen material asociado
+            var filCompatible = await DbContext.Filaments.AsNoTracking()
+                .Include(f => f.FilamentCompatibilities)
+                .Include(f => f.MaterialFKNavigation)
+                .Where(f => f.FilamentCompatibilities.Select(fc => fc.PrinterFK).Contains(printerId) && f.MaterialFK != null)
+                .ToListAsync();
+            //Lista de ids de los filamentos compatibles
+            var filCompatibleIDs = filCompatible.Select(fc => fc.ID).ToList();
+            //Lista de Ids de los materiales cuyo filamento sirve para la impresora
+            var materialIDs = filCompatible.Select(f => f.MaterialFK).ToList();
+            
+            // Conseguir dichos materiales para enviarlos.
+            response.Materials = new List<Models.Material>();
+            var mats = await DbContext.Materials.AsNoTracking()
+                .Include(m => m.Stocks.Where(s => s.NodeFK == stockInNode))
+                .Include(m => m.PropMats.Where(m => m.PropertyFKNavigation.Visible)).ThenInclude(m => m.PropertyFKNavigation)
+                .Where(m => materialIDs.Contains(m.ID))
+                .ToListAsync();
+
+            foreach (var entity in mats)
+            {
+                var material = Mapper.Repo2Domain(entity);
+                material.Evaluations = new List<Models.Evaluation>();
+                foreach (var eval in entity.PropMats)
+                {
+                    var evaluation = Mapper.Repo2Domain(eval);
+                    evaluation.Property = Mapper.Repo2Domain(eval.PropertyFKNavigation);
+                    material.Evaluations.Add(evaluation);
+
+                }
+                material.Stock = Mapper.Repo2Domain(entity.Stocks.FirstOrDefault());
+                response.Materials.Add(material);
+            }
+
+            //Prints compatibles con la impresora. Coger de la tabla PrintCompatibilities aquellos cuya PrinterFK coincide con la en cuestion e incluir los prints
+            var printsCompPrinter = await DbContext.PrintCompatibilities.AsNoTracking()
+                .Include(pc => pc.PrintFKNavigation)
+                .Where(pc => pc.PrinterFK == printerId)
+                .ToListAsync();
+
+            var printsCompPrinterIDs = printsCompPrinter.Select(pc => pc.PrintFK).ToList();
+
+            //prints compatibles con cada filamento compatible con la impresora (los de la lista filCompatible)
+            //  Que sea compatibilidad con PrintFK y no con PrinterFK
+            //  Que esté relacionado con un filamento ya detectado como compatible en filCompatibleIDs
+            //  Que el print sea compatible con la impresora, es decir, que en la lista printsCompPrinter ya se detectó como compatible
+            var printsCompFil = await DbContext.FilamentCompatibilities.AsNoTracking()
+                .Include(fc => fc.PrintFKNavigation)
+                .Where(fc => fc.PrintFK != null && filCompatibleIDs.Contains(fc.FilamentFK) && printsCompPrinterIDs.Contains((Guid)fc.PrintFK)).ToListAsync();
+            var fil = filCompatible.Select(f => f.ID).ToList();
+
+            //Rellenar el campo filaments del DTO
+            response.Filaments = new List<Models.Slicer.Filament>();
+
+            foreach (var filComp in filCompatible)
+            {
+
+                var compPrints = new List<Models.Slicer.Print>();
+
+                foreach (var print in printsCompFil.Where(pcf => pcf.FilamentFK == filComp.ID))
+                {
+                    compPrints.Add(new Models.Slicer.Print()
+                    {
+                        Id = print.PrintFKNavigation.ID,
+                        Name = print.PrintFKNavigation.Name,
+                        iniKeyword = print.PrintFKNavigation.iniKeyword
+                    });
+                }
+
+                response.Filaments.Add(new Models.Slicer.Filament()
+                {
+                    Id = filComp.ID,
+                    Name = filComp.Name,
+                    iniKeyword = filComp.iniKeyword,
+                    MaterialFK = (Guid)filComp.MaterialFK, //No debería ser nulo tras pedirlo antes
+                    CompatiblePrints = compPrints
+                });
+            }
+            var otro = printsCompFil.Where(fc => fil.Contains(fc.FilamentFK)).ToList();
+                
+
+
+
+
+            return response;
         }
+
 
         public async Task<List<Models.Material>> GetMaterials(bool includeProperties = true, Guid stockInNode = new Guid(), bool forUsers = true)
         {
@@ -41,6 +131,40 @@ namespace CircularSeas.DB
                 query = query.Include(m => m.Stocks.Where(s => s.NodeFK == stockInNode));
 
             var mats = await query.ToListAsync();
+
+            foreach (var entity in mats)
+            {
+                var material = Mapper.Repo2Domain(entity);
+                material.Evaluations = new List<Models.Evaluation>();
+                foreach (var eval in entity.PropMats)
+                {
+                    var evaluation = Mapper.Repo2Domain(eval);
+                    evaluation.Property = Mapper.Repo2Domain(eval.PropertyFKNavigation);
+                    material.Evaluations.Add(evaluation);
+
+                }
+                material.Stock = Mapper.Repo2Domain(entity.Stocks.FirstOrDefault());
+                response.Add(material);
+            }
+            return response;
+        }
+
+        public async Task<List<Models.Material>> GetMaterials(string printerCompatible, Guid stockInNode = default(Guid))
+        {
+            var response = new List<Models.Material>();
+            var printerId = (await DbContext.Printers.AsNoTracking().FirstOrDefaultAsync(p => p.Name == printerCompatible)).ID;
+            var filamentsIds = await DbContext.Filaments.AsNoTracking()
+                .Include(f => f.FilamentCompatibilities)
+                .Include(f => f.MaterialFKNavigation)
+                .Where(f => f.FilamentCompatibilities.Select(fc => fc.PrinterFK).Contains(printerId))
+                .Select(f => f.MaterialFK)
+                .ToListAsync();
+
+            var mats = await DbContext.Materials.AsNoTracking()
+                .Include(m => m.Stocks.Where(s => s.NodeFK == stockInNode))
+                .Include(m => m.PropMats.Where(m => m.PropertyFKNavigation.Visible)).ThenInclude(m => m.PropertyFKNavigation)
+                .Where(m => filamentsIds.Contains(m.ID))
+                .ToListAsync();
 
             foreach (var entity in mats)
             {
@@ -165,7 +289,9 @@ namespace CircularSeas.DB
 
             return response;
         }
+        #endregion
 
+        #region CHECKS
         public async Task<List<Models.Material>> CheckBadMaterialsVisible(Guid propertyId)
         {
             var response = new List<Models.Material>();
@@ -183,7 +309,9 @@ namespace CircularSeas.DB
             }
             return response;
         }
+        #endregion
 
+        #region UPDATE
         public async Task UpdateMaterial(Models.Material material)
         {
             if (material == null) return;
@@ -251,7 +379,7 @@ namespace CircularSeas.DB
                 .Where(s => s.NodeFK == nodeId)
                 .FirstOrDefaultAsync();
 
-            if(stock == null) return null;
+            if (stock == null) return null;
 
             if (stock.SpoolQuantity >= amount)
                 stock.SpoolQuantity = stock.SpoolQuantity - amount;
@@ -288,7 +416,9 @@ namespace CircularSeas.DB
             DbContext.Update(property);
             await DbContext.SaveChangesAsync();
         }
+        #endregion
 
+        #region CREATE
         public async Task<Models.Property> CreateProperty(Models.Property property)
         {
             property.Id = Guid.NewGuid();
@@ -350,7 +480,9 @@ namespace CircularSeas.DB
             await DbContext.SaveChangesAsync();
             return order;
         }
+        #endregion
 
+        #region DELETE
         public async Task DeleteProperty(Guid id)
         {
             var property = new Entities.Property() { ID = id };
@@ -370,6 +502,219 @@ namespace CircularSeas.DB
             DbContext.Remove(material);
             DbContext.SaveChanges();
         }
+        #endregion
+
+        #region PROCESS
+        public async Task ProcessSettingsBundle(List<string> lines, Dictionary<string, Guid> matching = null)
+        {
+            await this.DeleteAllSettings();
+
+            string keyCompPrinters = "compatible_printers";
+            string keyCompPrints = "compatible_prints";
+            int found = 0;
+
+            var prints = new List<Entities.Print>();
+            var filaments = new List<Entities.Filament>();
+            var printers = new List<Entities.Printer>();
+            var filcompats = new List<Entities.FilamentCompatibility>();
+            var printCompat = new List<Entities.PrintCompatibility>();
+
+            //Bucle para localizar los presets en el bundle
+            foreach (string line in lines)
+            {
+                //Si hay un paquete localizado, copia todas las líneas en el dict hasta la línea vacía
+                if (found > 0)
+                {
+                    if (found == 1)
+                    {
+                        if (line == "")
+                            found = 0;
+                        else
+                        {
+                            var pair = DbHelpers.GetSetting(line);
+                            prints.LastOrDefault().PrintSettings.Add(new Entities.PrintSetting()
+                            {
+                                ID = Guid.NewGuid(),
+                                PrintFK = prints.LastOrDefault().ID,
+                                iniKey = pair.Key,
+                                iniValue = pair.Value
+                            });
+                        }
+                    }
+                    else if (found == 2)
+                    {
+                        if (line == "")
+                            found = 0;
+                        else
+                        {
+                            var pair = DbHelpers.GetSetting(line);
+                            filaments.LastOrDefault().FilamentSettings.Add(new Entities.FilamentSetting()
+                            {
+                                ID = Guid.NewGuid(),
+                                FilamentFK = filaments.LastOrDefault().ID,
+                                iniKey = pair.Key,
+                                iniValue = pair.Value
+                            });
+                        }
+                    }
+                    else if (found == 3)
+                    {
+                        if (line == "")
+                            found = 0;
+                        else
+                        {
+                            var pair = DbHelpers.GetSetting(line);
+                            printers.LastOrDefault().PrinterSettings.Add(new Entities.PrinterSetting()
+                            {
+                                ID = Guid.NewGuid(),
+                                PrinterFK = printers.LastOrDefault().ID,
+                                iniKey = pair.Key,
+                                iniValue = pair.Value
+                            });
+                        }
+                    }
+                }
+                //Localizar etiquetas de presets
+                if (line.StartsWith("[print:"))
+                {
+                    found = 1;
+                    prints.Add(new Entities.Print()
+                    {
+                        ID = Guid.NewGuid(),
+                        iniKeyword = line,
+                        Name = DbHelpers.GetSettingBlockName(line)
+                    });
+                    prints.LastOrDefault().PrintSettings = new Collection<Entities.PrintSetting>();
+                }
+                if (line.StartsWith("[filament:"))
+                {
+                    found = 2;
+                    filaments.Add(new Entities.Filament()
+                    {
+                        ID = Guid.NewGuid(),
+                        iniKeyword = line,
+                        Name = DbHelpers.GetSettingBlockName(line)
+                    });
+                    filaments.LastOrDefault().FilamentSettings = new Collection<Entities.FilamentSetting>();
+                }
+                if (line.StartsWith("[printer:"))
+                {
+                    found = 3;
+                    printers.Add(new Entities.Printer()
+                    {
+                        ID = Guid.NewGuid(),
+                        iniKeyword = line,
+                        Name = DbHelpers.GetSettingBlockName(line)
+                    });
+                    printers.LastOrDefault().PrinterSettings = new Collection<Entities.PrinterSetting>();
+                }
+            }
+
+            //Compatibilities
+            foreach (var print in prints)
+            {
+                var listprinters = print.PrintSettings.FirstOrDefault(p => p.iniKey == keyCompPrinters)
+                    .iniValue
+                    .Split(";")
+                    .ToList();
+                foreach (string printerName in listprinters)
+                {
+                    var pPrinter = printers.FirstOrDefault(p => p.Name == printerName.Trim('\"'));
+                    if (pPrinter != null)
+                    {
+                        printCompat.Add(new Entities.PrintCompatibility()
+                        {
+                            ID = Guid.NewGuid(),
+                            PrintFK = print.ID,
+                            PrinterFK = pPrinter.ID
+                        });
+                    }
+                }
+            }
+
+            foreach (var filament in filaments)
+            {
+                var listprinters = filament.FilamentSettings.FirstOrDefault(p => p.iniKey == keyCompPrinters)
+                    .iniValue
+                    .Split(";")
+                    .ToList();
+                foreach (string printerName in listprinters)
+                {
+                    var pPrinter = printers.FirstOrDefault(p => p.Name == printerName.Trim('\"'));
+                    if (pPrinter != null)
+                    {
+                        filcompats.Add(new Entities.FilamentCompatibility()
+                        {
+                            ID = Guid.NewGuid(),
+                            FilamentFK = filament.ID,
+                            PrinterFK = pPrinter.ID
+                        });
+                    }
+                }
+                var listprints = filament.FilamentSettings.FirstOrDefault(p => p.iniKey == keyCompPrints)
+                    .iniValue
+                    .Split(";")
+                    .ToList();
+                foreach (string printname in listprints)
+                {
+                    var pPrint = prints.FirstOrDefault(p => p.Name == printname.Trim('\"'));
+                    if (pPrint != null)
+                    {
+                        filcompats.Add(new Entities.FilamentCompatibility()
+                        {
+                            ID = Guid.NewGuid(),
+                            FilamentFK = filament.ID,
+                            PrintFK = pPrint.ID
+                        });
+                    }
+                }
+            }
+
+            if(matching != null)
+            {
+                foreach(var match in matching)
+                {
+                    var pointer = filaments.Find(f => f.Name == match.Key);
+                    pointer.MaterialFK = match.Value;
+                }
+            }
+            DbContext.AddRange(prints);
+            DbContext.AddRange(filaments);
+            DbContext.AddRange(printers);
+            DbContext.AddRange(filcompats);
+            DbContext.AddRange(printCompat);
+
+            await DbContext.SaveChangesAsync();
+        }
+        public async Task ProcessSettingsBundle(MemoryStream ms, Dictionary<string, Guid> matching = null)
+        {
+            
+            using (StreamReader reader = new StreamReader(ms))
+            {
+                ms.Seek(0, SeekOrigin.Begin);
+                var fileString = reader.ReadToEnd();
+                var lines = fileString.Split(Environment.NewLine).ToList();
+
+                await this.ProcessSettingsBundle(lines, matching);
+            }
+        }
+
+
+        private async Task DeleteAllSettings()
+        {
+            //Delete all
+            DbContext.RemoveRange(DbContext.PrintCompatibilities);
+            DbContext.RemoveRange(DbContext.FilamentCompatibilities);
+            DbContext.RemoveRange(DbContext.PrinterSettings);
+            DbContext.RemoveRange(DbContext.Printers);
+            DbContext.RemoveRange(DbContext.FilamentSettings);
+            DbContext.RemoveRange(DbContext.Filaments);
+            DbContext.RemoveRange(DbContext.PrintSettings);
+            DbContext.RemoveRange(DbContext.Prints);
+            await DbContext.SaveChangesAsync();
+        }
+
+        #endregion
     }
 
     internal static class DbHelpers
@@ -383,6 +728,22 @@ namespace CircularSeas.DB
                 return false;
             else
                 return true;
+        }
+
+        internal static string GetSettingBlockName(string keyword)
+        {
+            var last = keyword.Split(":").Last();
+            last = last.Remove(last.Length - 1);
+            return last;
+        }
+
+        internal static KeyValuePair<string,string> GetSetting(string setting)
+        {
+            var parts = setting.Split("=");
+            if (parts.Length == 2)
+                return new KeyValuePair<string, string>(parts[0].Trim(), parts[1].Trim());
+            else
+                return new KeyValuePair<string, string>(parts[0].Trim(), "");
         }
     }
 }
