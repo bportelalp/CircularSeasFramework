@@ -9,6 +9,8 @@ VAR_GLOBAL
 	VisionResults:ARRAY [0..7] OF REAL;
 	VisionResultsmm:ARRAY [0..7] OF REAL;
 	ScalingFactor:REAL:= 0.0414;
+	
+	NuevaMedidaCamara:BOOL:=FALSE; //Variable auxiliar para el control de la camara
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

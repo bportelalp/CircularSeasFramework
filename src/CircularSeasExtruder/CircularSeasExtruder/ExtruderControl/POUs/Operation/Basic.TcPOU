@@ -3,31 +3,254 @@
   <POU Name="Basic" Id="{ce22bfcc-fbf0-4f66-8f8a-cc86cf734ace}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Basic
 VAR
-	State:INT:= 0;
+	State:INT:= 0; //Para gestion de la maquina de estados
+	LoopCounter:INT; //Para pasar de pixeles a mm en el vector de resultados
+	
+	//Variables para el control del diametro
+	config:BOOL:=0; //0 para 1.75mm y 1 para 2.85mm de diametro
+	dReferencia:REAL:=1.75; //1.75 o 2.85
+	//Estos valores (vPaso y dTolerancia) habría que asignarlos de forma correcta segun los parametros del motor inferior
+	vPaso:INT:=2; //Valor para variar la velocidad de actuacion de los rodillos inferiores
+	dTolerancia:REAL:=0.03; //Tolerancia permitida en la medida del diametro del filamento
+	
+	//Variables para la lectura de sensores
+	MedSenMec:REAL:=0.0;
+	MedSensores:REAL:=0.0;
+	SumSenOpt: REAL:=0.0;
+	MedSenOpt: REAL:=0.0;
+	
+	//Variables para la media de medidas de los sensores
+	Lecturas:ARRAY[1..10] OF REAL:=[10(0.0)]; //Medidas del diametro inicializadas
+	Index:INT:=0; //Indice del vector de medidas 
+	Suma:REAL:=0.0; //Suma de medidas
+	Medida:REAL:=0.0; //Media de medidas y por tanto medida del diametro
+	
+	//Variable para controlar velocidad del motor inferior (puller)
+	//A estas variables habria que asignarle unos valores correctos para realizar el control de forma optima
+	ActPuller: LREAL; //Valor inicial de actuacion que variara segun el valor del diametro
+	ActPuller_Max: LREAL;
+	ActPuller_Min: LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[MC.Exec_Stop:= FALSE;
-MC.Exec_Velocity := FALSE;
-
+      <ST><![CDATA[//STATE CONTROL
 CASE state OF
-	0:  MC.Exec_Stop:= TRUE;
-		IF HMI.Bt_StartCycle THEN
+	0:  IF HMI.Bt_StartCycle THEN //Se pulsa start
 			State:=1;
-			MC.TargetDirection:= MC_Direction.MC_Positive_Direction;
-			MC.TargetVel:= HMI.Tb_Vel;
-		END_IF
-	1:  MC.Exec_Velocity:=TRUE;
-		IF HMI.Bt_StopCycle THEN
-			State:=0;
-		END_IF
+	END_IF
+	1:  IF Motion.FB_Power.Status THEN //Estan motores en potencia
+			State:=2;
+	END_IF
+	IF HMI.Bt_StopCycle THEN //Se pulsa stop
+		State:=30;
+	END_IF
+	2: IF (IO.I_TermB>=HMI.Tb_Temp) AND (IO.I_TermT>=(0.8*HMI.Tb_Temp)) THEN //En temperatura
+			State:=3;
+	END_IF
+	IF HMI.Bt_StopCycle THEN //Se pulsa stop
+		State:=30;
+	END_IF
+	3: IF HMI.Bt_StopCycle THEN //Se pulsa stop
+			State:=30;
+	END_IF
+	30: IF (Motion.FB_Stop.Done AND Motion.FB_StopPuller.Done) THEN
+		State:=0;
+	END_IF
 END_CASE
-]]></ST>
+
+//Inicializacion de variables de activacion de bloques MC
+MC.Exec_Velocity:=FALSE;
+MC.Exec_Stop:=FALSE;
+//IO.Q_HeaterB:=FALSE;
+//IO.Q_HeaterT:=FALSE;
+IO.Q_VisionLight := FALSE;
+
+//ACT
+CASE state OF
+	0: MC.En_Power:=FALSE;
+	
+	1: MC.En_Power:=TRUE;
+	
+	2: IO.Q_HeaterB:=TRUE;
+	IO.Q_HeaterT:=TRUE;
+	
+	3: 
+	//Extruder
+	MC.TargetDirection:= MC_Direction.MC_Positive_Direction;
+	MC.TargetVel:= HMI.Tb_Vel;
+	MC.Exec_Velocity:=TRUE;
+	//Puller
+	MC.PullerDirection:= MC_Direction.MC_Positive_Direction;
+	MC.PullerVel:=ActPuller;
+	MC.Exec_VelocityPuller:=TRUE;
+	//Vision
+	IO.Q_VisionLight := TRUE;
+	
+	30: MC.Exec_Stop:=TRUE;
+END_CASE
+
+IF (state=1) THEN //Comprobacion de la variable de configuracion y el diametro de trabajo
+	IF config THEN
+		dReferencia:=2.85;
+	ELSE
+		dReferencia:=1.75;
+	END_IF
+END_IF
+
+IF (state=3) THEN //Gestion del proceso en el estado 3 (extrusora en funcionamiento)
+	
+	//Gestion de temperatura para extrusion. Rango de +-2ºC
+	IF (IO.I_TermT>(HMI.Tb_Temp*0.8+2.0)) THEN //Gestiona el calentador superior
+		IO.Q_HeaterT:=FALSE;
+	ELSIF (IO.I_TermT<(HMI.Tb_Temp*0.8-2.0)) THEN
+		IO.Q_HeaterT:=TRUE;
+	END_IF
+	
+	IF (IO.I_TermB>(HMI.Tb_Temp+2.0)) THEN //Gestiona el calentador inferior
+		IO.Q_HeaterB:=FALSE;
+	ELSIF (IO.I_TermB<(HMI.Tb_Temp-2.0)) THEN
+		IO.Q_HeaterB:=TRUE;
+	END_IF
+	
+	//Medida con la camara del diametro del filamento
+	GVL.Vision.SingleShot(Enable:=TRUE, 
+					Execute:=TRUE,
+					Q=>GVL.VisionResults,
+					Measurement=>GVL.NuevaMedidaCamara);
+	IF GVL.NuevaMedidaCamara THEN //Nueva medida de la camara y calculo del valor del diametro
+		SumSenOpt:=0.0;
+		FOR LoopCounter:=0 TO 7 BY 1 DO
+			GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
+			SumSenOpt:=GVL.VisionResultsmm[LoopCounter]+SumSenOpt;
+		END_FOR	
+		MedSenOpt:=SumSenOpt/8;
+		
+		//Calculo del diametro
+		MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
+		MedSensores:=((MedSenMec+MedSenOpt)/2);
+		
+		//Hacer media de las 10 ultimas medidas del diametro
+		Suma:= Suma - Lecturas[Index];
+		Lecturas[index]:=MedSensores;
+		Suma:=Suma+Lecturas[index];
+		Index:= Index + 1;
+		IF (Index > 10) THEN
+			Index := 0;    //Volvemos al inicio del vector
+		END_IF
+		Medida:=Suma/10;
+		
+		//Gestion de la actuacion
+		IF (Medida>(dReferencia+dTolerancia)) THEN //Diametro grande
+			ActPuller:=ActPuller+vPaso;
+		ELSIF (Medida<(dReferencia-dTolerancia)) THEN //Diametro pequeño
+			ActPuller:=ActPuller-vPaso;
+		END_IF
+		//Limitador de la actuacion
+		IF (ActPuller>ActPuller_Max) THEN 
+			ActPuller:=ActPuller_Max;
+		ELSIF (ActPuller<ActPuller_Min) THEN
+			ActPuller:=ActPuller_Min;
+		END_IF
+		
+		MC.Exec_VelocityPuller:=FALSE; //Para reiniciar la velocidad del MC_MoveVelocity
+		
+		// Restablecer valores de medida para una futura medida
+		GVL.NuevaMedidaCamara:=FALSE;
+		GVL.Vision.SingleShot(Enable:=TRUE, Execute:=FALSE);
+		
+	END_IF
+END_IF]]></ST>
     </Implementation>
     <LineIds Name="Basic">
-      <LineId Id="39" Count="13" />
+      <LineId Id="41" Count="2" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="48" Count="1" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="211" Count="2" />
+      <LineId Id="207" Count="1" />
+      <LineId Id="206" Count="0" />
+      <LineId Id="214" Count="1" />
+      <LineId Id="209" Count="0" />
+      <LineId Id="142" Count="1" />
+      <LineId Id="141" Count="0" />
+      <LineId Id="119" Count="2" />
       <LineId Id="57" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="127" Count="0" />
+      <LineId Id="126" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="204" Count="0" />
+      <LineId Id="187" Count="0" />
       <LineId Id="63" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="291" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="292" Count="0" />
+      <LineId Id="216" Count="0" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="293" Count="0" />
+      <LineId Id="348" Count="0" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="349" Count="0" />
+      <LineId Id="343" Count="0" />
+      <LineId Id="350" Count="1" />
+      <LineId Id="346" Count="0" />
+      <LineId Id="345" Count="0" />
+      <LineId Id="230" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="294" Count="0" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="284" Count="0" />
+      <LineId Id="283" Count="0" />
+      <LineId Id="287" Count="3" />
+      <LineId Id="285" Count="1" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="198" Count="0" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="231" Count="0" />
+      <LineId Id="233" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="237" Count="1" />
+      <LineId Id="241" Count="0" />
+      <LineId Id="243" Count="3" />
+      <LineId Id="242" Count="0" />
+      <LineId Id="261" Count="0" />
+      <LineId Id="192" Count="0" />
+      <LineId Id="189" Count="2" />
+      <LineId Id="188" Count="0" />
+      <LineId Id="258" Count="0" />
+      <LineId Id="263" Count="4" />
+      <LineId Id="259" Count="0" />
+      <LineId Id="272" Count="0" />
+      <LineId Id="270" Count="1" />
+      <LineId Id="260" Count="0" />
+      <LineId Id="282" Count="0" />
+      <LineId Id="274" Count="7" />
+      <LineId Id="273" Count="0" />
+      <LineId Id="295" Count="2" />
+      <LineId Id="301" Count="0" />
+      <LineId Id="299" Count="0" />
+      <LineId Id="302" Count="0" />
+      <LineId Id="300" Count="0" />
+      <LineId Id="306" Count="1" />
+      <LineId Id="310" Count="0" />
+      <LineId Id="308" Count="0" />
+      <LineId Id="311" Count="0" />
+      <LineId Id="309" Count="0" />
+      <LineId Id="298" Count="0" />
+      <LineId Id="383" Count="0" />
+      <LineId Id="454" Count="0" />
+      <LineId Id="465" Count="0" />
+      <LineId Id="470" Count="1" />
+      <LineId Id="382" Count="0" />
+      <LineId Id="268" Count="0" />
+      <LineId Id="149" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

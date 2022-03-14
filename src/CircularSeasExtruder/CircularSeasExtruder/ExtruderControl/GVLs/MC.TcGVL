@@ -5,6 +5,7 @@
 VAR_GLOBAL
 	// Axis ref
 	Extruder: AXIS_REF;
+	Puller: AXIS_REF;
 	
 	// Orders
 	En_Power:BOOL;
@@ -21,6 +22,12 @@ VAR_GLOBAL
 	TargetVel:LREAL;
 	TargetPosRel:LREAL;
 	TargetDirection:MC_Direction;
+	
+	// Puller
+	PullerVel:LREAL;
+	Exec_VelocityPuller:BOOL;
+	PullerDirection:MC_Direction;
+	
 END_VAR
 
 VAR_GLOBAL CONSTANT

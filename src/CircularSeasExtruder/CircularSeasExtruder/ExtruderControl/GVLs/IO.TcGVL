@@ -13,6 +13,10 @@ VAR_GLOBAL
 	I_TermT AT %I*:LREAL;
 	I_TermB AT %I*:LREAL;
 	
+	// Sensores mecanicos diametro
+	I_SMec1 AT %I*:REAL;
+	I_SMec2 AT %I*:REAL;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
