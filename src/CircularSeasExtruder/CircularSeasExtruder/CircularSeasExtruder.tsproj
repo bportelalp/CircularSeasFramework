@@ -1572,7 +1572,7 @@ External Setpoint Generation:
 		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff0000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0ff0000ff0000ff00008080800000ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000000000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080</ImageData>
 		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000fffffffffffffffffffefefeffffffcecccd4842424f4a4a3531317a7b7efffffffefefeffffffffffffffffffffffffffffffffffffffffffffffffa09c9c4842427b7573635e5d3e3b3b1916167e7d7effffffffffffffffffffffffffffffffffffffffffffffffffffffbcb9b8514c4d777271645f5f4541412d2b2b3d3b3affffffffffffffffffffffffffffffffffffffffffffffffffffffc1bdbc524d4d756f6f615c5c444040302e2e4b4949ffffffffffffffffffffffffffffffffffffffffffffffffffffffc0bdbd4f4a4a756f6f5e5959403d3e312f2e434241ffffffffffffffffffffffffffffffffffffffffffffffffffffffb9b6b64b46466a64645c5555514c4c3432323b3938ffffffffffffffffffffffffffffffffffffffffffffffffffffffbab7b79b9999a7a9a8aeb2b2bdc1c23d3b3a3c3a3bffffffffffffffffffffffffffffffffffffffffffffffffffffff606564c0c7c9fffffffffffffcffff110f0f6c6b6bfffffffffffffffffffffffffffffffffffffffffffffffffbf9f9858f8effffff394342b7bdb9ffffff191616474647fffffffffffffffffffffffffffffffffffffffffffffffff3f2f3c5cbc7d1d8d9000000adb2b0ffffff1c1a19252324fffffffffffffffffffffffffffffffffffffffffffffffff5f4f5838886fffffffdfefdf6f8f7ffffff1e1c1b302f2ffffffffffffffffffffffffffffffffffffffffffffffffff4f3f3767778d2d7d8f3f6f8c4caccb2b1b23e3c3b6e6e6dfffffffffffffffffffffffffffffffffffffffffffffffffafafac7c5c4a6a3a4918d8d9b9898b3b4b2bebdbddddddefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffefefeffffffffffffffffffffffff</ImageData>
 	</ImageDatas>
-	<Project ProjectGUID="{96F9E971-A01B-47E1-9B8D-C85A4A699B10}" ShowHideConfigurations="#x106">
+	<Project ProjectGUID="{96F9E971-A01B-47E1-9B8D-C85A4A699B10}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
 			<Settings MaxCpus="4">
 				<Cpu CpuId="3"/>
@@ -1820,6 +1820,7 @@ External Setpoint Generation:
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
 							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
@@ -1915,7 +1916,7 @@ External Setpoint Generation:
 			</NC>
 		</Motion>
 		<Plc>
-			<Project Disabled="true" GUID="{9BF7D321-762D-4DBE-8D7F-940AA400B396}" Name="ExtruderControl" PrjFilePath="ExtruderControl\ExtruderControl.plcproj" TmcFilePath="ExtruderControl\ExtruderControl.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
+			<Project GUID="{9BF7D321-762D-4DBE-8D7F-940AA400B396}" Name="ExtruderControl" PrjFilePath="ExtruderControl\ExtruderControl.plcproj" TmcFilePath="ExtruderControl\ExtruderControl.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
 				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="ExtruderControl\ExtruderControl.tmc">
 					<Name>ExtruderControl Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
@@ -1935,7 +1936,20 @@ External Setpoint Generation:
 							<Type>LREAL</Type>
 						</Var>
 						<Var>
+							<Name>IO.I_SMec1</Name>
+							<Comment><![CDATA[ Sensores mecanicos diametro]]></Comment>
+							<Type>REAL</Type>
+						</Var>
+						<Var>
+							<Name>IO.I_SMec2</Name>
+							<Type>REAL</Type>
+						</Var>
+						<Var>
 							<Name>MC.Extruder.NcToPlc</Name>
+							<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MC.Puller.NcToPlc</Name>
 							<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -1960,6 +1974,10 @@ External Setpoint Generation:
 						</Var>
 						<Var>
 							<Name>MC.Extruder.PlcToNc</Name>
+							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+						</Var>
+						<Var>
+							<Name>MC.Puller.PlcToNc</Name>
 							<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
 						</Var>
 					</Vars>
@@ -1992,6 +2010,9 @@ External Setpoint Generation:
 				</AddressInfo>
 				<Image Id="2" AddrType="9" ImageType="3">
 					<Name>Imagen</Name>
+				</Image>
+				<Image Id="4" AddrType="10" ImageType="3">
+					<Name>Imagen-2</Name>
 				</Image>
 				<Box Id="1" BoxType="9099">
 					<Name>Terminal 1 (EK1100)</Name>
@@ -3286,8 +3307,10 @@ External Setpoint Generation:
 		</Io>
 	</Project>
 	<Mappings>
+		<MappingInfo Identifier="{00000000-2001-0850-0020-500841000403}" Id="#x02030010"/>
 		<MappingInfo Identifier="{00000000-0020-0304-1000-040320000403}" Id="#x02030020"/>
-		<MappingInfo Identifier="{00000000-0030-0304-1000-040331000403}" Id="#x02030010"/>
+		<MappingInfo Identifier="{00000000-0030-0304-1000-040332000403}" Id="#x02030030"/>
+		<MappingInfo Identifier="{05000010-2001-0850-1000-040300205008}" Id="#x02030040" Watchdog="14000000040000000400000004000000"/>
 		<OwnerA Name="TINC^NC-Task Extruder SAF^Axes^ExtruderAxis">
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Drive 3 (AX5206-0000-0011)">
 				<Link VarA="Drive^Inputs^In^nDcOutputTime" VarB="InfoData^DcOutputShift"/>
@@ -3389,6 +3412,10 @@ External Setpoint Generation:
 			<OwnerB Name="TINC^NC-Task Extruder SAF^Axes^ExtruderAxis">
 				<Link VarA="PlcTask Inputs^MC.Extruder.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^MC.Extruder.PlcToNc" VarB="Inputs^FromPlc"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task Extruder SAF^Axes^PullerAxis">
+				<Link VarA="PlcTask Inputs^MC.Puller.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^MC.Puller.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
