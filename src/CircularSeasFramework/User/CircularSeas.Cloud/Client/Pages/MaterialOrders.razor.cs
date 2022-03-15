@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -78,5 +79,35 @@ namespace CircularSeas.Cloud.Client.Pages
             }
         }
 
+        private List<Models.Order> SortedOrders()
+        {
+            if (_currentSection == 1)
+                return _orders.OrderByDescending(o => o.CreationDate).ToList();
+            else if (_currentSection == 2)
+                return _orders.OrderByDescending(o => o.ShippingDate).ToList();
+            else
+                return _orders.OrderByDescending(o => o.FinishedDate).ToList();
+        }
+
+        private string GetDateSection()
+        {
+            switch (_currentSection)
+            {
+                case 1: return $"Creation date";
+                case 2: return $"Shipping date";
+                case 3: return $"Finished date";
+                default: return string.Empty;
+            }
+        }
+        private string GetDateSection(Models.Order order)
+        {
+            switch (_currentSection)
+            {
+                case 1: return $"{order.CreationDate.ToString("dd/MM/yy")} at {order.CreationDate.ToString("hh:mm tt")}";
+                case 2: return $"{order.ShippingDate?.ToString("dd/MM/yy")} at {order.ShippingDate?.ToString("hh:mm tt")}";
+                case 3: return $"{order.FinishedDate?.ToString("dd/MM/yy")} at {order.FinishedDate?.ToString("hh:mm tt")}";
+                default: return string.Empty;
+            }
+        }
     }
 }

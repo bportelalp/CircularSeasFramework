@@ -1,5 +1,6 @@
-﻿@page "/slicer"
+﻿@page "/slicerconfig"
 <h3>SlicerConfig</h3>
+
 
 @if (_loading)
 {
@@ -68,6 +69,15 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="py-1">
+        In addition, the following presets are found
+    </div>
+    <div class="px-4">
+        Printer presets: @foreach (var p in _printers) @($"{p}, ")
+        </div>
+    <div class="px-4">
+        Print presets: @foreach (var p in _prints) @($"{p}, ")
     </div>
     <button class="btn btn-outline-success" @onclick="SaveConfig">Save Config</button>
 }

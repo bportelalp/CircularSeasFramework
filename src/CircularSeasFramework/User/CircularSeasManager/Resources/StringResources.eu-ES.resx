@@ -174,4 +174,16 @@
   <data name="Yes" xml:space="preserve">
     <value>Bai</value>
   </data>
+  <data name="IpCloudSucess" xml:space="preserve">
+    <value>Zerbitzuarekiko konexioa zuzena da</value>
+  </data>
+  <data name="IpOctoprintSucess" xml:space="preserve">
+    <value>Octoprint-ekin konexioa zuzena da</value>
+  </data>
+  <data name="IpCloudFail" xml:space="preserve">
+    <value>Ezin izan da zerbitzura konektatu helbide horretan</value>
+  </data>
+  <data name="IpOctoprintFail" xml:space="preserve">
+    <value>Ezin izan da Octoprint-era konektatu helbide horretan</value>
+  </data>
 </root>

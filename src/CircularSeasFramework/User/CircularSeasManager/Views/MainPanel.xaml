@@ -77,7 +77,7 @@
                     Margin="30, 5"></Button>
             <Button Text="{x:Static resources:AppResources.btnUploadLocalGCODE}" Command="{Binding CmdUploadGCODE}" 
                     Margin="30, 5"></Button>
-            <Button Text="Manage materials" Command="{Binding CmdOrder}" 
+            <Button Text="{x:Static resources:AppResources.btnManageOrders}" Command="{Binding CmdOrder}" 
                     Margin="30, 5"></Button>
             <Button Text="{x:Static resources:AppResources.btnLogout}" Command="{Binding CmdLogout}" 
                     Margin="30, 5" VerticalOptions="EndAndExpand"></Button>

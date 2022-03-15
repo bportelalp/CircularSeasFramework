@@ -174,4 +174,16 @@
   <data name="Yes" xml:space="preserve">
     <value>Oui</value>
   </data>
+  <data name="IpOctoprintFail" xml:space="preserve">
+    <value>Impossible de se connecter à Octoprint à cette adresse</value>
+  </data>
+  <data name="IpCloudFail" xml:space="preserve">
+    <value>Impossible de se connecter au service à cette adresse</value>
+  </data>
+  <data name="IpOctoprintSucess" xml:space="preserve">
+    <value>La connexion avec Octoprint est correcte</value>
+  </data>
+  <data name="IpCloudSucess" xml:space="preserve">
+    <value>La connexion avec le service est correcte</value>
+  </data>
 </root>

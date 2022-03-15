@@ -211,7 +211,7 @@
     <value>Errore ezezaguna</value>
   </data>
   <data name="UploadOnlyGCODE" xml:space="preserve">
-    <value>.Gcode formatuko fitxategiak soilik onartzen dira. Ezin izan da kargatu</value>
+    <value>Gcode formatuko fitxategiak soilik onartzen dira. Ezin izan da kargatu</value>
   </data>
   <data name="UploadOnlySTL" xml:space="preserve">
     <value>STL fitxategiak bakarrik hautatu behar dituzu</value>
@@ -221,5 +221,32 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Bai</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Kantitatea</value>
+  </data>
+  <data name="OrderRegistered" xml:space="preserve">
+    <value>Eskaera behar bezala erregistratu da</value>
+  </data>
+  <data name="OrderID" xml:space="preserve">
+    <value>Eskaera-identifikatzailea</value>
+  </data>
+  <data name="UwpOrder" xml:space="preserve">
+    <value>Mahaigaineko aplikazioan, ezin duzu QR bat eskaneatu. Horren ordez, hautatu ordena pantailan agertzen den zerrendatik eta egin klik botoi honetan onartzeko.</value>
+  </data>
+  <data name="UwpSpoolStock" xml:space="preserve">
+    <value>Mahaigaineko aplikazioan, ezin duzu QR bat eskaneatu. Horren ordez, hautatu materiala pantailan bistaratzen zen zerrendatik eta egin klik botoi honetan agortutako spool bat baztertzeko.</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Materiala</value>
+  </data>
+  <data name="SpendOneSpool" xml:space="preserve">
+    <value>Bobina bat gastatu duzula berresten du</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="SureConfirmOrders" xml:space="preserve">
+    <value>Ziur eskaera berresten duzula datu hauekin?</value>
   </data>
 </root>

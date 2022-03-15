@@ -15,7 +15,6 @@ namespace CircularSeas.Cloud.Server.Controllers
     public class ManagementController : Controller
     {
         private readonly DbService dbService;
-        Guid identificador = Guid.Empty;
 
         public ManagementController(DbService dbService)
         {

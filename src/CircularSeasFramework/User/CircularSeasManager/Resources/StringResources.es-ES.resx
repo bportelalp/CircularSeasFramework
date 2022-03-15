@@ -145,13 +145,10 @@
     <value>Could not connect to the service at that address</value>
   </data>
   <data name="IpCloudSucess" xml:space="preserve">
-    <value>The connection with the service is correct</value>
+    <value>La conexión con el servicio es correcta</value>
   </data>
   <data name="IpOctoprintFail" xml:space="preserve">
     <value>Could not connect to Octoprint at that address</value>
-  </data>
-  <data name="IpOctoprintSucess" xml:space="preserve">
-    <value>The connection with Octoprint is correct</value>
   </data>
   <data name="Logged" xml:space="preserve">
     <value>Registrado</value>
@@ -185,5 +182,8 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>sí</value>
+  </data>
+  <data name="IpOctoprintSucess" xml:space="preserve">
+    <value>La conexión con Octoprint es correcta</value>
   </data>
 </root>

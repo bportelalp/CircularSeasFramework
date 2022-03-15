@@ -74,7 +74,7 @@ namespace CircularSeas.Cloud.Server.Controllers
         /// <param name="printerName"> Name of the printer </param>
         /// <returns> An object with printer, materials and topsis data </returns>
         [HttpGet("available-materials/{printerName}/{nodeID}")]
-        public async Task<IActionResult> GetInfoPrinter([FromRoute] string printerName, [FromRoute] Guid nodeId)
+        public async Task<IActionResult> GetInfoPrinter([FromRoute] string printerName, [FromRoute] Guid nodeId = default(Guid))
         {
             CircularSeas.Models.DTO.PrintDTO dto = new CircularSeas.Models.DTO.PrintDTO();
             try
@@ -204,6 +204,7 @@ namespace CircularSeas.Cloud.Server.Controllers
                     throw new NullReferenceException("Some of the parameters are null");
                 }
 
+                var content = Request.ContentType;
                 // Getting the STL file
                 Microsoft.AspNetCore.Http.IFormFile file;
                 if (Request.Form.Files.Count == 0)

@@ -126,9 +126,6 @@
   <data name="ExpertMode" xml:space="preserve">
     <value>Modu aditua</value>
   </data>
-  <data name="88" xml:space="preserve">
-    <value>Octoprint erabiltzailea</value>
-  </data>
   <data name="Pass" xml:space="preserve">
     <value>Pasahitza</value>
   </data>
@@ -230,5 +227,11 @@
   </data>
   <data name="stCancelling" xml:space="preserve">
     <value>Bertan behera uzten</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Octoprint erabiltzailea</value>
+  </data>
+  <data name="btnManageOrders" xml:space="preserve">
+    <value>Kudeatu eskaerak</value>
   </data>
 </root>

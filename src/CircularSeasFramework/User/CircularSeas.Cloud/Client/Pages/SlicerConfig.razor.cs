@@ -26,6 +26,8 @@ namespace CircularSeas.Cloud.Client.Pages
         IBrowserFile _browserFile;
 
         private List<string> _filaments = new List<string>();
+        private List<string> _prints = new List<string>();
+        private List<string> _printers = new List<string>();
         private List<Models.Material> _materials = new List<Material>();
         private Dictionary<string, Guid> _matching = new Dictionary<string, Guid>();
         private Guid _draggingMaterial = Guid.Empty;
@@ -60,6 +62,18 @@ namespace CircularSeas.Cloud.Client.Pages
                             foreach (var line in filamentlines)
                             {
                                 _filaments.Add(GetSettingBlockName(line));
+                            }
+
+
+                            var printslines = lines.Where(l => l.StartsWith("[print:")).ToList();
+                            foreach (var line in printslines)
+                            {
+                                _prints.Add(GetSettingBlockName(line));
+                            }
+                            var printerlines = lines.Where(l => l.StartsWith("[printer:")).ToList();
+                            foreach (var line in printerlines)
+                            {
+                                _printers.Add(GetSettingBlockName(line));
                             }
                             _stage++;
                         }

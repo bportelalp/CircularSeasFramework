@@ -19,7 +19,7 @@ namespace CircularSeasManager.Resources {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class AppResources {
@@ -93,6 +93,15 @@ namespace CircularSeasManager.Resources {
         internal static string btnLogout {
             get {
                 return ResourceManager.GetString("btnLogout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Manage orders.
+        /// </summary>
+        internal static string btnManageOrders {
+            get {
+                return ResourceManager.GetString("btnManageOrders", resourceCulture);
             }
         }
         

@@ -202,6 +202,19 @@ namespace CircularSeas.DB
             return row;
         }
 
+        internal static Models.Slicer.Filament Repo2Domain(Entities.Filament row)
+        {
+            if (row == null) return null;
+            Models.Slicer.Filament dom = new Models.Slicer.Filament()
+            {
+                Id = row.ID,
+                Name = row.Name,
+                MaterialFK = row.MaterialFK?? Guid.Empty,
+                iniKeyword = row.iniKeyword
+            };
+            return dom;
+        }
+
 
 
         internal static Models.Material MapMaterial(Entities.Material row)

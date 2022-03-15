@@ -1,23 +1,6 @@
 ﻿@page "/"
 @inject HttpClient http
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<h1>Welcome to the CircularSeas Administrator</h1>
 
 <img src="resources/images/Logo_CS_with_interreg.png" width="70%"/>
-
-<button @onclick="Send">
-    TEST
-</button>
-
-@code {
-
-    public async Task Send()
-    {
-        var response = await http.GetAsync("api/management/connection");
-        var cadena = await response.Content.ReadAsStringAsync();
-    }
-}

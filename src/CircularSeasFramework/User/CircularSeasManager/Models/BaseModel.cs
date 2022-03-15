@@ -89,10 +89,9 @@ namespace CircularSeasManager.Models
             }
             set
             {
-                var corrected = (value.StartsWith("http://") == true) ? value : ("http://" + value);
-                if (_IPOctoprint != corrected)
+                if (_IPOctoprint != value)
                 {
-                    _IPOctoprint = corrected;
+                    _IPOctoprint = value;
                     Preferences.Set("IPOctoprint", _IPOctoprint);
                     OnPropertyChanged();
                 }
@@ -113,10 +112,9 @@ namespace CircularSeasManager.Models
             }
             set
             {
-                var corrected = (value.StartsWith("http://") == true) ? value : ("http://" + value);
-                if (_IPSlicer != corrected)
+                if (_IPSlicer != value)
                 {
-                    _IPSlicer = corrected;
+                    _IPSlicer = value;
                     Preferences.Set("IPSlicer", _IPSlicer);
                     OnPropertyChanged();
                 }

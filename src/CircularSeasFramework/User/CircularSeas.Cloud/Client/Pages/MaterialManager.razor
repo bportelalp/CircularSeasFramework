@@ -11,7 +11,7 @@
     <div class="flex-fill">
         <div class="d-flex flex-row mr-2">
             <div class="flex-fill cslabelheader">Name</div>
-            <input class="w-75 form-control cslabelcontent" type="text" placeholder="Buscar por código..."
+            <input class="w-75 form-control cslabelcontent" type="text" placeholder="Search by name..."
                    @bind="_filterMaterial"
                    @bind:event="oninput" />
         </div>
@@ -44,20 +44,21 @@ else
                     <th scope="col">
                         Deprecated
                     </th>
-                    <th scope="col" style="width: 20%">Actions</th>
+                    <th scope="col" style="width: 12%">Actions</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 @if (_materials != null)
                 {
-                    @foreach (var mat in _materials)
+                    @foreach (var mat in _materials.OrderBy(m => m.Deprecated))
                     {
                         <tr>
                             <td>@mat.Name</td>
                             <td>@mat.Description</td>
                             <td>@(mat.Deprecated? "Yes":"No")</td>
                             <td>
-                                <!--Detai buttons-->
+                                <!--Detail buttons-->
                     <button class="btn btn-outline-secondary" @onclick="@(() => _ViewingMaterial = _ViewingMaterial==mat.Id? Guid.Empty:mat.Id)">
                                     <span class="oi oi-magnifying-glass"></span>
                                 </button>
@@ -68,6 +69,16 @@ else
                                     <span class="oi oi-trash"></span>
                                 </button>
                             </td>
+                            @if (mat.Evaluations.Any(e => (e.Property.Visible && e.ValueBin == null && e.ValueDec == null)) || (mat.Filaments is null | !mat.Filaments.Any()))
+                            {
+                                <td type="button" data-toggle="tooltip" data-placement="bottom" title="@($"There are some errors on this material, see details for more information")">
+                                    <span class="oi oi-warning" style="color: red"></span>
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
                         </tr>
                         @if (_ViewingMaterial == mat.Id)
                         {
@@ -99,8 +110,10 @@ else
                                                         }
                                                         else if (eval.Property.Visible && eval.ValueBin == null && eval.ValueDec == null)
                                                         {
-                                                            <td class="btn col-sm-1" type="button" data-toggle="tooltip" data-placement="bottom" title="@($"Property is visible, but no data is avaliable for {@mat.Name}")">
-                                                                <span class="oi oi-warning" style="color: red"></span>
+                                                            <td>
+                                                                <div class="btn col-sm-1" type="button" data-toggle="tooltip" data-placement="bottom" title="@($"Property is visible, but no data is avaliable for {@mat.Name}")">
+                                                                    <span class="oi oi-warning" style="color: red"></span>
+                                                                </div>
                                                             </td>
                                                         }
                                                         else
@@ -113,6 +126,22 @@ else
 
                                                     </tr>
                                                 }
+                                                <tr>
+                                                    <td colspan="1">Asociated filament(s)</td>
+                                                    @if (mat.Filaments is null | !mat.Filaments.Any())
+                                                    {
+                                                        <td colspan="3">
+                                                            <div class="btn col-sm-1" type="button" data-toggle="tooltip" data-placement="bottom" title="@($"No filament is asociated to this material, so users cannot use it to print")">
+                                                                <span class="oi oi-warning" style="color: red"></span>
+                                                            </div>
+                                                        </td>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <td colspan="3">@PrintListFilaments(mat)</td>
+                                                    }
+                                                </tr>
                                             </tbody>
                                         </table>
 

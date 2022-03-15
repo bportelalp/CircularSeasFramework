@@ -45,8 +45,9 @@ else if (_currentSection == 3)
     <table class="table table-hover">
         <thead>
             <tr>
+
                 <th scope="col">
-                    Creation Date
+                    @this.GetDateSection()
                 </th>
                 <th scope="col">
                     Client
@@ -57,9 +58,7 @@ else if (_currentSection == 3)
                 @if (_currentSection == 1 || _currentSection == 2)
                 {
                     <th scope="col">Mark as sended</th>
-
                 }
-
                 <th scope="col">
                     Quantity
                 </th>
@@ -69,23 +68,12 @@ else if (_currentSection == 3)
         <tbody>
             @if (_orders != null)
             {
-                @foreach (var order in _orders)
+                @foreach (var order in this.SortedOrders())
                 {
                     <tr>
 
                         <td>
-                            @switch (_currentSection)
-                            {
-                                case 1:
-                                    @order.CreationDate.ToString("dd/MM/yy")
-                                    ; break;
-                                case 2:
-                                    @order.ShippingDate?.ToString("dd/MM/yy")
-                                    ; break;
-                                case 3:
-                                    @order.FinishedDate?.ToString("dd/MM/yy")
-                                    ; break;
-                            }
+                            @this.GetDateSection(order)
                         </td>
                         <td>@order.Node.Name</td>
                         <td>@order.Material.Name</td>
@@ -105,17 +93,10 @@ else if (_currentSection == 3)
                     <a class="btn btn-outline-secondary" href="@($"{Http.BaseAddress}api/docs/pdf/{order.Id}")" target="_blank">
                                 <span class="oi oi-data-transfer-download"></span>
                             </a>
-
                         </td>
                     </tr>
 
                 }
-            }
-            else
-            {
-                <tr>
-                    <span class="esyerror">ERROR ACCEDIENDO A LA LISTA DE VALORACIONES</span>
-                </tr>
             }
         </tbody>
     </table>

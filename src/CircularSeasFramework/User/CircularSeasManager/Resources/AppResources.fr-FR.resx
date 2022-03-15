@@ -222,4 +222,16 @@
   <data name="btnAcceptSelection" xml:space="preserve">
     <value>Accepter</value>
   </data>
+  <data name="stCancelling" xml:space="preserve">
+    <value>Annulation</value>
+  </data>
+  <data name="stOperational" xml:space="preserve">
+    <value>Opérationnel</value>
+  </data>
+  <data name="stPrinting" xml:space="preserve">
+    <value>Impression</value>
+  </data>
+  <data name="btnManageOrders" xml:space="preserve">
+    <value>Gérer les commandes</value>
+  </data>
 </root>

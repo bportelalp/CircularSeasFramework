@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,73 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Completed" xml:space="preserve">
-    <value>Completado</value>
+  <data name="PlhAmount" xml:space="preserve">
+    <value>Cantidade</value>
   </data>
-  <data name="Empty" xml:space="preserve">
-    <value>Vazio</value>
+  <data name="TxTitle" xml:space="preserve">
+    <value>Panel de pedidos</value>
   </data>
-  <data name="ErrorConnection" xml:space="preserve">
-    <value>Erro de conexão. Verifique se você está conectado à mesma rede e se o servidor está funcionando</value>
+  <data name="BtnOrder" xml:space="preserve">
+    <value>Pedido</value>
   </data>
-  <data name="Extruder" xml:space="preserve">
-    <value>Extrusora</value>
+  <data name="TxMaterial" xml:space="preserve">
+    <value>Material</value>
   </data>
-  <data name="Hotbed" xml:space="preserve">
-    <value>Viveiro</value>
+  <data name="TxInfo" xml:space="preserve">
+    <value>Configura o teu pedido indicando o material e a cantidade de bobinas a pedir</value>
   </data>
-  <data name="hour" xml:space="preserve">
-    <value>hora</value>
+  <data name="TxAmount" xml:space="preserve">
+    <value>Cantidade</value>
   </data>
-  <data name="hours" xml:space="preserve">
-    <value>horas</value>
+  <data name="TxStatus" xml:space="preserve">
+    <value>Estado</value>
   </data>
-  <data name="InStock" xml:space="preserve">
-    <value>em estoque</value>
+  <data name="TxSpools" xml:space="preserve">
+    <value>Bobinas</value>
   </data>
-  <data name="Logged" xml:space="preserve">
-    <value>Registrado</value>
+  <data name="TxPendingOrders" xml:space="preserve">
+    <value>Pedidos pendentes</value>
   </data>
-  <data name="minute" xml:space="preserve">
-    <value>minuto</value>
+  <data name="BtnMarkFinished" xml:space="preserve">
+    <value>Marcar bobina finalizada</value>
   </data>
-  <data name="minutes" xml:space="preserve">
-    <value>minutos</value>
+  <data name="TxLocalStock" xml:space="preserve">
+    <value>Stock local</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>Não</value>
+  <data name="TxCreationDate" xml:space="preserve">
+    <value>Data de pedido</value>
   </data>
-  <data name="NotApplicable" xml:space="preserve">
-    <value>Não aplicável</value>
-  </data>
-  <data name="OutStock" xml:space="preserve">
-    <value>Fora de estoque</value>
-  </data>
-  <data name="Pause" xml:space="preserve">
-    <value>Pausa</value>
-  </data>
-  <data name="Slicing" xml:space="preserve">
-    <value>Fatiamento</value>
-  </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>Carregando para impressora</value>
-  </data>
-  <data name="UserPassWrong" xml:space="preserve">
-    <value>Nome de usuário ou senha errada</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>sim</value>
-  </data>
-  <data name="IpCloudSucess" xml:space="preserve">
-    <value>A conexão com o serviço está correta</value>
-  </data>
-  <data name="IpOctoprintSucess" xml:space="preserve">
-    <value>The connection with Octoprint is correct</value>
-  </data>
-  <data name="IpCloudFail" xml:space="preserve">
-    <value>Não foi possível conectar ao serviço nesse endereço</value>
-  </data>
-  <data name="IpOctoprintFail" xml:space="preserve">
-    <value>Não foi possível conectar ao Octoprint nesse endereço</value>
+  <data name="BtnAcceptOrder" xml:space="preserve">
+    <value>Aceptar pedido</value>
   </data>
 </root>

@@ -62,8 +62,6 @@
 
             <Button Text="{x:Static resources:AppResources.btnSendToSlice}" Command="{Binding CmdSendSTL}" IsEnabled="True"
                     Margin="30, 5"></Button>
-            <!--<Button Text="PICK" Command="{Binding CmdPickSTL}"
-                    Margin="30, 5"></Button>-->
 
             <ActivityIndicator IsRunning="{Binding Busy}" IsVisible="{Binding Busy}"></ActivityIndicator>
             <Label Text="{Binding StatusMessage}" HorizontalTextAlignment="Center"></Label>

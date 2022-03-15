@@ -10,13 +10,13 @@
     <div class="flex-fill">
         <div class="d-flex flex-row mr-2">
             <div class="flex-fill cslabelheader">Name</div>
-            <input class="w-75 form-control cslabelcontent" type="text" placeholder="Buscar por código..."
+            <input class="w-75 form-control cslabelcontent" type="text" placeholder="Search by name..."
                    @bind="_filterProperty"
                    @bind:event="oninput" />
         </div>
     </div>
     <div>
-        <button class="btn btn-outline-primary" @onclick="@(()=> LaunchEdition(null))">Nueva propiedad</button>
+        <button class="btn btn-outline-primary" @onclick="@(()=> LaunchEdition(null))">Add property</button>
     </div>
 </div>
 @if (_state != Tools.StateEdition.None)

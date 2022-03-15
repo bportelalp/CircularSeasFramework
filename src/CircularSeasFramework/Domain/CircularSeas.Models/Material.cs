@@ -13,5 +13,6 @@ namespace CircularSeas.Models
         public List<Evaluation> Evaluations {get;set;}
         public Models.Stock Stock { get; set; }
         public string SpoolQuantity => (Stock?.SpoolQuantity > 0) ? (Stock.SpoolQuantity + $" In Stock") : "Out Stock";
+        public List<Models.Slicer.Filament> Filaments { get; set; } 
     }
 }

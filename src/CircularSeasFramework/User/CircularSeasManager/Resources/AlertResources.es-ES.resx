@@ -169,7 +169,7 @@
     <value>Agotado</value>
   </data>
   <data name="OutStockMessage" xml:space="preserve">
-    <value>No hay stock para este tipo de filamento.</value>
+    <value>No hay stock para este tipo de filamento</value>
   </data>
   <data name="PerhapsSupportNeeded" xml:space="preserve">
     <value>No se ha podido completar la solicitud. Intente habilitar el soporte y si el problema persiste, comuníquese con un administrador.</value>
@@ -190,7 +190,7 @@
     <value>atrás</value>
   </data>
   <data name="PrintingWorking" xml:space="preserve">
-    <value>La impresora está funcionando. El archivo se cargará, pero debe esperar a que finalice el actual. Más tarde, puede seleccionarlo en el menú de impresión local.</value>
+    <value>La impresora está funcionando. El archivo se cargará, pero debe esperar a que finalice el actual. Más tarde, puede seleccionarlo en el menú de impresión local</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Listo</value>
@@ -221,5 +221,32 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>sí</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="OrderID" xml:space="preserve">
+    <value>Identificador de pedido</value>
+  </data>
+  <data name="OrderRegistered" xml:space="preserve">
+    <value>Pedido registrado con éxito</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Cantidad</value>
+  </data>
+  <data name="SpendOneSpool" xml:space="preserve">
+    <value>Confirma que ha gastado 1 bobina de</value>
+  </data>
+  <data name="SureConfirmOrders" xml:space="preserve">
+    <value>¿Estás seguro de que confirmas el pedido con los siguientes datos?</value>
+  </data>
+  <data name="UwpOrder" xml:space="preserve">
+    <value>En la aplicación de escritorio, no puede escanear un QR. En su lugar, seleccione el pedido de la lista que se muestra en la pantalla y luego haga clic en este botón para aceptar.</value>
+  </data>
+  <data name="UwpSpoolStock" xml:space="preserve">
+    <value>En la aplicación de escritorio, no puede escanear un QR. En su lugar, seleccione el material de la lista que se muestra en la pantalla y luego haga clic en este botón para descartar un carrete gastado.</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmación</value>
   </data>
 </root>

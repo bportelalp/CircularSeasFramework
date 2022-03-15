@@ -225,8 +225,8 @@ Global
 		{43D8C204-0FDA-4C95-80C6-11B842D44E0C} = {76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {98FE19EA-81D2-471D-9D59-52F6F0340684}
-		RESX_NeutralResourcesLanguage = en-150
 		RESX_SaveFilesImmediatelyUponChange = True
+		RESX_NeutralResourcesLanguage = en-150
+		SolutionGuid = {98FE19EA-81D2-471D-9D59-52F6F0340684}
 	EndGlobalSection
 EndGlobal

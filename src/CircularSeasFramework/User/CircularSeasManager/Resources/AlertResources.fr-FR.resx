@@ -222,4 +222,31 @@
   <data name="Yes" xml:space="preserve">
     <value>Oui</value>
   </data>
+  <data name="SureConfirmOrders" xml:space="preserve">
+    <value>Êtes-vous sûr de confirmer la commande avec les données suivantes ?</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmation</value>
+  </data>
+  <data name="SpendOneSpool" xml:space="preserve">
+    <value>Confirme que vous avez dépensé 1 bobine de</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Matériel</value>
+  </data>
+  <data name="UwpSpoolStock" xml:space="preserve">
+    <value>Sur l'application de bureau, vous ne pouvez pas numériser un QR. Au lieu de cela, sélectionnez le matériau dans la liste affichée à l'écran, puis cliquez sur ce bouton pour jeter une bobine usagée.</value>
+  </data>
+  <data name="UwpOrder" xml:space="preserve">
+    <value>Sur l'application de bureau, vous ne pouvez pas numériser un QR. Au lieu de cela, sélectionnez la commande dans la liste affichée à l'écran, puis cliquez sur ce bouton pour accepter.</value>
+  </data>
+  <data name="OrderID" xml:space="preserve">
+    <value>Identifiant de commande</value>
+  </data>
+  <data name="OrderRegistered" xml:space="preserve">
+    <value>Commande enregistrée avec succès</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
 </root>

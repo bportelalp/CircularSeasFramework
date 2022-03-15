@@ -211,4 +211,7 @@
   <data name="stCancelling" xml:space="preserve">
     <value>Cancelando</value>
   </data>
+  <data name="btnManageOrders" xml:space="preserve">
+    <value>Gerenciar pedidos</value>
+  </data>
 </root>

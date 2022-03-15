@@ -22,10 +22,10 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Row="0" Grid.Column="0"
-                    Text="Accept Order" Command="{Binding CmdScanSpool}" IsEnabled="True"
+                    Text="{x:Static resources:OrderResources.BtnAcceptOrder}" Command="{Binding CmdScanSpool}" IsEnabled="True"
                     Margin="30, 5"></Button>
                 <Button Grid.Row="0" Grid.Column="1"
-                    Text="Mark Spool finished" Command="{Binding CmdDiscardSpool}" IsEnabled="True"
+                    Text="{x:Static resources:OrderResources.BtnMarkFinished}" Command="{Binding CmdDiscardSpool}" IsEnabled="True"
                     Margin="30, 5"></Button>
             </Grid>
 
@@ -63,7 +63,7 @@
             <Button Text="{x:Static resources:OrderResources.BtnOrder}" Command="{Binding CmdOrder}" IsEnabled="True"
                     Margin="30, 5"></Button>
 
-            <Label Text="Pending Orders"
+            <Label Text="{x:Static resources:OrderResources.TxPendingOrders}"
                 HorizontalOptions="CenterAndExpand" FontSize="Title"/>
             <ListView x:Name="PendingOrders" Margin="20,0,20,0"
                       ItemsSource="{Binding PendingOrders}" SelectedItem="{Binding OrderSelected}">
@@ -75,10 +75,10 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="Material" FontSize="Subtitle"></Label>
-                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="Creation date" FontSize="Subtitle"></Label>
-                        <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="Spools" FontSize="Subtitle"></Label>
-                        <Label Grid.Column="3" HorizontalTextAlignment="Center" Text="Status" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="{x:Static resources:OrderResources.TxMaterial}" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="{x:Static resources:OrderResources.TxCreationDate}" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="2" HorizontalTextAlignment="Center" Text="{x:Static resources:OrderResources.TxSpools}" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="3" HorizontalTextAlignment="Center" Text="{x:Static resources:OrderResources.TxStatus}" FontSize="Subtitle"></Label>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>
@@ -101,7 +101,7 @@
 
             </ListView>
 
-            <Label Text="My stock"
+            <Label Text="{x:Static resources:OrderResources.TxLocalStock}"
                 HorizontalOptions="CenterAndExpand" FontSize="Title"/>
             <ListView x:Name="MyStock" Margin="20,0,20,0"
                       ItemsSource="{Binding Materials}" SelectedItem="{Binding MaterialStocked}">
@@ -111,8 +111,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="Material" FontSize="Subtitle"></Label>
-                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="Spools" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="0" HorizontalTextAlignment="Center" Text="{x:Static resources:OrderResources.TxMaterial}" FontSize="Subtitle"></Label>
+                        <Label Grid.Column="1" HorizontalTextAlignment="Center" Text="{x:Static resources:OrderResources.TxSpools}" FontSize="Subtitle"></Label>
                     </Grid>
                 </ListView.Header>
                 <ListView.ItemTemplate>

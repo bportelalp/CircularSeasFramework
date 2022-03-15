@@ -231,4 +231,7 @@
   <data name="stPrinting" xml:space="preserve">
     <value>Imprimindo</value>
   </data>
+  <data name="btnManageOrders" xml:space="preserve">
+    <value>Administrar pedidos</value>
+  </data>
 </root>

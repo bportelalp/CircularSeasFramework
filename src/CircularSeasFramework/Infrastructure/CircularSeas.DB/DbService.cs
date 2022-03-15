@@ -20,6 +20,7 @@ namespace CircularSeas.DB
         public CircularSeasContext DbContext { get; }
 
         #region READ
+
         public async Task<Models.DTO.PrintDTO> GetPrintDTO(string printerCompatible, Guid stockInNode) //TODO
         {
             var response = new Models.DTO.PrintDTO();
@@ -124,7 +125,7 @@ namespace CircularSeas.DB
 
             var query = DbContext.Materials.AsNoTracking();
             if (includeProperties && !forUsers)
-                query = query.Include(m => m.PropMats).ThenInclude(m => m.PropertyFKNavigation);
+                query = query.Include(m => m.PropMats).ThenInclude(m => m.PropertyFKNavigation).Include(m => m.Filaments);
             else if (includeProperties && forUsers)
                 query = query.Include(m => m.PropMats.Where(m => m.PropertyFKNavigation.Visible)).ThenInclude(m => m.PropertyFKNavigation);
             if (stockInNode != Guid.Empty)
@@ -144,6 +145,12 @@ namespace CircularSeas.DB
 
                 }
                 material.Stock = Mapper.Repo2Domain(entity.Stocks.FirstOrDefault());
+
+                material.Filaments = new List<Models.Slicer.Filament>();
+                foreach (var filament in entity.Filaments)
+                {
+                    material.Filaments.Add(Mapper.Repo2Domain(filament));
+                }
                 response.Add(material);
             }
             return response;
@@ -496,8 +503,10 @@ namespace CircularSeas.DB
         public async Task DeleteMaterial(Guid id)
         {
             var material = new Entities.Material() { ID = id };
-            var propMats = await DbContext.PropMats.Where(p => p.MaterialFK == id).ToListAsync();
+            var propMats = DbContext.PropMats.Where(p => p.MaterialFK == id);
+            var orders = DbContext.Orders.Where(o => o.MaterialFK == id);
 
+            DbContext.RemoveRange(orders);
             DbContext.RemoveRange(propMats);
             DbContext.Remove(material);
             DbContext.SaveChanges();

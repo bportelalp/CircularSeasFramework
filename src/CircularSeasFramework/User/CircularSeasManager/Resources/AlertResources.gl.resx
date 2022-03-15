@@ -222,4 +222,31 @@
   <data name="Yes" xml:space="preserve">
     <value>Si</value>
   </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Cantidade</value>
+  </data>
+  <data name="OrderRegistered" xml:space="preserve">
+    <value>Pedido rexistrado con éxito</value>
+  </data>
+  <data name="OrderID" xml:space="preserve">
+    <value>Identificador do pedido</value>
+  </data>
+  <data name="UwpOrder" xml:space="preserve">
+    <value>Na aplicación de escritorio, non podes dixitalizar un QR. Pola contra, seleccione a orde da lista que aparece na pantalla e, a continuación, prema neste botón para aceptar.</value>
+  </data>
+  <data name="UwpSpoolStock" xml:space="preserve">
+    <value>Na aplicación de escritorio, non podes dixitalizar un QR. Pola contra, seleccione o material da lista que se amosou na pantalla e, a continuación, prema neste botón para descartar unha bobina gastado.</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="SpendOneSpool" xml:space="preserve">
+    <value>Confirma que gastou 1 bobina de</value>
+  </data>
+  <data name="Confirmation" xml:space="preserve">
+    <value>Confirmación</value>
+  </data>
+  <data name="SureConfirmOrders" xml:space="preserve">
+    <value>¿Estás seguro que desexas confirmar o pedido cos seguintes datos?</value>
+  </data>
 </root>

@@ -61,6 +61,24 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Accept order.
+        /// </summary>
+        internal static string BtnAcceptOrder {
+            get {
+                return ResourceManager.GetString("BtnAcceptOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Mark spool finished.
+        /// </summary>
+        internal static string BtnMarkFinished {
+            get {
+                return ResourceManager.GetString("BtnMarkFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Order.
         /// </summary>
         internal static string BtnOrder {
@@ -88,6 +106,15 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Creation date.
+        /// </summary>
+        internal static string TxCreationDate {
+            get {
+                return ResourceManager.GetString("TxCreationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Configure your order indicating material and amount of spools to order.
         /// </summary>
         internal static string TxInfo {
@@ -97,11 +124,47 @@ namespace CircularSeasManager.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Local stock.
+        /// </summary>
+        internal static string TxLocalStock {
+            get {
+                return ResourceManager.GetString("TxLocalStock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Material.
         /// </summary>
         internal static string TxMaterial {
             get {
                 return ResourceManager.GetString("TxMaterial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Pending orders.
+        /// </summary>
+        internal static string TxPendingOrders {
+            get {
+                return ResourceManager.GetString("TxPendingOrders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Spools.
+        /// </summary>
+        internal static string TxSpools {
+            get {
+                return ResourceManager.GetString("TxSpools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Status.
+        /// </summary>
+        internal static string TxStatus {
+            get {
+                return ResourceManager.GetString("TxStatus", resourceCulture);
             }
         }
         

@@ -20,7 +20,7 @@ else
                         <InputText class="form-control" @bind-Value="Material.Description" />
                     </div>
                 </div>
-                
+
                 @foreach (var eval in Material.Evaluations.OrderBy(e => e.Property.Name))
                 {
                     <div class="form-group row">
@@ -31,9 +31,9 @@ else
                                 <InputSelect class="form-control" @bind-Value="eval.ValueBinStr">
                                     @foreach (var option in eval.BinOptions)
                                     {
-                                        <option value="@option">@option</option>
+                            <option value="@option">@option</option>
                                     }
-                                </InputSelect>
+                    </InputSelect>
                             }
                             else
                             {
@@ -54,9 +54,17 @@ else
                     </div>
 
                 }
-                <div>
-                    <button class="btn btn-outline-primary" type="submit">Aceptar cambios</button>
+                <div class="d-flex">
+                    <div class="m-2">
+                        <button class="btn btn-outline-primary" type="submit">Save changes</button>
+                    </div>
+                    <div class="m-2">
+                        <button class="btn btn-outline-danger" type="button" @onclick="@(()=> MaterialChange.InvokeAsync(null))">
+                            Discard changes
+                        </button>
+                    </div>
                 </div>
+
             </div>
         </div>
     </EditForm>
