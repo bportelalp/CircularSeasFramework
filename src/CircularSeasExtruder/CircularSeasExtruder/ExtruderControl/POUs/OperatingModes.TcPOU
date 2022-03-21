@@ -52,7 +52,7 @@ END_VAR
 	// Stopping
 	Modes.Stopping:
 		MC.Exec_Stop:= TRUE;
-		IF Motion.FB_Stop.Done OR MC.Extruder.Status.Error THEN
+		IF (Motion.FB_Stop.Done AND Motion.FB_StopPuller.Done AND Motion.FB_StopPullerVirtual.Done AND Motion.FB_GearOut.Done) OR MC.Extruder.Status.Error OR MC.Puller.Status.Error OR MC.PullerVirtual.Status.Error THEN
 			GVL.Mode := AuxStopping;
 		END_IF
 END_CASE

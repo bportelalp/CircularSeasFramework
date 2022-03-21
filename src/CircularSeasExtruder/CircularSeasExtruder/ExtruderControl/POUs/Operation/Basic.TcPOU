@@ -3,7 +3,6 @@
   <POU Name="Basic" Id="{ce22bfcc-fbf0-4f66-8f8a-cc86cf734ace}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Basic
 VAR
-	State:INT:= 0; //Para gestion de la maquina de estados
 	LoopCounter:INT; //Para pasar de pixeles a mm en el vector de resultados
 	
 	//Variables para el control del diametro
@@ -34,42 +33,61 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//STATE CONTROL
-CASE state OF
+CASE GVL.State OF
 	0:  IF HMI.Bt_StartCycle THEN //Se pulsa start
-			State:=1;
-	END_IF
-	1:  IF Motion.FB_Power.Status THEN //Estan motores en potencia
-			State:=2;
+			GVL.State:=1;
 	END_IF
 	IF HMI.Bt_StopCycle THEN //Se pulsa stop
-		State:=30;
+		GVL.State:=30;
 	END_IF
+	
+	1:  IF Motion.FB_Power.Status AND Motion.FB_Power2.Status AND Motion.FB_Power3.Status THEN //Estan motores en potencia
+			GVL.State:=2;
+	END_IF
+	IF HMI.Bt_StopCycle THEN //Se pulsa stop
+		GVL.State:=30;
+	END_IF
+	
 	2: IF (IO.I_TermB>=HMI.Tb_Temp) AND (IO.I_TermT>=(0.8*HMI.Tb_Temp)) THEN //En temperatura
-			State:=3;
+			GVL.State:=3;
 	END_IF
 	IF HMI.Bt_StopCycle THEN //Se pulsa stop
-		State:=30;
+		GVL.State:=30;
 	END_IF
-	3: IF HMI.Bt_StopCycle THEN //Se pulsa stop
-			State:=30;
+	
+	3: IF Motion.FB_VelocityPuller.InVelocity AND Motion.FB_Velocity.InVelocity THEN //Eje de extrusora y virtual del puller a la velocidad indicada
+		GVL.State:=4;
 	END_IF
-	30: IF (Motion.FB_Stop.Done AND Motion.FB_StopPuller.Done) THEN
-		State:=0;
+	IF HMI.Bt_StopCycle THEN //Se pulsa stop
+			GVL.State:=30;
+	END_IF
+	
+	4: IF Motion.FB_GearInVelo.InSync THEN //Ejes acoplados
+		GVL.State:=5;
+	END_IF
+	IF HMI.Bt_StopCycle THEN //Se pulsa stop
+			GVL.State:=30;
+	END_IF
+	
+	5: IF ActPuller<>MC.PullerVel THEN //Nueva consigna de velocidad para el Puller
+		GVL.State:=6;
+	END_IF
+	IF HMI.Bt_StopCycle THEN //Se pulsa stop
+			GVL.State:=30;
+	END_IF
+	
+	6: GVL.State:=5;
+	IF HMI.Bt_StopCycle THEN //Se pulsa stop
+			GVL.State:=30;
+	END_IF
+	
+	30: IF (Motion.FB_Stop.Done AND Motion.FB_StopPuller.Done AND Motion.FB_StopPullerVirtual.Done AND Motion.FB_GearOut.Done) THEN //Ejes parados y desacoplados
+		GVL.State:=0;
 	END_IF
 END_CASE
 
-//Inicializacion de variables de activacion de bloques MC
-MC.Exec_Velocity:=FALSE;
-MC.Exec_Stop:=FALSE;
-//IO.Q_HeaterB:=FALSE;
-//IO.Q_HeaterT:=FALSE;
-IO.Q_VisionLight := FALSE;
-
 //ACT
-CASE state OF
-	0: MC.En_Power:=FALSE;
-	
-	1: MC.En_Power:=TRUE;
+CASE GVL.State OF
 	
 	2: IO.Q_HeaterB:=TRUE;
 	IO.Q_HeaterT:=TRUE;
@@ -86,10 +104,27 @@ CASE state OF
 	//Vision
 	IO.Q_VisionLight := TRUE;
 	
-	30: MC.Exec_Stop:=TRUE;
+	4: MC.Acoplar:=TRUE;
+	//Puller
+	MC.Exec_VelocityPuller:=TRUE;
+	//Vision
+	IO.Q_VisionLight := TRUE;
+	
+	5: 
+	//Puller
+	MC.Exec_VelocityPuller:=TRUE;
+	//Vision
+	IO.Q_VisionLight := TRUE;
+	
+	6: MC.PullerVel:=ActPuller;
+	//Vision
+	IO.Q_VisionLight := TRUE;
+	
+	30: MC.Desacoplar:=TRUE;
+	MC.Exec_Stop:=TRUE;
 END_CASE
 
-IF (state=1) THEN //Comprobacion de la variable de configuracion y el diametro de trabajo
+IF (GVL.State=1) THEN //Comprobacion de la variable de configuracion y el diametro de trabajo
 	IF config THEN
 		dReferencia:=2.85;
 	ELSE
@@ -97,7 +132,7 @@ IF (state=1) THEN //Comprobacion de la variable de configuracion y el diametro d
 	END_IF
 END_IF
 
-IF (state=3) THEN //Gestion del proceso en el estado 3 (extrusora en funcionamiento)
+IF (GVL.State=5) THEN //Gestion del proceso en el estado 4 (extrusora en funcionamiento)
 	
 	//Gestion de temperatura para extrusion. Rango de +-2ºC
 	IF (IO.I_TermT>(HMI.Tb_Temp*0.8+2.0)) THEN //Gestiona el calentador superior
@@ -152,8 +187,6 @@ IF (state=3) THEN //Gestion del proceso en el estado 3 (extrusora en funcionamie
 			ActPuller:=ActPuller_Min;
 		END_IF
 		
-		MC.Exec_VelocityPuller:=FALSE; //Para reiniciar la velocidad del MC_MoveVelocity
-		
 		// Restablecer valores de medida para una futura medida
 		GVL.NuevaMedidaCamara:=FALSE;
 		GVL.Vision.SingleShot(Enable:=TRUE, Execute:=FALSE);
@@ -162,94 +195,28 @@ IF (state=3) THEN //Gestion del proceso en el estado 3 (extrusora en funcionamie
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Basic">
-      <LineId Id="41" Count="2" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="48" Count="1" />
-      <LineId Id="51" Count="1" />
-      <LineId Id="211" Count="2" />
-      <LineId Id="207" Count="1" />
-      <LineId Id="206" Count="0" />
-      <LineId Id="214" Count="1" />
-      <LineId Id="209" Count="0" />
-      <LineId Id="142" Count="1" />
-      <LineId Id="141" Count="0" />
-      <LineId Id="119" Count="2" />
-      <LineId Id="57" Count="0" />
-      <LineId Id="128" Count="0" />
-      <LineId Id="127" Count="0" />
-      <LineId Id="126" Count="0" />
-      <LineId Id="129" Count="0" />
-      <LineId Id="186" Count="0" />
-      <LineId Id="70" Count="0" />
-      <LineId Id="204" Count="0" />
-      <LineId Id="187" Count="0" />
-      <LineId Id="63" Count="0" />
-      <LineId Id="71" Count="0" />
-      <LineId Id="137" Count="0" />
-      <LineId Id="291" Count="0" />
-      <LineId Id="75" Count="0" />
-      <LineId Id="292" Count="0" />
-      <LineId Id="216" Count="0" />
-      <LineId Id="229" Count="0" />
-      <LineId Id="139" Count="0" />
-      <LineId Id="293" Count="0" />
-      <LineId Id="348" Count="0" />
-      <LineId Id="140" Count="0" />
-      <LineId Id="138" Count="0" />
-      <LineId Id="349" Count="0" />
-      <LineId Id="343" Count="0" />
-      <LineId Id="350" Count="1" />
-      <LineId Id="346" Count="0" />
-      <LineId Id="345" Count="0" />
-      <LineId Id="230" Count="0" />
-      <LineId Id="124" Count="0" />
-      <LineId Id="294" Count="0" />
-      <LineId Id="74" Count="0" />
-      <LineId Id="284" Count="0" />
-      <LineId Id="283" Count="0" />
-      <LineId Id="287" Count="3" />
-      <LineId Id="285" Count="1" />
-      <LineId Id="144" Count="0" />
-      <LineId Id="146" Count="0" />
-      <LineId Id="198" Count="0" />
-      <LineId Id="247" Count="0" />
-      <LineId Id="231" Count="0" />
-      <LineId Id="233" Count="0" />
-      <LineId Id="239" Count="0" />
-      <LineId Id="237" Count="1" />
-      <LineId Id="241" Count="0" />
-      <LineId Id="243" Count="3" />
-      <LineId Id="242" Count="0" />
-      <LineId Id="261" Count="0" />
-      <LineId Id="192" Count="0" />
-      <LineId Id="189" Count="2" />
-      <LineId Id="188" Count="0" />
-      <LineId Id="258" Count="0" />
-      <LineId Id="263" Count="4" />
-      <LineId Id="259" Count="0" />
-      <LineId Id="272" Count="0" />
-      <LineId Id="270" Count="1" />
-      <LineId Id="260" Count="0" />
-      <LineId Id="282" Count="0" />
-      <LineId Id="274" Count="7" />
-      <LineId Id="273" Count="0" />
-      <LineId Id="295" Count="2" />
-      <LineId Id="301" Count="0" />
-      <LineId Id="299" Count="0" />
-      <LineId Id="302" Count="0" />
-      <LineId Id="300" Count="0" />
-      <LineId Id="306" Count="1" />
-      <LineId Id="310" Count="0" />
-      <LineId Id="308" Count="0" />
-      <LineId Id="311" Count="0" />
-      <LineId Id="309" Count="0" />
-      <LineId Id="298" Count="0" />
-      <LineId Id="383" Count="0" />
-      <LineId Id="454" Count="0" />
-      <LineId Id="465" Count="0" />
-      <LineId Id="470" Count="1" />
-      <LineId Id="382" Count="0" />
-      <LineId Id="268" Count="0" />
+      <LineId Id="569" Count="8" />
+      <LineId Id="731" Count="4" />
+      <LineId Id="583" Count="8" />
+      <LineId Id="736" Count="4" />
+      <LineId Id="597" Count="1" />
+      <LineId Id="741" Count="4" />
+      <LineId Id="601" Count="0" />
+      <LineId Id="746" Count="0" />
+      <LineId Id="748" Count="9" />
+      <LineId Id="747" Count="0" />
+      <LineId Id="602" Count="0" />
+      <LineId Id="758" Count="1" />
+      <LineId Id="605" Count="7" />
+      <LineId Id="615" Count="11" />
+      <LineId Id="760" Count="0" />
+      <LineId Id="762" Count="3" />
+      <LineId Id="761" Count="0" />
+      <LineId Id="627" Count="0" />
+      <LineId Id="768" Count="7" />
+      <LineId Id="766" Count="1" />
+      <LineId Id="628" Count="65" />
+      <LineId Id="696" Count="5" />
       <LineId Id="149" Count="0" />
     </LineIds>
   </POU>

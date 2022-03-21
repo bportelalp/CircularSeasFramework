@@ -11,6 +11,16 @@ VAR_GLOBAL
 	ScalingFactor:REAL:= 0.0414;
 	
 	NuevaMedidaCamara:BOOL:=FALSE; //Variable auxiliar para el control de la camara
+	
+	State:INT:= 0; //Para gestion de la maquina de estados
+	//0: estado inicial
+	//1: dar potencia
+	//2: calentar 
+	//3: mover en velocidad extrusora y puller
+	//4: funcionamiento extrusora
+	//5: funcionamiento general del sistema
+	//6: cambio de velocidad del puller
+	//30: parar ejes
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

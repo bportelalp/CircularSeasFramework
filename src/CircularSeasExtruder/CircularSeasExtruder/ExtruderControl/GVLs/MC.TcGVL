@@ -6,6 +6,7 @@ VAR_GLOBAL
 	// Axis ref
 	Extruder: AXIS_REF;
 	Puller: AXIS_REF;
+	PullerVirtual:AXIS_REF; //Eje virtual para controlar el Puller
 	
 	// Orders
 	En_Power:BOOL;
@@ -27,7 +28,8 @@ VAR_GLOBAL
 	PullerVel:LREAL;
 	Exec_VelocityPuller:BOOL;
 	PullerDirection:MC_Direction;
-	
+	Acoplar:BOOL;
+	Desacoplar:BOOL;
 END_VAR
 
 VAR_GLOBAL CONSTANT
