@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -12,8 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.DB\CircularSeas.DB.csproj" />
-    <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.GenPDF\CircularSeas.GenPDF.csproj" />
+    <ProjectReference Include="..\..\..\Domain\CircularSeas.Adapters\CircularSeas.Adapters.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.GenPDF\CircularSeas.Infrastructure.GenPDF.csproj" />
+    <ProjectReference Include="..\..\CircularSeas.IoC\CircularSeas.IoC.csproj" />
     <ProjectReference Include="..\Client\CircularSeas.Cloud.Client.csproj" />
   </ItemGroup>
 

@@ -11,16 +11,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text;
 using System.Net;
-using Microsoft.EntityFrameworkCore;
-using CircularSeas.DB.Entities;
-using CircularSeas.DB.Context;
 using CircularSeas.Models;
 using Microsoft.AspNetCore.Hosting;
 using System.Globalization;
-using CircularSeas.DB;
 using CircularSeas.Cloud.Server.Helpers;
-using CircularSeas.Cloud.Server.SlicerEngine;
 using Microsoft.AspNetCore.Http;
+using CircularSeas.Adapters;
+using CircularSeas.Infrastructure.Logger;
 
 namespace CircularSeas.Cloud.Server.Controllers
 {
@@ -29,17 +26,16 @@ namespace CircularSeas.Cloud.Server.Controllers
     public class ProcessController : Controller
     {
         // Service access
-        private readonly Log _log;
+        private readonly ILog _log;
         private readonly AppSettings _appSettings;
         private readonly ISlicerCLI _slicer;
         private readonly Tools _tools;
         private readonly IWebHostEnvironment _env;
 
         // Database context
-        private readonly CircularSeasContext _DBContext;
-        private readonly DbService _DbService;
+        private readonly IDbService _DbService;
 
-        public ProcessController(Log log, IOptions<AppSettings> appSettings, CircularSeasContext circularSeasContext, Tools tools, IWebHostEnvironment env, ISlicerCLI slicer, DbService dbService)
+        public ProcessController(ILog log, IOptions<AppSettings> appSettings, Tools tools, IWebHostEnvironment env, ISlicerCLI slicer, IDbService dbService)
         {
             // Assignment and initialization of services
             this._log = log;
@@ -47,7 +43,6 @@ namespace CircularSeas.Cloud.Server.Controllers
             this._env = env;
             this._appSettings = appSettings.Value;
             this._slicer = slicer;
-            this._DBContext = circularSeasContext;
             this._DbService = dbService;
         }
 
@@ -240,23 +235,27 @@ namespace CircularSeas.Cloud.Server.Controllers
                 Dictionary<string, string> paramsDict = new Dictionary<string, string>();
 
                 // Filament diameter overwrite
-                double filamentDiameter = 2.85; //TODO
-                                                //await _DBContext.Printers
-                                                //.Where(p => p.ModelName == printer)
-                                                //.Select(p => p.FilamentDiameter)
-                                                //.FirstOrDefaultAsync();
+                if (printer.ToLower().Contains("ultimaker"))
+                {
+                    double filamentDiameter = 2.85; //TODO
+                                                    //await _DBContext.Printers
+                                                    //.Where(p => p.ModelName == printer)
+                                                    //.Select(p => p.FilamentDiameter)
+                                                    //.FirstOrDefaultAsync();
+                    paramsDict.Add("filament_diameter", filamentDiameter.ToString(CultureInfo.InvariantCulture));
+                }
 
                 paramsDict.Add("support_material", bool.Parse(support) ? "1" : "0");
-                paramsDict.Add("filament_diameter", filamentDiameter.ToString(CultureInfo.InvariantCulture));
+                
 
-                var iniName = await _tools.ConfigFileCreator(_DBContext, printer, filament, print, paramsDict);
+                var iniName = await _tools.ConfigFileCreator(_DbService, printer, filament, print, paramsDict);
 
                 var iniPath = _tools.GetWebPath(WebFolder.INI) + iniName;
                 _log.logWrite("File created (" + tictoc.ElapsedMilliseconds + "ms) on: " + iniPath);
 
                 // G code generation process
                 _log.logWrite("Slicing with PrusaSlicer");
-                string attributes = "--slice " + fullPathSTL + " --load \"" + iniPath + "\" -o " + fullPathGCODE;
+                string attributes = "--slice \"" + fullPathSTL + "\" --load \"" + iniPath + "\" -o \"" + fullPathGCODE + "\"";
                 _log.logWrite("Command: " + attributes);
 
                 // Execution by CMD 

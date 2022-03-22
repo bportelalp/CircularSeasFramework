@@ -33,6 +33,7 @@ namespace CircularSeas.Cloud.Client.Pages
                 if (firstRender)
                 {
                     var response = await Http.GetAsync($"api/process/available-materials/CS_Ultimaker2plus/{default(Guid)}");
+                    var responseissue = await response.Content.ReadAsStringAsync();
                     if (response.IsSuccessStatusCode)
                     {
                         var dto = await response.Content.ReadFromJsonAsync<Models.DTO.PrintDTO>();
@@ -84,7 +85,11 @@ namespace CircularSeas.Cloud.Client.Pages
                     if (response.IsSuccessStatusCode)
                     {
                         var stringReturn = await response.Content.ReadAsStringAsync();
-                        await js.InvokeVoidAsync("DownloadPlainText","prueba.gcode", stringReturn);
+                        await js.InvokeVoidAsync("DownloadPlainText",slicerForm.STL.Name.Replace(".stl",".gcode"), stringReturn);
+                    }
+                    else
+                    {
+                        await js.InvokeVoidAsync("alert", $"An error has been thrown: {await response.Content.ReadAsStringAsync()}");
                     }
 
                 }

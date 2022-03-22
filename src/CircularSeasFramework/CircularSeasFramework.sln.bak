@@ -21,13 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Tools.BundleCo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Infrastructure.DB", "Infrastructure\CircularSeas.Infrastructure.DB\CircularSeas.Infrastructure.DB.csproj", "{B15DE2C5-E2BC-40AA-A442-70F8A16D8783}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.DB", "Infrastructure\CircularSeas.DB\CircularSeas.DB.csproj", "{B15DE2C5-E2BC-40AA-A442-70F8A16D8783}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Server", "User\CircularSeas.Cloud\Server\CircularSeas.Cloud.Server.csproj", "{809279F1-7F4F-4F01-8D18-D25F246158E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Cloud.Client", "User\CircularSeas.Cloud\Client\CircularSeas.Cloud.Client.csproj", "{B2AB0B5B-B5AB-4C42-8292-A3CC1A8A3453}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Infrastructure.GenPDF", "Infrastructure\CircularSeas.Infrastructure.GenPDF\CircularSeas.Infrastructure.GenPDF.csproj", "{43D8C204-0FDA-4C95-80C6-11B842D44E0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Infrastructure.GenPDF", "Infrastructure\CircularSeas.GenPDF\CircularSeas.Infrastructure.GenPDF.csproj", "{43D8C204-0FDA-4C95-80C6-11B842D44E0C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Adapters", "Domain\CircularSeas.Adapters\CircularSeas.Adapters.csproj", "{B06659F5-7EAE-42FB-A2C9-A7A72E634576}"
 EndProject
@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.IoC", "User\Ci
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Infrastructure.PrusaSlicerCLI", "Infrastructure\CircularSeas.Infrastructure.PrusaSlicerCLI\CircularSeas.Infrastructure.PrusaSlicerCLI.csproj", "{E52086FC-2956-46B6-9815-4056B11C4C02}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Infrastructure.Logger", "Infrastructure\CircularSeas.Infrastructure.Logger\CircularSeas.Infrastructure.Logger.csproj", "{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CircularSeas.Infrastructure.Logger", "Infrastructure\CircularSeas.Infrastructure.Log\CircularSeas.Infrastructure.Logger.csproj", "{11D414EF-1165-407F-9CD2-6BE734DAED1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -265,22 +265,22 @@ Global
 		{E52086FC-2956-46B6-9815-4056B11C4C02}.Release|x64.Build.0 = Release|Any CPU
 		{E52086FC-2956-46B6-9815-4056B11C4C02}.Release|x86.ActiveCfg = Release|Any CPU
 		{E52086FC-2956-46B6-9815-4056B11C4C02}.Release|x86.Build.0 = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|ARM.Build.0 = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|x64.Build.0 = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Debug|x86.Build.0 = Debug|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|ARM.ActiveCfg = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|ARM.Build.0 = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|x64.ActiveCfg = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|x64.Build.0 = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|x86.ActiveCfg = Release|Any CPU
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1}.Release|x86.Build.0 = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|x64.Build.0 = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Debug|x86.Build.0 = Debug|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|ARM.Build.0 = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|x64.ActiveCfg = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|x64.Build.0 = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|x86.ActiveCfg = Release|Any CPU
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -298,7 +298,7 @@ Global
 		{B06659F5-7EAE-42FB-A2C9-A7A72E634576} = {7BBB9187-B81A-40A9-9564-8C5C729076D7}
 		{A6F07F24-85DC-4C3F-8464-D323E5B43AA6} = {2A00B2F4-578F-4513-87A7-F070C9BBD022}
 		{E52086FC-2956-46B6-9815-4056B11C4C02} = {76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}
-		{0BDF12F4-CACA-444B-9E8B-146D55C37CE1} = {76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}
+		{11D414EF-1165-407F-9CD2-6BE734DAED1A} = {76257145-EAFF-4CC6-8E7F-9A6BCCE6FF60}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		RESX_SaveFilesImmediatelyUponChange = True

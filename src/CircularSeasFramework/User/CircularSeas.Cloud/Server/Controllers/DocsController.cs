@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using CircularSeas.DB;
-using CircularSeas.GenPDF;
+using CircularSeas.Adapters;
+using CircularSeas.Infrastructure.DB;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +13,11 @@ namespace CircularSeas.Cloud.Server.Controllers
     [Route("api/[controller]")]
     public class DocsController : Controller
     {
-        private readonly DbService dbService;
-        private readonly PdfGenerator pdf;
+        private readonly IDbService dbService;
+        private readonly IGenPDF pdf;
         private readonly IWebHostEnvironment env;
 
-        public DocsController(DbService dbService, GenPDF.PdfGenerator pdf, IWebHostEnvironment env)
+        public DocsController(IDbService dbService, IGenPDF pdf, IWebHostEnvironment env)
         {
             this.dbService = dbService;
             this.pdf = pdf;

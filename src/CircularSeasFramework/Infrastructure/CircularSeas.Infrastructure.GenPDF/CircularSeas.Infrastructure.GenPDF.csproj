@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="itext7" Version="7.2.1" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Domain\CircularSeas.Adapters\CircularSeas.Adapters.csproj" />
+    <ProjectReference Include="..\..\Domain\CircularSeas.Models\CircularSeas.Models.csproj" />
+  </ItemGroup>
+
+</Project>

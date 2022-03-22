@@ -190,7 +190,6 @@ namespace CircularSeasManager.Services {
             var response = await client.ExecuteAsync(request);
             //Construir lista con todos los nombres de los archivos encontrados en local, directorio raíz.
 
-            
 
             if (NoErrorsHTTP(response.StatusCode)) {
                 var files = JsonConvert.DeserializeObject<FilesJSON.RootObj>(response.Content);

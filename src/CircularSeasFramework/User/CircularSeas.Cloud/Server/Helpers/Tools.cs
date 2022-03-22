@@ -1,6 +1,7 @@
-﻿using CircularSeas.DB.Context;
+﻿using CircularSeas.Adapters;
+using CircularSeas.Infrastructure.Logger;
+using CircularSeas.Models;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,9 +16,8 @@ namespace CircularSeas.Cloud.Server.Helpers
     {
 
         // Service access
-        private readonly Log _log;
+        private readonly ILog _log;
         private readonly IWebHostEnvironment _env;
-        private readonly AppSettings _appSettings;
 
         /// <summary>
         /// Enumeration containing three options to indicate what is searching
@@ -34,133 +34,12 @@ namespace CircularSeas.Cloud.Server.Helpers
         /// </summary>
         /// <param name="log"> Injection of the Log service </param>
         /// <param name="appSettings"> Injection of the appSettings service </param>
-        public Tools(Log log, IOptions<AppSettings> appSettings, IWebHostEnvironment env)
+        public Tools(ILog log, IWebHostEnvironment env)
         {
             this._log = log;
             this._env = env;
-            _appSettings = appSettings.Value;
         }
         #region "Methods"
-        /// <summary>
-        /// Application of the TOPSIS method
-        /// </summary>
-        /// <param name="criteria"> MxN matrix (Materials_x_Criteria) that includes the mark for material i on criterion j in each term Xij </param>
-        /// <param name="evaluation"> Vector of N elements (criteria) including importance (evaluation/mark) requested by the user for the j criterion </param>
-        /// <param name="impact"> Distinguish if the higher the better (true), or the higher the worse (false) </param>
-        /// <returns> Matrix that contains the ranked performance of the available materials </returns>
-        public double[] TOPSIS(double[,] criteria, double[] evaluation, bool[] impact)
-        {
-
-            //Dimension parameter determination
-            int n_mat = criteria.GetLength(0);
-            int n_crit = criteria.GetLength(1);
-            int n_eval = evaluation.Length;
-
-            /*STEP 1: Normalization of the decision matrix and evaluation because the values may not be defined by the domain itself. It is normalized as Nij = Xij / ((Sum, j = 1 to m) of (X_ij) ^ 2)) */
-
-            //Getting the common denominator of all the elements of each column (summation)
-            double[] den_normdecision = new double[n_crit];
-            for (int j = 0; j < n_crit; j++)
-            {
-                double quadraticSum = 0;
-                for (int i = 0; i < n_mat; i++)
-                {
-                    quadraticSum += Math.Pow(criteria[i, j], 2);
-                }
-                den_normdecision[j] = Math.Sqrt(quadraticSum);
-            }
-
-            // Normalization of the criteria matrix. For each element X_ij, it is normalized with respect to the column (criteria). 
-            double[,] crit_norm = new double[n_mat, n_crit];
-            for (int i = 0; i < n_mat; i++)
-            {
-                for (int j = 0; j < n_crit; j++)
-                {
-                    crit_norm[i, j] = criteria[i, j] / den_normdecision[j];
-                }
-            }
-
-            // Decision matrix normalization, so that the sum of weights is 1. Wn_j = W_j / (summation W_j) 
-            double sumaeval = 0;
-            for (int i = 0; i < n_eval; i++)
-            {
-                sumaeval += evaluation[i];
-            }
-            double[] eval_norm = new double[n_eval];
-            for (int i = 0; i < n_eval; i++)
-            {
-                eval_norm[i] = evaluation[i] / sumaeval;
-            }
-
-            /*STEP 2: Construction of weighted normalized decision matrix (criteria ponderation matrix). V_ij = Wn_j x N_ij */
-            double[,] crit_pond = new double[n_mat, n_crit];
-            for (int i = 0; i < n_mat; i++)
-            {
-                for (int j = 0; j < n_crit; j++)
-                {
-                    crit_pond[i, j] = crit_norm[i, j] * eval_norm[j];
-                }
-            }
-
-            /*STEP 3: Determine best and worst solution. If the criteria are of benefit, for each criterion A+ = (max V_ij) and A- = (min V_ij), if they are cost then * A+ = (min V_ij) and A- = (max V_ij) */
-
-            double[] Aplus = new double[n_crit];
-            double[] Aminus = new double[n_crit];
-            for (int j = 0; j < n_crit; j++)
-            {
-                double max = crit_pond[0, j]; //First element selection
-                double min = crit_pond[0, j]; //First element selection
-                for (int i = 1; i < n_mat; i++)
-                {
-                    if (crit_pond[i, j] > max)
-                    {
-                        max = crit_pond[i, j];
-                    }
-                    if (crit_pond[i, j] < min)
-                    {
-                        min = crit_pond[i, j];
-                    }
-                }
-                // Depending on the impact, it is assigned as positive or negative 
-                if (impact[j])
-                {
-                    Aplus[j] = max;
-                    Aminus[j] = min;
-                }
-                else
-                {
-                    Aplus[j] = min;
-                    Aminus[j] = max;
-                }
-
-            }
-
-            /*STEP 4: Calculation of the distance measures of each Alternative(Material) to the positive ideal solution and the negative ideal solution. D+ = ROOT((Sum of j = 1 to n (V_ij-A_j +) ^ 2)) and D+ = ROOT((Sum of j = 1 to n (V_ij-A_j -) ^ 2)) */
-            double[] Dplus = new double[n_mat];
-            double[] Dminus = new double[n_mat];
-            for (int i = 0; i < n_mat; i++)
-            {
-                double rowplus = 0;
-                double rowminus = 0;
-                for (int j = 0; j < n_crit; j++)
-                {
-                    rowplus += Math.Pow((crit_pond[i, j] - Dplus[j]), 2);
-                    rowminus += Math.Pow((crit_pond[i, j] - Dminus[j]), 2);
-                }
-                Dplus[i] = Math.Sqrt(rowplus);
-                Dminus[i] = Math.Sqrt(rowminus);
-            }
-
-            /*STEP 5: Performance calculus: Relative proximity to the ideal solution. It is calculated as Ri = di- /(di+ + di-). The performance returns values for each alternative that the higher its value, the better the alternative (material) is, according to the given criteria. */
-            double[] perform = new double[n_mat];
-            for (int i = 0; i < n_mat; i++)
-            {
-                perform[i] = Dminus[i] / (Dplus[i] + Dminus[i]);
-            }
-
-            return perform;
-        }
-
         /// <summary>
         /// Creation of the PrusaSlicer configuration file to print
         /// </summary>
@@ -212,7 +91,7 @@ namespace CircularSeas.Cloud.Server.Helpers
             return iniName;
         }
 
-        public async Task<string> ConfigFileCreator(CircularSeasContext DbContext, string _printer, string _filament, string _profile, Dictionary<string, string> _params)
+        public async Task<string> ConfigFileCreator(IDbService DbContext, string printer, string filament, string print, Dictionary<string, string> extraParams)
         {
 
             // Collections contruction for the propierties (key-vaue pair) location
@@ -223,34 +102,10 @@ namespace CircularSeas.Cloud.Server.Helpers
             // Name generation of the file configuration (.ini file).
             string iniName = DateTime.Now.ToString("yyMMdd") + "_" + Guid.NewGuid() + ".ini";
 
-            var printerDb = await DbContext.Printers.Where(p => p.Name == _printer).Include(p => p.PrinterSettings).FirstOrDefaultAsync();
-            foreach (var pair in printerDb.PrinterSettings)
-            {
-                if (iniDict.ContainsKey(pair.iniKey))
-                    iniDict[pair.iniKey] = pair.iniValue;
-                else
-                    iniDict.Add(pair.iniKey, pair.iniValue);
-            }
-            var filamentDb = await DbContext.Filaments.Where(p => p.Name == _filament).Include(p => p.FilamentSettings).FirstOrDefaultAsync();
-            foreach (var pair in filamentDb.FilamentSettings)
-            {
-                if (iniDict.ContainsKey(pair.iniKey))
-                    iniDict[pair.iniKey] = pair.iniValue;
-                else
-                    iniDict.Add(pair.iniKey, pair.iniValue);
-            }
-
-            var printDb = await DbContext.Prints.Where(p => p.Name == _profile).Include(p => p.PrintSettings).FirstOrDefaultAsync();
-            foreach (var pair in printDb.PrintSettings)
-            {
-                if (iniDict.ContainsKey(pair.iniKey))
-                    iniDict[pair.iniKey] = pair.iniValue;
-                else
-                    iniDict.Add(pair.iniKey, pair.iniValue);
-            }
+            iniDict = await DbContext.GetSlicerConfig(printer, filament, print);
 
             // Loop to induce/overwrite pairs of values to be specifically changed
-            foreach (KeyValuePair<string, string> parameter in _params)
+            foreach (KeyValuePair<string, string> parameter in extraParams)
             {
                 if (iniDict.ContainsKey(parameter.Key.Trim()))
                 {
@@ -263,9 +118,9 @@ namespace CircularSeas.Cloud.Server.Helpers
             }
 
             iniList.Add($"# Generated by CircularSeas Cloud Service on {DateTime.Now.ToString()} " +
-                $"for printer: {_printer}, " +
-                $"filament {_filament} " +
-                $"and print: {_profile}");
+                $"for printer: {printer}, " +
+                $"filament {filament} " +
+                $"and print: {print}");
             iniList.Add("");
 
             // Load all keys into a list, value separated by = 
@@ -385,50 +240,6 @@ namespace CircularSeas.Cloud.Server.Helpers
                         }
                 }
             }
-        }
-
-        /// <summary>
-        /// Function that executes the Slicing / CAM process in PrusaSlicer via CLI. 
-        /// </summary>
-        /// <param name="_attributes"> Contains all the attributes to execute the CAM process with the loading of the selected settings.  </param>
-        /// <returns> A string is returned with the information of the error happened during the process; null if not </returns>
-        public string ExecuteCommand(string _attributes)
-        {
-            //Indicamos que deseamos inicializar el proceso cmd.exe junto a un comando de arranque. 
-            string command = "\"" + _appSettings.prusaSlicerPath + "\" ";
-
-            // Indication to close the cmd process when the assigned task is finished.             
-            System.Diagnostics.ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo(command);
-            procStartInfo.Arguments = _attributes;
-            // Indication that the process output be redirected in a Stream.
-            procStartInfo.RedirectStandardOutput = true;
-            procStartInfo.RedirectStandardError = true;
-            procStartInfo.UseShellExecute = false;
-            // Indicates that the process does not display a black screen (The process runs in the background) 
-            procStartInfo.CreateNoWindow = false;
-            // Process initilization
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo = procStartInfo;
-            proc.Start();
-
-            // Get the output/error of the Console (Stream) and return a text string 
-            var outputInfo = proc.StandardOutput;
-            var errorInfo = proc.StandardError;
-            proc.WaitForExit();
-
-            string resultInfo = outputInfo.ReadToEnd();
-            string resultError = errorInfo.ReadToEnd();
-            _log.logWrite("\n" + resultInfo);
-            _log.logWrite("\n" + resultError);
-            //
-            //Muestra en pantalla la salida del Comando
-            proc.Kill();
-            if (String.IsNullOrEmpty(resultError))
-            {
-                return null;
-            }
-            else { return resultError; }
-
         }
         #endregion
     }

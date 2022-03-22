@@ -1,7 +1,6 @@
 using System.Linq;
 using CircularSeas.Cloud.Server.Helpers;
-using CircularSeas.Cloud.Server.SlicerEngine;
-using CircularSeas.DB.Context;
+using CircularSeas.Infrastructure.DB.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,12 +14,14 @@ namespace CircularSeas.Cloud.Server
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            WebHostEnvironment = webHostEnvironment;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -32,15 +33,12 @@ namespace CircularSeas.Cloud.Server
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings>();
-            services.AddDbContext<CircularSeasContext>(options => options.UseSqlServer(appSettings.DBConnectionString, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
-            services.AddScoped<CircularSeas.DB.DbService>();
 
-            //Servicio Singleton to LOG
-            services.AddSingleton<Log>();
+            Configuration.GetSection("AppSettings").GetValue<string>("prusaSlicerPath");
+            string rootPath = WebHostEnvironment.WebRootPath;
+            CircularSeas.IoC.IoCService.ConfigureServices(services, Configuration,rootPath);
+            
             services.AddSingleton<Tools>();
-            services.AddScoped<ISlicerCLI, PrusaSlicerCLI>();
-            services.AddScoped<CircularSeas.DB.DbService>();
-            services.AddScoped<CircularSeas.GenPDF.PdfGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

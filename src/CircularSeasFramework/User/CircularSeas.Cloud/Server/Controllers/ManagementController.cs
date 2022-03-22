@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using CircularSeas.DB;
+using CircularSeas.Adapters;
 using CircularSeas.Models;
 using CircularSeas.Models.DTO;
 using Microsoft.AspNetCore.Http;
@@ -14,9 +14,9 @@ namespace CircularSeas.Cloud.Server.Controllers
     [Route("api/[controller]")]
     public class ManagementController : Controller
     {
-        private readonly DbService dbService;
+        private readonly IDbService dbService;
 
-        public ManagementController(DbService dbService)
+        public ManagementController(IDbService dbService)
         {
             this.dbService = dbService;
         }
