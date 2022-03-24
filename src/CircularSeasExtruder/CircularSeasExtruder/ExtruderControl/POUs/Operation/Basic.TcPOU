@@ -26,7 +26,7 @@ VAR
 	
 	//Variable para controlar velocidad del motor inferior (puller)
 	//A estas variables habria que asignarle unos valores correctos para realizar el control de forma optima
-	ActPuller: LREAL; //Valor inicial de actuacion que variara segun el valor del diametro
+	ActPuller: LREAL:=10; //Valor inicial de actuacion que variara segun el valor del diametro
 	ActPuller_Max: LREAL;
 	ActPuller_Min: LREAL;
 END_VAR
@@ -135,63 +135,63 @@ END_IF
 IF (GVL.State=5) THEN //Gestion del proceso en el estado 4 (extrusora en funcionamiento)
 	
 	//Gestion de temperatura para extrusion. Rango de +-2ºC
-	IF (IO.I_TermT>(HMI.Tb_Temp*0.8+2.0)) THEN //Gestiona el calentador superior
-		IO.Q_HeaterT:=FALSE;
-	ELSIF (IO.I_TermT<(HMI.Tb_Temp*0.8-2.0)) THEN
-		IO.Q_HeaterT:=TRUE;
-	END_IF
+	//IF (IO.I_TermT>(HMI.Tb_Temp*0.8+2.0)) THEN //Gestiona el calentador superior
+		//IO.Q_HeaterT:=FALSE;
+	//ELSIF (IO.I_TermT<(HMI.Tb_Temp*0.8-2.0)) THEN
+		//IO.Q_HeaterT:=TRUE;
+	//END_IF
 	
-	IF (IO.I_TermB>(HMI.Tb_Temp+2.0)) THEN //Gestiona el calentador inferior
-		IO.Q_HeaterB:=FALSE;
-	ELSIF (IO.I_TermB<(HMI.Tb_Temp-2.0)) THEN
-		IO.Q_HeaterB:=TRUE;
-	END_IF
+	//IF (IO.I_TermB>(HMI.Tb_Temp+2.0)) THEN //Gestiona el calentador inferior
+		//IO.Q_HeaterB:=FALSE;
+	//ELSIF (IO.I_TermB<(HMI.Tb_Temp-2.0)) THEN
+		//IO.Q_HeaterB:=TRUE;
+	//END_IF
 	
 	//Medida con la camara del diametro del filamento
-	GVL.Vision.SingleShot(Enable:=TRUE, 
-					Execute:=TRUE,
-					Q=>GVL.VisionResults,
-					Measurement=>GVL.NuevaMedidaCamara);
-	IF GVL.NuevaMedidaCamara THEN //Nueva medida de la camara y calculo del valor del diametro
-		SumSenOpt:=0.0;
-		FOR LoopCounter:=0 TO 7 BY 1 DO
-			GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
-			SumSenOpt:=GVL.VisionResultsmm[LoopCounter]+SumSenOpt;
-		END_FOR	
-		MedSenOpt:=SumSenOpt/8;
+	//GVL.Vision.SingleShot(Enable:=TRUE, 
+					//Execute:=TRUE,
+					//Q=>GVL.VisionResults,
+					//Measurement=>GVL.NuevaMedidaCamara);
+	//IF GVL.NuevaMedidaCamara THEN //Nueva medida de la camara y calculo del valor del diametro
+		//SumSenOpt:=0.0;
+		//FOR LoopCounter:=0 TO 2 BY 1 DO
+			//GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
+			//SumSenOpt:=GVL.VisionResultsmm[LoopCounter]+SumSenOpt;
+		//END_FOR	
+		//MedSenOpt:=SumSenOpt/3;
 		
 		//Calculo del diametro
-		MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
-		MedSensores:=((MedSenMec+MedSenOpt)/2);
+		//MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
+		//MedSensores:=((MedSenMec+MedSenOpt)/2);
 		
 		//Hacer media de las 10 ultimas medidas del diametro
-		Suma:= Suma - Lecturas[Index];
-		Lecturas[index]:=MedSensores;
-		Suma:=Suma+Lecturas[index];
-		Index:= Index + 1;
-		IF (Index > 10) THEN
-			Index := 0;    //Volvemos al inicio del vector
-		END_IF
-		Medida:=Suma/10;
+		//Suma:= Suma - Lecturas[Index];
+		//Lecturas[index]:=MedSensores;
+		//Suma:=Suma+Lecturas[index];
+		//Index:= Index + 1;
+		//IF (Index > 10) THEN
+			//Index := 0;    //Volvemos al inicio del vector
+		//END_IF
+		//Medida:=Suma/10;
 		
 		//Gestion de la actuacion
-		IF (Medida>(dReferencia+dTolerancia)) THEN //Diametro grande
-			ActPuller:=ActPuller+vPaso;
-		ELSIF (Medida<(dReferencia-dTolerancia)) THEN //Diametro pequeño
-			ActPuller:=ActPuller-vPaso;
-		END_IF
+		//IF (Medida>(dReferencia+dTolerancia)) THEN //Diametro grande
+			//ActPuller:=ActPuller+vPaso;
+		//ELSIF (Medida<(dReferencia-dTolerancia)) THEN //Diametro pequeño
+			//ActPuller:=ActPuller-vPaso;
+		//END_IF
 		//Limitador de la actuacion
-		IF (ActPuller>ActPuller_Max) THEN 
-			ActPuller:=ActPuller_Max;
-		ELSIF (ActPuller<ActPuller_Min) THEN
-			ActPuller:=ActPuller_Min;
-		END_IF
+		//IF (ActPuller>ActPuller_Max) THEN 
+			//ActPuller:=ActPuller_Max;
+		//ELSIF (ActPuller<ActPuller_Min) THEN
+			//ActPuller:=ActPuller_Min;
+		//END_IF
 		
 		// Restablecer valores de medida para una futura medida
-		GVL.NuevaMedidaCamara:=FALSE;
-		GVL.Vision.SingleShot(Enable:=TRUE, Execute:=FALSE);
+		//GVL.NuevaMedidaCamara:=FALSE;
+		//GVL.Vision.SingleShot(Enable:=TRUE, Execute:=FALSE);
 		
-	END_IF
+	//END_IF
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Basic">
