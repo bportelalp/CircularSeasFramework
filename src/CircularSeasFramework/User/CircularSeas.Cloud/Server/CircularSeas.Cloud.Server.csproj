@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Domain\CircularSeas.Adapters\CircularSeas.Adapters.csproj" />
-    <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.GenPDF\CircularSeas.Infrastructure.GenPDF.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\CircularSeas.Infrastructure.GenPDF\CircularSeas.Infrastructure.GenPDF.csproj" />
     <ProjectReference Include="..\..\CircularSeas.IoC\CircularSeas.IoC.csproj" />
     <ProjectReference Include="..\Client\CircularSeas.Cloud.Client.csproj" />
   </ItemGroup>
