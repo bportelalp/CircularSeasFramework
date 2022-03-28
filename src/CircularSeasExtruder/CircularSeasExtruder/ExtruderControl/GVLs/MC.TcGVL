@@ -18,6 +18,9 @@ VAR_GLOBAL
 	Man_Forward:BOOL;
 	Man_Backwards:BOOL;
 	
+	Man_ForwardPuller:BOOL;
+	Man_BackwardsPuller:BOOL;
+	
 	// Motion variables
 	Override:LREAL := 100;
 	TargetVel:LREAL;

@@ -12,14 +12,19 @@ VAR_GLOBAL
 	
 	NuevaMedidaCamara:BOOL:=FALSE; //Variable auxiliar para el control de la camara
 	
+	//Variables para el control de la temperatura
+	TempTerT: LREAL;
+	TempTerB: LREAL;
+	
 	State:INT:= 0; //Para gestion de la maquina de estados
 	//0: estado inicial
 	//1: dar potencia
 	//2: calentar 
 	//3: mover en velocidad extrusora y puller
 	//4: funcionamiento extrusora
-	//5: funcionamiento general del sistema
-	//6: cambio de velocidad del puller
+	//5: nueva foto y gestion de termicos
+	//6: calculo de la nueva velocidad
+	//7: cambio de velocidad del puller
 	//30: parar ejes
 END_VAR]]></Declaration>
   </GVL>

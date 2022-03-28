@@ -36,6 +36,9 @@ VAR_GLOBAL
 	Bt_ManBackwards:BOOL;
 	Bt_Light:BOOL;
 	Tb_ManVel:REAL;
+	Bt_ManForwardPuller:BOOL;
+	Bt_ManBackwardsPuller:BOOL;
+	Tb_ManVelPuller:REAL;
 	
 END_VAR
 

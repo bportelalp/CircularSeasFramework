@@ -22,6 +22,7 @@ END_VAR
 		END_IF
 		IF HMI.Bt_Run AND HMI.S_ManAuto THEN
 			GVL.Mode := Modes.AUTO;
+			GVL.State:=0;
 		END_IF
 		IF NOT HMI.S_ManAuto THEN
 			GVL.Mode := Modes.MAN;
@@ -74,7 +75,9 @@ END_IF]]></ST>
       <LineId Id="19" Count="1" />
       <LineId Id="38" Count="1" />
       <LineId Id="37" Count="0" />
-      <LineId Id="21" Count="2" />
+      <LineId Id="21" Count="1" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="23" Count="0" />
       <LineId Id="48" Count="1" />
       <LineId Id="47" Count="0" />
       <LineId Id="24" Count="2" />

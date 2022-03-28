@@ -12,6 +12,8 @@ END_VAR
       <ST><![CDATA[Motion.InitMotion();
 GVL.Vision();
 
+ControlTemp();
+
 OperatingModes();
 
 IF GVL.Mode = Modes.AUTO THEN
@@ -24,7 +26,10 @@ Motion();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3" Count="11" />
+      <LineId Id="3" Count="1" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="21" Count="0" />
+      <LineId Id="5" Count="9" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
