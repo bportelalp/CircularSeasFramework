@@ -1,6 +1,7 @@
 using System.Linq;
 using CircularSeas.Cloud.Server.Helpers;
 using CircularSeas.Infrastructure.DB.Context;
+using CircularSeas.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,14 +31,16 @@ namespace CircularSeas.Cloud.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
-            var appSettings = appSettingsSection.Get<AppSettings>();
+            //Configura objeto para proporcionar los ajustes de app, aunque ya no es necesario creo
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             Configuration.GetSection("AppSettings").GetValue<string>("prusaSlicerPath");
             string rootPath = WebHostEnvironment.WebRootPath;
-            CircularSeas.IoC.IoCService.ConfigureServices(services, Configuration,rootPath);
+
+            // Configura inversión de dependencias
+            services.ConfigureIoC(Configuration,rootPath);
             
+            //Herramientas secundarias
             services.AddSingleton<Tools>();
         }
 
