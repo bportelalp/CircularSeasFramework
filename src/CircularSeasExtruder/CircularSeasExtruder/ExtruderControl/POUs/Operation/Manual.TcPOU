@@ -12,8 +12,30 @@ END_VAR
       <ST><![CDATA[IF GVL.Mode = Modes.MAN THEN
 	IO.Q_HeaterB := HMI.Bt_ManHeatBot;
 	IO.Q_HeaterT := HMI.Bt_ManHeatTop;
-	MC.Man_Forward := HMI.Bt_ManForward;
-	MC.Man_Backwards := HMI.Bt_ManBackwards;
+	//Al pulsar botones, primero dar orden de potencia
+	IF HMI.Bt_ManForward OR HMI.Bt_ManBackwards OR HMI.Bt_ManBackwardsPuller OR HMI.Bt_ManForwardPuller THEN
+		MC.En_Power := TRUE;
+		//Ya en potencia, se ejecuta la orden
+		IF Motion.FB_Power.Status AND Motion.FB_Power2.Status AND Motion.FB_Power3.Status THEN
+			MC.Man_Forward := HMI.Bt_ManForward;
+			MC.Man_Backwards := HMI.Bt_ManBackwards;
+			MC.Man_ForwardPuller:=HMI.Bt_ManForwardPuller;
+			MC.Man_BackwardsPuller:=HMI.Bt_ManBackwardsPuller;
+		END_IF
+	//Si se deja de pulsar, al acabar movimiento, se quita potencia
+	ELSE
+		MC.Man_Forward := FALSE;
+		MC.Man_Backwards := FALSE;
+		MC.Man_ForwardPuller:=FALSE;
+		MC.Man_BackwardsPuller:=FALSE;
+		IF NOT Motion.FB_Manual.Busy AND NOT Motion.FB_ManualPuller.Busy THEN
+			MC.En_Power := FALSE;
+		ELSE
+			MC.En_Power := TRUE;
+		END_IF
+	END_IF
+//	MC.Man_Forward := HMI.Bt_ManForward;
+//	MC.Man_Backwards := HMI.Bt_ManBackwards;
 	IO.Q_VisionLight := HMI.Bt_Light;
 	
 	GVL.Vision.SingleShot(Enable:=HMI.Bt_ActivateSingle, 
@@ -34,6 +56,10 @@ ELSE
 	HMI.Bt_ManForward := FALSE;
 	MC.Man_Backwards := FALSE;
 	HMI.Bt_ManBackwards := FALSE;
+	MC.Man_ForwardPuller := FALSE;
+	HMI.Bt_ManForwardPuller := FALSE;
+	MC.Man_BackwardsPuller := FALSE;
+	HMI.Bt_ManBackwardsPuller := FALSE;
 	HMI.Bt_Light := FALSE;
 	HMI.Bt_ActivateSingle:=FALSE;
 	HMI.Bt_ActivateContinuous:=FALSE;
@@ -49,6 +75,23 @@ END_IF]]></ST>
     <LineIds Name="Manual">
       <LineId Id="5" Count="0" />
       <LineId Id="8" Count="1" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="68" Count="1" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="71" Count="1" />
+      <LineId Id="74" Count="0" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="75" Count="0" />
+      <LineId Id="87" Count="1" />
+      <LineId Id="103" Count="1" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="92" Count="1" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="70" Count="0" />
       <LineId Id="27" Count="0" />
       <LineId Id="29" Count="0" />
       <LineId Id="38" Count="0" />
@@ -67,6 +110,8 @@ END_IF]]></ST>
       <LineId Id="32" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="33" Count="0" />
+      <LineId Id="106" Count="2" />
+      <LineId Id="105" Count="0" />
       <LineId Id="39" Count="0" />
       <LineId Id="52" Count="1" />
       <LineId Id="25" Count="0" />

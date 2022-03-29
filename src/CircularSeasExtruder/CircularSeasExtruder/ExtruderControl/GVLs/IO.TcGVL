@@ -10,8 +10,12 @@ VAR_GLOBAL
 	Q_VisionLight AT %Q*:BOOL;
 	
 	// RTD Sensors (PT100)
-	I_TermT AT %I*:LREAL;
-	I_TermB AT %I*:LREAL;
+	I_TermT AT %I*:INT;
+	I_TermB AT %I*:INT;
+	
+	// Sensores mecanicos diametro
+	I_SMec1 AT %I*:INT;
+	I_SMec2 AT %I*:INT;
 	
 END_VAR]]></Declaration>
   </GVL>

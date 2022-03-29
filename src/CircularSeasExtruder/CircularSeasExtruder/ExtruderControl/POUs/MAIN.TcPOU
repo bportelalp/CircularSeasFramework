@@ -6,13 +6,13 @@ VAR
 	En:BOOL;
 	Shot:BOOL;
 	Result:ARRAY [0..7] OF REAL;
-	DbManager:DatabaseManager();
-	tipo:ARRAY [0..20] OF ST_Material;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Motion.InitMotion();
 GVL.Vision();
+
+ControlTemp();
 
 OperatingModes();
 
@@ -26,18 +26,11 @@ Motion();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="19" Count="0" />
+      <LineId Id="3" Count="1" />
       <LineId Id="22" Count="0" />
       <LineId Id="21" Count="0" />
+      <LineId Id="5" Count="9" />
       <LineId Id="2" Count="0" />
-      <LineId Id="28" Count="0" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="29" Count="1" />
-      <LineId Id="48" Count="0" />
-      <LineId Id="41" Count="0" />
-      <LineId Id="8" Count="0" />
-      <LineId Id="15" Count="0" />
-      <LineId Id="55" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

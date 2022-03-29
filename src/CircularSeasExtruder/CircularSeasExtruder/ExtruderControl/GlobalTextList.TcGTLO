@@ -405,6 +405,14 @@ inferior</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"650"</v>
+              <v n="TextDefault">"Puller Motion"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"586"</v>
               <v n="TextDefault">"Rearm"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">

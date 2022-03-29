@@ -39,10 +39,6 @@
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GVLs\DB.TcGVL">
-      <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
-    </Compile>
     <Compile Include="GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
       <LinkAlways>true</LinkAlways>
@@ -63,6 +59,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AutoExtrusion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlTemp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Database\DatabaseManager.TcPOU">
@@ -170,6 +169,10 @@
     <PlaceholderReference Include="Tc2_MC2">
       <DefaultResolution>Tc2_MC2, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_MC2</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_MC2_FlyingSaw">
+      <DefaultResolution>Tc2_MC2_FlyingSaw, * (Beckhoff Automation GmbH)</DefaultResolution>
+      <Namespace>Tc2_MC2_FlyingSaw</Namespace>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
