@@ -39,7 +39,7 @@ namespace CircularSeas.IoC
             services.AddScoped<IGenPDF, PdfGenerator>();
 
             // Infraestructura de acceso a programa de slicing, con ruta especificada en appsettings
-            services.AddScoped<ISlicerCLI, PrusaSlicerCLI>(p => new PrusaSlicerCLI(p.GetRequiredService<ILog>(), configuration.GetSection("AppSettings").GetValue<string>("prusaSlicerPath")));
+            services.AddSingleton<ISlicerCLI, PrusaSlicerCLI>(p => new PrusaSlicerCLI(p.GetRequiredService<ILog>(), configuration.GetSection("AppSettings").GetValue<string>("prusaSlicerPath")));
         }
     
     }

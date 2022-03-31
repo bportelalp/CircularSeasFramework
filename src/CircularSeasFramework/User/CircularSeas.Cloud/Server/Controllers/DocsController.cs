@@ -15,13 +15,11 @@ namespace CircularSeas.Cloud.Server.Controllers
     {
         private readonly IDbService dbService;
         private readonly IGenPDF pdf;
-        private readonly IWebHostEnvironment env;
 
-        public DocsController(IDbService dbService, IGenPDF pdf, IWebHostEnvironment env)
+        public DocsController(IDbService dbService, IGenPDF pdf)
         {
             this.dbService = dbService;
             this.pdf = pdf;
-            this.env = env;
         }
 
         [HttpGet("pdf/{orderId}")]

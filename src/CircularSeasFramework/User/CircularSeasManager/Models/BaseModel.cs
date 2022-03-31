@@ -106,7 +106,7 @@ namespace CircularSeasManager.Models
             {
                 if (Preferences.ContainsKey("IPSlicer"))
                 {
-                    _IPSlicer = Preferences.Get("IPSlicer", "http://192.168.0.10");
+                    _IPSlicer = Preferences.Get("IPSlicer", "https://circularseas.aula3.tk");
                 }
                 return _IPSlicer;
             }

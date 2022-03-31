@@ -42,7 +42,6 @@ namespace CircularSeas.Cloud.Client.Pages
             }
         }
 
-
         private async Task GetNodeStock()
         {
             var queryMaterials = QueryHelpers.AddQueryString("api/management/materials", new Dictionary<string, string>
