@@ -29,6 +29,7 @@ VAR
 	ActPuller: LREAL; //Valor inicial de actuacion que variara segun el valor del diametro
 	ActPuller_Max: LREAL;
 	ActPuller_Min: LREAL;
+	
 END_VAR
 ]]></Declaration>
     <Implementation>

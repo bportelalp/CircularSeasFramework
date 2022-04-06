@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MedidaTemp" Id="{d3f6de43-3b57-4ce0-885a-f730bb311d29}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MedidaTemp
+VAR
+	VampT:REAL;
+	VampB:REAL;
+	Gain:REAL;
+	VAT:REAL;
+	VAB:REAL;
+	VB:REAL;
+	Rpt100T:REAL;
+	Rpt100B:REAL;
+END_VAR
+
+VAR CONSTANT
+	Vcc:REAL:=10.0;
+	R1:INT:=10000;
+	R0:INT:=100;
+	Rg:INT:=1000;
+	A:LREAL:=3.9083*EXPT(10,-3);
+	B:LREAL:=-5.775*EXPT(10,-7);
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[VB:=(100*Vcc)/(R1+100);
+Gain:=1.0+(49400.0/Rg);
+
+//Calculo de la temperatura del termico superior
+VampT:=(IO.I_TermT*Vcc)/32767;
+VAT:=(VampT/Gain)+VB;
+Rpt100T:=(R1)/((Vcc/VAT)-1);
+GVL.TempTerT:=(-A+SQRT(A*A-4*B*(1-(Rpt100T/R0))))/(2*B);
+
+//Calculo de la temperatura del termico inferior
+VampB:=(IO.I_TermB*Vcc)/32767;
+VAB:=(VampB/Gain)+VB;
+Rpt100B:=(R1)/((Vcc/VAB)-1);
+GVL.TempTerB:=(-A+SQRT(A*A-4*B*(1-(Rpt100B/R0))))/(2*B);]]></ST>
+    </Implementation>
+    <LineIds Name="MedidaTemp">
+      <LineId Id="82" Count="12" />
+      <LineId Id="41" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -61,7 +61,7 @@
     <Compile Include="POUs\AutoExtrusion.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\ControlTemp.TcPOU">
+    <Compile Include="POUs\MedidaTemp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Database\DatabaseManager.TcPOU">

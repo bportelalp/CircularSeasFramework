@@ -8,7 +8,8 @@ VAR_GLOBAL
 	Vision:SensorFQM;
 	VisionResults:ARRAY [0..7] OF REAL;
 	VisionResultsmm:ARRAY [0..7] OF REAL;
-	ScalingFactor:REAL:= 0.0414;
+	//ScalingFactor:REAL:= 0.0414;
+	ScalingFactor:REAL:= 0.03798; //Factor de escalado (mm/pixeles) para broca de 1.75mm
 	
 	NuevaMedidaCamara:BOOL:=FALSE; //Variable auxiliar para el control de la camara
 	

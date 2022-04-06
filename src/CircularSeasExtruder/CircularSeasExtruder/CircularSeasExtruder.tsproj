@@ -2076,22 +2076,22 @@ External Setpoint Generation:
 							<Type GUID="{EE3E7C4B-25B6-D5B8-E223-F57D4C2DCE8D}">SensorToPlc</Type>
 						</Var>
 						<Var>
-							<Name>IO.I_SMec1</Name>
-							<Comment><![CDATA[ Sensores mecanicos diametro]]></Comment>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
 							<Name>IO.I_TermT</Name>
 							<Comment><![CDATA[ RTD Sensors (PT100)]]></Comment>
-							<Type>LREAL</Type>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>IO.I_TermB</Name>
-							<Type>LREAL</Type>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>IO.I_SMec1</Name>
+							<Comment><![CDATA[ Sensores mecanicos diametro]]></Comment>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>IO.I_SMec2</Name>
-							<Type>REAL</Type>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>MC.Extruder.NcToPlc</Name>
