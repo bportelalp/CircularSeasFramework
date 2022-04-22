@@ -2224,7 +2224,7 @@ External Setpoint Generation:
 						</EtherCAT>
 					</Box>
 					<Box Id="6" BoxType="9099" BoxFlags="#x00000020">
-						<Name>Term 6 (EL3102)</Name>
+						<Name>Term 3 (EL3102)</Name>
 						<ImageId>1002</ImageId>
 						<EtherCAT SlaveType="2" PdiType="#x0005" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x0c1e3052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3102 2Ch. Ana. Input +/-10V, Diff." Desc="EL3102" PortABoxInfo="#x01000002">
 							<SyncMan>0018f60026000100010000002800ce05f600001826010000</SyncMan>
