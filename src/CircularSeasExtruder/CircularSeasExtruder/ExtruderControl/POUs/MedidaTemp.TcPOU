@@ -15,11 +15,11 @@ VAR
 	TempTerB: INT;
 	
 	//Variables media de medidas de temperatura
-	LecturasT:ARRAY[1..10] OF REAL:=[10(0.0)];
+	LecturasT:ARRAY[0..9] OF REAL:=[10(0.0)];
 	IndexT:INT:=0; //Indice del vector de medidas 
 	SumaT:REAL:=0.0; //Suma de medidas
 	MedidaT:REAL:=0.0; //Media de medidas y por tanto medida de la temperatura
-	LecturasB:ARRAY[1..10] OF REAL:=[10(0.0)];
+	LecturasB:ARRAY[0..9] OF REAL:=[10(0.0)];
 	IndexB:INT:=0; //Indice del vector de medidas 
 	SumaB:REAL:=0.0; //Suma de medidas
 	MedidaB:REAL:=0.0; //Media de medidas y por tanto medida de la temperatura
@@ -48,7 +48,7 @@ SumaT:= SumaT - LecturasT[IndexT];
 LecturasT[IndexT]:=VampT;
 SumaT:=SumaT+LecturasT[IndexT];
 IndexT:= IndexT + 1;
-IF (IndexT > 10) THEN
+IF (IndexT > 9) THEN
 	IndexT := 0;    //Volvemos al inicio del vector
 END_IF
 MedidaT:=SumaT/10;
@@ -67,7 +67,7 @@ SumaB:= SumaB - LecturasB[IndexB];
 LecturasB[IndexB]:=VampB;
 SumaB:=SumaB+LecturasB[IndexB];
 IndexB:= IndexB + 1;
-IF (IndexB > 10) THEN
+IF (IndexB > 9) THEN
 	IndexB := 0;    //Volvemos al inicio del vector
 END_IF
 MedidaB:=SumaB/10;
