@@ -5,40 +5,94 @@
 VAR
 	VampT:REAL;
 	VampB:REAL;
-	Gain:REAL;
+	//Gain:REAL;
 	VAT:REAL;
 	VAB:REAL;
 	VB:REAL;
 	Rpt100T:REAL;
 	Rpt100B:REAL;
+	TempTerT: INT;
+	TempTerB: INT;
+	
+	//Variables media de medidas de temperatura
+	LecturasT:ARRAY[1..10] OF REAL:=[10(0.0)];
+	IndexT:INT:=0; //Indice del vector de medidas 
+	SumaT:REAL:=0.0; //Suma de medidas
+	MedidaT:REAL:=0.0; //Media de medidas y por tanto medida de la temperatura
+	LecturasB:ARRAY[1..10] OF REAL:=[10(0.0)];
+	IndexB:INT:=0; //Indice del vector de medidas 
+	SumaB:REAL:=0.0; //Suma de medidas
+	MedidaB:REAL:=0.0; //Media de medidas y por tanto medida de la temperatura
 END_VAR
 
 VAR CONSTANT
 	Vcc:REAL:=10.0;
-	R1:INT:=10000;
+	R1:INT:=9400;
 	R0:INT:=100;
-	Rg:INT:=1000;
+	Rg:INT:=968;
+	//Gain:LREAL:=72.84091;
+	Gain:LREAL:=70;
 	A:LREAL:=3.9083*EXPT(10,-3);
 	B:LREAL:=-5.775*EXPT(10,-7);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[VB:=(100*Vcc)/(R1+100);
-Gain:=1.0+(49400.0/Rg);
+//Gain:=1.0+(49400.0/Rg);
 
 //Calculo de la temperatura del termico superior
-VampT:=(IO.I_TermT*Vcc)/32767;
-VAT:=(VampT/Gain)+VB;
+//TempTerT:=ABS(IO.I_TermT);
+VampT:=((ABS(IO.I_TermT))*Vcc)/32767;
+
+//Hacer media de las 10 ultimas medidas de la temperatura
+SumaT:= SumaT - LecturasT[IndexT];
+LecturasT[IndexT]:=VampT;
+SumaT:=SumaT+LecturasT[IndexT];
+IndexT:= IndexT + 1;
+IF (IndexT > 10) THEN
+	IndexT := 0;    //Volvemos al inicio del vector
+END_IF
+MedidaT:=SumaT/10;
+	
+VAT:=(MedidaT/Gain)+VB;
 Rpt100T:=(R1)/((Vcc/VAT)-1);
 GVL.TempTerT:=(-A+SQRT(A*A-4*B*(1-(Rpt100T/R0))))/(2*B);
 
+
 //Calculo de la temperatura del termico inferior
-VampB:=(IO.I_TermB*Vcc)/32767;
-VAB:=(VampB/Gain)+VB;
+//TempTerB:=ABS(IO.I_TermB);
+VampB:=((ABS(IO.I_TermB))*Vcc)/32767;
+
+//Hacer media de las 10 ultimas medidas de la temperatura
+SumaB:= SumaB - LecturasB[IndexB];
+LecturasB[IndexB]:=VampB;
+SumaB:=SumaB+LecturasB[IndexB];
+IndexB:= IndexB + 1;
+IF (IndexB > 10) THEN
+	IndexB := 0;    //Volvemos al inicio del vector
+END_IF
+MedidaB:=SumaB/10;
+
+VAB:=(MedidaB/Gain)+VB;
 Rpt100B:=(R1)/((Vcc/VAB)-1);
 GVL.TempTerB:=(-A+SQRT(A*A-4*B*(1-(Rpt100B/R0))))/(2*B);]]></ST>
     </Implementation>
     <LineIds Name="MedidaTemp">
-      <LineId Id="82" Count="12" />
+      <LineId Id="82" Count="3" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="151" Count="0" />
+      <LineId Id="142" Count="7" />
+      <LineId Id="141" Count="0" />
+      <LineId Id="150" Count="0" />
+      <LineId Id="87" Count="2" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="90" Count="1" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="92" Count="0" />
+      <LineId Id="164" Count="8" />
+      <LineId Id="163" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="93" Count="1" />
       <LineId Id="41" Count="0" />
     </LineIds>
   </POU>

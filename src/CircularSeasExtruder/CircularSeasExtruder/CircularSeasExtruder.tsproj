@@ -4144,8 +4144,16 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Outputs^GVL.Vision.PlcToSensor^VisionControlFlag" VarB="257th receive PDO Mapping^EXE Bit"/>
 				<Link VarA="PlcTask Outputs^GVL.Vision.PlcToSensor^VisionControlFlag" VarB="257th receive PDO Mapping^TRIG Bit" Size="1" OffsA="1"/>
 			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1100)^Term 10 (EL3102)">
+				<Link VarA="PlcTask Inputs^IO.I_TermB" VarB="Channel 1^Value"/>
+				<Link VarA="PlcTask Inputs^IO.I_TermT" VarB="Channel 2^Value"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1100)^Term 5 (EL2008)">
 				<Link VarA="PlcTask Outputs^IO.Q_VisionLight" VarB="Channel 3^Output"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1100)^Term 9 (EL3102)">
+				<Link VarA="PlcTask Inputs^IO.I_SMec1" VarB="Channel 1^Value"/>
+				<Link VarA="PlcTask Inputs^IO.I_SMec2" VarB="Channel 2^Value"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task Extruder SAF^Axes^ExtruderAxis">
 				<Link VarA="PlcTask Inputs^MC.Extruder.NcToPlc" VarB="Outputs^ToPlc"/>
