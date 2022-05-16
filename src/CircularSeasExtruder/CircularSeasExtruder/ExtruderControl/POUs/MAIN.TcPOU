@@ -13,6 +13,7 @@ END_VAR
 GVL.Vision();
 
 MedidaTemp();
+MedidaDiamMec();
 
 OperatingModes();
 
@@ -26,7 +27,8 @@ Motion();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="29" Count="13" />
+      <LineId Id="49" Count="13" />
+      <LineId Id="42" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

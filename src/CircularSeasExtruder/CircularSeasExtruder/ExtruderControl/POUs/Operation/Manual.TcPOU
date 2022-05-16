@@ -3,10 +3,25 @@
   <POU Name="Manual" Id="{ee1bf0c1-cf50-4f2d-9ac3-afa6241a629b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Manual
 VAR
+	
 	ExitManual:F_TRIG;
 	
 	LoopCounter:INT;
+	
+	//Variables para la lectura de sensores
+	MedSenMec:REAL:=0.0;
+	MedSensores:REAL:=0.0;
+	SumSenOpt: REAL:=0.0;
+	MedSenOpt: REAL:=0.0;
+	
+	//Variables para la media de medidas de los sensores
+	Lecturas:ARRAY[0..9] OF REAL:=[10(0.0)]; //Medidas del diametro inicializadas
+	Index:INT:=0; //Indice del vector de medidas 
+	Suma:REAL:=0.0; //Suma de medidas
+	Medida:REAL:=0.0; //Media de medidas y por tanto medida del diametro
+	
 END_VAR
+
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF GVL.Mode = Modes.MAN THEN
@@ -41,13 +56,92 @@ END_VAR
 	GVL.Vision.SingleShot(Enable:=HMI.Bt_ActivateSingle, 
 						Execute:=HMI.Bt_Shot,
 						Q=>GVL.VisionResults,
-						Measurement=>HMI.L_NewMeasurement);
+						Measurement=>GVL.NuevaMedidaCamara);
     GVL.Vision.ContinuousShot(Enable:=HMI.Bt_ActivateContinuous,
-						Q=>GVL.VisionResults);
+						Q=>GVL.VisionResults);		
 	
-	FOR LoopCounter:=0 TO 7 BY 1 DO
-		GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
-	END_FOR					
+	IF HMI.Bt_ActivateSingle AND GVL.NuevaMedidaCamara THEN
+		// Restablecer valores de medida para una futura medida
+		GVL.NuevaMedidaCamara:=FALSE;
+		GVL.Vision.SingleShot(Enable:=TRUE, Execute:=FALSE);
+		SumSenOpt:=0.0;
+		FOR LoopCounter:=0 TO 7 BY 1 DO
+			GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
+			SumSenOpt:=GVL.VisionResultsmm[LoopCounter]+SumSenOpt;
+		END_FOR	
+		MedSenOpt:=SumSenOpt/3;
+		
+		//Calculo del diametro
+		MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
+		MedSensores:=((MedSenMec+MedSenOpt)/2);
+		(*
+		//Hacer media de las 10 ultimas medidas del diametro
+		Suma:= Suma - Lecturas[Index];
+		Lecturas[index]:=MedSensores;
+		Suma:=Suma+Lecturas[index];
+		Index:= Index + 1;
+		IF (Index > 9) THEN
+			Index := 0;    	//Volvemos al inicio del vector
+		END_IF
+		Medida:=Suma/10;
+		*)
+		//Gestion de la actuacion
+		IF (MedSensores>(GVL.dReferencia+GVL.dTolerancia)) THEN 		//Diametro grande
+			GVL.ActPuller:=GVL.ActPuller+GVL.vPaso;
+		END_IF
+	
+		IF (MedSensores<(GVL.dReferencia-GVL.dTolerancia)) THEN 		//Diametro pequeño
+			GVL.ActPuller:=GVL.ActPuller-GVL.vPaso;
+		END_IF
+	
+		//Limitador de la actuacion
+		IF (GVL.ActPuller>GVL.ActPuller_Max) THEN 
+			GVL.ActPuller:=GVL.ActPuller_Max;
+		ELSIF (GVL.ActPuller<GVL.ActPuller_Min) THEN
+			GVL.ActPuller:=GVL.ActPuller_Min;
+		END_IF
+	END_IF
+	IF HMI.Bt_ActivateContinuous THEN
+		// Restablecer valores de medida para una futura medida
+		SumSenOpt:=0.0;
+		FOR LoopCounter:=0 TO 7 BY 1 DO
+			GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
+			SumSenOpt:=GVL.VisionResultsmm[LoopCounter]+SumSenOpt;
+		END_FOR	
+		MedSenOpt:=SumSenOpt/3;
+		
+		//Calculo del diametro
+		MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
+		MedSensores:=((MedSenMec+MedSenOpt)/2);
+		
+		//Hacer media de las 10 ultimas medidas del diametro
+		Suma:= Suma - Lecturas[Index];
+		Lecturas[index]:=MedSensores;
+		Suma:=Suma+Lecturas[index];
+		Index:= Index + 1;
+		IF (Index > 9) THEN
+			Index := 0;    	//Volvemos al inicio del vector
+		END_IF
+		Medida:=Suma/10;
+		
+		//Gestion de la actuacion
+		IF (MedSensores>(GVL.dReferencia+GVL.dTolerancia)) THEN 		//Diametro grande
+			GVL.ActPuller:=GVL.ActPuller+GVL.vPaso;
+		END_IF
+	
+		IF (MedSensores<(GVL.dReferencia-GVL.dTolerancia)) THEN 		//Diametro pequeño
+			GVL.ActPuller:=GVL.ActPuller-GVL.vPaso;
+		END_IF
+	
+		//Limitador de la actuacion
+		IF (GVL.ActPuller>GVL.ActPuller_Max) THEN 
+			GVL.ActPuller:=GVL.ActPuller_Max;
+		ELSIF (GVL.ActPuller<GVL.ActPuller_Min) THEN
+			GVL.ActPuller:=GVL.ActPuller_Min;
+		END_IF
+	END_IF
+	
+			
 	
 ELSE
 	HMI.Bt_ManHeatBot := FALSE;
@@ -73,54 +167,7 @@ IF ExitManual.Q THEN
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Manual">
-      <LineId Id="5" Count="0" />
-      <LineId Id="8" Count="1" />
-      <LineId Id="79" Count="0" />
-      <LineId Id="68" Count="1" />
-      <LineId Id="80" Count="0" />
-      <LineId Id="71" Count="1" />
-      <LineId Id="74" Count="0" />
-      <LineId Id="102" Count="0" />
-      <LineId Id="100" Count="0" />
-      <LineId Id="73" Count="0" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="75" Count="0" />
-      <LineId Id="87" Count="1" />
-      <LineId Id="103" Count="1" />
-      <LineId Id="76" Count="0" />
-      <LineId Id="84" Count="0" />
-      <LineId Id="92" Count="1" />
-      <LineId Id="78" Count="0" />
-      <LineId Id="70" Count="0" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="29" Count="0" />
-      <LineId Id="38" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="47" Count="4" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="54" Count="0" />
-      <LineId Id="56" Count="0" />
-      <LineId Id="60" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="55" Count="0" />
-      <LineId Id="7" Count="0" />
-      <LineId Id="24" Count="0" />
-      <LineId Id="26" Count="0" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="32" Count="0" />
-      <LineId Id="31" Count="0" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="106" Count="2" />
-      <LineId Id="105" Count="0" />
-      <LineId Id="39" Count="0" />
-      <LineId Id="52" Count="1" />
-      <LineId Id="25" Count="0" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="14" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="40" Count="0" />
+      <LineId Id="135" Count="139" />
       <LineId Id="15" Count="0" />
     </LineIds>
   </POU>

@@ -36,11 +36,10 @@ VAR CONSTANT
 	B:LREAL:=-5.775*EXPT(10,-7);
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[VB:=(100*Vcc)/(R1+100);
+      <ST><![CDATA[VB:=(R0*Vcc)/(R1+R0);
 //Gain:=1.0+(49400.0/Rg);
 
 //Calculo de la temperatura del termico superior
-//TempTerT:=ABS(IO.I_TermT);
 VampT:=((ABS(IO.I_TermT))*Vcc)/32767;
 
 //Hacer media de las 10 ultimas medidas de la temperatura
@@ -59,7 +58,6 @@ GVL.TempTerT:=(-A+SQRT(A*A-4*B*(1-(Rpt100T/R0))))/(2*B);
 
 
 //Calculo de la temperatura del termico inferior
-//TempTerB:=ABS(IO.I_TermB);
 VampB:=((ABS(IO.I_TermB))*Vcc)/32767;
 
 //Hacer media de las 10 ultimas medidas de la temperatura
@@ -77,22 +75,7 @@ Rpt100B:=(R1)/((Vcc/VAB)-1);
 GVL.TempTerB:=(-A+SQRT(A*A-4*B*(1-(Rpt100B/R0))))/(2*B);]]></ST>
     </Implementation>
     <LineIds Name="MedidaTemp">
-      <LineId Id="82" Count="3" />
-      <LineId Id="137" Count="0" />
-      <LineId Id="86" Count="0" />
-      <LineId Id="151" Count="0" />
-      <LineId Id="142" Count="7" />
-      <LineId Id="141" Count="0" />
-      <LineId Id="150" Count="0" />
-      <LineId Id="87" Count="2" />
-      <LineId Id="115" Count="0" />
-      <LineId Id="90" Count="1" />
-      <LineId Id="140" Count="0" />
-      <LineId Id="92" Count="0" />
-      <LineId Id="164" Count="8" />
-      <LineId Id="163" Count="0" />
-      <LineId Id="173" Count="0" />
-      <LineId Id="93" Count="1" />
+      <LineId Id="207" Count="35" />
       <LineId Id="41" Count="0" />
     </LineIds>
   </POU>
