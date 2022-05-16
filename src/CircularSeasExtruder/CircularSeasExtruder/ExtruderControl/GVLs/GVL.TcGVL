@@ -14,8 +14,8 @@ VAR_GLOBAL
 	NuevaMedidaCamara:BOOL:=FALSE; //Variable auxiliar para el control de la camara
 	
 	//Variables para el control de la temperatura
-	TempTerT: LREAL; 	//Temperatura medidia por el Pt100 del termico superior
-	TempTerB: LREAL; 	//Temperatura medidia por el Pt100 del termico inferior
+	TempTerT: LREAL; 	//Temperatura medida por el Pt100 del termico superior
+	TempTerB: LREAL; 	//Temperatura medida por el Pt100 del termico inferior
 	
 	//Variables para el control del diametro
 	config:BOOL:=0; //0 para 1.75mm y 1 para 2.85mm de diametro
