@@ -9,24 +9,24 @@ VAR_GLOBAL
 	VisionResults:ARRAY [0..7] OF REAL;
 	VisionResultsmm:ARRAY [0..7] OF REAL;
 	//ScalingFactor:REAL:= 0.0414;
-	ScalingFactor:REAL:= 0.03798; //Factor de escalado (mm/pixeles) para broca de 1.75mm
+	ScalingFactor:REAL:= 0.03798; 	//Factor de escalado (mm/pixeles) para broca de 1.75mm
 	
-	NuevaMedidaCamara:BOOL:=FALSE; //Variable auxiliar para el control de la camara
+	NuevaMedidaCamara:BOOL:=FALSE; 	//Variable auxiliar para el control de la camara
 	
 	//Variables para el control de la temperatura
 	TempTerT: LREAL; 	//Temperatura medida por el Pt100 del termico superior
 	TempTerB: LREAL; 	//Temperatura medida por el Pt100 del termico inferior
 	
 	//Variables para el control del diametro
-	config:BOOL:=0; //0 para 1.75mm y 1 para 2.85mm de diametro
-	dReferencia:REAL:=1.75; //1.75 o 2.85
+	config:BOOL:=0; 			//0 para 1.75mm y 1 para 2.85mm de diametro
+	dReferencia:REAL:=1.75; 	//1.75 o 2.85
 	//Estos valores (vPaso y dTolerancia) habría que asignarlos de forma correcta segun los parametros del motor inferior
-	vPaso:INT:=2; //Valor para variar la velocidad de actuacion de los rodillos inferiores
-	dTolerancia:REAL:=0.03; //Tolerancia permitida en la medida del diametro del filamento
+	vPaso:INT:=2; 				//Valor para variar la velocidad de actuacion de los rodillos inferiores
+	dTolerancia:REAL:=0.03; 	//Tolerancia permitida en la medida del diametro del filamento
 	
 	//Variable para controlar velocidad del motor inferior (puller)
 	//A estas variables habria que asignarle unos valores correctos para realizar el control de forma optima
-	ActPuller: LREAL; //Valor inicial de actuacion que variara segun el valor del diametro
+	ActPuller: LREAL; 			//Valor inicial de actuacion que variara segun el valor del diametro
 	ActPuller_Max: LREAL;
 	ActPuller_Min: LREAL;
 	

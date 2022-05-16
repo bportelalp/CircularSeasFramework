@@ -5,7 +5,6 @@
 VAR
 	VampT:REAL;
 	VampB:REAL;
-	//Gain:REAL;
 	VAT:REAL;
 	VAB:REAL;
 	VB:REAL;
@@ -16,13 +15,13 @@ VAR
 	
 	//Variables media de medidas de temperatura
 	LecturasT:ARRAY[0..9] OF REAL:=[10(0.0)];
-	IndexT:INT:=0; //Indice del vector de medidas 
-	SumaT:REAL:=0.0; //Suma de medidas
-	MedidaT:REAL:=0.0; //Media de medidas y por tanto medida de la temperatura
+	IndexT:INT:=0; 			//Indice del vector de medidas 
+	SumaT:REAL:=0.0; 		//Suma de medidas
+	MedidaT:REAL:=0.0; 		//Media de medidas y por tanto medida de la temperatura
 	LecturasB:ARRAY[0..9] OF REAL:=[10(0.0)];
-	IndexB:INT:=0; //Indice del vector de medidas 
-	SumaB:REAL:=0.0; //Suma de medidas
-	MedidaB:REAL:=0.0; //Media de medidas y por tanto medida de la temperatura
+	IndexB:INT:=0; 			//Indice del vector de medidas 
+	SumaB:REAL:=0.0; 		//Suma de medidas
+	MedidaB:REAL:=0.0; 		//Media de medidas y por tanto medida de la temperatura
 END_VAR
 
 VAR CONSTANT
@@ -31,8 +30,8 @@ VAR CONSTANT
 	//R0:REAL:=100;
 	R0:REAL:=101.1;
 	Rg:REAL:=968;
-	//Gain:LREAL:=72.84091;
-	Gain:LREAL:=70;
+	//Gain:REAL:=72.84091;
+	Gain:REAL:=70;
 	A:LREAL:=3.9083*EXPT(10,-3);
 	B:LREAL:=-5.775*EXPT(10,-7);
 END_VAR]]></Declaration>

@@ -15,10 +15,10 @@ VAR
 	MedSenOpt: REAL:=0.0;
 	
 	//Variables para la media de medidas de los sensores
-	Lecturas:ARRAY[0..9] OF REAL:=[10(0.0)]; //Medidas del diametro inicializadas
-	Index:INT:=0; //Indice del vector de medidas 
-	Suma:REAL:=0.0; //Suma de medidas
-	Medida:REAL:=0.0; //Media de medidas y por tanto medida del diametro
+	Lecturas:ARRAY[0..9] OF REAL:=[10(0.0)]; 	//Medidas del diametro inicializadas
+	Index:INT:=0; 								//Indice del vector de medidas 
+	Suma:REAL:=0.0; 							//Suma de medidas
+	Medida:REAL:=0.0; 							//Media de medidas y por tanto medida del diametro
 	
 END_VAR
 
@@ -141,8 +141,6 @@ END_VAR
 		END_IF
 	END_IF
 	
-			
-	
 ELSE
 	HMI.Bt_ManHeatBot := FALSE;
 	HMI.Bt_ManHeatTop:= FALSE;
@@ -167,7 +165,8 @@ IF ExitManual.Q THEN
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Manual">
-      <LineId Id="135" Count="139" />
+      <LineId Id="135" Count="115" />
+      <LineId Id="253" Count="21" />
       <LineId Id="15" Count="0" />
     </LineIds>
   </POU>
