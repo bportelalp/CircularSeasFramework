@@ -6,7 +6,6 @@ VAR
 	LoopCounter:INT; //Para pasar de pixeles a mm en el vector de resultados	
 
 	//Variables para la lectura de sensores
-	MedSenMec:REAL:=0.0;
 	MedSensores:REAL:=0.0;
 	SumSenOpt: REAL:=0.0;
 	MedSenOpt: REAL:=0.0;
@@ -129,10 +128,10 @@ END_CASE
 IF (GVL.State=1) THEN 	//Comprobacion de la variable de configuracion, el diametro de trabajo y con el la velocidad inicial del puller
 	IF GVL.config THEN
 		GVL.dReferencia:=2.85;
-		GVL.ActPuller:=(360/125.6637)*(9.64538*HMI.Tb_Vel*(1/6))/((GVL.dReferencia/2)*(GVL.dReferencia/2));
+		GVL.ActPuller:=(360/125.6637)*(6.43025*HMI.Tb_Vel)/(GVL.dReferencia*GVL.dReferencia);
 	ELSE
 		GVL.dReferencia:=1.75;
-		GVL.ActPuller:=(360/125.6637)*(9.64538*HMI.Tb_Vel*(1/6))/((GVL.dReferencia/2)*(GVL.dReferencia/2));
+		GVL.ActPuller:=(360/125.6637)*(6.43025*HMI.Tb_Vel)/(GVL.dReferencia*GVL.dReferencia);
 	END_IF
 END_IF
 
@@ -167,8 +166,7 @@ IF (GVL.State=6) THEN 	//Nueva medida de la camara. Calculo del diametro medido 
 	MedSenOpt:=SumSenOpt/3;
 		
 	//Calculo del diametro
-	MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
-	MedSensores:=((MedSenMec+MedSenOpt)/2);
+	MedSensores:=((GVL.MedidaSensorMecanico+MedSenOpt)/2);
 		
 	//Hacer media de las 10 ultimas medidas del diametro
 	Suma:= Suma - Lecturas[Index];
@@ -206,7 +204,8 @@ END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="Basic">
-      <LineId Id="924" Count="181" />
+      <LineId Id="924" Count="146" />
+      <LineId Id="1072" Count="33" />
       <LineId Id="820" Count="0" />
       <LineId Id="816" Count="0" />
     </LineIds>

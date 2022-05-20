@@ -4,7 +4,6 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	
-
 	// Modes control
 	Bt_Run: BOOL;
 	Bt_Stop: BOOL;
@@ -32,10 +31,10 @@ VAR_GLOBAL
 	//Manual HMI
 	Bt_ManHeatTop:BOOL;
 	Bt_ManHeatBot:BOOL;
-	Bt_ManForward:BOOL;
-	Bt_ManBackwards:BOOL;
+	Bt_ManForwardExtruder:BOOL;
+	Bt_ManBackwardsExtruder:BOOL;
 	Bt_Light:BOOL;
-	Tb_ManVel:REAL;
+	Tb_ManVelExtruder:REAL;
 	Bt_ManForwardPuller:BOOL;
 	Bt_ManBackwardsPuller:BOOL;
 	Tb_ManVelPuller:REAL;

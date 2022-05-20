@@ -1905,9 +1905,13 @@ External Setpoint Generation:
 				<Axis Id="3" CreateSymbols="true" AxisType="1">
 					<Name>PullerAxisVirtual</Name>
 					<AxisPara>
+						<General UnitName="Degree"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="1">
+						<EncPara ScaleFactorNumerator="1">
+							<ParameterChanged>35</ParameterChanged>
+						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>

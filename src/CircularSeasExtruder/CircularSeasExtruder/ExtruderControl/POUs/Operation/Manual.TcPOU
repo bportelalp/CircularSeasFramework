@@ -9,7 +9,6 @@ VAR
 	LoopCounter:INT;
 	
 	//Variables para la lectura de sensores
-	MedSenMec:REAL:=0.0;
 	MedSensores:REAL:=0.0;
 	SumSenOpt: REAL:=0.0;
 	MedSenOpt: REAL:=0.0;
@@ -28,22 +27,22 @@ END_VAR
 	IO.Q_HeaterB := HMI.Bt_ManHeatBot;
 	IO.Q_HeaterT := HMI.Bt_ManHeatTop;
 	//Al pulsar botones, primero dar orden de potencia
-	IF HMI.Bt_ManForward OR HMI.Bt_ManBackwards OR HMI.Bt_ManBackwardsPuller OR HMI.Bt_ManForwardPuller THEN
+	IF HMI.Bt_ManForwardExtruder OR HMI.Bt_ManBackwardsExtruder OR HMI.Bt_ManBackwardsPuller OR HMI.Bt_ManForwardPuller THEN
 		MC.En_Power := TRUE;
 		//Ya en potencia, se ejecuta la orden
 		IF Motion.FB_Power.Status AND Motion.FB_Power2.Status AND Motion.FB_Power3.Status THEN
-			MC.Man_Forward := HMI.Bt_ManForward;
-			MC.Man_Backwards := HMI.Bt_ManBackwards;
+			MC.Man_ForwardExtruder := HMI.Bt_ManForwardExtruder;
+			MC.Man_BackwardsExtruder := HMI.Bt_ManBackwardsExtruder;
 			MC.Man_ForwardPuller:=HMI.Bt_ManForwardPuller;
 			MC.Man_BackwardsPuller:=HMI.Bt_ManBackwardsPuller;
 		END_IF
 	//Si se deja de pulsar, al acabar movimiento, se quita potencia
 	ELSE
-		MC.Man_Forward := FALSE;
-		MC.Man_Backwards := FALSE;
+		MC.Man_ForwardExtruder := FALSE;
+		MC.Man_BackwardsExtruder := FALSE;
 		MC.Man_ForwardPuller:=FALSE;
 		MC.Man_BackwardsPuller:=FALSE;
-		IF NOT Motion.FB_Manual.Busy AND NOT Motion.FB_ManualPuller.Busy THEN
+		IF NOT Motion.FB_ManualExtruder.Busy AND NOT Motion.FB_ManualPuller.Busy THEN
 			MC.En_Power := FALSE;
 		ELSE
 			MC.En_Power := TRUE;
@@ -72,8 +71,7 @@ END_VAR
 		MedSenOpt:=SumSenOpt/3;
 		
 		//Calculo del diametro
-		MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
-		MedSensores:=((MedSenMec+MedSenOpt)/2);
+		MedSensores:=((GVL.MedidaSensorMecanico+MedSenOpt)/2);
 		(*
 		//Hacer media de las 10 ultimas medidas del diametro
 		Suma:= Suma - Lecturas[Index];
@@ -85,6 +83,7 @@ END_VAR
 		END_IF
 		Medida:=Suma/10;
 		*)
+		(*
 		//Gestion de la actuacion
 		IF (MedSensores>(GVL.dReferencia+GVL.dTolerancia)) THEN 		//Diametro grande
 			GVL.ActPuller:=GVL.ActPuller+GVL.vPaso;
@@ -100,6 +99,7 @@ END_VAR
 		ELSIF (GVL.ActPuller<GVL.ActPuller_Min) THEN
 			GVL.ActPuller:=GVL.ActPuller_Min;
 		END_IF
+		*)
 	END_IF
 	IF HMI.Bt_ActivateContinuous THEN
 		// Restablecer valores de medida para una futura medida
@@ -111,8 +111,7 @@ END_VAR
 		MedSenOpt:=SumSenOpt/3;
 		
 		//Calculo del diametro
-		MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
-		MedSensores:=((MedSenMec+MedSenOpt)/2);
+		MedSensores:=((GVL.MedidaSensorMecanico+MedSenOpt)/2);
 		
 		//Hacer media de las 10 ultimas medidas del diametro
 		Suma:= Suma - Lecturas[Index];
@@ -123,7 +122,7 @@ END_VAR
 			Index := 0;    	//Volvemos al inicio del vector
 		END_IF
 		Medida:=Suma/10;
-		
+		(*
 		//Gestion de la actuacion
 		IF (MedSensores>(GVL.dReferencia+GVL.dTolerancia)) THEN 		//Diametro grande
 			GVL.ActPuller:=GVL.ActPuller+GVL.vPaso;
@@ -139,15 +138,16 @@ END_VAR
 		ELSIF (GVL.ActPuller<GVL.ActPuller_Min) THEN
 			GVL.ActPuller:=GVL.ActPuller_Min;
 		END_IF
+		*)
 	END_IF
 	
 ELSE
 	HMI.Bt_ManHeatBot := FALSE;
 	HMI.Bt_ManHeatTop:= FALSE;
-	MC.Man_Forward := FALSE;
-	HMI.Bt_ManForward := FALSE;
-	MC.Man_Backwards := FALSE;
-	HMI.Bt_ManBackwards := FALSE;
+	MC.Man_ForwardExtruder := FALSE;
+	HMI.Bt_ManForwardExtruder := FALSE;
+	MC.Man_BackwardsExtruder := FALSE;
+	HMI.Bt_ManBackwardsExtruder := FALSE;
 	MC.Man_ForwardPuller := FALSE;
 	HMI.Bt_ManForwardPuller := FALSE;
 	MC.Man_BackwardsPuller := FALSE;
@@ -165,7 +165,15 @@ IF ExitManual.Q THEN
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Manual">
-      <LineId Id="135" Count="115" />
+      <LineId Id="135" Count="47" />
+      <LineId Id="184" Count="11" />
+      <LineId Id="296" Count="0" />
+      <LineId Id="196" Count="14" />
+      <LineId Id="297" Count="0" />
+      <LineId Id="211" Count="10" />
+      <LineId Id="223" Count="26" />
+      <LineId Id="298" Count="0" />
+      <LineId Id="250" Count="0" />
       <LineId Id="253" Count="21" />
       <LineId Id="15" Count="0" />
     </LineIds>

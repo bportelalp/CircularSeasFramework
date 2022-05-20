@@ -493,6 +493,14 @@ inferior</v>
               </l>
             </o>
             <o>
+              <v n="TextID">"25"</v>
+              <v n="TextDefault">"Temperatura calentamiento (ºC): %s"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
+                <v></v>
+              </l>
+            </o>
+            <o>
               <v n="TextID">"524"</v>
               <v n="TextDefault">"Temperature"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
@@ -531,6 +539,14 @@ superior</v>
               <v n="TextDefault">"Top Heater"</v>
               <l n="LanguageTexts" t="ArrayList" cet="String">
                 <v>Calefactor superior</v>
+                <v></v>
+              </l>
+            </o>
+            <o>
+              <v n="TextID">"81"</v>
+              <v n="TextDefault">"Velocidad extrusora (deg/s): %s"</v>
+              <l n="LanguageTexts" t="ArrayList" cet="String">
+                <v></v>
                 <v></v>
               </l>
             </o>

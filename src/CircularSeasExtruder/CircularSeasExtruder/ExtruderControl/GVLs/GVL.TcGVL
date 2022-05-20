@@ -17,6 +17,9 @@ VAR_GLOBAL
 	TempTerT: LREAL; 	//Temperatura medida por el Pt100 del termico superior
 	TempTerB: LREAL; 	//Temperatura medida por el Pt100 del termico inferior
 	
+	//Variables para el control del diametro del filamento con el sensor mecanico
+	MedidaSensorMecanico:REAL:=0.0;		//Media de medidas y por tanto medida del diametro
+	
 	//Variables para el control del diametro
 	config:BOOL:=0; 			//0 para 1.75mm y 1 para 2.85mm de diametro
 	dReferencia:REAL:=1.75; 	//1.75 o 2.85

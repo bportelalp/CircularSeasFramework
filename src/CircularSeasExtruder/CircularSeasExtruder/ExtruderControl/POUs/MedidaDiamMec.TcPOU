@@ -15,7 +15,6 @@ VAR
 	Lecturas:ARRAY[0..9] OF REAL:=[10(0.0)]; 	//Medidas del diametro inicializadas
 	Index:INT:=0; 								//Indice del vector de medidas 
 	Suma:REAL:=0.0; 							//Suma de medidas
-	Medida:REAL:=0.0; 							//Media de medidas y por tanto medida del diametro
 	
 END_VAR]]></Declaration>
     <Implementation>
@@ -30,7 +29,7 @@ Index:= Index + 1;
 IF (Index > 9) THEN
 	Index := 0;    	//Volvemos al inicio del vector
 END_IF
-Medida:=Suma/10;]]></ST>
+GVL.MedidaSensorMecanico:=Suma/10;]]></ST>
     </Implementation>
     <LineIds Name="MedidaDiamMec">
       <LineId Id="22" Count="10" />
