@@ -16,6 +16,7 @@ VAR_GLOBAL
 	//Variables para el control de la temperatura
 	TempTerT: LREAL; 	//Temperatura medida por el Pt100 del termico superior
 	TempTerB: LREAL; 	//Temperatura medida por el Pt100 del termico inferior
+	TempExtrusion:REAL:=210;	//Temperatura de extrusion dependiendo del material (PLA)
 	
 	//Variables para el control del diametro del filamento con el sensor mecanico
 	MedidaSensorMecanico:REAL:=0.0;		//Media de medidas y por tanto medida del diametro

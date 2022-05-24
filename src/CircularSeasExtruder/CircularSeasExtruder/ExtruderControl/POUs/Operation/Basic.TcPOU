@@ -137,16 +137,18 @@ END_IF
 
 IF (GVL.State=5) THEN //Proceso de nueva foto y gestion de los termicos
 	
-	//Gestion de temperatura para extrusion. Rango de +-2ºC
-	IF (GVL.TempTerT>(HMI.Tb_Temp*0.9+2.0)) THEN 	//Gestiona el calentador superior
+	//Gestion de temperatura para extrusion. Rango de +-5ºC. PLA: TB_Temp=205ºC
+	IF (GVL.TempTerT>(HMI.Tb_Temp*0.9+5.0)) THEN 	//Gestiona el calentador superior
 		IO.Q_HeaterT:=FALSE;
-	ELSIF (GVL.TempTerT<(HMI.Tb_Temp*0.9-2.0)) THEN
+	END_IF
+	IF (GVL.TempTerT<(HMI.Tb_Temp*0.9-5.0)) THEN
 		IO.Q_HeaterT:=TRUE;
 	END_IF
 	
-	IF (GVL.TempTerB>(HMI.Tb_Temp+2.0)) THEN 		//Gestiona el calentador inferior
+	IF (GVL.TempTerB>(HMI.Tb_Temp+5.0)) THEN 		//Gestiona el calentador inferior
 		IO.Q_HeaterB:=FALSE;
-	ELSIF (GVL.TempTerB<(HMI.Tb_Temp-2.0)) THEN
+	END_IF
+	IF (GVL.TempTerB<(HMI.Tb_Temp-5.0)) THEN
 		IO.Q_HeaterB:=TRUE;
 	END_IF
 	
@@ -204,7 +206,11 @@ END_IF
 ]]></ST>
     </Implementation>
     <LineIds Name="Basic">
-      <LineId Id="924" Count="146" />
+      <LineId Id="924" Count="120" />
+      <LineId Id="1122" Count="0" />
+      <LineId Id="1045" Count="5" />
+      <LineId Id="1123" Count="0" />
+      <LineId Id="1051" Count="19" />
       <LineId Id="1072" Count="33" />
       <LineId Id="820" Count="0" />
       <LineId Id="816" Count="0" />
