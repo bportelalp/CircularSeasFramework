@@ -12,6 +12,7 @@ VAR
 	Rpt100B:REAL;
 	TempTerT: INT;
 	TempTerB: INT;
+	Gain:REAL;
 	
 	//Variables media de medidas de temperatura
 	LecturasT:ARRAY[0..9] OF REAL:=[10(0.0)];
@@ -29,15 +30,16 @@ VAR CONSTANT
 	R1:REAL:=9400;
 	//R0:REAL:=100;
 	R0:REAL:=101.1;
-	Rg:REAL:=968;
+	Rg:REAL:=983;
 	//Gain:REAL:=72.84091;
-	Gain:REAL:=70;
+	//Gain:REAL:=70;
+	//Gain:REAL:=101;
 	A:LREAL:=3.9083*EXPT(10,-3);
 	B:LREAL:=-5.775*EXPT(10,-7);
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[VB:=(R0*Vcc)/(R1+R0);
-//Gain:=1.0+(49400.0/Rg);
+Gain:=1.0+(100000.0/Rg);
 
 //Calculo de la temperatura del termico superior
 VampT:=((ABS(IO.I_TermT))*Vcc)/32767;
