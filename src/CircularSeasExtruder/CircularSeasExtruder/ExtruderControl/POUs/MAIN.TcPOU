@@ -12,7 +12,8 @@ END_VAR
       <ST><![CDATA[Motion.InitMotion();
 GVL.Vision();
 
-MedidaTemp();
+//MedidaTempPuente();
+MedidaTempTarjeta();
 MedidaDiamMec();
 
 OperatingModes();
@@ -27,7 +28,9 @@ Motion();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="49" Count="13" />
+      <LineId Id="49" Count="3" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="53" Count="9" />
       <LineId Id="42" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>

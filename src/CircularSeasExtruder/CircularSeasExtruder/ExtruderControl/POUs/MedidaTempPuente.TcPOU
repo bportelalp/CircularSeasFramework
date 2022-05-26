@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
-  <POU Name="MedidaTemp" Id="{d3f6de43-3b57-4ce0-885a-f730bb311d29}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM MedidaTemp
+  <POU Name="MedidaTempPuente" Id="{d3f6de43-3b57-4ce0-885a-f730bb311d29}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MedidaTempPuente
 VAR
 	VampT:REAL;
 	VampB:REAL;
@@ -76,7 +76,7 @@ VAB:=(MedidaB/Gain)+VB;
 Rpt100B:=(R1)/((Vcc/VAB)-1);
 GVL.TempTerB:=(-A+SQRT(A*A-4*B*(1-(Rpt100B/R0))))/(2*B);]]></ST>
     </Implementation>
-    <LineIds Name="MedidaTemp">
+    <LineIds Name="MedidaTempPuente">
       <LineId Id="207" Count="35" />
       <LineId Id="41" Count="0" />
     </LineIds>

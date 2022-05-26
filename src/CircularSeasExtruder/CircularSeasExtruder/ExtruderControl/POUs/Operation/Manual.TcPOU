@@ -24,24 +24,24 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF GVL.Mode = Modes.MAN THEN
-	IO.Q_HeaterB := HMI.Bt_ManHeatBot;
-	IO.Q_HeaterT := HMI.Bt_ManHeatTop;
-	(*
+	//IO.Q_HeaterB := HMI.Bt_ManHeatBot;
+	//IO.Q_HeaterT := HMI.Bt_ManHeatTop;
+	
 	//Gestion de temperatura para extrusion. Rango de +-5ºC. PLA: TB_Temp=205ºC
-	IF (GVL.TempTerT>(GVL.TempExtrusion*0.9+5.0)) OR (NOT HMI.Bt_ManHeatTop) THEN 	//Gestiona el calentador superior
+	IF (GVL.TempTerT>(GVL.TempExtrusion*0.9)) OR (NOT HMI.Bt_ManHeatTop) THEN 	//Gestiona el calentador superior
 		IO.Q_HeaterT:=FALSE;
 	END_IF
-	IF (GVL.TempTerT<(GVL.TempExtrusion*0.9-5.0)) AND HMI.Bt_ManHeatTop THEN
+	IF (GVL.TempTerT<(GVL.TempExtrusion*0.9-1.0)) AND HMI.Bt_ManHeatTop THEN
 		IO.Q_HeaterT:=TRUE;
 	END_IF
 	
-	IF (GVL.TempTerB>(GVL.TempExtrusion+5.0)) OR (NOT HMI.Bt_ManHeatBot) THEN 		//Gestiona el calentador inferior
+	IF (GVL.TempTerB>(GVL.TempExtrusion)) OR (NOT HMI.Bt_ManHeatBot) THEN 		//Gestiona el calentador inferior
 		IO.Q_HeaterB:=FALSE;
 	END_IF
-	IF (GVL.TempTerB<(GVL.TempExtrusion-5.0))AND HMI.Bt_ManHeatBot THEN
+	IF (GVL.TempTerB<(GVL.TempExtrusion-1.0))AND HMI.Bt_ManHeatBot THEN
 		IO.Q_HeaterB:=TRUE;
 	END_IF
-	*)
+	
 	//Al pulsar botones, primero dar orden de potencia
 	IF HMI.Bt_ManForwardExtruder OR HMI.Bt_ManBackwardsExtruder OR HMI.Bt_ManBackwardsPuller OR HMI.Bt_ManForwardPuller THEN
 		MC.En_Power := TRUE;

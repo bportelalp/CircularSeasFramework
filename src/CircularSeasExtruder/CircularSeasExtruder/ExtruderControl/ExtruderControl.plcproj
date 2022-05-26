@@ -64,13 +64,16 @@
     <Compile Include="POUs\MedidaDiamMec.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\MedidaTemp.TcPOU">
+    <Compile Include="POUs\MedidaTempPuente.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Database\DatabaseManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\MedidaTempTarjeta.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Motion.TcPOU">

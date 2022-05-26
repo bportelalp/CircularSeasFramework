@@ -1564,6 +1564,15 @@ External Setpoint Generation:
 				<BitOffs>88</BitOffs>
 			</SubItem>
 		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-002000000007}" IecBaseType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..6] OF BIT</Name>
+			<BitSize>7</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>7</Elements>
+			</ArrayInfo>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
@@ -2173,14 +2182,14 @@ External Setpoint Generation:
 				<Image Id="4" AddrType="10" ImageType="3">
 					<Name>Image-2</Name>
 				</Image>
-				<Box Id="4" BoxType="9099">
-					<Name>Term 4 (EK1100)</Name>
+				<Box Id="1" BoxType="9099">
+					<Name>Term 1 (EK1100)</Name>
 					<ImageId>1000</ImageId>
 					<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x00ffffff"/>
-					<Box Id="5" BoxType="9099">
-						<Name>Term 5 (EL2008)</Name>
+					<Box Id="2" BoxType="9099">
+						<Name>Term 2 (EL2008)</Name>
 						<ImageId>1001</ImageId>
-						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d83052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2008 8Ch. Dig. Output 24V, 0.5A" Desc="EL2008" PortABoxInfo="#x01000004">
+						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d83052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2008 8Ch. Dig. Output 24V, 0.5A" Desc="EL2008" PortABoxInfo="#x01000001">
 							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
 							<Fmmu>0000000000000000000f00020100000001000000000000000000000000000000</Fmmu>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
@@ -2225,10 +2234,10 @@ External Setpoint Generation:
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box Id="9" BoxType="9099" BoxFlags="#x00000020">
-						<Name>Term 9 (EL3102)</Name>
+					<Box Id="6" BoxType="9099" BoxFlags="#x00000020">
+						<Name>Term 6 (EL3102)</Name>
 						<ImageId>1002</ImageId>
-						<EtherCAT SlaveType="2" PdiType="#x0005" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x0c1e3052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3102 2Ch. Ana. Input +/-10V, Diff." Desc="EL3102" PortABoxInfo="#x01000005">
+						<EtherCAT SlaveType="2" PdiType="#x0005" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x0c1e3052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3102 2Ch. Ana. Input +/-10V, Diff." Desc="EL3102" PortABoxInfo="#x01000002">
 							<SyncMan>0018f60026000100010000002800ce05f600001826010000</SyncMan>
 							<SyncMan>f618f60022000100020000002800ce05f600f61822010000</SyncMan>
 							<SyncMan>001000002400000003000000000000000000001024010000</SyncMan>
@@ -2268,10 +2277,10 @@ External Setpoint Generation:
 							<CoeProfile ProfileNo="401"/>
 						</EtherCAT>
 					</Box>
-					<Box Id="10" BoxType="9099" BoxFlags="#x00000020">
-						<Name>Term 10 (EL3102)</Name>
+					<Box Id="8" BoxType="9099" BoxFlags="#x00000020">
+						<Name>Term 8 (EL3102)</Name>
 						<ImageId>1002</ImageId>
-						<EtherCAT SlaveType="2" PdiType="#x0005" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x0c1e3052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3102 2Ch. Ana. Input +/-10V, Diff." Desc="EL3102" PortABoxInfo="#x01000009">
+						<EtherCAT SlaveType="2" PdiType="#x0005" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x0c1e3052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3102 2Ch. Ana. Input +/-10V, Diff." Desc="EL3102" PortABoxInfo="#x01000006">
 							<SyncMan>0018f60026000100010000002800ce05f600001826010000</SyncMan>
 							<SyncMan>f618f60022000100020000002800ce05f600f61822010000</SyncMan>
 							<SyncMan>001000002400000003000000000000000000001024010000</SyncMan>
@@ -2311,10 +2320,83 @@ External Setpoint Generation:
 							<CoeProfile ProfileNo="401"/>
 						</EtherCAT>
 					</Box>
-					<Box Id="13" BoxType="9099">
-						<Name>Term 13 (EL9011)</Name>
+					<Box Id="11" BoxType="9099" BoxFlags="#x00000020">
+						<Name>Term 11 (EL3202)</Name>
+						<ImageId>1002</ImageId>
+						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x0c823052" RevisionNo="#x00160000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3202 2Ch. Ana. Input PT100 (RTD)" Desc="EL3202" PortABoxInfo="#x01000008">
+							<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
+							<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
+							<SyncMan>001100000400000003000000000000000000001104000000</SyncMan>
+							<SyncMan>801108002000010004000000000000000800801120010000</SyncMan>
+							<Fmmu>0000000000000000801100010100000002000000000000000000000000000000</Fmmu>
+							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+							<BootStrapData>0010f400f410f400</BootStrapData>
+							<Pdo Name="RTD Inputs Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="3">
+								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Error" Index="#x6000" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000007}">ARRAY [0..6] OF BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO State" Index="#x1800" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO Toggle" Index="#x1800" Sub="#x09">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Value" Index="#x6000" Sub="#x11" Flags="#x00050000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="RTD Inputs Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="3">
+								<Entry Name="Status__Underrange" Index="#x6010" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Overrange" Index="#x6010" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Limit 1" Index="#x6010" Sub="#x03">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Limit 2" Index="#x6010" Sub="#x05">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Error" Index="#x6010" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000007}">ARRAY [0..6] OF BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO State" Index="#x1801" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO Toggle" Index="#x1801" Sub="#x09">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Value" Index="#x6010" Sub="#x11" Flags="#x00050000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<CoeProfile ProfileNo="20976521"/>
+							<CoeProfile ProfileNo="20976521"/>
+						</EtherCAT>
+					</Box>
+					<Box Id="15" BoxType="9099">
+						<Name>Term 15 (EL9011)</Name>
 						<ImageId>1003</ImageId>
-						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x0100000a"/>
+						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x0100000b"/>
 					</Box>
 				</Box>
 				<Box Id="3" BoxType="9099" BoxFlags="#x00000020">
@@ -3336,7 +3418,7 @@ External Setpoint Generation:
 							</StatusBar>
 						</AX5XXXDriveTool>
 					</Xml>
-					<EtherCAT SlaveType="2" PdiType="#x0008" MboxDataLinkLayer="true" StateMBoxPolling="true" CfgModeSafeOp="true" DownloadPdoCfg="true" CycleMBoxPollingTime="0" FoeType="1" SoeChannels="2" VendorId="#x00000002" ProductCode="#x14566012" RevisionNo="#x000b0000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" AutoRestoreAfterWcOk="true" CheckRevisionNoType="4" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="AX5206-0000-0011 EtherCAT Drive (SoE, 2 Ch.)" Desc="AX5206-0000-0011" PortABoxInfo="#x02000004">
+					<EtherCAT SlaveType="2" PdiType="#x0008" MboxDataLinkLayer="true" StateMBoxPolling="true" CfgModeSafeOp="true" DownloadPdoCfg="true" CycleMBoxPollingTime="0" FoeType="1" SoeChannels="2" VendorId="#x00000002" ProductCode="#x14566012" RevisionNo="#x000b0000" InfoDataAddr="true" InfoDataSoeDS401="true" InfoDataDcTimes="true" AutoRestoreAfterWcOk="true" CheckRevisionNoType="4" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="AX5206-0000-0011 EtherCAT Drive (SoE, 2 Ch.)" Desc="AX5206-0000-0011" PortABoxInfo="#x02000001">
 						<SyncMan>001880002600010001000000800080008000001826010000</SyncMan>
 						<SyncMan>001a80002200010002000000800080008000001a22010000</SyncMan>
 						<SyncMan>00100c002400010003000000000000000000001024010000</SyncMan>
@@ -4146,18 +4228,14 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Outputs^GVL.Vision.PlcToSensor^VisionControlFlag" VarB="257th receive PDO Mapping^EXE Bit"/>
 				<Link VarA="PlcTask Outputs^GVL.Vision.PlcToSensor^VisionControlFlag" VarB="257th receive PDO Mapping^TRIG Bit" Size="1" OffsA="1"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1100)^Term 10 (EL3102)">
-				<Link VarA="PlcTask Inputs^IO.I_TermB" VarB="Channel 1^Value"/>
-				<Link VarA="PlcTask Inputs^IO.I_TermT" VarB="Channel 2^Value"/>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL3202)">
+				<Link VarA="PlcTask Inputs^IO.I_TermB" VarB="RTD Inputs Channel 2^Value"/>
+				<Link VarA="PlcTask Inputs^IO.I_TermT" VarB="RTD Inputs Channel 1^Value"/>
 			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1100)^Term 5 (EL2008)">
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 2 (EL2008)">
 				<Link VarA="PlcTask Outputs^IO.Q_HeaterB" VarB="Channel 2^Output"/>
 				<Link VarA="PlcTask Outputs^IO.Q_HeaterT" VarB="Channel 1^Output"/>
 				<Link VarA="PlcTask Outputs^IO.Q_VisionLight" VarB="Channel 3^Output"/>
-			</OwnerB>
-			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 4 (EK1100)^Term 9 (EL3102)">
-				<Link VarA="PlcTask Inputs^IO.I_SMec1" VarB="Channel 1^Value"/>
-				<Link VarA="PlcTask Inputs^IO.I_SMec2" VarB="Channel 2^Value"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task Extruder SAF^Axes^ExtruderAxis">
 				<Link VarA="PlcTask Inputs^MC.Extruder.NcToPlc" VarB="Outputs^ToPlc"/>
