@@ -35,7 +35,7 @@ CASE GVL.State OF
 		GVL.State:=30;
 	END_IF
 	
-	2: IF (GVL.TempTerB>=HMI.Tb_Temp) AND (GVL.TempTerT>=(0.9*HMI.Tb_Temp)) THEN 				//En temperatura
+	2: IF (GVL.TempTerB>=HMI.Tb_Temp) AND (GVL.TempTerT>=(0.95*HMI.Tb_Temp)) THEN 				//En temperatura
 			GVL.State:=3;
 	END_IF
 	IF HMI.Bt_StopCycle THEN 		//Se pulsa stop
@@ -138,10 +138,10 @@ END_IF
 IF (GVL.State=5) THEN //Proceso de nueva foto y gestion de los termicos
 	
 	//Gestion de temperatura para extrusion. PLA: TB_Temp=200ºC (rango de 198-210ºC debido a tiempo de medida del Pt100)
-	IF (GVL.TempTerT>(HMI.Tb_Temp*0.9)) THEN 	//Gestiona el calentador superior
+	IF (GVL.TempTerT>(HMI.Tb_Temp*0.95)) THEN 	//Gestiona el calentador superior
 		IO.Q_HeaterT:=FALSE;
 	END_IF
-	IF (GVL.TempTerT<(HMI.Tb_Temp*0.9-1.0)) THEN
+	IF (GVL.TempTerT<(HMI.Tb_Temp*0.95-1.0)) THEN
 		IO.Q_HeaterT:=TRUE;
 	END_IF
 	

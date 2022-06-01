@@ -42,7 +42,7 @@ END_VAR]]></Declaration>
 Gain:=1.0+(100000.0/Rg);
 
 //Calculo de la temperatura del termico superior
-VampT:=((ABS(IO.I_TermT))*Vcc)/32767;
+VampT:=((ABS(IO.I_TermTPuente))*Vcc)/32767;
 
 //Hacer media de las 10 ultimas medidas de la temperatura
 SumaT:= SumaT - LecturasT[IndexT];
@@ -60,7 +60,7 @@ GVL.TempTerT:=(-A+SQRT(A*A-4*B*(1-(Rpt100T/R0))))/(2*B);
 
 
 //Calculo de la temperatura del termico inferior
-VampB:=((ABS(IO.I_TermB))*Vcc)/32767;
+VampB:=((ABS(IO.I_TermBPuente))*Vcc)/32767;
 
 //Hacer media de las 10 ultimas medidas de la temperatura
 SumaB:= SumaB - LecturasB[IndexB];

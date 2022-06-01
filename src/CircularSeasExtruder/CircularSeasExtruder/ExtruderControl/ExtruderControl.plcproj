@@ -21,6 +21,9 @@
     <Compile Include="DUTs\Modes.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\ST_CTRL_TempCtrlParameter2.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\ST_Material.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -59,6 +62,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\AutoExtrusion.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\ControlTemp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MedidaDiamMec.TcPOU">

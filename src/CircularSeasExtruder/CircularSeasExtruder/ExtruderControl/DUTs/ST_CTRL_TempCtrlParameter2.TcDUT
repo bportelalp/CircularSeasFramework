@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <DUT Name="ST_CTRL_TempCtrlParameter2" Id="{d70cdff4-7e7f-4073-9e59-4555c38e0586}">
+    <Declaration><![CDATA[TYPE ST_CTRL_TempCtrlParameter2 :
+STRUCT
+  (* general parameters *)
+  iMode                     : E_CTRL_ControlMode:=1;
+  iReactionOnFailure        : E_CTRL_ReactionOnFailure;
+  bSelCtrlParameterSet      : BOOL:=FALSE;
+  dwAlarmSupp               : DWORD;
+  tCtrlCycleTime            : TIME:=T#100MS;
+  tTaskCycleTime            : TIME:=T#10MS;
+
+  (* tuning parameteer *)
+  iTuningMode               : E_CTRL_TuneMode:= eCTRL_TuneMode_heating;
+  tTuneStabilisation        : TIME       := T#20S;
+  fEndTunePercentHeating    : LREAL      := 80.0;
+  fYTuneHeating             : LREAL;
+  fYStableHeating           : LREAL;
+  fEndTunePercentCooling    : LREAL      := 20.0;
+  fYTuneCooling             : LREAL;
+  fYStableCooling           : LREAL;
+  fScalingFactor            : LREAL      := 1.0;
+
+  (* setpoint parameters *)
+  fWMin                     : LREAL;
+  fWMax                     : LREAL;
+
+  (* start up *)
+  bEnableSoftStart          : BOOL;
+  bEnableRamping            : BOOL;
+  fWStartUp                 : LREAL;
+  tStartUp                  : TIME;
+  bStartUpRamping           : BOOL;
+  fWStartUpVeloPos          : LREAL;
+  fWStartUpVeloNeg          : LREAL;
+  fWVeloPos                 : LREAL;
+  fWVeloNeg                 : LREAL;
+
+  (* actual value parameters *)
+  bFilter                   : BOOL;
+  tFilter                   : TIME;
+
+  (* deadband parameters *)
+  bDeadband                 : BOOL;
+  fEDeadband                : LREAL;
+  
+  (* control value parameters *)
+  fYMin                     : LREAL;
+  fYMax                     : LREAL;
+  fYManual                  : LREAL;
+  fYOnFailure               : LREAL;
+  tPWMCycleTime             : TIME;
+  tPWMMinOffTime            : TIME;
+  tPWMMinOnTime             : TIME;
+  tPWMWaitingTime           : TIME;
+  fYThresholdOff            : LREAL;
+  fYThresholdOn             : LREAL;
+  nCyclesForSwitchOver      : INT        := 100;
+
+  (* controller settings *)
+  bEnablePreController      : BOOL;
+  bEnableZones              : BOOL;
+  bEnableCVFilter           : BOOL;
+  iFilterType               : E_CTRL_FilterType;
+  iControllerType           : E_CTRL_ControllerType;
+
+  (* min max temperatures *)
+  TempLow                   : LREAL;
+  TempLowLow                : LREAL;
+  TempHigh                  : LREAL;
+  TempHighHigh              : LREAL;
+  TempAbsoluteHigh          : LREAL;
+  TempAbsoluteLow           : LREAL;
+
+  (* internal tuning parameters *)
+  fTuneKp                   : LREAL     := 1.2;
+  fTuneTn                   : LREAL     := 2.0;
+  fTuneTv                   : LREAL     := 0.42;
+  fTuneTd                   : LREAL     := 0.25;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

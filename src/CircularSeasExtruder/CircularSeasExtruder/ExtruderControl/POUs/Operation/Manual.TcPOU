@@ -24,14 +24,11 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF GVL.Mode = Modes.MAN THEN
-	//IO.Q_HeaterB := HMI.Bt_ManHeatBot;
-	//IO.Q_HeaterT := HMI.Bt_ManHeatTop;
-	
-	//Gestion de temperatura para extrusion. Rango de +-5ºC. PLA: TB_Temp=205ºC
-	IF (GVL.TempTerT>(GVL.TempExtrusion*0.9)) OR (NOT HMI.Bt_ManHeatTop) THEN 	//Gestiona el calentador superior
+	//Gestion de temperatura para extrusion. PLA: TB_Temp=205ºC
+	IF (GVL.TempTerT>(GVL.TempExtrusion*0.95)) OR (NOT HMI.Bt_ManHeatTop) THEN 	//Gestiona el calentador superior
 		IO.Q_HeaterT:=FALSE;
 	END_IF
-	IF (GVL.TempTerT<(GVL.TempExtrusion*0.9-1.0)) AND HMI.Bt_ManHeatTop THEN
+	IF (GVL.TempTerT<(GVL.TempExtrusion*0.95-1.0)) AND HMI.Bt_ManHeatTop THEN
 		IO.Q_HeaterT:=TRUE;
 	END_IF
 	
@@ -181,9 +178,7 @@ IF ExitManual.Q THEN
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Manual">
-      <LineId Id="135" Count="1" />
-      <LineId Id="346" Count="0" />
-      <LineId Id="330" Count="0" />
+      <LineId Id="399" Count="0" />
       <LineId Id="332" Count="2" />
       <LineId Id="344" Count="0" />
       <LineId Id="357" Count="0" />
