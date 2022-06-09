@@ -21,6 +21,10 @@ VAR_GLOBAL
 	I_SMec1 AT %I*:INT;
 	I_SMec2 AT %I*:INT;
 	
+	//Ventiladores
+	Q_Vent1 AT %Q*:INT;
+	Q_Vent2 AT %Q*:INT;
+	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -29,6 +29,7 @@ END_IF
 Manual();
 VisuLogic();
 Motion();
+GestionVentiladores();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
@@ -40,6 +41,7 @@ Motion();
       <LineId Id="88" Count="0" />
       <LineId Id="54" Count="8" />
       <LineId Id="42" Count="0" />
+      <LineId Id="96" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>

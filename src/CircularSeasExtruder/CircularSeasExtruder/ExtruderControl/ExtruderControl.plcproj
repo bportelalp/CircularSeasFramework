@@ -67,6 +67,9 @@
     <Compile Include="POUs\ControlTemp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\GestionVentiladores.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MedidaDiamMec.TcPOU">
       <SubType>Code</SubType>
     </Compile>

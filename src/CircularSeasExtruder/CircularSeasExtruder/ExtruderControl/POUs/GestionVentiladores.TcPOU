@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="GestionVentiladores" Id="{26dc86f9-9258-4251-9293-bfc5ea63eef1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM GestionVentiladores
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Inicialmente apaga los ventiladores
+IO.Q_Vent1:=0;
+IO.Q_Vent2:=0;
+
+IF (GVL.Mode=MODES.AUTO AND MC.Exec_Velocity=TRUE) OR (GVL.Mode=MODES.MAN AND (MC.Man_ForwardExtruder OR MC.Man_BackwardsExtruder)) THEN
+	IO.Q_Vent1:=24575; //Alimenta ventilador a 7.5V
+	IO.Q_Vent2:=16383;	//Alimenta ventilador a 5V
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="GestionVentiladores">
+      <LineId Id="7" Count="0" />
+      <LineId Id="5" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="12" Count="0" />
+      <LineId Id="11" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
