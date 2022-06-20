@@ -10,6 +10,16 @@ It includes the source code of:
 
 * CircularSeasPrinter
 
+### Contribution of author
+
+The author bportela worked on the project from October 2020 to March 2022. This is the summary of his main contributions:
+
+* Define the architecture of CircularSeasFramework. The result are published on Applied Sciences, a MDPI Journal https://doi.org/10.3390/app11093787
+
+* Develop CircularSeasFramework .NET Code.
+
+* Start the CircularSeasExtruder project with TwinCAT 3. Define how the program should be.
+
 ## CircularSeasFramework
 
 CircularSeas Framework for printing and slicing remotely and easily by users, using an arquitecture composed by three elements:
