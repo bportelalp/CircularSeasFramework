@@ -4846,7 +4846,7 @@ Continuous"</v>
                         </o>
                         <o>
                           <v n="Id">743958181L</v>
-                          <v n="Value">"HMI.L_NewMeasurement"</v>
+                          <v n="Value">"GVL.NuevaMedidaCamara"</v>
                         </o>
                       </l>
                     </o>
@@ -6553,10 +6553,10 @@ Continuous"</v>
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>728c0fa4-5057-4d20-bfe1-12f69335c56d</v>
-                <v>FB_Reinit</v>
-                <v>f8a3f7f6-122d-429a-9e48-e85b0446334d</v>
                 <v>FB_Exit</v>
                 <v>9fc01769-2d88-4422-bc03-1e3691262624</v>
+                <v>FB_Reinit</v>
+                <v>f8a3f7f6-122d-429a-9e48-e85b0446334d</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{f53adac7-31bb-4d3f-be34-6116d5fd9d48}</v>

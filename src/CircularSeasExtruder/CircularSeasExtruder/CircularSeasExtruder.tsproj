@@ -1564,14 +1564,24 @@ External Setpoint Generation:
 				<BitOffs>88</BitOffs>
 			</SubItem>
 		</DataType>
+		<DataType>
+			<Name GUID="{18071995-0000-0000-0000-002000000007}" IecBaseType="true" BitType="true" AutoDeleteType="true" HideSubItems="true">ARRAY [0..6] OF BIT</Name>
+			<BitSize>7</BitSize>
+			<BaseType GUID="{18071995-0000-0000-0000-000000000010}">BIT</BaseType>
+			<ArrayInfo>
+				<LBound>0</LBound>
+				<Elements>7</Elements>
+			</ArrayInfo>
+		</DataType>
 	</DataTypes>
 	<ImageDatas>
 		<ImageData Id="1000">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000bfff00bfffc0c0c0808080c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1001">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000120b0000120b00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff0000ff0000ff0000ff0000ff0000ff0000ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
 		<ImageData Id="1002">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ff00ff0000ff0000ff0000ff0000ff0000ff00c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
-		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff0000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0ff0000ff0000ff00008080800000ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000000000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080</ImageData>
-		<ImageData Id="1005">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000fffffffffffffffffffefefeffffffcecccd4842424f4a4a3531317a7b7efffffffefefeffffffffffffffffffffffffffffffffffffffffffffffffa09c9c4842427b7573635e5d3e3b3b1916167e7d7effffffffffffffffffffffffffffffffffffffffffffffffffffffbcb9b8514c4d777271645f5f4541412d2b2b3d3b3affffffffffffffffffffffffffffffffffffffffffffffffffffffc1bdbc524d4d756f6f615c5c444040302e2e4b4949ffffffffffffffffffffffffffffffffffffffffffffffffffffffc0bdbd4f4a4a756f6f5e5959403d3e312f2e434241ffffffffffffffffffffffffffffffffffffffffffffffffffffffb9b6b64b46466a64645c5555514c4c3432323b3938ffffffffffffffffffffffffffffffffffffffffffffffffffffffbab7b79b9999a7a9a8aeb2b2bdc1c23d3b3a3c3a3bffffffffffffffffffffffffffffffffffffffffffffffffffffff606564c0c7c9fffffffffffffcffff110f0f6c6b6bfffffffffffffffffffffffffffffffffffffffffffffffffbf9f9858f8effffff394342b7bdb9ffffff191616474647fffffffffffffffffffffffffffffffffffffffffffffffff3f2f3c5cbc7d1d8d9000000adb2b0ffffff1c1a19252324fffffffffffffffffffffffffffffffffffffffffffffffff5f4f5838886fffffffdfefdf6f8f7ffffff1e1c1b302f2ffffffffffffffffffffffffffffffffffffffffffffffffff4f3f3767778d2d7d8f3f6f8c4caccb2b1b23e3c3b6e6e6dfffffffffffffffffffffffffffffffffffffffffffffffffafafac7c5c4a6a3a4918d8d9b9898b3b4b2bebdbddddddefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffefefeffffffffffffffffffffffff</ImageData>
+		<ImageData Id="1003">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c000ffffc0c0c000ffff808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0ff0000c0c0c0ff0000808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c00000ffc0c0c00000ff808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0000000c0c0c0000000808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0008000c0c0c0008000808080ff00ffff00ffff00ffff00ffff00ffff0000ff0000ff0000ff0000ff0000ff0000c0c0c0c0c0c0c0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1004">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff007fff007fff007fff007fff007fff007fffc0c0c0c0c0c0808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff</ImageData>
+		<ImageData Id="1005">424dd6020000000000003600000028000000100000000e0000000100180000000000a0020000c40e0000c40e00000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ff808080808080808080808080808080ff00ffff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c08080800000ff0000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000ff000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0ff0000ff0000ff00008080800000ffff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c08080800000000000000000000000000000000000000000000000000000ff0000ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000000000000000000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000ff00ffff00ffff00ff000000ff00ffff00ff000000ff00ffff00ffff00ffc0c0c0c0c0c0ff0000c0c0c0808080000000000000000000000000000000ff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080000000ff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffff00ffc0c0c0c0c0c0c0c0c0c0c0c0808080</ImageData>
+		<ImageData Id="1006">424dd6020000000000003600000028000000100000000e0000000100180000000000a002000000000000000000000000000000000000fffffffffffffffffffefefeffffffcecccd4842424f4a4a3531317a7b7efffffffefefeffffffffffffffffffffffffffffffffffffffffffffffffa09c9c4842427b7573635e5d3e3b3b1916167e7d7effffffffffffffffffffffffffffffffffffffffffffffffffffffbcb9b8514c4d777271645f5f4541412d2b2b3d3b3affffffffffffffffffffffffffffffffffffffffffffffffffffffc1bdbc524d4d756f6f615c5c444040302e2e4b4949ffffffffffffffffffffffffffffffffffffffffffffffffffffffc0bdbd4f4a4a756f6f5e5959403d3e312f2e434241ffffffffffffffffffffffffffffffffffffffffffffffffffffffb9b6b64b46466a64645c5555514c4c3432323b3938ffffffffffffffffffffffffffffffffffffffffffffffffffffffbab7b79b9999a7a9a8aeb2b2bdc1c23d3b3a3c3a3bffffffffffffffffffffffffffffffffffffffffffffffffffffff606564c0c7c9fffffffffffffcffff110f0f6c6b6bfffffffffffffffffffffffffffffffffffffffffffffffffbf9f9858f8effffff394342b7bdb9ffffff191616474647fffffffffffffffffffffffffffffffffffffffffffffffff3f2f3c5cbc7d1d8d9000000adb2b0ffffff1c1a19252324fffffffffffffffffffffffffffffffffffffffffffffffff5f4f5838886fffffffdfefdf6f8f7ffffff1e1c1b302f2ffffffffffffffffffffffffffffffffffffffffffffffffff4f3f3767778d2d7d8f3f6f8c4caccb2b1b23e3c3b6e6e6dfffffffffffffffffffffffffffffffffffffffffffffffffafafac7c5c4a6a3a4918d8d9b9898b3b4b2bebdbddddddefffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffefefeffffffffffffffffffffffff</ImageData>
 	</ImageDatas>
 	<Project ProjectGUID="{96F9E971-A01B-47E1-9B8D-C85A4A699B10}" TargetNetId="192.168.56.1.1.1" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
@@ -1905,9 +1915,11 @@ External Setpoint Generation:
 				<Axis Id="3" CreateSymbols="true" AxisType="1">
 					<Name>PullerAxisVirtual</Name>
 					<AxisPara>
+						<General UnitName="Degree"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="1">
+						<EncPara ScaleFactorNumerator="1"/>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -2076,22 +2088,31 @@ External Setpoint Generation:
 							<Type GUID="{EE3E7C4B-25B6-D5B8-E223-F57D4C2DCE8D}">SensorToPlc</Type>
 						</Var>
 						<Var>
-							<Name>IO.I_SMec1</Name>
-							<Comment><![CDATA[ Sensores mecanicos diametro]]></Comment>
-							<Type>REAL</Type>
-						</Var>
-						<Var>
 							<Name>IO.I_TermT</Name>
 							<Comment><![CDATA[ RTD Sensors (PT100)]]></Comment>
-							<Type>LREAL</Type>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>IO.I_TermB</Name>
-							<Type>LREAL</Type>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>IO.I_TermTPuente</Name>
+							<Comment><![CDATA[ Valor temperatura puente de resistencias]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>IO.I_TermBPuente</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>IO.I_SMec1</Name>
+							<Comment><![CDATA[ Sensores mecanicos diametro]]></Comment>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>IO.I_SMec2</Name>
-							<Type>REAL</Type>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>MC.Extruder.NcToPlc</Name>
@@ -2124,6 +2145,15 @@ External Setpoint Generation:
 						<Var>
 							<Name>IO.Q_VisionLight</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>IO.Q_Vent1</Name>
+							<Comment><![CDATA[Ventiladores]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>IO.Q_Vent2</Name>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>MC.Extruder.PlcToNc</Name>
@@ -2172,11 +2202,11 @@ External Setpoint Generation:
 					<Name>Image-2</Name>
 				</Image>
 				<Box Id="1" BoxType="9099">
-					<Name>Terminal 1 (EK1100)</Name>
+					<Name>Term 1 (EK1100)</Name>
 					<ImageId>1000</ImageId>
 					<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x00ffffff"/>
 					<Box Id="2" BoxType="9099">
-						<Name>Terminal 2 (EL2008)</Name>
+						<Name>Term 2 (EL2008)</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d83052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2008 8Ch. Dig. Output 24V, 0.5A" Desc="EL2008" PortABoxInfo="#x01000001">
 							<SyncMan>000f01004400010003000000000000000000000f44090000</SyncMan>
@@ -2266,15 +2296,156 @@ External Setpoint Generation:
 							<CoeProfile ProfileNo="401"/>
 						</EtherCAT>
 					</Box>
-					<Box Id="8" BoxType="9099">
-						<Name>Terminal 9 (EL9011)</Name>
+					<Box Id="8" BoxType="9099" BoxFlags="#x00000020">
+						<Name>Term 8 (EL3102)</Name>
+						<ImageId>1002</ImageId>
+						<EtherCAT SlaveType="2" PdiType="#x0005" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x0c1e3052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3102 2Ch. Ana. Input +/-10V, Diff." Desc="EL3102" PortABoxInfo="#x01000006">
+							<SyncMan>0018f60026000100010000002800ce05f600001826010000</SyncMan>
+							<SyncMan>f618f60022000100020000002800ce05f600f61822010000</SyncMan>
+							<SyncMan>001000002400000003000000000000000000001024010000</SyncMan>
+							<SyncMan>001106002000010004000000000000000000001120010000</SyncMan>
+							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+							<Fmmu>0000000000000000001100010100000002000000000000000000000000000000</Fmmu>
+							<BootStrapData>0018f400f418f400</BootStrapData>
+							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0010" SyncMan="3">
+								<ExcludePdo>#x1a10</ExcludePdo>
+								<Entry Name="Status" Index="#x3101" Sub="#x01">
+									<Type>BYTE</Type>
+								</Entry>
+								<Entry Name="Value" Index="#x3101" Sub="#x02" Flags="#x00010000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0010" SyncMan="3">
+								<ExcludePdo>#x1a10</ExcludePdo>
+								<Entry Name="Status" Index="#x3102" Sub="#x01">
+									<Type>BYTE</Type>
+								</Entry>
+								<Entry Name="Value" Index="#x3102" Sub="#x02" Flags="#x00010000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channels" Index="#x1a10" Flags="#x0010">
+								<ExcludePdo>#x1a00</ExcludePdo>
+								<ExcludePdo>#x1a01</ExcludePdo>
+								<Entry Name="Value1" Index="#x6401" Sub="#x01" Flags="#x00010000">
+									<Type>INT</Type>
+								</Entry>
+								<Entry Name="Value2" Index="#x6401" Sub="#x02" Flags="#x00010000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<CoeProfile ProfileNo="401"/>
+							<CoeProfile ProfileNo="401"/>
+						</EtherCAT>
+					</Box>
+					<Box Id="11" BoxType="9099" BoxFlags="#x00000020">
+						<Name>Term 11 (EL3202)</Name>
+						<ImageId>1002</ImageId>
+						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="3" FoeType="1" VendorId="#x00000002" ProductCode="#x0c823052" RevisionNo="#x00160000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3202 2Ch. Ana. Input PT100 (RTD)" Desc="EL3202" PortABoxInfo="#x01000008">
+							<SyncMan>001080002600010001000000800080008000001026010000</SyncMan>
+							<SyncMan>801080002200010002000000800080008000801022010000</SyncMan>
+							<SyncMan>001100000400000003000000000000000000001104000000</SyncMan>
+							<SyncMan>801108002000010004000000000000000800801120010000</SyncMan>
+							<Fmmu>0000000000000000801100010100000002000000000000000000000000000000</Fmmu>
+							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+							<BootStrapData>0010f400f410f400</BootStrapData>
+							<Pdo Name="RTD Inputs Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="3">
+								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Error" Index="#x6000" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000007}">ARRAY [0..6] OF BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO State" Index="#x1800" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO Toggle" Index="#x1800" Sub="#x09">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Value" Index="#x6000" Sub="#x11" Flags="#x00050000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="RTD Inputs Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="3">
+								<Entry Name="Status__Underrange" Index="#x6010" Sub="#x01">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Overrange" Index="#x6010" Sub="#x02">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__Limit 1" Index="#x6010" Sub="#x03">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Limit 2" Index="#x6010" Sub="#x05">
+									<Type>BIT2</Type>
+								</Entry>
+								<Entry Name="Status__Error" Index="#x6010" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry>
+									<Type GUID="{18071995-0000-0000-0000-002000000007}">ARRAY [0..6] OF BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO State" Index="#x1801" Sub="#x07">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Status__TxPDO Toggle" Index="#x1801" Sub="#x09">
+									<Type>BIT</Type>
+								</Entry>
+								<Entry Name="Value" Index="#x6010" Sub="#x11" Flags="#x00050000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<CoeProfile ProfileNo="20976521"/>
+							<CoeProfile ProfileNo="20976521"/>
+						</EtherCAT>
+					</Box>
+					<Box Id="13" BoxType="9099" BoxFlags="#x00000020">
+						<Name>Term 13 (EL4132)</Name>
 						<ImageId>1003</ImageId>
-						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x01000006"/>
+						<EtherCAT SlaveType="2" PdiType="#x0005" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x10243052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL4132 2Ch. Ana. Output +/-10V" Desc="EL4132" PortABoxInfo="#x0100000b">
+							<SyncMan>0018f60026000100010000002800ce05f600001826010000</SyncMan>
+							<SyncMan>f618f60022000100020000002800ce05f600f61822010000</SyncMan>
+							<SyncMan>001004002400010003000000000000000000001024010000</SyncMan>
+							<SyncMan>001100002000000004000000000000000000001120000000</SyncMan>
+							<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+							<Fmmu>0000000000000000001000020100000001000000000000000000000000000000</Fmmu>
+							<BootStrapData>0018f400f418f400</BootStrapData>
+							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0010" SyncMan="2">
+								<Entry Name="Output" Index="#x6411" Sub="#x01" Flags="#x00010000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0010" SyncMan="2">
+								<Entry Name="Output" Index="#x6411" Sub="#x02" Flags="#x00010000">
+									<Type>INT</Type>
+								</Entry>
+							</Pdo>
+							<CoeProfile ProfileNo="401"/>
+							<CoeProfile ProfileNo="401"/>
+						</EtherCAT>
+					</Box>
+					<Box Id="15" BoxType="9099">
+						<Name>Term 15 (EL9011)</Name>
+						<ImageId>1004</ImageId>
+						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23333050" InfoDataState="false" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9011 End Terminal" Desc="EL9011" PortABoxInfo="#x0100000d"/>
 					</Box>
 				</Box>
 				<Box Id="3" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Drive 3 (AX5206-0000-0011)</Name>
-					<ImageId>1004</ImageId>
+					<ImageId>1005</ImageId>
 					<Xml>
 						<AX5XXXDriveTool>
 							<AxisSettings>
@@ -3426,7 +3597,7 @@ External Setpoint Generation:
 				</Box>
 				<Box Id="7" BoxType="9099" BoxFlags="#x00000020">
 					<Name>Nº de boxes 7 (FQ-MS12x-ECT)</Name>
-					<ImageId>1005</ImageId>
+					<ImageId>1006</ImageId>
 					<EtherCAT SlaveType="2" PdiType="#x0c08" MboxDataLinkLayer="true" CycleMBoxPolling="true" CoeType="37" VendorId="#x00000083" ProductCode="#x00000062" RevisionNo="#x00010000" InfoDataAddr="true" InfoDataDcTimes="true" EnableWdDivider0400="true" EnableWdTime0410="true" EnableWdTime0420="true" TimeoutMailbox2="2000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="FQ-MS12x-ECT" Desc="FQ-MS12x-ECT" PortABoxInfo="#x01000003">
 						<SyncMan>001800022600010001000000280000020002001826010000</SyncMan>
 						<SyncMan>001c00022200010002000000280000020002001c22010000</SyncMan>
@@ -4101,8 +4272,26 @@ External Setpoint Generation:
 				<Link VarA="PlcTask Outputs^GVL.Vision.PlcToSensor^VisionControlFlag" VarB="257th receive PDO Mapping^EXE Bit"/>
 				<Link VarA="PlcTask Outputs^GVL.Vision.PlcToSensor^VisionControlFlag" VarB="257th receive PDO Mapping^TRIG Bit" Size="1" OffsA="1"/>
 			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 11 (EL3202)">
+				<Link VarA="PlcTask Inputs^IO.I_TermB" VarB="RTD Inputs Channel 2^Value"/>
+				<Link VarA="PlcTask Inputs^IO.I_TermT" VarB="RTD Inputs Channel 1^Value"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 13 (EL4132)">
+				<Link VarA="PlcTask Outputs^IO.Q_Vent1" VarB="Channel 1^Output"/>
+				<Link VarA="PlcTask Outputs^IO.Q_Vent2" VarB="Channel 2^Output"/>
+			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 2 (EL2008)">
+				<Link VarA="PlcTask Outputs^IO.Q_HeaterB" VarB="Channel 2^Output"/>
+				<Link VarA="PlcTask Outputs^IO.Q_HeaterT" VarB="Channel 1^Output"/>
 				<Link VarA="PlcTask Outputs^IO.Q_VisionLight" VarB="Channel 3^Output"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 6 (EL3102)">
+				<Link VarA="PlcTask Inputs^IO.I_SMec1" VarB="Channel 1^Value"/>
+				<Link VarA="PlcTask Inputs^IO.I_SMec2" VarB="Channel 2^Value"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 1 (EK1100)^Term 8 (EL3102)">
+				<Link VarA="PlcTask Inputs^IO.I_TermBPuente" VarB="Channel 2^Value"/>
+				<Link VarA="PlcTask Inputs^IO.I_TermTPuente" VarB="Channel 1^Value"/>
 			</OwnerB>
 			<OwnerB Name="TINC^NC-Task Extruder SAF^Axes^ExtruderAxis">
 				<Link VarA="PlcTask Inputs^MC.Extruder.NcToPlc" VarB="Outputs^ToPlc"/>

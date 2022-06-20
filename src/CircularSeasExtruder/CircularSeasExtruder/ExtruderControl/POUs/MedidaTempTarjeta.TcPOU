@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MedidaTempTarjeta" Id="{f19342b6-768b-4a38-8450-104223824197}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MedidaTempTarjeta
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GVL.TempTerB:=IO.I_TermB/10.0;
+
+GVL.TempTerT:=IO.I_TermT/10.0;]]></ST>
+    </Implementation>
+    <LineIds Name="MedidaTempTarjeta">
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="6" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

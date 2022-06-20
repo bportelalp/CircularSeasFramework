@@ -3,32 +3,62 @@
   <POU Name="Manual" Id="{ee1bf0c1-cf50-4f2d-9ac3-afa6241a629b}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Manual
 VAR
+	
 	ExitManual:F_TRIG;
 	
 	LoopCounter:INT;
+	
+	//Variables para la lectura de sensores
+	MedSensores:REAL:=0.0;
+	SumSenOpt: REAL:=0.0;
+	MedSenOpt: REAL:=0.0;
+	
+	//Variables para la media de medidas de los sensores
+	Lecturas:ARRAY[0..9] OF REAL:=[10(0.0)]; 	//Medidas del diametro inicializadas
+	Index:INT:=0; 								//Indice del vector de medidas 
+	Suma:REAL:=0.0; 							//Suma de medidas
+	Medida:REAL:=0.0; 							//Media de medidas y por tanto medida del diametro
+	
 END_VAR
+
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF GVL.Mode = Modes.MAN THEN
-	IO.Q_HeaterB := HMI.Bt_ManHeatBot;
-	IO.Q_HeaterT := HMI.Bt_ManHeatTop;
+	//Gestion de temperatura para extrusion.
+	//IO.Q_HeaterB:=HMI.Bt_ManHeatBot;
+	//IO.Q_HeaterT:=HMI.Bt_ManHeatTop;
+	
+	IF (GVL.TempTerT>(GVL.TempExtrusion*0.95)) OR (NOT HMI.Bt_ManHeatTop) THEN 	//Gestiona el calentador superior
+		IO.Q_HeaterT:=FALSE;
+	END_IF
+	IF (GVL.TempTerT<(GVL.TempExtrusion*0.95-1.0)) AND HMI.Bt_ManHeatTop THEN
+		IO.Q_HeaterT:=TRUE;
+	END_IF
+	
+	IF (GVL.TempTerB>(GVL.TempExtrusion)) OR (NOT HMI.Bt_ManHeatBot) THEN 		//Gestiona el calentador inferior
+		IO.Q_HeaterB:=FALSE;
+	END_IF
+	IF (GVL.TempTerB<(GVL.TempExtrusion-1.0))AND HMI.Bt_ManHeatBot THEN
+		IO.Q_HeaterB:=TRUE;
+	END_IF
+	
 	//Al pulsar botones, primero dar orden de potencia
-	IF HMI.Bt_ManForward OR HMI.Bt_ManBackwards OR HMI.Bt_ManBackwardsPuller OR HMI.Bt_ManForwardPuller THEN
+	IF HMI.Bt_ManForwardExtruder OR HMI.Bt_ManBackwardsExtruder OR HMI.Bt_ManBackwardsPuller OR HMI.Bt_ManForwardPuller THEN
 		MC.En_Power := TRUE;
 		//Ya en potencia, se ejecuta la orden
 		IF Motion.FB_Power.Status AND Motion.FB_Power2.Status AND Motion.FB_Power3.Status THEN
-			MC.Man_Forward := HMI.Bt_ManForward;
-			MC.Man_Backwards := HMI.Bt_ManBackwards;
+			MC.Man_ForwardExtruder := HMI.Bt_ManForwardExtruder;
+			MC.Man_BackwardsExtruder := HMI.Bt_ManBackwardsExtruder;
 			MC.Man_ForwardPuller:=HMI.Bt_ManForwardPuller;
 			MC.Man_BackwardsPuller:=HMI.Bt_ManBackwardsPuller;
 		END_IF
 	//Si se deja de pulsar, al acabar movimiento, se quita potencia
 	ELSE
-		MC.Man_Forward := FALSE;
-		MC.Man_Backwards := FALSE;
+		MC.Man_ForwardExtruder := FALSE;
+		MC.Man_BackwardsExtruder := FALSE;
 		MC.Man_ForwardPuller:=FALSE;
 		MC.Man_BackwardsPuller:=FALSE;
-		IF NOT Motion.FB_Manual.Busy AND NOT Motion.FB_ManualPuller.Busy THEN
+		IF NOT Motion.FB_ManualExtruder.Busy AND NOT Motion.FB_ManualPuller.Busy THEN
 			MC.En_Power := FALSE;
 		ELSE
 			MC.En_Power := TRUE;
@@ -41,21 +71,99 @@ END_VAR
 	GVL.Vision.SingleShot(Enable:=HMI.Bt_ActivateSingle, 
 						Execute:=HMI.Bt_Shot,
 						Q=>GVL.VisionResults,
-						Measurement=>HMI.L_NewMeasurement);
+						Measurement=>GVL.NuevaMedidaCamara);
     GVL.Vision.ContinuousShot(Enable:=HMI.Bt_ActivateContinuous,
-						Q=>GVL.VisionResults);
+						Q=>GVL.VisionResults);		
 	
-	FOR LoopCounter:=0 TO 7 BY 1 DO
-		GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
-	END_FOR					
+	IF HMI.Bt_ActivateSingle AND GVL.NuevaMedidaCamara THEN
+		// Restablecer valores de medida para una futura medida
+		GVL.NuevaMedidaCamara:=FALSE;
+		GVL.Vision.SingleShot(Enable:=TRUE, Execute:=FALSE);
+		SumSenOpt:=0.0;
+		FOR LoopCounter:=0 TO 7 BY 1 DO
+			GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
+			SumSenOpt:=GVL.VisionResultsmm[LoopCounter]+SumSenOpt;
+		END_FOR	
+		MedSenOpt:=SumSenOpt/3;
+		
+		//Calculo del diametro
+		MedSensores:=((GVL.MedidaSensorMecanico+MedSenOpt)/2);
+		(*
+		//Hacer media de las 10 ultimas medidas del diametro
+		Suma:= Suma - Lecturas[Index];
+		Lecturas[index]:=MedSensores;
+		Suma:=Suma+Lecturas[index];
+		Index:= Index + 1;
+		IF (Index > 9) THEN
+			Index := 0;    	//Volvemos al inicio del vector
+		END_IF
+		Medida:=Suma/10;
+		*)
+		(*
+		//Gestion de la actuacion
+		IF (MedSensores>(GVL.dReferencia+GVL.dTolerancia)) THEN 		//Diametro grande
+			GVL.ActPuller:=GVL.ActPuller+GVL.vPaso;
+		END_IF
+	
+		IF (MedSensores<(GVL.dReferencia-GVL.dTolerancia)) THEN 		//Diametro pequeño
+			GVL.ActPuller:=GVL.ActPuller-GVL.vPaso;
+		END_IF
+	
+		//Limitador de la actuacion
+		IF (GVL.ActPuller>GVL.ActPuller_Max) THEN 
+			GVL.ActPuller:=GVL.ActPuller_Max;
+		ELSIF (GVL.ActPuller<GVL.ActPuller_Min) THEN
+			GVL.ActPuller:=GVL.ActPuller_Min;
+		END_IF
+		*)
+	END_IF
+	IF HMI.Bt_ActivateContinuous THEN
+		// Restablecer valores de medida para una futura medida
+		SumSenOpt:=0.0;
+		FOR LoopCounter:=0 TO 7 BY 1 DO
+			GVL.VisionResultsmm[LoopCounter] := GVL.VisionResults[LoopCounter]*GVL.ScalingFactor;
+			SumSenOpt:=GVL.VisionResultsmm[LoopCounter]+SumSenOpt;
+		END_FOR	
+		MedSenOpt:=SumSenOpt/3;
+		
+		//Calculo del diametro
+		MedSensores:=((GVL.MedidaSensorMecanico+MedSenOpt)/2);
+		
+		//Hacer media de las 10 ultimas medidas del diametro
+		Suma:= Suma - Lecturas[Index];
+		Lecturas[index]:=MedSensores;
+		Suma:=Suma+Lecturas[index];
+		Index:= Index + 1;
+		IF (Index > 9) THEN
+			Index := 0;    	//Volvemos al inicio del vector
+		END_IF
+		Medida:=Suma/10;
+		(*
+		//Gestion de la actuacion
+		IF (MedSensores>(GVL.dReferencia+GVL.dTolerancia)) THEN 		//Diametro grande
+			GVL.ActPuller:=GVL.ActPuller+GVL.vPaso;
+		END_IF
+	
+		IF (MedSensores<(GVL.dReferencia-GVL.dTolerancia)) THEN 		//Diametro pequeño
+			GVL.ActPuller:=GVL.ActPuller-GVL.vPaso;
+		END_IF
+	
+		//Limitador de la actuacion
+		IF (GVL.ActPuller>GVL.ActPuller_Max) THEN 
+			GVL.ActPuller:=GVL.ActPuller_Max;
+		ELSIF (GVL.ActPuller<GVL.ActPuller_Min) THEN
+			GVL.ActPuller:=GVL.ActPuller_Min;
+		END_IF
+		*)
+	END_IF
 	
 ELSE
 	HMI.Bt_ManHeatBot := FALSE;
 	HMI.Bt_ManHeatTop:= FALSE;
-	MC.Man_Forward := FALSE;
-	HMI.Bt_ManForward := FALSE;
-	MC.Man_Backwards := FALSE;
-	HMI.Bt_ManBackwards := FALSE;
+	MC.Man_ForwardExtruder := FALSE;
+	HMI.Bt_ManForwardExtruder := FALSE;
+	MC.Man_BackwardsExtruder := FALSE;
+	HMI.Bt_ManBackwardsExtruder := FALSE;
 	MC.Man_ForwardPuller := FALSE;
 	HMI.Bt_ManForwardPuller := FALSE;
 	MC.Man_BackwardsPuller := FALSE;
@@ -73,54 +181,28 @@ IF ExitManual.Q THEN
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Manual">
-      <LineId Id="5" Count="0" />
-      <LineId Id="8" Count="1" />
-      <LineId Id="79" Count="0" />
-      <LineId Id="68" Count="1" />
-      <LineId Id="80" Count="0" />
-      <LineId Id="71" Count="1" />
-      <LineId Id="74" Count="0" />
-      <LineId Id="102" Count="0" />
-      <LineId Id="100" Count="0" />
-      <LineId Id="73" Count="0" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="75" Count="0" />
-      <LineId Id="87" Count="1" />
-      <LineId Id="103" Count="1" />
-      <LineId Id="76" Count="0" />
-      <LineId Id="84" Count="0" />
-      <LineId Id="92" Count="1" />
-      <LineId Id="78" Count="0" />
-      <LineId Id="70" Count="0" />
-      <LineId Id="27" Count="0" />
-      <LineId Id="29" Count="0" />
-      <LineId Id="38" Count="0" />
-      <LineId Id="45" Count="0" />
-      <LineId Id="47" Count="4" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="54" Count="0" />
-      <LineId Id="56" Count="0" />
-      <LineId Id="60" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="55" Count="0" />
-      <LineId Id="7" Count="0" />
-      <LineId Id="24" Count="0" />
-      <LineId Id="26" Count="0" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="32" Count="0" />
-      <LineId Id="31" Count="0" />
-      <LineId Id="33" Count="0" />
-      <LineId Id="106" Count="2" />
-      <LineId Id="105" Count="0" />
-      <LineId Id="39" Count="0" />
-      <LineId Id="52" Count="1" />
-      <LineId Id="25" Count="0" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="13" Count="0" />
-      <LineId Id="12" Count="0" />
-      <LineId Id="14" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="40" Count="0" />
+      <LineId Id="399" Count="0" />
+      <LineId Id="332" Count="0" />
+      <LineId Id="420" Count="1" />
+      <LineId Id="424" Count="0" />
+      <LineId Id="333" Count="1" />
+      <LineId Id="344" Count="0" />
+      <LineId Id="357" Count="0" />
+      <LineId Id="336" Count="4" />
+      <LineId Id="345" Count="0" />
+      <LineId Id="341" Count="1" />
+      <LineId Id="331" Count="0" />
+      <LineId Id="328" Count="0" />
+      <LineId Id="138" Count="44" />
+      <LineId Id="184" Count="11" />
+      <LineId Id="296" Count="0" />
+      <LineId Id="196" Count="14" />
+      <LineId Id="297" Count="0" />
+      <LineId Id="211" Count="10" />
+      <LineId Id="223" Count="26" />
+      <LineId Id="298" Count="0" />
+      <LineId Id="250" Count="0" />
+      <LineId Id="253" Count="21" />
       <LineId Id="15" Count="0" />
     </LineIds>
   </POU>

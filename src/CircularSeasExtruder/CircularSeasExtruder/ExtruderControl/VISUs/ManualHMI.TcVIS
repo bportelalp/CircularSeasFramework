@@ -1522,7 +1522,7 @@ Heater"</v>
                           <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
                             <o>
                               <v n="Id">1186196937L</v>
-                              <v n="Value">"HMI.Bt_ManForward"</v>
+                              <v n="Value">"HMI.Bt_ManForwardExtruder"</v>
                             </o>
                           </l>
                         </o>
@@ -1702,7 +1702,7 @@ Heater"</v>
                           <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
                             <o>
                               <v n="Id">1186196937L</v>
-                              <v n="Value">"HMI.Bt_ManBackwards"</v>
+                              <v n="Value">"HMI.Bt_ManBackwardsExtruder"</v>
                             </o>
                           </l>
                         </o>
@@ -1990,7 +1990,7 @@ Heater"</v>
                         </o>
                         <o>
                           <v n="Id">397264524L</v>
-                          <v n="Value">"HMI.Tb_ManVel"</v>
+                          <v n="Value">"HMI.Tb_ManVelExtruder"</v>
                         </o>
                         <o>
                           <v n="Id">681815230L</v>
@@ -3227,10 +3227,10 @@ Heater"</v>
               <d n="FbMethods" t="CaseInsensitiveHashtable" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>b304d370-dacf-43e5-b465-17411a0ca5a8</v>
-                <v>FB_Exit</v>
-                <v>1ee2ecc6-4468-4c13-b66e-e078950f1051</v>
                 <v>FB_Reinit</v>
                 <v>fca6216a-d5c6-4585-982f-ed70dc2b253e</v>
+                <v>FB_Exit</v>
+                <v>1ee2ecc6-4468-4c13-b66e-e078950f1051</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{cd0f1489-e7ed-4cf1-8963-f8e1d4b7907f}</v>

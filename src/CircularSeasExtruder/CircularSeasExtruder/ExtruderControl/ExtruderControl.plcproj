@@ -21,6 +21,9 @@
     <Compile Include="DUTs\Modes.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\ST_CTRL_TempCtrlParameter2.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\ST_Material.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -64,10 +67,22 @@
     <Compile Include="POUs\ControlTemp.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\GestionVentiladores.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\MedidaDiamMec.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\MedidaTempPuente.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Database\DatabaseManager.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\MedidaTempTarjeta.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Motion.TcPOU">

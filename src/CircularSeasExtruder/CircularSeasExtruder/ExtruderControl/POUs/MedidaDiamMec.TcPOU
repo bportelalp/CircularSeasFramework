@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.9">
+  <POU Name="MedidaDiamMec" Id="{e0677ec7-582d-4897-a836-e9af0d4a41cf}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MedidaDiamMec
+VAR
+	LoopCounter:INT;
+	
+	//Variables para la lectura de sensores
+	MedSenMec:REAL:=0.0;
+	MedSensores:REAL:=0.0;
+	SumSenOpt: REAL:=0.0;
+	MedSenOpt: REAL:=0.0;
+	
+	//Variables para la media de medidas de los sensores
+	Lecturas:ARRAY[0..9] OF REAL:=[10(0.0)]; 	//Medidas del diametro inicializadas
+	Index:INT:=0; 								//Indice del vector de medidas 
+	Suma:REAL:=0.0; 							//Suma de medidas
+	
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Calculo del diametro
+MedSenMec:=((IO.I_SMec1+IO.I_SMec2)/2);
+
+//Hacer media de las 10 ultimas medidas del diametro
+Suma:= Suma - Lecturas[Index];
+Lecturas[index]:=MedSensores;
+Suma:=Suma+Lecturas[index];
+Index:= Index + 1;
+IF (Index > 9) THEN
+	Index := 0;    	//Volvemos al inicio del vector
+END_IF
+GVL.MedidaSensorMecanico:=Suma/10;]]></ST>
+    </Implementation>
+    <LineIds Name="MedidaDiamMec">
+      <LineId Id="22" Count="10" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

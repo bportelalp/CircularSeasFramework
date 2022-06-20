@@ -12,7 +12,13 @@ END_VAR
       <ST><![CDATA[Motion.InitMotion();
 GVL.Vision();
 
-ControlTemp();
+//Medida temperatura
+//MedidaTempPuente();	//Medir la temperatura de los termicos con el puente de resistencias
+MedidaTempTarjeta();	//Medir la temperatura de los termicos con la tarjeta EL3202
+
+//ControlTemp();		//Gestion temperatura con bloques TF4110
+
+MedidaDiamMec();	//Medida del diametro con el sensor mecanico
 
 OperatingModes();
 
@@ -23,13 +29,19 @@ END_IF
 Manual();
 VisuLogic();
 Motion();
+GestionVentiladores();
 ]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="3" Count="1" />
-      <LineId Id="22" Count="0" />
-      <LineId Id="21" Count="0" />
-      <LineId Id="5" Count="9" />
+      <LineId Id="49" Count="1" />
+      <LineId Id="83" Count="3" />
+      <LineId Id="51" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="89" Count="0" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="54" Count="8" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="96" Count="0" />
       <LineId Id="2" Count="0" />
     </LineIds>
   </POU>
